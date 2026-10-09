@@ -1,0 +1,1 @@
+{"\u27e6CODE1\u27e7": "[\"```Python\", \"with open(\\\"file.txt\\\") as file:\", \"    file.read()\", \"```\"]", "\u27e6CODE2\u27e7": "[\"```Python\", \"async with lifespan(app):\", \"    await do_stuff()\", \"```\"]"}

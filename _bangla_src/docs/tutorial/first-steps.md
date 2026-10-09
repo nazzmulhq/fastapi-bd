@@ -1,0 +1,481 @@
+# প্রথম ধাপ { #first-steps }
+
+/// note | এই পেজে যা শিখবেন
+
+* সবচেয়ে ছোট একটি FastAPI অ্যাপ লেখা ও চালানো।
+* `/docs` আর `/redoc`-এ স্বয়ংক্রিয় ডকুমেন্টেশন দেখা।
+* "স্কিমা", OpenAPI আর JSON Schema আসলে কী।
+* পাথ, অপারেশন (HTTP মেথড), ডেকোরেটর আর পাথ অপারেশন ফাংশন, এই চারটি মূল ধারণা।
+* `pyproject.toml`-এ অ্যাপের ঠিকানা (`entrypoint`) কীভাবে বলে দেবেন।
+
+///
+
+সবচেয়ে সহজ FastAPI ফাইলটি দেখতে এমন হতে পারে:
+
+{* ../../docs_src/first_steps/tutorial001_py310.py *}
+
+এটি `main.py` নামের একটি ফাইলে কপি করুন।
+
+/// info | কোডটি সহজ ভাষায়
+
+মাত্র ৫ লাইনের কোড, কিন্তু এটাই একটি পূর্ণ API:
+
+* লাইন ১: FastAPI লাইব্রেরি থেকে `FastAPI` ক্লাস আনা হলো।
+* লাইন ৩: `app` নামে আপনার অ্যাপ তৈরি হলো।
+* লাইন ৬: `@app.get("/")` বলছে, "`/` ঠিকানায় `GET` রিকোয়েস্ট এলে নিচের ফাংশন চালাও"।
+* লাইন ৭-৮: `root` ফাংশনটি একটি ডিকশনারি ফেরত দেয়, যা FastAPI JSON বানিয়ে পাঠায়।
+
+পেজের শেষে "ধাপে ধাপে সংক্ষেপে" অংশে প্রতিটি লাইন আলাদা করে আরও বিস্তারিত বোঝানো হয়েছে।
+
+///
+
+/// tip | পরামর্শ
+
+VS Code (ও Cursor)-এর জন্য FastAPI-এর একটি [অফিসিয়াল এক্সটেনশন](https://marketplace.visualstudio.com/items?itemName=FastAPILabs.fastapi-vscode) আছে। এতে অনেক সুবিধা আছে, যেমন পাথ অপারেশন এক্সপ্লোরার (সব পাথের তালিকা), পাথ অপারেশন সার্চ, টেস্টে CodeLens নেভিগেশন (টেস্ট থেকে সরাসরি সংজ্ঞায় যাওয়া), আর FastAPI Cloud ডিপ্লয়মেন্ট ও লগ, সবই এডিটরের ভেতর থেকে।
+
+///
+
+লাইভ সার্ভার চালান:
+
+<div class="termy">
+
+```console
+$ <font color="#4E9A06">uv run fastapi</font> dev
+
+  <span style="background-color:#009485"><font color="#D3D7CF"> FastAPI </font></span>  Starting development server 🚀
+
+             Searching for package file structure from directories
+             with <font color="#3465A4">__init__.py</font> files
+             Importing from <font color="#75507B">/home/user/code/</font><font color="#AD7FA8">awesomeapp</font>
+
+   <span style="background-color:#007166"><font color="#D3D7CF"> module </font></span>  🐍 main.py
+
+     <span style="background-color:#007166"><font color="#D3D7CF"> code </font></span>  Importing the FastAPI app object from the module with
+             the following code:
+
+             <u style="text-decoration-style:solid">from </u><u style="text-decoration-style:solid"><b>main</b></u><u style="text-decoration-style:solid"> import </u><u style="text-decoration-style:solid"><b>app</b></u>
+
+      <span style="background-color:#007166"><font color="#D3D7CF"> app </font></span>  Using import string: <font color="#3465A4">main:app</font>
+
+   <span style="background-color:#007166"><font color="#D3D7CF"> server </font></span>  Server started at <font color="#729FCF"><u style="text-decoration-style:solid">http://127.0.0.1:8000</u></font>
+   <span style="background-color:#007166"><font color="#D3D7CF"> server </font></span>  Documentation at <font color="#729FCF"><u style="text-decoration-style:solid">http://127.0.0.1:8000/docs</u></font>
+
+      <span style="background-color:#007166"><font color="#D3D7CF"> tip </font></span>  Running in development mode, for production use:
+             <b>fastapi run</b>
+
+             Logs:
+
+     <span style="background-color:#007166"><font color="#D3D7CF"> INFO </font></span>  Will watch for changes in these directories:
+             <b>[</b><font color="#4E9A06">&apos;/home/user/code/awesomeapp&apos;</font><b>]</b>
+     <span style="background-color:#007166"><font color="#D3D7CF"> INFO </font></span>  Uvicorn running on <font color="#729FCF"><u style="text-decoration-style:solid">http://127.0.0.1:8000</u></font> <b>(</b>Press CTRL+C
+             to quit<b>)</b>
+     <span style="background-color:#007166"><font color="#D3D7CF"> INFO </font></span>  Started reloader process <b>[</b><font color="#34E2E2"><b>383138</b></font><b>]</b> using WatchFiles
+     <span style="background-color:#007166"><font color="#D3D7CF"> INFO </font></span>  Started server process <b>[</b><font color="#34E2E2"><b>383153</b></font><b>]</b>
+     <span style="background-color:#007166"><font color="#D3D7CF"> INFO </font></span>  Waiting for application startup.
+     <span style="background-color:#007166"><font color="#D3D7CF"> INFO </font></span>  Application startup complete.
+```
+
+</div>
+
+আউটপুটে এরকম একটি লাইন থাকবে:
+
+```hl_lines="4"
+INFO:     Uvicorn running on http://127.0.0.1:8000 (Press CTRL+C to quit)
+```
+
+ওই লাইনটি দেখায় আপনার কম্পিউটারে কোন URL-এ আপনার অ্যাপ চলছে। `127.0.0.1` মানে "এই কম্পিউটার", আর `8000` হলো পোর্ট নম্বর।
+
+### পরীক্ষা করুন { #check-it }
+
+ব্রাউজারে খুলুন [http://127.0.0.1:8000](http://127.0.0.1:8000)।
+
+আপনি এই JSON রেসপন্স দেখবেন:
+
+```JSON
+{"message": "Hello World"}
+```
+
+এটিই আপনার `root` ফাংশনের রিটার্ন করা ডিকশনারি, JSON আকারে।
+
+### ইন্টারঅ্যাকটিভ API ডকুমেন্টেশন { #interactive-api-docs }
+
+এবার যান [http://127.0.0.1:8000/docs](http://127.0.0.1:8000/docs)-এ।
+
+আপনি স্বয়ংক্রিয় ইন্টারঅ্যাকটিভ API ডকুমেন্টেশন দেখবেন (যা [Swagger UI](https://github.com/swagger-api/swagger-ui) দিয়ে তৈরি):
+
+![Swagger UI](https://fastapi.tiangolo.com/img/index/index-01-swagger-ui-simple.png)
+
+এখানে `GET /` লেখা অংশে ক্লিক করে "Try it out" তারপর "Execute" চাপলে ব্রাউজার থেকেই আপনার API চালিয়ে ফলাফল দেখতে পারবেন।
+
+### বিকল্প API ডকুমেন্টেশন { #alternative-api-docs }
+
+এবার যান [http://127.0.0.1:8000/redoc](http://127.0.0.1:8000/redoc)-এ।
+
+আপনি বিকল্প স্বয়ংক্রিয় ডকুমেন্টেশন দেখবেন (যা [ReDoc](https://github.com/Redocly/redoc) দিয়ে তৈরি):
+
+![ReDoc](https://fastapi.tiangolo.com/img/index/index-02-redoc-simple.png)
+
+### OpenAPI { #openapi }
+
+**FastAPI** আপনার পুরো API-এর একটি "স্কিমা" তৈরি করে, API সংজ্ঞায়িত করার **OpenAPI** স্ট্যান্ডার্ড ব্যবহার করে।
+
+#### "স্কিমা" { #schema }
+
+"স্কিমা" হলো কোনো কিছুর সংজ্ঞা বা বিবরণ। যে কোড আসলে কাজটি করে সেটি নয়, শুধু একটি বিমূর্ত বর্ণনা।
+
+যেমন একটি বাড়ির নকশা (ব্লুপ্রিন্ট) হলো বাড়িটির স্কিমা: কোথায় কয়টি ঘর, দরজা কোথায়। নকশা দিয়ে থাকা যায় না, কিন্তু নকশা দেখে বোঝা যায় বাড়িটা কেমন।
+
+#### API "স্কিমা" { #api-schema }
+
+এই ক্ষেত্রে [OpenAPI](https://github.com/OAI/OpenAPI-Specification) হলো একটি স্পেসিফিকেশন (নিয়মের দলিল), যা বলে দেয় আপনার API-এর স্কিমা কীভাবে লিখতে হবে।
+
+এই স্কিমায় থাকে আপনার API-এর পাথগুলো, সেগুলো কী কী প্যারামিটার নিতে পারে, ইত্যাদি।
+
+#### ডেটা "স্কিমা" { #data-schema }
+
+"স্কিমা" শব্দটি দিয়ে কোনো ডেটার আকারও বোঝানো হতে পারে, যেমন একটি JSON-এর বিষয়বস্তু।
+
+সেই ক্ষেত্রে এর মানে হবে JSON-এর অ্যাট্রিবিউটগুলো, সেগুলোর ডেটা টাইপ, ইত্যাদি। যেমন "`name` একটি টেক্সট, `price` একটি সংখ্যা"।
+
+#### OpenAPI ও JSON Schema { #openapi-and-json-schema }
+
+OpenAPI আপনার API-এর জন্য একটি API স্কিমা সংজ্ঞায়িত করে। আর সেই স্কিমার ভেতরে আপনার API যে ডেটা পাঠায় ও গ্রহণ করে তার সংজ্ঞা (বা "স্কিমা") থাকে, যা লেখা হয় **JSON Schema** দিয়ে। JSON Schema হলো JSON ডেটার স্কিমা লেখার স্ট্যান্ডার্ড।
+
+সহজ কথায়: OpenAPI পুরো API-এর বিবরণ দেয় (কোন ঠিকানায় কী পাওয়া যায়), আর JSON Schema প্রতিটি ডেটার বিবরণ দেয় (ডেটা দেখতে কেমন)।
+
+#### `openapi.json` দেখুন { #check-the-openapi-json }
+
+কাঁচা OpenAPI স্কিমা দেখতে কেমন তা জানতে কৌতূহল হলে, FastAPI আপনার পুরো API-এর বিবরণসহ একটি JSON (স্কিমা) স্বয়ংক্রিয়ভাবে তৈরি করে।
+
+আপনি সরাসরি এখানে দেখতে পারেন: [http://127.0.0.1:8000/openapi.json](http://127.0.0.1:8000/openapi.json)।
+
+এটি এরকম কিছু দিয়ে শুরু হওয়া একটি JSON দেখাবে:
+
+```JSON
+{
+    "openapi": "3.1.0",
+    "info": {
+        "title": "FastAPI",
+        "version": "0.1.0"
+    },
+    "paths": {
+        "/items/": {
+            "get": {
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+
+
+
+...
+```
+
+/// info | এই JSON-টি সহজ ভাষায়
+
+* `"openapi"`: কোন সংস্করণের OpenAPI স্ট্যান্ডার্ড ব্যবহার হয়েছে।
+* `"info"`: API-এর নাম (`title`) ও সংস্করণ (`version`)।
+* `"paths"`: আপনার API-এর সব পাথ। এখানে `"/items/"`-এর নিচে `"get"` মানে এই পাথে `GET` অপারেশন আছে, আর `"responses"`-এ লেখা আছে সফল হলে (`200`) কী রেসপন্স আসবে।
+
+Swagger UI আর ReDoc এই ফাইলটি পড়েই সুন্দর ডকুমেন্টেশন পেজ বানায়।
+
+///
+
+#### OpenAPI কী কাজে লাগে { #what-is-openapi-for }
+
+সাথে থাকা দুটি ইন্টারঅ্যাকটিভ ডকুমেন্টেশন সিস্টেম চলে এই OpenAPI স্কিমার ওপর।
+
+আর OpenAPI-ভিত্তিক এমন আরও কয়েক ডজন বিকল্প আছে। **FastAPI** দিয়ে বানানো অ্যাপ্লিকেশনে এর যেকোনোটি সহজেই যোগ করতে পারেন।
+
+আপনার API-এর সাথে যোগাযোগ করে এমন ক্লায়েন্টের কোড স্বয়ংক্রিয়ভাবে তৈরি করতেও এটি ব্যবহার করতে পারেন। যেমন ফ্রন্টএন্ড (ওয়েবসাইট), মোবাইল বা IoT (ইন্টারনেটে যুক্ত যন্ত্র) অ্যাপ্লিকেশন।
+
+### `pyproject.toml`-এ অ্যাপের `entrypoint` কনফিগার করুন { #configure-the-app-entrypoint-in-pyproject-toml }
+
+`entrypoint` মানে "প্রবেশপথ", অর্থাৎ আপনার অ্যাপটি কোন ফাইলের কোন ভেরিয়েবলে আছে। এটি একটি `pyproject.toml` ফাইলে এভাবে কনফিগার করতে পারেন:
+
+```toml
+[tool.fastapi]
+entrypoint = "main:app"
+```
+
+`"main:app"` পড়ুন এভাবে: কোলনের (`:`) আগে মডিউল (ফাইল) `main`, পরে ভেরিয়েবল `app`। এই `entrypoint` দেখে `fastapi` কমান্ড বুঝবে যে অ্যাপটি এভাবে ইমপোর্ট করতে হবে:
+
+```python
+from main import app
+```
+
+আপনার কোড যদি এভাবে সাজানো থাকত:
+
+```
+.
+├── backend
+│   ├── main.py
+│   ├── __init__.py
+```
+
+তাহলে `entrypoint` সেট করতেন এভাবে (ফোল্ডার আর ফাইলের নাম ডট দিয়ে জোড়া):
+
+```toml
+[tool.fastapi]
+entrypoint = "backend.main:app"
+```
+
+যা এর সমতুল্য:
+
+```python
+from backend.main import app
+```
+
+### পাথ দিয়ে বা `--entrypoint` CLI অপশন দিয়ে `fastapi dev` { #fastapi-dev-with-path-or-with-entrypoint-cli-option }
+
+আপনি `fastapi dev` কমান্ডে ফাইলের পাথও দিতে পারেন, তখন এটি নিজেই অনুমান করে নেবে কোন FastAPI অ্যাপ অবজেক্ট ব্যবহার করতে হবে:
+
+```console
+$ uv run fastapi dev main.py
+```
+
+অথবা `fastapi dev` কমান্ডে `--entrypoint` অপশনও দিতে পারেন:
+
+```console
+$ uv run fastapi dev --entrypoint main:app
+```
+
+কিন্তু তাহলে প্রতিবার `fastapi` কমান্ড চালানোর সময় সঠিক পাথ\entrypoint দিতে মনে রাখতে হবে।
+
+তাছাড়া অন্য টুলগুলো হয়তো এটি খুঁজে পাবে না, যেমন [VS Code এক্সটেনশন](../editor-support.md) বা [FastAPI Cloud](https://fastapicloud.com)। তাই `pyproject.toml`-এ `entrypoint` ব্যবহার করার সুপারিশ করা হয়।
+
+### আপনার অ্যাপ ডিপ্লয় করুন (ঐচ্ছিক) { #deploy-your-app-optional }
+
+চাইলে একটিমাত্র কমান্ড দিয়ে আপনার FastAPI অ্যাপ [FastAPI Cloud](https://fastapicloud.com)-এ ডিপ্লয় করতে পারেন, মানে ইন্টারনেটে চালু করে দিতে পারেন, যাতে অন্যরাও ব্যবহার করতে পারে। 🚀
+
+<div class="termy">
+
+```console
+$ uv run fastapi deploy
+
+Deploying to FastAPI Cloud...
+
+✅ Deployment successful!
+
+🐔 Ready the chicken! Your app is ready at https://myapp.fastapicloud.dev
+```
+
+</div>
+
+CLI স্বয়ংক্রিয়ভাবে আপনার FastAPI অ্যাপ্লিকেশন খুঁজে বের করে ক্লাউডে ডিপ্লয় করবে। আপনি লগইন করা না থাকলে অথেনটিকেশন সম্পূর্ণ করতে আপনার ব্রাউজার খুলে যাবে।
+
+ব্যাস! এখন আপনি ওই URL-এ আপনার অ্যাপ ব্যবহার করতে পারবেন। ✨
+
+## ধাপে ধাপে সংক্ষেপে { #recap-step-by-step }
+
+### ধাপ ১: `FastAPI` ইমপোর্ট করুন { #step-1-import-fastapi }
+
+{* ../../docs_src/first_steps/tutorial001_py310.py hl[1] *}
+
+`FastAPI` হলো একটি Python ক্লাস, যা আপনার API-এর সব কার্যকারিতা দেয়।
+
+/// note | কারিগরি বিবরণ
+
+`FastAPI` হলো এমন একটি ক্লাস যা সরাসরি `Starlette` থেকে ইনহেরিট করে। ইনহেরিট মানে উত্তরাধিকার সূত্রে পাওয়া: `Starlette`-এর সব ক্ষমতা `FastAPI`-ও পায়।
+
+তাই `FastAPI` দিয়েও আপনি [Starlette](https://starlette.dev/)-এর সব কার্যকারিতা ব্যবহার করতে পারবেন।
+
+///
+
+### ধাপ ২: একটি `FastAPI` "ইনস্ট্যান্স" তৈরি করুন { #step-2-create-a-fastapi-instance }
+
+{* ../../docs_src/first_steps/tutorial001_py310.py hl[3] *}
+
+এখানে `app` ভেরিয়েবলটি হবে `FastAPI` ক্লাসের একটি "ইনস্ট্যান্স"। মানে `FastAPI` নামের ছাঁচ থেকে বানানো আসল একটি অ্যাপ।
+
+আপনার পুরো API তৈরি করতে এটিই হবে মূল যোগাযোগের জায়গা। সব পাথ অপারেশন এই `app`-এর সাথে যুক্ত হবে।
+
+### ধাপ ৩: একটি *পাথ অপারেশন* তৈরি করুন { #step-3-create-a-path-operation }
+
+#### পাথ { #path }
+
+এখানে "পাথ" মানে URL-এর শেষ অংশ, প্রথম `/` থেকে শুরু করে।
+
+তাই এমন একটি URL-এ:
+
+```
+https://example.com/items/foo
+```
+
+...পাথ হবে:
+
+```
+/items/foo
+```
+
+/// note | নোট
+
+"পাথ"-কে সাধারণত "এন্ডপয়েন্ট" বা "রাউট"-ও বলা হয়।
+
+///
+
+API বানানোর সময় "পাথ"-ই হলো বিভিন্ন "বিষয়" ও "রিসোর্স" আলাদা করার প্রধান উপায়। যেমন `/users` ঠিকানায় ব্যবহারকারীদের তথ্য, `/items` ঠিকানায় পণ্যের তথ্য।
+
+#### অপারেশন { #operation }
+
+এখানে "অপারেশন" মানে HTTP "মেথড"-গুলোর একটি।
+
+এগুলোর একটি:
+
+* `POST`
+* `GET`
+* `PUT`
+* `DELETE`
+
+...আর কম প্রচলিতগুলো:
+
+* `OPTIONS`
+* `HEAD`
+* `PATCH`
+* `TRACE`
+
+HTTP প্রোটোকলে প্রতিটি পাথের সাথে এই "মেথড"-গুলোর এক (বা একাধিক) দিয়ে যোগাযোগ করা যায়।
+
+---
+
+API বানানোর সময় সাধারণত নির্দিষ্ট কাজের জন্য নির্দিষ্ট HTTP মেথড ব্যবহার করা হয়।
+
+সাধারণত ব্যবহার করা হয়:
+
+* `POST`: ডেটা তৈরি করতে।
+* `GET`: ডেটা পড়তে।
+* `PUT`: ডেটা হালনাগাদ (আপডেট) করতে।
+* `DELETE`: ডেটা মুছতে।
+
+তাই OpenAPI-তে প্রতিটি HTTP মেথডকে বলা হয় একটি "অপারেশন"।
+
+আমরাও এগুলোকে "**অপারেশন**" বলব।
+
+/// tip | উদাহরণ দিয়ে বুঝি
+
+একটি লাইব্রেরির কথা ভাবুন। "পাথ" হলো তাক (যেমন `/books` তাক)। "অপারেশন" হলো আপনি তাকের সাথে কী করছেন: বই দেখা (`GET`), নতুন বই রাখা (`POST`), পুরোনো বই বদলে নতুন সংস্করণ রাখা (`PUT`), বই সরিয়ে ফেলা (`DELETE`)। "পাথ অপারেশন" মানে এই দুইয়ের জোড়া, যেমন "`/books` তাক থেকে বই দেখা"।
+
+///
+
+#### একটি *পাথ অপারেশন ডেকোরেটর* সংজ্ঞায়িত করুন { #define-a-path-operation-decorator }
+
+{* ../../docs_src/first_steps/tutorial001_py310.py hl[6] *}
+
+`@app.get("/")` **FastAPI**-কে বলে যে ঠিক নিচের ফাংশনটি সেইসব রিকোয়েস্ট সামলানোর দায়িত্বে, যেগুলো যায়:
+
+* `/` পাথে
+* একটি <dfn title="একটি HTTP GET মেথড"><code>get</code> অপারেশন</dfn> ব্যবহার করে
+
+/// note | `@decorator` সম্পর্কে তথ্য
+
+Python-এ ওই `@something` সিনট্যাক্সকে বলে "ডেকোরেটর"।
+
+এটি একটি ফাংশনের ঠিক ওপরে বসানো হয়। অনেকটা সুন্দর একটি সাজানো টুপির মতো (সম্ভবত নামটা এখান থেকেই এসেছে)।
+
+একটি "ডেকোরেটর" নিচের ফাংশনটি নিয়ে তা দিয়ে কিছু একটা করে।
+
+আমাদের ক্ষেত্রে এই ডেকোরেটর **FastAPI**-কে বলে যে নিচের ফাংশনটি **পাথ** `/` আর **অপারেশন** `get`-এর সাথে সম্পর্কিত।
+
+এটিই হলো "**পাথ অপারেশন ডেকোরেটর**"।
+
+///
+
+আপনি অন্য অপারেশনগুলোও ব্যবহার করতে পারেন:
+
+* `@app.post()`
+* `@app.put()`
+* `@app.delete()`
+
+আর কম প্রচলিতগুলো:
+
+* `@app.options()`
+* `@app.head()`
+* `@app.patch()`
+* `@app.trace()`
+
+/// tip | পরামর্শ
+
+প্রতিটি অপারেশন (HTTP মেথড) আপনি নিজের ইচ্ছামতো ব্যবহার করতে পারেন।
+
+**FastAPI** কোনো নির্দিষ্ট অর্থ চাপিয়ে দেয় না।
+
+এখানকার তথ্যগুলো একটি নির্দেশনা হিসেবে দেওয়া, বাধ্যতামূলক নিয়ম নয়।
+
+যেমন GraphQL ব্যবহার করলে সাধারণত সব কাজ শুধু `POST` অপারেশন দিয়েই করা হয়।
+
+///
+
+### ধাপ ৪: **পাথ অপারেশন ফাংশন** সংজ্ঞায়িত করুন { #step-4-define-the-path-operation-function }
+
+এটি আমাদের "**পাথ অপারেশন ফাংশন**":
+
+* **পাথ**: হলো `/`।
+* **অপারেশন**: হলো `get`।
+* **ফাংশন**: হলো "ডেকোরেটরের" নিচের ফাংশনটি (`@app.get("/")`-এর নিচে)।
+
+{* ../../docs_src/first_steps/tutorial001_py310.py hl[7] *}
+
+এটি একটি Python ফাংশন।
+
+যখনই "`/`" URL-এ `GET` অপারেশন দিয়ে কোনো রিকোয়েস্ট আসবে, **FastAPI** এটিকে ডাকবে। আপনাকে নিজে কখনো `root()` ডাকতে হবে না।
+
+এই ক্ষেত্রে এটি একটি `async` ফাংশন।
+
+---
+
+আপনি এটিকে `async def`-এর বদলে সাধারণ ফাংশন হিসেবেও সংজ্ঞায়িত করতে পারতেন:
+
+{* ../../docs_src/first_steps/tutorial003_py310.py hl[7] *}
+
+/// note | নোট
+
+পার্থক্যটা না জানলে [Async: *"তাড়া আছে?"*](../async.md#in-a-hurry) দেখুন। এই উদাহরণে দুটোই একই কাজ করে।
+
+///
+
+### ধাপ ৫: বিষয়বস্তু রিটার্ন করুন { #step-5-return-the-content }
+
+{* ../../docs_src/first_steps/tutorial001_py310.py hl[8] *}
+
+আপনি একটি `dict`, `list`, কিংবা `str`, `int` ইত্যাদির মতো একক মান রিটার্ন করতে পারেন।
+
+Pydantic মডেলও রিটার্ন করতে পারেন (এ নিয়ে পরে আরও দেখবেন)।
+
+আরও অনেক অবজেক্ট ও মডেল আছে যেগুলো স্বয়ংক্রিয়ভাবে JSON-এ রূপান্তরিত হবে (ORM-সহ, অর্থাৎ ডেটাবেস টুলের মডেলও)। আপনার পছন্দের জিনিসগুলো দিয়ে চেষ্টা করে দেখুন, খুব সম্ভবত সেগুলো ইতিমধ্যে সাপোর্টেড।
+
+### ধাপ ৬: ডিপ্লয় করুন { #step-6-deploy-it }
+
+একটি কমান্ড দিয়ে আপনার অ্যাপ **[FastAPI Cloud](https://fastapicloud.com)**-এ ডিপ্লয় করুন: `fastapi deploy`। 🎉
+
+#### FastAPI Cloud সম্পর্কে { #about-fastapi-cloud }
+
+**[FastAPI Cloud](https://fastapicloud.com)** তৈরি করেছেন **FastAPI**-এর একই লেখক ও টিম।
+
+এটি খুব অল্প পরিশ্রমে একটি API **বানানো**, **ডিপ্লয় করা** এবং **ব্যবহার করার** প্রক্রিয়াটি সহজ করে দেয়।
+
+FastAPI দিয়ে অ্যাপ বানানোর সেই একই সহজ **অভিজ্ঞতা** এটি ক্লাউডে **ডিপ্লয়** করার ক্ষেত্রেও নিয়ে আসে। 🎉
+
+FastAPI Cloud হলো *FastAPI and friends* ওপেন সোর্স প্রজেক্টগুলোর প্রধান স্পন্সর ও অর্থায়নকারী। ✨
+
+#### অন্য ক্লাউড প্রোভাইডারে ডিপ্লয় করুন { #deploy-to-other-cloud-providers }
+
+FastAPI ওপেন সোর্স এবং স্ট্যান্ডার্ডের ওপর তৈরি। তাই আপনি নিজের পছন্দের যেকোনো ক্লাউড প্রোভাইডারে FastAPI অ্যাপ ডিপ্লয় করতে পারেন।
+
+আপনার ক্লাউড প্রোভাইডারের গাইড অনুসরণ করে সেখানে FastAPI অ্যাপ ডিপ্লয় করুন। 🤓
+
+## সংক্ষেপে { #recap }
+
+* `FastAPI` ইমপোর্ট করুন।
+* একটি `app` ইনস্ট্যান্স তৈরি করুন।
+* `@app.get("/")` এর মতো ডেকোরেটর দিয়ে একটি **পাথ অপারেশন ডেকোরেটর** লিখুন।
+* একটি **পাথ অপারেশন ফাংশন** সংজ্ঞায়িত করুন, যেমন `def root(): ...`।
+* `fastapi dev` কমান্ড দিয়ে ডেভেলপমেন্ট সার্ভার চালান।
+* চাইলে `fastapi deploy` দিয়ে আপনার অ্যাপ ডিপ্লয় করুন।
+
+/// tip | নিজে চেষ্টা করুন
+
+* `"Hello World"` বদলে নিজের নাম লিখুন, ফাইল সেভ করুন, তারপর ব্রাউজার রিফ্রেশ করুন। সার্ভার নিজেই রিলোড হবে।
+* `@app.get("/about")` দিয়ে একটি নতুন পাথ অপারেশন যোগ করুন, যা `{"page": "about"}` রিটার্ন করে। তারপর `/docs`-এ গিয়ে দেখুন নতুন পাথটি তালিকায় এসেছে কিনা।
+
+///

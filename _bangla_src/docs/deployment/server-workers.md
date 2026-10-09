@@ -1,0 +1,171 @@
+# সার্ভার ওয়ার্কার - ওয়ার্কারসহ Uvicorn { #server-workers-uvicorn-with-workers }
+
+/// note | এই পেজে যা শিখবেন
+
+* `--workers` অপশন দিয়ে একই অ্যাপের একাধিক প্রসেস চালানো।
+* কেন ওয়ার্কার দরকার: CPU-র একাধিক কোর কাজে লাগানো।
+* ওয়ার্কার ডিপ্লয়মেন্টের কোন সমস্যার সমাধান করে, আর কোনগুলো করে না।
+
+///
+
+আগের ডিপ্লয়মেন্ট ধারণাগুলো আবার দেখে নিই:
+
+* নিরাপত্তা - HTTPS
+* কম্পিউটার চালু হলে নিজে থেকে চালু হওয়া
+* রিস্টার্ট
+* **রেপ্লিকেশন (কতগুলো প্রসেস চলছে)**
+* মেমোরি
+* চালু করার আগের ধাপগুলো
+
+এই পর্যন্ত, ডকসের সব টিউটোরিয়ালে আপনি সম্ভবত একটি **সার্ভার প্রোগ্রাম** চালাচ্ছিলেন, যেমন `fastapi` কমান্ড ব্যবহার করে, যা Uvicorn চালায়, একটি **মাত্র প্রসেস** হিসেবে।
+
+অ্যাপ্লিকেশন ডিপ্লয় করার সময় আপনি সম্ভবত **একাধিক কোর** কাজে লাগাতে আর আরও বেশি রিকোয়েস্ট সামলাতে কিছু **প্রসেসের রেপ্লিকেশন** চাইবেন।
+
+[ডিপ্লয়মেন্টের ধারণা](concepts.md) নিয়ে আগের অধ্যায়ে যেমন দেখেছেন, আপনি একাধিক কৌশল ব্যবহার করতে পারেন।
+
+এখানে আমি দেখাব কীভাবে `fastapi` কমান্ড বা সরাসরি `uvicorn` কমান্ড ব্যবহার করে **ওয়ার্কার প্রসেস**-সহ **Uvicorn** ব্যবহার করতে হয়।
+
+/// tip | উদাহরণ দিয়ে বুঝি
+
+একটি ব্যাংকে একটি মাত্র কাউন্টার থাকলে লম্বা লাইন হয়। চারটি কাউন্টার খুললে চারজন একসাথে সেবা পায়। প্রতিটি ওয়ার্কার হলো একটি কাউন্টার, আর **প্রসেস ম্যানেজার** হলো দরজার কর্মী, যিনি টোকেন দিয়ে গ্রাহককে খালি কাউন্টারে পাঠান। আপনার কম্পিউটারের CPU-তে যতগুলো কোর, মোটামুটি ততগুলো কাউন্টার খোলা যুক্তিসঙ্গত।
+
+///
+
+/// note | নোট
+
+যদি কন্টেইনার ব্যবহার করেন, যেমন Docker বা Kubernetes দিয়ে, তাহলে এ নিয়ে পরের অধ্যায়ে আরও বলব: [কন্টেইনারে FastAPI - Docker](docker.md)।
+
+বিশেষ করে, **Kubernetes**-এ চালানোর সময় আপনি সম্ভবত ওয়ার্কার ব্যবহার করতে চাইবেন **না**, বরং **প্রতি কন্টেইনারে একটি Uvicorn প্রসেস** চালাবেন, তবে সে কথা পরে সেই অধ্যায়ে বলব।
+
+///
+
+## একাধিক ওয়ার্কার { #multiple-workers }
+
+`--workers` কমান্ড লাইন অপশন দিয়ে একাধিক ওয়ার্কার চালু করতে পারেন:
+
+//// tab | `fastapi`
+
+যদি `fastapi` কমান্ড ব্যবহার করেন:
+
+<div class="termy">
+
+```console
+$ <font color="#4E9A06">fastapi</font> run --workers 4 <u style="text-decoration-style:solid">main.py</u>
+
+  <span style="background-color:#009485"><font color="#D3D7CF"> FastAPI </font></span>  Starting production server 🚀
+
+             Searching for package file structure from directories with
+             <font color="#3465A4">__init__.py</font> files
+             Importing from <font color="#75507B">/home/user/code/</font><font color="#AD7FA8">awesomeapp</font>
+
+   <span style="background-color:#007166"><font color="#D3D7CF"> module </font></span>  🐍 main.py
+
+     <span style="background-color:#007166"><font color="#D3D7CF"> code </font></span>  Importing the FastAPI app object from the module with the
+             following code:
+
+             <u style="text-decoration-style:solid">from </u><u style="text-decoration-style:solid"><b>main</b></u><u style="text-decoration-style:solid"> import </u><u style="text-decoration-style:solid"><b>app</b></u>
+
+      <span style="background-color:#007166"><font color="#D3D7CF"> app </font></span>  Using import string: <font color="#3465A4">main:app</font>
+
+   <span style="background-color:#007166"><font color="#D3D7CF"> server </font></span>  Server started at <font color="#729FCF"><u style="text-decoration-style:solid">http://0.0.0.0:8000</u></font>
+   <span style="background-color:#007166"><font color="#D3D7CF"> server </font></span>  Documentation at <font color="#729FCF"><u style="text-decoration-style:solid">http://0.0.0.0:8000/docs</u></font>
+
+             Logs:
+
+     <span style="background-color:#007166"><font color="#D3D7CF"> INFO </font></span>  Uvicorn running on <font color="#729FCF"><u style="text-decoration-style:solid">http://0.0.0.0:8000</u></font> <b>(</b>Press CTRL+C to
+             quit<b>)</b>
+     <span style="background-color:#007166"><font color="#D3D7CF"> INFO </font></span>  Started parent process <b>[</b><font color="#34E2E2"><b>27365</b></font><b>]</b>
+     <span style="background-color:#007166"><font color="#D3D7CF"> INFO </font></span>  Started server process <b>[</b><font color="#34E2E2"><b>27368</b></font><b>]</b>
+     <span style="background-color:#007166"><font color="#D3D7CF"> INFO </font></span>  Started server process <b>[</b><font color="#34E2E2"><b>27369</b></font><b>]</b>
+     <span style="background-color:#007166"><font color="#D3D7CF"> INFO </font></span>  Started server process <b>[</b><font color="#34E2E2"><b>27370</b></font><b>]</b>
+     <span style="background-color:#007166"><font color="#D3D7CF"> INFO </font></span>  Started server process <b>[</b><font color="#34E2E2"><b>27367</b></font><b>]</b>
+     <span style="background-color:#007166"><font color="#D3D7CF"> INFO </font></span>  Waiting for application startup.
+     <span style="background-color:#007166"><font color="#D3D7CF"> INFO </font></span>  Waiting for application startup.
+     <span style="background-color:#007166"><font color="#D3D7CF"> INFO </font></span>  Waiting for application startup.
+     <span style="background-color:#007166"><font color="#D3D7CF"> INFO </font></span>  Waiting for application startup.
+     <span style="background-color:#007166"><font color="#D3D7CF"> INFO </font></span>  Application startup complete.
+     <span style="background-color:#007166"><font color="#D3D7CF"> INFO </font></span>  Application startup complete.
+     <span style="background-color:#007166"><font color="#D3D7CF"> INFO </font></span>  Application startup complete.
+     <span style="background-color:#007166"><font color="#D3D7CF"> INFO </font></span>  Application startup complete.
+```
+
+</div>
+
+////
+
+//// tab | `uvicorn`
+
+যদি সরাসরি `uvicorn` কমান্ড ব্যবহার করতে পছন্দ করেন:
+
+<div class="termy">
+
+```console
+$ uv run uvicorn main:app --host 0.0.0.0 --port 8080 --workers 4
+<font color="#A6E22E">INFO</font>:     Uvicorn running on <b>http://0.0.0.0:8080</b> (Press CTRL+C to quit)
+<font color="#A6E22E">INFO</font>:     Started parent process [<font color="#A1EFE4"><b>27365</b></font>]
+<font color="#A6E22E">INFO</font>:     Started server process [<font color="#A1EFE4">27368</font>]
+<font color="#A6E22E">INFO</font>:     Waiting for application startup.
+<font color="#A6E22E">INFO</font>:     Application startup complete.
+<font color="#A6E22E">INFO</font>:     Started server process [<font color="#A1EFE4">27369</font>]
+<font color="#A6E22E">INFO</font>:     Waiting for application startup.
+<font color="#A6E22E">INFO</font>:     Application startup complete.
+<font color="#A6E22E">INFO</font>:     Started server process [<font color="#A1EFE4">27370</font>]
+<font color="#A6E22E">INFO</font>:     Waiting for application startup.
+<font color="#A6E22E">INFO</font>:     Application startup complete.
+<font color="#A6E22E">INFO</font>:     Started server process [<font color="#A1EFE4">27367</font>]
+<font color="#A6E22E">INFO</font>:     Waiting for application startup.
+<font color="#A6E22E">INFO</font>:     Application startup complete.
+```
+
+</div>
+
+////
+
+এখানে একমাত্র নতুন অপশন হলো `--workers`, যা Uvicorn-কে ৪টি ওয়ার্কার প্রসেস চালু করতে বলে।
+
+আপনি এটাও দেখতে পাচ্ছেন যে এটি প্রতিটি প্রসেসের **PID** (প্রসেস আইডি, অপারেটিং সিস্টেমের দেওয়া প্রতিটি প্রসেসের নম্বর) দেখায়: প্যারেন্ট প্রসেসের জন্য `27365` (এটি **প্রসেস ম্যানেজার**), আর প্রতিটি ওয়ার্কার প্রসেসের জন্য একটি করে: `27368`, `27369`, `27370` আর `27367`।
+
+/// warning | সাধারণ ভুল
+
+ওয়ার্কারগুলো মেমোরি ভাগাভাগি করে না। তাই:
+
+* একটি ওয়ার্কারে রাখা গ্লোবাল ভেরিয়েবল (যেমন একটি Python `dict`-এ রাখা ডেটা) অন্য ওয়ার্কার দেখতে পায় না। ভাগাভাগির ডেটা ডেটাবেস বা Redis-এর মতো জায়গায় রাখুন।
+* বড় মডেল লোড করলে প্রতিটি ওয়ার্কার আলাদা করে মেমোরি নেবে। ওয়ার্কারের সংখ্যা ঠিক করার আগে RAM হিসাব করুন।
+
+///
+
+## ডিপ্লয়মেন্টের ধারণা { #deployment-concepts }
+
+এখানে আপনি দেখলেন কীভাবে একাধিক **ওয়ার্কার** ব্যবহার করে অ্যাপ্লিকেশনের কাজ **সমান্তরালে** চালানো যায়, CPU-র **একাধিক কোর** কাজে লাগানো যায়, আর **আরও বেশি রিকোয়েস্ট** সেবা দেওয়া যায়।
+
+ওপরের ডিপ্লয়মেন্ট ধারণার তালিকা থেকে, ওয়ার্কার ব্যবহার মূলত **রেপ্লিকেশন** অংশে সাহায্য করবে, আর **রিস্টার্টে** একটু, কিন্তু বাকিগুলো আপনাকে এখনো সামলাতে হবে:
+
+* **নিরাপত্তা - HTTPS**
+* **কম্পিউটার চালু হলে নিজে থেকে চালু হওয়া**
+* ***রিস্টার্ট***
+* রেপ্লিকেশন (কতগুলো প্রসেস চলছে)
+* **মেমোরি**
+* **চালু করার আগের ধাপগুলো**
+
+## কন্টেইনার এবং Docker { #containers-and-docker }
+
+[কন্টেইনারে FastAPI - Docker](docker.md) নিয়ে পরের অধ্যায়ে আমি কিছু কৌশল ব্যাখ্যা করব যা দিয়ে অন্যান্য **ডিপ্লয়মেন্ট ধারণাগুলো** সামলাতে পারেন।
+
+আমি দেখাব কীভাবে একটি মাত্র Uvicorn প্রসেস চালাতে **শূন্য থেকে নিজের ইমেজ তৈরি** করতে হয়। এটি একটি সহজ প্রক্রিয়া আর সম্ভবত **Kubernetes**-এর মতো একটি বিতরণকৃত কন্টেইনার ব্যবস্থাপনা সিস্টেম ব্যবহার করার সময় আপনি এটাই করতে চাইবেন।
+
+## সংক্ষেপে { #recap }
+
+**মাল্টি-কোর CPU** কাজে লাগাতে, **একাধিক প্রসেস সমান্তরালে** চালাতে, `fastapi` বা `uvicorn` কমান্ডে `--workers` CLI অপশন দিয়ে একাধিক ওয়ার্কার প্রসেস ব্যবহার করতে পারেন।
+
+যদি আপনি অন্যান্য ডিপ্লয়মেন্ট ধারণাগুলো নিজে সামলে **নিজের ডিপ্লয়মেন্ট সিস্টেম** সেটআপ করেন, তাহলে এই টুল আর ধারণাগুলো ব্যবহার করতে পারেন।
+
+কন্টেইনারসহ (যেমন Docker আর Kubernetes) **FastAPI** সম্পর্কে জানতে পরের অধ্যায়টি দেখুন। দেখবেন ওই টুলগুলোতে অন্যান্য **ডিপ্লয়মেন্ট ধারণাগুলোও** সমাধান করার সহজ উপায় আছে। ✨
+
+/// check | সংক্ষেপে মনে রাখুন
+
+* `fastapi run --workers 4 main.py` বা `uvicorn main:app --workers 4` দিয়ে ৪টি ওয়ার্কার চালান।
+* একটি প্রসেস ম্যানেজার পোর্টে শোনে আর রিকোয়েস্ট ওয়ার্কারদের মধ্যে ভাগ করে।
+* ওয়ার্কার মেমোরি ভাগ করে না, তাই RAM-এর হিসাব রাখুন।
+* Kubernetes-এ সাধারণত ওয়ার্কার নয়, প্রতি কন্টেইনারে একটি প্রসেস।
+
+///

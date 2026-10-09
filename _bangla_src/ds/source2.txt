@@ -1,0 +1,146 @@
+=== 1001 [starlette/requests.py]
+A base class for incoming HTTP connections, that is used to provide
+any functionality that is common to both `Request` and `WebSocket`.
+=== 1002 [starlette/staticfiles.py]
+Given `directory` and `packages` arguments, return a list of all the
+directories that should be used for serving static files from.
+=== 1003 [starlette/staticfiles.py]
+Given the ASGI scope, return the `path` string to serve up,
+with OS specific path separators, and any '..', '.' components removed.
+=== 1004 [starlette/staticfiles.py]
+Returns an HTTP response, given the incoming path, method and request headers.
+=== 1005 [starlette/staticfiles.py]
+Perform a one-off configuration check that StaticFiles is actually
+pointed at a directory, so that we can raise loud errors rather than
+just returning 404 responses.
+=== 1006 [starlette/staticfiles.py]
+Given the request and response headers, return `True` if an HTTP
+"Not Modified" response could be returned instead.
+=== 1007 [starlette/status.py]
+HTTP codes
+See HTTP Status Code Registry:
+https://www.iana.org/assignments/http-status-codes/http-status-codes.xhtml
+
+And RFC 9110 - https://www.rfc-editor.org/rfc/rfc9110
+=== 1008 [starlette/templating.py]
+Jinja2 template renderer.
+
+Example:
+    ⟦C1⟧
+=== 1009 [starlette/templating.py]
+Render a template and return an HTML response.
+
+Args:
+    request: The incoming request instance.
+    name: The template file name to render.
+    context: Variables to pass to the template.
+    status_code: HTTP status code for the response.
+    headers: Additional headers to include in the response.
+    media_type: Media type for the response.
+    background: Background task to run after response is sent.
+
+Returns:
+    An HTML response with the rendered template content.
+=== 1010 [starlette/websockets.py]
+Receive ASGI websocket messages, ensuring valid state transitions.
+=== 1011 [starlette/websockets.py]
+Send ASGI websocket messages, ensuring valid state transitions.
+=== 1012 [httpx/_api.py]
+Alternative to `httpx.request()` that streams the response body
+instead of loading it into memory at once.
+
+**Parameters**: See `httpx.request`.
+
+See also: [Streaming Responses][0]
+
+[0]: /quickstart#streaming-responses
+=== 1013 [httpx/_client.py]
+Check if the client being closed
+=== 1014 [httpx/_client.py]
+Authentication class used when none is passed at the request-level.
+
+See also [Authentication][0].
+
+[0]: /quickstart/#authentication
+=== 1015 [httpx/_client.py]
+Base URL to use when sending requests with relative URLs.
+=== 1016 [httpx/_client.py]
+HTTP headers to include when sending requests.
+=== 1017 [httpx/_client.py]
+Cookie values to include when sending requests.
+=== 1018 [httpx/_client.py]
+Query parameters to include in the URL when sending requests.
+=== 1019 [httpx/_client.py]
+Build and return a request instance.
+
+* The `params`, `headers` and `cookies` arguments
+are merged with any values set on the client.
+* The `url` argument is merged with any `base_url` set on the client.
+
+See also: [Request instances][0]
+
+[0]: /advanced/clients/#request-instances
+=== 1020 [httpx/_client.py]
+Send a request.
+
+The request is sent as-is, unmodified.
+
+Typically you'll want to build one with `Client.build_request()`
+so that any client-level configuration is merged into the request,
+but passing an explicit `httpx.Request()` is supported as well.
+
+See also: [Request instances][0]
+
+[0]: /advanced/clients/#request-instances
+=== 1021 [httpx/_client.py]
+Send a `GET` request.
+
+**Parameters**: See `httpx.request`.
+=== 1022 [httpx/_client.py]
+Send an `OPTIONS` request.
+
+**Parameters**: See `httpx.request`.
+=== 1023 [httpx/_client.py]
+Send a `HEAD` request.
+
+**Parameters**: See `httpx.request`.
+=== 1024 [httpx/_client.py]
+Send a `POST` request.
+
+**Parameters**: See `httpx.request`.
+=== 1025 [httpx/_client.py]
+Send a `PUT` request.
+
+**Parameters**: See `httpx.request`.
+=== 1026 [httpx/_client.py]
+Send a `PATCH` request.
+
+**Parameters**: See `httpx.request`.
+=== 1027 [httpx/_client.py]
+Send a `DELETE` request.
+
+**Parameters**: See `httpx.request`.
+=== 1028 [httpx/_client.py]
+Close transport and proxies.
+=== 1029 [httpx/_client.py]
+Send a request.
+
+The request is sent as-is, unmodified.
+
+Typically you'll want to build one with `AsyncClient.build_request()`
+so that any client-level configuration is merged into the request,
+but passing an explicit `httpx.Request()` is supported as well.
+
+See also: [Request instances][0]
+
+[0]: /advanced/clients/#request-instances
+=== 1030 [starlette/status.py]
+WebSocket codes
+https://www.iana.org/assignments/websocket/websocket.xml#close-code-number
+https://developer.mozilla.org/en-US/docs/Web/API/CloseEvent
+=== 1031 [fastapi/param_functions.py]
+Deprecated in FastAPI 0.100.0 and Pydantic v2, use `pattern` instead.
+=== 1032 [fastapi/param_functions.py]
+Deprecated in OpenAPI 3.1.0 that now uses JSON Schema 2020-12, although still supported. Use examples instead.
+=== 1033 [fastapi/param_functions.py]
+The `extra` kwargs is deprecated. Use `json_schema_extra` instead.

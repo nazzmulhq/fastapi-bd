@@ -10,6 +10,9 @@
         <loc>http://localhost:8080/learn/</loc>
       </url>
       <url>
+        <loc>http://localhost:8080/learn/glossary/</loc>
+      </url>
+      <url>
         <loc>http://localhost:8080/python-types/</loc>
       </url>
       <url>

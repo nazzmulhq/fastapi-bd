@@ -1,0 +1,1 @@
+{"\u27e6CODE1\u27e7": "[\"```Python hl_lines=\\\"1\\\"\", \"@app.get(\\\"/some/url\\\")\", \"def read_url():\", \"    return {\\\"message\\\": \\\"Hello World\\\"}\", \"```\"]"}

@@ -1,0 +1,168 @@
+# FastAPI CLI { #fastapi-cli }
+
+/// note | এই পেজে যা শিখবেন
+
+* CLI (কমান্ড লাইন প্রোগ্রাম) কী, আর `fastapi` কমান্ড দিয়ে কী করা যায়।
+* `fastapi dev` আর `fastapi run`-এর পার্থক্য।
+* `pyproject.toml`-এ `entrypoint` লিখে অ্যাপ কোথায় আছে তা জানিয়ে দেওয়া।
+
+///
+
+**FastAPI <abbr title="command line interface">CLI</abbr>** হলো একটি কমান্ড লাইন প্রোগ্রাম, যা দিয়ে আপনি আপনার FastAPI অ্যাপ চালাতে (serve), আপনার FastAPI প্রজেক্ট পরিচালনা করতে এবং আরও অনেক কিছু করতে পারেন।
+
+(কমান্ড লাইন মানে টার্মিনাল, যেখানে মাউস দিয়ে ক্লিক না করে লিখে কমান্ড দেওয়া হয়।)
+
+যখন আপনার প্রজেক্টে FastAPI যোগ করেন (যেমন `uv add "fastapi[standard]"` দিয়ে), তখন এর সাথে একটি কমান্ড লাইন প্রোগ্রাম আসে যা টার্মিনালে চালাতে পারেন।
+
+ডেভেলপমেন্টের জন্য আপনার FastAPI অ্যাপ চালাতে `fastapi dev` কমান্ড ব্যবহার করতে পারেন:
+
+<div class="termy">
+
+```console
+$ <font color="#4E9A06">fastapi</font> dev
+
+  <span style="background-color:#009485"><font color="#D3D7CF"> FastAPI </font></span>  Starting development server 🚀
+
+             Searching for package file structure from directories with
+             <font color="#3465A4">__init__.py</font> files
+             Importing from <font color="#75507B">/home/user/code/</font><font color="#AD7FA8">awesomeapp</font>
+
+   <span style="background-color:#007166"><font color="#D3D7CF"> module </font></span>  🐍 main.py
+
+     <span style="background-color:#007166"><font color="#D3D7CF"> code </font></span>  Importing the FastAPI app object from the module with the
+             following code:
+
+             <u style="text-decoration-style:solid">from </u><u style="text-decoration-style:solid"><b>main</b></u><u style="text-decoration-style:solid"> import </u><u style="text-decoration-style:solid"><b>app</b></u>
+
+      <span style="background-color:#007166"><font color="#D3D7CF"> app </font></span>  Using import string: <font color="#3465A4">main:app</font>
+
+   <span style="background-color:#007166"><font color="#D3D7CF"> server </font></span>  Server started at <font color="#729FCF"><u style="text-decoration-style:solid">http://127.0.0.1:8000</u></font>
+   <span style="background-color:#007166"><font color="#D3D7CF"> server </font></span>  Documentation at <font color="#729FCF"><u style="text-decoration-style:solid">http://127.0.0.1:8000/docs</u></font>
+
+      <span style="background-color:#007166"><font color="#D3D7CF"> tip </font></span>  Running in development mode, for production use:
+             <b>fastapi run</b>
+
+             Logs:
+
+     <span style="background-color:#007166"><font color="#D3D7CF"> INFO </font></span>  Will watch for changes in these directories:
+             <b>[</b><font color="#4E9A06">&apos;/home/user/code/awesomeapp&apos;</font><b>]</b>
+     <span style="background-color:#007166"><font color="#D3D7CF"> INFO </font></span>  Uvicorn running on <font color="#729FCF"><u style="text-decoration-style:solid">http://127.0.0.1:8000</u></font> <b>(</b>Press CTRL+C to
+             quit<b>)</b>
+     <span style="background-color:#007166"><font color="#D3D7CF"> INFO </font></span>  Started reloader process <b>[</b><font color="#34E2E2"><b>383138</b></font><b>]</b> using WatchFiles
+     <span style="background-color:#007166"><font color="#D3D7CF"> INFO </font></span>  Started server process <b>[</b><font color="#34E2E2"><b>383153</b></font><b>]</b>
+     <span style="background-color:#007166"><font color="#D3D7CF"> INFO </font></span>  Waiting for application startup.
+     <span style="background-color:#007166"><font color="#D3D7CF"> INFO </font></span>  Application startup complete.
+```
+
+</div>
+
+/// tip | পরামর্শ
+
+প্রোডাকশনে (আসল ব্যবহারকারীদের জন্য সার্ভারে) `fastapi dev`-এর বদলে `fastapi run` ব্যবহার করবেন। 🚀
+
+///
+
+ভেতরে ভেতরে **FastAPI CLI** ব্যবহার করে [Uvicorn](https://uvicorn.dev), একটি উচ্চ-পারফরম্যান্স, প্রোডাকশন-উপযোগী ASGI সার্ভার। 😎
+
+`fastapi` CLI স্বয়ংক্রিয়ভাবে চালানোর মতো FastAPI অ্যাপটি খুঁজে বের করার চেষ্টা করবে, ধরে নিয়ে যে এটি `main.py` ফাইলে (বা আরও কয়েকটি বিকল্প নামের ফাইলে) `app` নামের একটি অবজেক্ট।
+
+তবে কোন অ্যাপ ব্যবহার করতে হবে তা আপনি স্পষ্টভাবে কনফিগার করতে পারেন।
+
+## `pyproject.toml`-এ অ্যাপের `entrypoint` কনফিগার করুন { #configure-the-app-entrypoint-in-pyproject-toml }
+
+আপনার অ্যাপ কোথায় আছে তা একটি `pyproject.toml` ফাইলে এভাবে কনফিগার করতে পারেন:
+
+```toml
+[tool.fastapi]
+entrypoint = "main:app"
+```
+
+সেই `entrypoint` `fastapi` কমান্ডকে বলে দেবে যে অ্যাপটি এভাবে ইমপোর্ট করতে হবে:
+
+```python
+from main import app
+```
+
+/// tip | উদাহরণ দিয়ে বুঝি
+
+`"main:app"` পড়ুন এভাবে: "`main` ফাইলের ভেতরে `app` নামের জিনিসটি"। কোলনের (`:`) বাঁ দিকে মডিউল (ফাইল, `.py` ছাড়া), ডান দিকে সেই ফাইলের ভেতরের ভেরিয়েবলের নাম। অনেকটা ঠিকানার মতো: "বাড়ি নম্বর : ঘরের নাম"।
+
+///
+
+যদি আপনার কোডের কাঠামো এমন হয়:
+
+```
+.
+├── backend
+│   ├── main.py
+│   ├── __init__.py
+```
+
+তাহলে `entrypoint` সেট করবেন এভাবে:
+
+```toml
+[tool.fastapi]
+entrypoint = "backend.main:app"
+```
+
+যা এর সমতুল্য:
+
+```python
+from backend.main import app
+```
+
+### পাথ দিয়ে বা `--entrypoint` CLI অপশন দিয়ে `fastapi dev` { #fastapi-dev-with-path-or-with-entrypoint-cli-option }
+
+`fastapi dev` কমান্ডে ফাইলের পাথও দিতে পারেন, তখন এটি নিজেই অনুমান করবে কোন FastAPI অ্যাপ অবজেক্ট ব্যবহার করতে হবে:
+
+```console
+$ uv run fastapi dev main.py
+```
+
+অথবা `fastapi dev` কমান্ডে `--entrypoint` অপশনও দিতে পারেন:
+
+```console
+$ uv run fastapi dev --entrypoint main:app
+```
+
+কিন্তু তখন প্রতিবার `fastapi` কমান্ড চালানোর সময় সঠিক পাথ বা entrypoint দিতে মনে রাখতে হবে।
+
+তা ছাড়া, অন্য টুলগুলো হয়তো এটি খুঁজে পাবে না, যেমন [VS Code এক্সটেনশন](editor-support.md) বা [FastAPI Cloud](https://fastapicloud.com)। তাই `pyproject.toml`-এ `entrypoint` ব্যবহার করার পরামর্শ দেওয়া হয়।
+
+## `fastapi dev` { #fastapi-dev }
+
+`fastapi dev` চালালে ডেভেলপমেন্ট মোড শুরু হয়।
+
+ডিফল্টভাবে **auto-reload** চালু থাকে, অর্থাৎ কোডে পরিবর্তন করলে সার্ভার স্বয়ংক্রিয়ভাবে আবার চালু হয়। এটি বেশি রিসোর্স খরচ করে আর বন্ধ থাকার চেয়ে কম স্থিতিশীল হতে পারে। এটি শুধু ডেভেলপমেন্টের জন্যই ব্যবহার করা উচিত। এটি `127.0.0.1` IP ঠিকানায় শোনে (listen করে), যা আপনার মেশিনের শুধু নিজের সাথে যোগাযোগের IP (`localhost`)।
+
+আপনার অ্যাপ ইমপোর্ট করার আগে `fastapi dev` `FASTAPI_ENV` এনভায়রনমেন্ট ভেরিয়েবলকে `development` সেট করে। `FASTAPI_ENV` আগে থেকেই সেট থাকলে, এর বিদ্যমান মান রাখা হয়। এতে অ্যাপ চালু হওয়ার কোড ডেভেলপমেন্ট-উপযোগী আচরণ বেছে নিতে পারে, আবার আপনি `staging` এর মতো অ্যাপ-নির্দিষ্ট একটি পরিবেশও দিতে পারেন।
+
+প্রচলিত `FASTAPI_ENV` মানগুলো হলো `development` আর `production`। `fastapi run` বর্তমানে `FASTAPI_ENV` অপরিবর্তিত রাখে, তাই যদি আপনার অ্যাপকে প্রোডাকশন মোড শনাক্ত করতে হয়, তাহলে এটি স্পষ্টভাবে সেট করুন।
+
+## `fastapi run` { #fastapi-run }
+
+`fastapi run` চালালে FastAPI প্রোডাকশন মোডে শুরু হয়।
+
+ডিফল্টভাবে **auto-reload** বন্ধ থাকে। এটি `0.0.0.0` IP ঠিকানায় শোনে, যার মানে সব উপলব্ধ IP ঠিকানা। এভাবে মেশিনটির সাথে যোগাযোগ করতে পারে এমন যে কারো জন্য এটি সর্বজনীনভাবে প্রবেশযোগ্য হবে। প্রোডাকশনে, যেমন একটি কন্টেইনারে, সাধারণত এভাবেই চালানো হয়।
+
+বেশিরভাগ ক্ষেত্রে আপনার ওপরে একটি "termination proxy" থাকবে (এবং থাকা উচিত), যা আপনার হয়ে HTTPS সামলাবে। এটি নির্ভর করবে আপনি কীভাবে অ্যাপ্লিকেশন ডিপ্লয় করছেন তার ওপর: আপনার প্রোভাইডার হয়তো এটি করে দেবে, অথবা আপনাকে নিজে সেটআপ করতে হতে পারে।
+
+/// tip | পরামর্শ
+
+এ সম্পর্কে আরও জানতে পারেন [ডিপ্লয়মেন্ট ডকুমেন্টেশনে](deployment/index.md)।
+
+///
+
+| | `fastapi dev` | `fastapi run` |
+| --- | --- | --- |
+| কখন ব্যবহার | নিজের কম্পিউটারে কোড লেখার সময় | আসল সার্ভারে / প্রোডাকশনে |
+| auto-reload | চালু | বন্ধ |
+| কোন IP-তে শোনে | `127.0.0.1` (শুধু নিজের কম্পিউটার) | `0.0.0.0` (সবাই) |
+
+/// check | সংক্ষেপে মনে রাখুন
+
+* কোড লেখার সময় `fastapi dev`, আসল সার্ভারে `fastapi run`।
+* `pyproject.toml`-এ `[tool.fastapi]` অংশে `entrypoint = "main:app"` লিখে রাখলে সব টুল আপনার অ্যাপ খুঁজে পায়।
+* `fastapi dev` শুধু আপনার কম্পিউটার থেকে দেখা যায়, `fastapi run` নেটওয়ার্কের সবার জন্য খোলা।
+
+///

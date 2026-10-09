@@ -1,0 +1,1 @@
+{"\u27e6CODE1\u27e7": "[\"```python\", \"from typing import Union\", \"\", \"\", \"def say_hi(name: Union[str, None]):\", \"        print(f\\\"Hi {name}!\\\")\", \"```\"]", "\u27e6CODE2\u27e7": "[\"```python\", \"from typing import Optional\", \"\", \"\", \"def say_hi(name: Optional[str]):\", \"    print(f\\\"Hey {name}!\\\")\", \"```\"]"}

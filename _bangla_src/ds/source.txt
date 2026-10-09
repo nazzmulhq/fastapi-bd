@@ -1,0 +1,2286 @@
+=== 1 [fastapi/__init__.py]
+FastAPI framework, high performance, easy to learn, fast to code, ready for production
+=== 2 [fastapi/applications.py]
+**Note**: you probably shouldn't use this parameter, it is inherited
+from Starlette and supported for compatibility.
+
+---
+
+A list of routes to serve incoming HTTP and WebSocket requests.
+=== 3 [fastapi/applications.py]
+A URL prefix for the OpenAPI URL.
+=== 4 [fastapi/applications.py]
+A URL to the Terms of Service for your API.
+
+It will be added to the generated OpenAPI (e.g. visible at `/docs`).
+
+Read more at the
+[FastAPI docs for Metadata and Docs URLs](https://fastapi.tiangolo.com/tutorial/metadata/#metadata-for-api).
+
+**Example**
+
+⟦C1⟧
+=== 5 [fastapi/applications.py]
+A `Lifespan` context manager handler. This replaces `startup` and
+`shutdown` functions with a single context manager.
+
+Read more in the
+[FastAPI docs for `lifespan`](https://fastapi.tiangolo.com/advanced/events/).
+=== 6 [fastapi/applications.py]
+A `list` of `dict`s with connectivity information to a target server.
+
+You would use it, for example, if your application is served from
+different domains and you want to use the same Swagger UI in the
+browser to interact with each of them (instead of having multiple
+browser tabs open). Or if you want to leave fixed the possible URLs.
+
+If the servers `list` is not provided, or is an empty `list`, the
+`servers` property in the generated OpenAPI will be:
+
+* a `dict` with a `url` value of the application's mounting point
+(`root_path`) if it's different from `/`.
+* otherwise, the `servers` property will be omitted from the OpenAPI
+schema.
+
+Each item in the `list` is a `dict` containing:
+
+* `url`: A URL to the target host. This URL supports Server Variables
+and MAY be relative, to indicate that the host location is relative
+to the location where the OpenAPI document is being served. Variable
+substitutions will be made when a variable is named in `{`brackets`}`.
+* `description`: An optional string describing the host designated by
+the URL. [CommonMark syntax](https://commonmark.org/) MAY be used for
+rich text representation.
+* `variables`: A `dict` between a variable name and its value. The value
+    is used for substitution in the server's URL template.
+
+Read more in the
+[FastAPI docs for Behind a Proxy](https://fastapi.tiangolo.com/advanced/behind-a-proxy/#additional-servers).
+
+**Example**
+
+⟦C1⟧
+=== 7 [fastapi/applications.py]
+A description for the *path operation*.
+
+If not provided, it will be extracted automatically from the docstring
+of the *path operation function*.
+
+It can contain Markdown.
+
+It will be added to the generated OpenAPI (e.g. visible at `/docs`).
+
+Read more about it in the
+[FastAPI docs for Path Operation Configuration](https://fastapi.tiangolo.com/tutorial/path-operation-configuration/).
+=== 8 [fastapi/applications.py]
+A description of the API. Supports Markdown (using
+[CommonMark syntax](https://commonmark.org/)).
+
+It will be added to the generated OpenAPI (e.g. visible at `/docs`).
+
+Read more in the
+[FastAPI docs for Metadata and Docs URLs](https://fastapi.tiangolo.com/tutorial/metadata/#metadata-for-api).
+
+**Example**
+
+⟦C1⟧
+=== 9 [fastapi/applications.py]
+A dictionary with handlers for exceptions.
+
+In FastAPI, you would normally use the decorator
+`@app.exception_handler()`.
+
+Read more in the
+[FastAPI docs for Handling Errors](https://fastapi.tiangolo.com/tutorial/handling-errors/).
+=== 10 [fastapi/applications.py]
+A dictionary with overrides for the dependencies.
+
+Each key is the original dependency callable, and the value is the
+actual dependency that should be called.
+
+This is for testing, to replace expensive dependencies with testing
+versions.
+
+Read more about it in the
+[FastAPI docs for Testing Dependencies with Overrides](https://fastapi.tiangolo.com/advanced/testing-dependencies/).
+=== 11 [fastapi/applications.py]
+A dictionary with the contact information for the exposed API.
+
+It can contain several fields.
+
+* `name`: (`str`) The name of the contact person/organization.
+* `url`: (`str`) A URL pointing to the contact information. MUST be in
+    the format of a URL.
+* `email`: (`str`) The email address of the contact person/organization.
+    MUST be in the format of an email address.
+
+It will be added to the generated OpenAPI (e.g. visible at `/docs`).
+
+Read more at the
+[FastAPI docs for Metadata and Docs URLs](https://fastapi.tiangolo.com/tutorial/metadata/#metadata-for-api).
+
+**Example**
+
+⟦C1⟧
+=== 12 [fastapi/applications.py]
+A dictionary with the license information for the exposed API.
+
+It can contain several fields.
+
+* `name`: (`str`) **REQUIRED** (if a `license_info` is set). The
+    license name used for the API.
+* `identifier`: (`str`) An [SPDX](https://spdx.dev/) license expression
+    for the API. The `identifier` field is mutually exclusive of the `url`
+    field. Available since OpenAPI 3.1.0, FastAPI 0.99.0.
+* `url`: (`str`) A URL to the license used for the API. This MUST be
+    the format of a URL.
+
+It will be added to the generated OpenAPI (e.g. visible at `/docs`).
+
+Read more at the
+[FastAPI docs for Metadata and Docs URLs](https://fastapi.tiangolo.com/tutorial/metadata/#metadata-for-api).
+
+**Example**
+
+⟦C1⟧
+=== 13 [fastapi/applications.py]
+A list of dependencies (using `Depends()`) to be applied to all the
+*path operations* in this router.
+
+Read more about it in the
+[FastAPI docs for Bigger Applications - Multiple Files](https://fastapi.tiangolo.com/tutorial/bigger-applications/#include-an-apirouter-with-a-custom-prefix-tags-responses-and-dependencies).
+
+**Example**
+
+⟦C1⟧
+=== 14 [fastapi/applications.py]
+A list of dependencies (using `Depends()`) to be applied to the
+*path operation*.
+
+Read more about it in the
+[FastAPI docs for Dependencies in path operation decorators](https://fastapi.tiangolo.com/tutorial/dependencies/dependencies-in-path-operation-decorators/).
+=== 15 [fastapi/applications.py]
+A list of dependencies (using `Depends()`) to be used for this
+WebSocket.
+
+Read more about it in the
+[FastAPI docs for WebSockets](https://fastapi.tiangolo.com/advanced/websockets/).
+=== 16 [fastapi/applications.py]
+A list of global dependencies, they will be applied to each
+*path operation*, including in sub-routers.
+
+Read more about it in the
+[FastAPI docs for Global Dependencies](https://fastapi.tiangolo.com/tutorial/dependencies/global-dependencies/).
+
+**Example**
+
+⟦C1⟧
+=== 17 [fastapi/applications.py]
+A list of shutdown event handler functions.
+
+You should instead use the `lifespan` handlers.
+
+Read more in the
+[FastAPI docs for `lifespan`](https://fastapi.tiangolo.com/advanced/events/).
+=== 18 [fastapi/applications.py]
+A list of startup event handler functions.
+
+You should instead use the `lifespan` handlers.
+
+Read more in the [FastAPI docs for `lifespan`](https://fastapi.tiangolo.com/advanced/events/).
+=== 19 [fastapi/applications.py]
+A list of tags to be applied to all the *path operations* in this
+router.
+
+It will be added to the generated OpenAPI (e.g. visible at `/docs`).
+
+Read more about it in the
+[FastAPI docs for Path Operation Configuration](https://fastapi.tiangolo.com/tutorial/path-operation-configuration/).
+=== 20 [fastapi/applications.py]
+A list of tags to be applied to the *path operation*.
+
+It will be added to the generated OpenAPI (e.g. visible at `/docs`).
+
+Read more about it in the
+[FastAPI docs for Path Operation Configuration](https://fastapi.tiangolo.com/tutorial/path-operation-configuration/#tags).
+=== 21 [fastapi/applications.py]
+A list of tags used by OpenAPI, these are the same `tags` you can set
+in the *path operations*, like:
+
+* `@app.get("/users/", tags=["users"])`
+* `@app.get("/items/", tags=["items"])`
+
+The order of the tags can be used to specify the order shown in
+tools like Swagger UI, used in the automatic path `/docs`.
+
+It's not required to specify all the tags used.
+
+The tags that are not declared MAY be organized randomly or based
+on the tools' logic. Each tag name in the list MUST be unique.
+
+The value of each item is a `dict` containing:
+
+* `name`: The name of the tag.
+* `description`: A short description of the tag.
+    [CommonMark syntax](https://commonmark.org/) MAY be used for rich
+    text representation.
+* `externalDocs`: Additional external documentation for this tag. If
+    provided, it would contain a `dict` with:
+    * `description`: A short description of the target documentation.
+        [CommonMark syntax](https://commonmark.org/) MAY be used for
+        rich text representation.
+    * `url`: The URL for the target documentation. Value MUST be in
+        the form of a URL.
+
+Read more in the
+[FastAPI docs for Metadata and Docs URLs](https://fastapi.tiangolo.com/tutorial/metadata/#metadata-for-tags).
+
+**Example**
+
+⟦C1⟧
+=== 22 [fastapi/applications.py]
+A name for the WebSocket. Only used internally.
+=== 23 [fastapi/applications.py]
+A path prefix handled by a proxy that is not seen by the application
+but is seen by external clients, which affects things like Swagger UI.
+
+Read more about it at the
+[FastAPI docs for Behind a Proxy](https://fastapi.tiangolo.com/advanced/behind-a-proxy/).
+
+**Example**
+
+⟦C1⟧
+=== 24 [fastapi/applications.py]
+A short summary of the API.
+
+It will be added to the generated OpenAPI (e.g. visible at `/docs`).
+
+Read more in the
+[FastAPI docs for Metadata and Docs URLs](https://fastapi.tiangolo.com/tutorial/metadata/#metadata-for-api).
+
+**Example**
+
+⟦C1⟧
+=== 25 [fastapi/applications.py]
+A state object for the application. This is the same object for the
+entire application, it doesn't change from request to request.
+
+You normally wouldn't use this in FastAPI, for most of the cases you
+would instead use FastAPI dependencies.
+
+This is simply inherited from Starlette.
+
+Read more about it in the
+[Starlette docs for Applications](https://starlette.dev/applications/#storing-state-on-the-app-instance).
+=== 26 [fastapi/applications.py]
+A summary for the *path operation*.
+
+It will be added to the generated OpenAPI (e.g. visible at `/docs`).
+
+Read more about it in the
+[FastAPI docs for Path Operation Configuration](https://fastapi.tiangolo.com/tutorial/path-operation-configuration/).
+=== 27 [fastapi/applications.py]
+Add OpenAPI webhooks. This is similar to `callbacks` but it doesn't
+depend on specific *path operations*.
+
+It will be added to the generated OpenAPI (e.g. visible at `/docs`).
+
+**Note**: This is available since OpenAPI 3.1.0, FastAPI 0.99.0.
+
+Read more about it in the
+[FastAPI docs for OpenAPI Webhooks](https://fastapi.tiangolo.com/advanced/openapi-webhooks/).
+=== 28 [fastapi/applications.py]
+Add a *path operation* using an HTTP DELETE operation.
+
+## Example
+
+⟦C1⟧
+=== 29 [fastapi/applications.py]
+Add a *path operation* using an HTTP GET operation.
+
+## Example
+
+⟦C1⟧
+=== 30 [fastapi/applications.py]
+Add a *path operation* using an HTTP HEAD operation.
+
+## Example
+
+⟦C1⟧
+=== 31 [fastapi/applications.py]
+Add a *path operation* using an HTTP OPTIONS operation.
+
+## Example
+
+⟦C1⟧
+=== 32 [fastapi/applications.py]
+Add a *path operation* using an HTTP PATCH operation.
+
+## Example
+
+⟦C1⟧
+=== 33 [fastapi/applications.py]
+Add a *path operation* using an HTTP POST operation.
+
+## Example
+
+⟦C1⟧
+=== 34 [fastapi/applications.py]
+Add a *path operation* using an HTTP PUT operation.
+
+## Example
+
+⟦C1⟧
+=== 35 [fastapi/applications.py]
+Add a *path operation* using an HTTP TRACE operation.
+
+## Example
+
+⟦C1⟧
+=== 36 [fastapi/applications.py]
+Add a middleware to the application.
+
+Read more about it in the
+[FastAPI docs for Middleware](https://fastapi.tiangolo.com/tutorial/middleware/).
+
+## Example
+
+⟦C1⟧
+=== 37 [fastapi/applications.py]
+Add an event handler for the application.
+
+`on_event` is deprecated, use `lifespan` event handlers instead.
+
+Read more about it in the
+[FastAPI docs for Lifespan Events](https://fastapi.tiangolo.com/advanced/events/#alternative-events-deprecated).
+=== 38 [fastapi/applications.py]
+Add an exception handler to the app.
+
+Read more about it in the
+[FastAPI docs for Handling Errors](https://fastapi.tiangolo.com/tutorial/handling-errors/).
+
+## Example
+
+⟦C1⟧
+=== 39 [fastapi/applications.py]
+Additional responses that could be returned by this *path operation*.
+
+It will be added to the generated OpenAPI (e.g. visible at `/docs`).
+=== 40 [fastapi/applications.py]
+Additional responses to be shown in OpenAPI.
+
+It will be added to the generated OpenAPI (e.g. visible at `/docs`).
+
+Read more about it in the
+[FastAPI docs for Additional Responses in OpenAPI](https://fastapi.tiangolo.com/advanced/additional-responses/).
+
+And in the
+[FastAPI docs for Bigger Applications](https://fastapi.tiangolo.com/tutorial/bigger-applications/#include-an-apirouter-with-a-custom-prefix-tags-responses-and-dependencies).
+=== 41 [fastapi/applications.py]
+An optional path prefix for the router.
+=== 42 [fastapi/applications.py]
+Boolean indicating if debug tracebacks should be returned on server
+errors.
+
+Read more in the
+[Starlette docs for Applications](https://starlette.dev/applications/#starlette.applications.Starlette).
+=== 43 [fastapi/applications.py]
+Check that the frontend directory exists when the app is created. When
+set to `"auto"`, skip the check with a warning when `FASTAPI_ENV` is
+`"development"`, and check it otherwise. The `fastapi dev` command
+sets `FASTAPI_ENV` to `"development"` if it is not already set.
+=== 44 [fastapi/applications.py]
+Configuration passed to Pydantic to define if the response data
+should have all the fields, including the ones that have the same value
+as the default. This is different from `response_model_exclude_unset`
+in that if the fields are set but contain the same default values,
+they will be excluded from the response.
+
+When `True`, default values are omitted from the response.
+
+Read more about it in the
+[FastAPI docs for Response Model - Return Type](https://fastapi.tiangolo.com/tutorial/response-model/#use-the-response_model_exclude_unset-parameter).
+=== 45 [fastapi/applications.py]
+Configuration passed to Pydantic to define if the response data
+should have all the fields, including the ones that were not set and
+have their default values. This is different from
+`response_model_exclude_defaults` in that if the fields are set,
+they will be included in the response, even if the value is the same
+as the default.
+
+When `True`, default values are omitted from the response.
+
+Read more about it in the
+[FastAPI docs for Response Model - Return Type](https://fastapi.tiangolo.com/tutorial/response-model/#use-the-response_model_exclude_unset-parameter).
+=== 46 [fastapi/applications.py]
+Configuration passed to Pydantic to define if the response data should
+exclude fields set to `None`.
+
+This is much simpler (less smart) than `response_model_exclude_unset`
+and `response_model_exclude_defaults`. You probably want to use one of
+those two instead of this one, as those allow returning `None` values
+when it makes sense.
+
+Read more about it in the
+[FastAPI docs for Response Model - Return Type](https://fastapi.tiangolo.com/tutorial/response-model/#response_model_exclude_none).
+=== 47 [fastapi/applications.py]
+Configuration passed to Pydantic to define if the response model
+should be serialized by alias when an alias is used.
+
+Read more about it in the
+[FastAPI docs for Response Model - Return Type](https://fastapi.tiangolo.com/tutorial/response-model/#response_model_include-and-response_model_exclude).
+=== 48 [fastapi/applications.py]
+Configuration passed to Pydantic to exclude certain fields in the
+response data.
+
+Read more about it in the
+[FastAPI docs for Response Model - Return Type](https://fastapi.tiangolo.com/tutorial/response-model/#response_model_include-and-response_model_exclude).
+=== 49 [fastapi/applications.py]
+Configuration passed to Pydantic to include only certain fields in the
+response data.
+
+Read more about it in the
+[FastAPI docs for Response Model - Return Type](https://fastapi.tiangolo.com/tutorial/response-model/#response_model_include-and-response_model_exclude).
+=== 50 [fastapi/applications.py]
+Custom operation ID to be used by this *path operation*.
+
+By default, it is generated automatically.
+
+If you provide a custom operation ID, you need to make sure it is
+unique for the whole API.
+
+You can customize the
+operation ID generation with the parameter
+`generate_unique_id_function` in the `FastAPI` class.
+
+Read more about it in the
+[FastAPI docs about how to Generate Clients](https://fastapi.tiangolo.com/advanced/generate-clients/#custom-generate-unique-id-function).
+=== 51 [fastapi/applications.py]
+Customize the function used to generate unique IDs for the *path
+operations* shown in the generated OpenAPI.
+
+This is particularly useful when automatically generating clients or
+SDKs for your API.
+
+Read more about it in the
+[FastAPI docs about how to Generate Clients](https://fastapi.tiangolo.com/advanced/generate-clients/#custom-generate-unique-id-function).
+=== 52 [fastapi/applications.py]
+Decorate a WebSocket function.
+
+Read more about it in the
+[FastAPI docs for WebSockets](https://fastapi.tiangolo.com/advanced/websockets/).
+
+**Example**
+
+⟦C1⟧
+=== 53 [fastapi/applications.py]
+Default response class to be used for the *path operations* in this
+router.
+
+Read more in the
+[FastAPI docs for Custom Response - HTML, Stream, File, others](https://fastapi.tiangolo.com/advanced/custom-response/#default-response-class).
+
+**Example**
+
+⟦C1⟧
+=== 54 [fastapi/applications.py]
+Enable strict checking for request Content-Type headers.
+
+When `True` (the default), requests with a body that do not include
+a `Content-Type` header will **not** be parsed as JSON.
+
+This prevents potential cross-site request forgery (CSRF) attacks
+that exploit the browser's ability to send requests without a
+Content-Type header, bypassing CORS preflight checks. In particular
+applicable for apps that need to be run locally (in localhost).
+
+When `False`, requests without a `Content-Type` header will have
+their body parsed as JSON, which maintains compatibility with
+certain clients that don't send `Content-Type` headers.
+
+Read more about it in the
+[FastAPI docs for Strict Content-Type](https://fastapi.tiangolo.com/advanced/strict-content-type/).
+=== 55 [fastapi/applications.py]
+Extra keyword arguments to be stored in the app, not used by FastAPI
+anywhere.
+=== 56 [fastapi/applications.py]
+Extra metadata to be included in the OpenAPI schema for this *path
+operation*.
+
+Read more about it in the
+[FastAPI docs for Path Operation Advanced Configuration](https://fastapi.tiangolo.com/advanced/path-operation-advanced-configuration/#custom-openapi-path-operation-schema).
+=== 57 [fastapi/applications.py]
+Generate the OpenAPI schema of the application. This is called by FastAPI
+internally.
+
+The first time it is called it stores the result in the attribute
+`app.openapi_schema`, and next times it is called, it just returns that same
+result. To avoid the cost of generating the schema every time.
+
+If you need to modify the generated OpenAPI schema, you could modify it.
+
+Read more in the
+[FastAPI docs for OpenAPI](https://fastapi.tiangolo.com/how-to/extending-openapi/).
+=== 58 [fastapi/applications.py]
+Include (or not) all the *path operations* in this router in the
+generated OpenAPI schema.
+
+This affects the generated OpenAPI (e.g. visible at `/docs`).
+
+**Example**
+
+⟦C1⟧
+=== 59 [fastapi/applications.py]
+Include an `APIRouter` in the same app.
+
+Read more about it in the
+[FastAPI docs for Bigger Applications](https://fastapi.tiangolo.com/tutorial/bigger-applications/).
+
+## Example
+
+⟦C1⟧
+=== 60 [fastapi/applications.py]
+Include this *path operation* in the generated OpenAPI schema.
+
+This affects the generated OpenAPI (e.g. visible at `/docs`).
+
+Read more about it in the
+[FastAPI docs for Query Parameters and String Validations](https://fastapi.tiangolo.com/tutorial/query-params-str-validations/#exclude-parameters-from-openapi).
+=== 61 [fastapi/applications.py]
+List of *path operations* that will be used as OpenAPI callbacks.
+
+This is only for OpenAPI documentation, the callbacks won't be used
+directly.
+
+It will be added to the generated OpenAPI (e.g. visible at `/docs`).
+
+Read more about it in the
+[FastAPI docs for OpenAPI Callbacks](https://fastapi.tiangolo.com/advanced/openapi-callbacks/).
+=== 62 [fastapi/applications.py]
+List of middleware to be added when creating the application.
+
+In FastAPI you would normally do this with `app.add_middleware()`
+instead.
+
+Read more in the
+[FastAPI docs for Middleware](https://fastapi.tiangolo.com/tutorial/middleware/).
+=== 63 [fastapi/applications.py]
+Mark all *path operations* as deprecated. You probably don't need it,
+but it's available.
+
+It will be added to the generated OpenAPI (e.g. visible at `/docs`).
+
+Read more about it in the
+[FastAPI docs for Path Operation Configuration](https://fastapi.tiangolo.com/tutorial/path-operation-configuration/#deprecate-a-path-operation).
+=== 64 [fastapi/applications.py]
+Mark all the *path operations* in this router as deprecated.
+
+It will be added to the generated OpenAPI (e.g. visible at `/docs`).
+
+**Example**
+
+⟦C1⟧
+=== 65 [fastapi/applications.py]
+Mark this *path operation* as deprecated.
+
+It will be added to the generated OpenAPI (e.g. visible at `/docs`).
+=== 66 [fastapi/applications.py]
+Name for this *path operation*. Only used internally.
+=== 67 [fastapi/applications.py]
+Native OpenTelemetry configuration as a dictionary. Uses global
+providers by default. Omitted options keep their defaults.
+
+⟦C1⟧
+=== 68 [fastapi/applications.py]
+OAuth2 configuration for the Swagger UI, by default shown at `/docs`.
+
+Read more about the available configuration options in the
+[Swagger UI docs](https://swagger.io/docs/open-source-tools/swagger-ui/usage/oauth2/).
+=== 69 [fastapi/applications.py]
+OpenAPI callbacks that should apply to all *path operations*.
+
+It will be added to the generated OpenAPI (e.g. visible at `/docs`).
+
+Read more about it in the
+[FastAPI docs for OpenAPI Callbacks](https://fastapi.tiangolo.com/advanced/openapi-callbacks/).
+=== 70 [fastapi/applications.py]
+Parameters to configure Swagger UI, the autogenerated interactive API
+documentation (by default at `/docs`).
+
+Read more about it in the
+[FastAPI docs about how to Configure Swagger UI](https://fastapi.tiangolo.com/how-to/configure-swagger-ui/).
+=== 71 [fastapi/applications.py]
+Response class to be used for this *path operation*.
+
+This will not be used if you return a response directly.
+
+Read more about it in the
+[FastAPI docs for Custom Response - HTML, Stream, File, others](https://fastapi.tiangolo.com/advanced/custom-response/#redirectresponse).
+=== 72 [fastapi/applications.py]
+Serve a static frontend build as low-priority routes.
+
+Use this for frontend tools that build static files into a directory,
+such as `dist`. **FastAPI** path operations are checked first, and
+the frontend files are checked only if no normal route matched.
+
+A typical project could look like this:
+
+⟦C1⟧
+
+Then in `app/main.py`:
+
+⟦C2⟧
+=== 73 [fastapi/applications.py]
+The Exception class this would handle, or a status code.
+=== 74 [fastapi/applications.py]
+The OAuth2 redirect endpoint for the Swagger UI.
+
+By default it is `/docs/oauth2-redirect`.
+
+This is only used if you use OAuth2 (with the "Authorize" button)
+with Swagger UI.
+=== 75 [fastapi/applications.py]
+The URL path prefix where the frontend build should be served.
+=== 76 [fastapi/applications.py]
+The URL path to be used for this *path operation*.
+
+For example, in `http://example.com/items`, the path is `/items`.
+=== 77 [fastapi/applications.py]
+The URL where the OpenAPI schema will be served from.
+
+If you set it to `None`, no OpenAPI schema will be served publicly, and
+the default automatic endpoints `/docs` and `/redoc` will also be
+disabled.
+
+Read more in the
+[FastAPI docs for Metadata and Docs URLs](https://fastapi.tiangolo.com/tutorial/metadata/#openapi-url).
+
+**Example**
+
+⟦C1⟧
+=== 78 [fastapi/applications.py]
+The `APIRouter` to include.
+=== 79 [fastapi/applications.py]
+The `app.webhooks` attribute is an `APIRouter` with the *path
+operations* that will be used just for documentation of webhooks.
+
+Read more about it in the
+[FastAPI docs for OpenAPI Webhooks](https://fastapi.tiangolo.com/advanced/openapi-webhooks/).
+=== 80 [fastapi/applications.py]
+The default response class to be used.
+
+Read more in the
+[FastAPI docs for Custom Response - HTML, Stream, File, others](https://fastapi.tiangolo.com/advanced/custom-response/#default-response-class).
+
+**Example**
+
+⟦C1⟧
+=== 81 [fastapi/applications.py]
+The default status code to be used for the response.
+
+You could override the status code by returning a response directly.
+
+Read more about it in the
+[FastAPI docs for Response Status Code](https://fastapi.tiangolo.com/tutorial/response-status-code/).
+=== 82 [fastapi/applications.py]
+The description for the default response.
+
+It will be added to the generated OpenAPI (e.g. visible at `/docs`).
+=== 83 [fastapi/applications.py]
+The directory containing the static frontend build output.
+=== 84 [fastapi/applications.py]
+The fallback file behavior for missing frontend paths.
+=== 85 [fastapi/applications.py]
+The path to the alternative automatic interactive API documentation
+provided by ReDoc.
+
+The default URL is `/redoc`. You can disable it by setting it to `None`.
+
+If `openapi_url` is set to `None`, this will be automatically disabled.
+
+Read more in the
+[FastAPI docs for Metadata and Docs URLs](https://fastapi.tiangolo.com/tutorial/metadata/#docs-urls).
+
+**Example**
+
+⟦C1⟧
+=== 86 [fastapi/applications.py]
+The path to the automatic interactive API documentation.
+It is handled in the browser by Swagger UI.
+
+The default URL is `/docs`. You can disable it by setting it to `None`.
+
+If `openapi_url` is set to `None`, this will be automatically disabled.
+
+Read more in the
+[FastAPI docs for Metadata and Docs URLs](https://fastapi.tiangolo.com/tutorial/metadata/#docs-urls).
+
+**Example**
+
+⟦C1⟧
+=== 87 [fastapi/applications.py]
+The title of the API.
+
+It will be added to the generated OpenAPI (e.g. visible at `/docs`).
+
+Read more in the
+[FastAPI docs for Metadata and Docs URLs](https://fastapi.tiangolo.com/tutorial/metadata/#metadata-for-api).
+
+**Example**
+
+⟦C1⟧
+=== 88 [fastapi/applications.py]
+The type of event. `startup` or `shutdown`.
+=== 89 [fastapi/applications.py]
+The type of middleware. Currently only supports `http`.
+=== 90 [fastapi/applications.py]
+The type to use for the response.
+
+It could be any valid Pydantic *field* type. So, it doesn't have to
+be a Pydantic model, it could be other things, like a `list`, `dict`,
+etc.
+
+It will be used for:
+
+* Documentation: the generated OpenAPI (and the UI at `/docs`) will
+    show it as the response (JSON Schema).
+* Serialization: you could return an arbitrary object and the
+    `response_model` would be used to serialize that object into the
+    corresponding JSON.
+* Filtering: the JSON sent to the client will only contain the data
+    (fields) defined in the `response_model`. If you returned an object
+    that contains an attribute `password` but the `response_model` does
+    not include that field, the JSON sent to the client would not have
+    that `password`.
+* Validation: whatever you return will be serialized with the
+    `response_model`, converting any data as necessary to generate the
+    corresponding JSON. But if the data in the object returned is not
+    valid, that would mean a violation of the contract with the client,
+    so it's an error from the API developer. So, FastAPI will raise an
+    error and return a 500 error code (Internal Server Error).
+
+Read more about it in the
+[FastAPI docs for Response Model](https://fastapi.tiangolo.com/tutorial/response-model/).
+=== 91 [fastapi/applications.py]
+The version of the API.
+
+**Note** This is the version of your application, not the version of
+the OpenAPI specification nor the version of FastAPI being used.
+
+It will be added to the generated OpenAPI (e.g. visible at `/docs`).
+
+Read more in the
+[FastAPI docs for Metadata and Docs URLs](https://fastapi.tiangolo.com/tutorial/metadata/#metadata-for-api).
+
+**Example**
+
+⟦C1⟧
+=== 92 [fastapi/applications.py]
+The version string of OpenAPI.
+
+FastAPI will generate OpenAPI version 3.1.0, and will output that as
+the OpenAPI version. But some tools, even though they might be
+compatible with OpenAPI 3.1.0, might not recognize it as a valid.
+
+So you could override this value to trick those tools into using
+the generated OpenAPI. Have in mind that this is a hack. But if you
+avoid using features added in OpenAPI 3.1.0, it might work for your
+use case.
+
+This is not passed as a parameter to the `FastAPI` class to avoid
+giving the false idea that FastAPI would generate a different OpenAPI
+schema. It is only available as an attribute.
+
+**Example**
+
+⟦C1⟧
+=== 93 [fastapi/applications.py]
+This field allows you to provide additional external documentation links.
+If provided, it must be a dictionary containing:
+
+* `description`: A brief description of the external documentation.
+* `url`: The URL pointing to the external documentation. The value **MUST**
+be a valid URL format.
+
+**Example**:
+
+⟦C1⟧
+=== 94 [fastapi/applications.py]
+To disable automatically generating the URLs in the `servers` field
+in the autogenerated OpenAPI using the `root_path`.
+
+Read more about it in the
+[FastAPI docs for Behind a Proxy](https://fastapi.tiangolo.com/advanced/behind-a-proxy/#disable-automatic-server-from-root-path).
+
+**Example**
+
+⟦C1⟧
+=== 95 [fastapi/applications.py]
+To include (or not) all the *path operations* in the generated OpenAPI.
+You probably don't need it, but it's available.
+
+This affects the generated OpenAPI (e.g. visible at `/docs`).
+
+Read more about it in the
+[FastAPI docs for Query Parameters and String Validations](https://fastapi.tiangolo.com/tutorial/query-params-str-validations/#exclude-parameters-from-openapi).
+=== 96 [fastapi/applications.py]
+WebSocket path.
+=== 97 [fastapi/applications.py]
+Whether to detect and redirect slashes in URLs when the client doesn't
+use the same format.
+
+**Example**
+
+⟦C1⟧
+
+With this app, if a client goes to `/items` (without a trailing slash),
+they will be automatically redirected with an HTTP status code of 307
+to `/items/`.
+=== 98 [fastapi/applications.py]
+Whether to generate separate OpenAPI schemas for request body and
+response body when the results would be more precise.
+
+This is particularly useful when automatically generating clients.
+
+For example, if you have a model like:
+
+⟦C1⟧
+
+When `Item` is used for input, a request body, `tags` is not required,
+the client doesn't have to provide it.
+
+But when using `Item` for output, for a response body, `tags` is always
+available because it has a default value, even if it's just an empty
+list. So, the client should be able to always expect it.
+
+In this case, there would be two different schemas, one for input and
+another one for output.
+
+Read more about it in the
+[FastAPI docs about how to separate schemas for input and output](https://fastapi.tiangolo.com/how-to/separate-openapi-schemas)
+=== 99 [fastapi/applications.py]
+`FastAPI` app class, the main entrypoint to use FastAPI.
+
+Read more in the
+[FastAPI docs for First Steps](https://fastapi.tiangolo.com/tutorial/first-steps/).
+
+## Example
+
+⟦C1⟧
+=== 100 [fastapi/background.py]
+A collection of background tasks that will be called after a response has been
+sent to the client.
+
+Read more about it in the
+[FastAPI docs for Background Tasks](https://fastapi.tiangolo.com/tutorial/background-tasks/).
+
+## Example
+
+⟦C1⟧
+=== 101 [fastapi/background.py]
+Add a function to be called in the background after the response is sent.
+
+Read more about it in the
+[FastAPI docs for Background Tasks](https://fastapi.tiangolo.com/tutorial/background-tasks/).
+=== 102 [fastapi/background.py]
+The function to call after the response is sent.
+
+It can be a regular `def` function or an `async def` function.
+=== 103 [fastapi/datastructures.py]
+A file uploaded in a request.
+
+Define it as a *path operation function* (or dependency) parameter.
+
+If you are using a regular `def` function, you can use the `upload_file.file`
+attribute to access the raw standard Python file (blocking, not async), useful and
+needed for non-async code.
+
+Read more about it in the
+[FastAPI docs for Request Files](https://fastapi.tiangolo.com/tutorial/request-files/).
+
+## Example
+
+⟦C1⟧
+=== 104 [fastapi/datastructures.py]
+Close the file.
+
+To be awaitable, compatible with async, this is run in threadpool.
+=== 105 [fastapi/datastructures.py]
+Move to a position in the file.
+
+Any next read or write will be done from that position.
+
+To be awaitable, compatible with async, this is run in threadpool.
+=== 106 [fastapi/datastructures.py]
+Read some bytes from the file.
+
+To be awaitable, compatible with async, this is run in threadpool.
+=== 107 [fastapi/datastructures.py]
+The bytes to write to the file.
+=== 108 [fastapi/datastructures.py]
+The content type of the request, from the headers.
+=== 109 [fastapi/datastructures.py]
+The headers of the request.
+=== 110 [fastapi/datastructures.py]
+The number of bytes to read from the file.
+=== 111 [fastapi/datastructures.py]
+The original file name.
+=== 112 [fastapi/datastructures.py]
+The position in bytes to seek to in the file.
+=== 113 [fastapi/datastructures.py]
+The size of the file in bytes.
+=== 114 [fastapi/datastructures.py]
+The standard Python file object (non-async).
+=== 115 [fastapi/datastructures.py]
+Write some bytes to the file.
+
+You normally wouldn't use this from a file you read in a request.
+
+To be awaitable, compatible with async, this is run in threadpool.
+=== 116 [fastapi/datastructures.py]
+You shouldn't use this class directly.
+
+It's used internally to recognize when a default value has been overwritten, even
+if the overridden default value was truthy.
+=== 117 [fastapi/datastructures.py]
+You shouldn't use this function directly.
+
+It's used internally to recognize when a default value has been overwritten, even
+if the overridden default value was truthy.
+=== 118 [fastapi/dependencies/utils.py]
+Check if field type is a Union where all members are BaseModel subclasses.
+=== 119 [fastapi/dependencies/utils.py]
+Get a ModelField representing the request body for a path operation, combining
+all body parameters into a single field if necessary.
+
+Used to check if it's form data (with `isinstance(body_field, params.Form)`)
+or JSON and to generate the JSON Schema for a request body.
+
+This is **not** used to validate/parse the request body, that's done with each
+individual body parameter.
+=== 120 [fastapi/encoders.py]
+Convert any object to something that can be encoded in JSON.
+
+This is used internally by FastAPI to make sure anything you return can be
+encoded as JSON before it is sent to the client.
+
+You can also use it yourself, for example to convert objects before saving them
+in a database that supports only JSON.
+
+Read more about it in the
+[FastAPI docs for JSON Compatible Encoder](https://fastapi.tiangolo.com/tutorial/encoder/).
+=== 121 [fastapi/encoders.py]
+Encodes a Decimal as int if there's no exponent, otherwise float
+
+This is useful when we use ConstrainedDecimal to represent Numeric(x,0)
+where an integer (but not int typed) is used. Encoding this as a float
+results in failed round-tripping between encode and parse.
+Our Id type is a prime example of this.
+
+>>> decimal_encoder(Decimal("1.0"))
+1.0
+
+>>> decimal_encoder(Decimal("1"))
+1
+
+>>> decimal_encoder(Decimal("NaN"))
+nan
+=== 122 [fastapi/encoders.py]
+Exclude from the output any fields that start with the name `_sa`.
+
+This is mainly a hack for compatibility with SQLAlchemy objects, they
+store internal SQLAlchemy-specific state in attributes named with `_sa`,
+and those objects can't (and shouldn't be) serialized to JSON.
+=== 123 [fastapi/encoders.py]
+Pydantic's `by_alias` parameter, passed to Pydantic models to define if
+the output should use the alias names (when provided) or the Python
+attribute names. In an API, if you set an alias, it's probably because you
+want to use it in the result, so you probably want to leave this set to
+`True`.
+=== 124 [fastapi/encoders.py]
+Pydantic's `custom_encoder` parameter, passed to Pydantic models to define
+a custom encoder.
+=== 125 [fastapi/encoders.py]
+Pydantic's `exclude_defaults` parameter, passed to Pydantic models to define
+if it should exclude from the output the fields that had the same default
+value, even when they were explicitly set.
+=== 126 [fastapi/encoders.py]
+Pydantic's `exclude_none` parameter, passed to Pydantic models to define
+if it should exclude from the output any fields that have a `None` value.
+=== 127 [fastapi/encoders.py]
+Pydantic's `exclude_unset` parameter, passed to Pydantic models to define
+if it should exclude from the output the fields that were not explicitly
+set (and that only had their default values).
+=== 128 [fastapi/encoders.py]
+Pydantic's `exclude` parameter, passed to Pydantic models to set the
+fields to exclude.
+=== 129 [fastapi/encoders.py]
+Pydantic's `include` parameter, passed to Pydantic models to set the
+fields to include.
+=== 130 [fastapi/encoders.py]
+The input object to convert to JSON.
+=== 131 [fastapi/exceptions.py]
+A WebSocket exception you can raise in your own code to show errors to the client.
+
+This is for client errors, invalid authentication, invalid data, etc. Not for server
+errors in your code.
+
+Read more about it in the
+[FastAPI docs for WebSockets](https://fastapi.tiangolo.com/advanced/websockets/).
+
+## Example
+
+⟦C1⟧
+=== 132 [fastapi/exceptions.py]
+A closing code from the
+[valid codes defined in the specification](https://datatracker.ietf.org/doc/html/rfc6455#section-7.4.1).
+=== 133 [fastapi/exceptions.py]
+A custom deprecation warning as DeprecationWarning is ignored
+Ref: https://sethmlarson.dev/deprecations-via-warnings-dont-work-for-python-libraries
+=== 134 [fastapi/exceptions.py]
+A dependency declared that it depends on another dependency with an invalid
+(narrower) scope.
+=== 135 [fastapi/exceptions.py]
+A generic, FastAPI-specific error.
+=== 136 [fastapi/exceptions.py]
+A pydantic.v1 model is used, which is no longer supported.
+=== 137 [fastapi/exceptions.py]
+An HTTP exception you can raise in your own code to show errors to the client.
+
+This is for client errors, invalid authentication, invalid data, etc. Not for server
+errors in your code.
+
+Read more about it in the
+[FastAPI docs for Handling Errors](https://fastapi.tiangolo.com/tutorial/handling-errors/).
+
+## Example
+
+⟦C1⟧
+=== 138 [fastapi/exceptions.py]
+Any data to be sent to the client in the `detail` key of the JSON
+response.
+
+Read more about it in the
+[FastAPI docs for Handling Errors](https://fastapi.tiangolo.com/tutorial/handling-errors/#use-httpexception)
+=== 139 [fastapi/exceptions.py]
+Any headers to send to the client in the response.
+
+Read more about it in the
+[FastAPI docs for Handling Errors](https://fastapi.tiangolo.com/tutorial/handling-errors/#add-custom-headers)
+=== 140 [fastapi/exceptions.py]
+HTTP status code to send to the client.
+
+Read more about it in the
+[FastAPI docs for Handling Errors](https://fastapi.tiangolo.com/tutorial/handling-errors/#use-httpexception)
+=== 141 [fastapi/exceptions.py]
+The reason to close the WebSocket connection.
+
+It is UTF-8-encoded data. The interpretation of the reason is up to the
+application, it is not specified by the WebSocket specification.
+
+It could contain text that could be human-readable or interpretable
+by the client code, etc.
+=== 142 [fastapi/openapi/docs.py]
+A dictionary with Swagger UI OAuth2 initialization configurations.
+
+Read more about the available configuration options in the
+[Swagger UI docs](https://swagger.io/docs/open-source-tools/swagger-ui/usage/oauth2/).
+=== 143 [fastapi/openapi/docs.py]
+Configuration parameters for Swagger UI.
+
+It defaults to [swagger_ui_default_parameters][fastapi.openapi.docs.swagger_ui_default_parameters].
+
+Read more about it in the
+[FastAPI docs about how to Configure Swagger UI](https://fastapi.tiangolo.com/how-to/configure-swagger-ui/).
+=== 144 [fastapi/openapi/docs.py]
+Default configurations for Swagger UI.
+
+You can use it as a template to add any other configurations needed.
+=== 145 [fastapi/openapi/docs.py]
+Generate and return the HTML  that loads Swagger UI for the interactive
+API docs (normally served at `/docs`).
+
+You would only call this function yourself if you needed to override some parts,
+for example the URLs to use to load Swagger UI's JavaScript and CSS.
+
+Read more about it in the
+[FastAPI docs for Configure Swagger UI](https://fastapi.tiangolo.com/how-to/configure-swagger-ui/)
+and the [FastAPI docs for Custom Docs UI Static Assets (Self-Hosting)](https://fastapi.tiangolo.com/how-to/custom-docs-ui-assets/).
+=== 146 [fastapi/openapi/docs.py]
+Generate and return the HTML response that loads ReDoc for the alternative
+API docs (normally served at `/redoc`).
+
+You would only call this function yourself if you needed to override some parts,
+for example the URLs to use to load ReDoc's JavaScript and CSS.
+
+Read more about it in the
+[FastAPI docs for Custom Docs UI Static Assets (Self-Hosting)](https://fastapi.tiangolo.com/how-to/custom-docs-ui-assets/).
+=== 147 [fastapi/openapi/docs.py]
+Generate the HTML response with the OAuth2 redirection for Swagger UI.
+
+You normally don't need to use or change this.
+=== 148 [fastapi/openapi/docs.py]
+Load and use Google Fonts.
+=== 149 [fastapi/openapi/docs.py]
+Serialize a value to JSON with HTML special characters escaped.
+
+This prevents injection when the JSON is embedded inside a <script> tag.
+=== 150 [fastapi/openapi/docs.py]
+The HTML `<title>` content, normally shown in the browser tab.
+
+Read more about it in the
+[FastAPI docs for Custom Docs UI Static Assets](https://fastapi.tiangolo.com/how-to/custom-docs-ui-assets/)
+=== 151 [fastapi/openapi/docs.py]
+The OAuth2 redirect URL, it is normally automatically handled by FastAPI.
+
+Read more about it in the
+[FastAPI docs for Custom Docs UI Static Assets](https://fastapi.tiangolo.com/how-to/custom-docs-ui-assets/)
+=== 152 [fastapi/openapi/docs.py]
+The OpenAPI URL that ReDoc should load and use.
+
+This is normally done automatically by FastAPI using the default URL
+`/openapi.json`.
+
+Read more about it in the
+[FastAPI docs for Conditional OpenAPI](https://fastapi.tiangolo.com/how-to/conditional-openapi/#conditional-openapi-from-settings-and-env-vars)
+=== 153 [fastapi/openapi/docs.py]
+The OpenAPI URL that Swagger UI should load and use.
+
+This is normally done automatically by FastAPI using the default URL
+`/openapi.json`.
+
+Read more about it in the
+[FastAPI docs for Conditional OpenAPI](https://fastapi.tiangolo.com/how-to/conditional-openapi/#conditional-openapi-from-settings-and-env-vars)
+=== 154 [fastapi/openapi/docs.py]
+The URL of the favicon to use. It is normally shown in the browser tab.
+=== 155 [fastapi/openapi/docs.py]
+The URL to use to load the ReDoc JavaScript.
+
+It is normally set to a CDN URL.
+
+Read more about it in the
+[FastAPI docs for Custom Docs UI Static Assets](https://fastapi.tiangolo.com/how-to/custom-docs-ui-assets/)
+=== 156 [fastapi/openapi/docs.py]
+The URL to use to load the Swagger UI CSS.
+
+It is normally set to a CDN URL.
+
+Read more about it in the
+[FastAPI docs for Custom Docs UI Static Assets](https://fastapi.tiangolo.com/how-to/custom-docs-ui-assets/)
+=== 157 [fastapi/openapi/docs.py]
+The URL to use to load the Swagger UI JavaScript.
+
+It is normally set to a CDN URL.
+
+Read more about it in the
+[FastAPI docs for Custom Docs UI Static Assets](https://fastapi.tiangolo.com/how-to/custom-docs-ui-assets/)
+=== 158 [fastapi/param_functions.py]
+'Blacklist' validation step. The vanilla parameter field will be the
+single one of the alias' or set of aliases' fields and all the other
+fields will be ignored at serialization time.
+=== 159 [fastapi/param_functions.py]
+'Whitelist' validation step. The parameter field will be the single one
+allowed by the alias or set of aliases defined.
+=== 160 [fastapi/param_functions.py]
+A "dependable" callable (like a function).
+
+Don't call it directly, FastAPI will call it for you, just pass the object
+directly.
+
+Read more about it in the
+[FastAPI docs for Dependencies](https://fastapi.tiangolo.com/tutorial/dependencies/)
+=== 161 [fastapi/param_functions.py]
+A callable to generate the default value.
+
+This doesn't affect `Path` parameters as the value is always required.
+The parameter is available only for compatibility.
+=== 162 [fastapi/param_functions.py]
+Allow `inf`, `-inf`, `nan`. Only applicable to numbers.
+=== 163 [fastapi/param_functions.py]
+An alternative name for the parameter field.
+
+This will be used to extract the data and for the generated OpenAPI.
+It is particularly useful when you can't use the name you want because it
+is a Python reserved keyword or similar.
+=== 164 [fastapi/param_functions.py]
+An alternative name for the parameter field.
+
+This will be used to extract the data and for the generated OpenAPI.
+It is particularly useful when you can't use the name you want because it
+is a Python reserved keyword or similar.
+
+Read more about it in the
+[FastAPI docs about Query parameters](https://fastapi.tiangolo.com/tutorial/query-params-str-validations/#alias-parameters)
+=== 165 [fastapi/param_functions.py]
+Any additional JSON schema data.
+=== 166 [fastapi/param_functions.py]
+Automatically convert underscores to hyphens in the parameter field name.
+
+Read more about it in the
+[FastAPI docs for Header Parameters](https://fastapi.tiangolo.com/tutorial/header-params/#automatic-conversion)
+=== 167 [fastapi/param_functions.py]
+By default, after a dependency is called the first time in a request, if
+the dependency is declared again for the rest of the request (for example
+if the dependency is needed by several dependencies), the value will be
+re-used for the rest of the request.
+
+Set `use_cache` to `False` to disable this behavior and ensure the
+dependency is called again (if declared more than once) in the same request.
+
+Read more about it in the
+[FastAPI docs about sub-dependencies](https://fastapi.tiangolo.com/tutorial/dependencies/sub-dependencies/#using-the-same-dependency-multiple-times)
+=== 168 [fastapi/param_functions.py]
+Declare a FastAPI Security dependency.
+
+The only difference with a regular dependency is that it can declare OAuth2
+scopes that will be integrated with OpenAPI and the automatic UI docs (by default
+at `/docs`).
+
+It takes a single "dependable" callable (like a function).
+
+Don't call it directly, FastAPI will call it for you.
+
+Read more about it in the
+[FastAPI docs for Security](https://fastapi.tiangolo.com/tutorial/security/) and
+in the
+[FastAPI docs for OAuth2 scopes](https://fastapi.tiangolo.com/advanced/security/oauth2-scopes/).
+
+**Example**
+
+⟦C1⟧
+=== 169 [fastapi/param_functions.py]
+Declare a FastAPI dependency.
+
+It takes a single "dependable" callable (like a function).
+
+Don't call it directly, FastAPI will call it for you.
+
+Read more about it in the
+[FastAPI docs for Dependencies](https://fastapi.tiangolo.com/tutorial/dependencies/).
+
+**Example**
+
+⟦C1⟧
+=== 170 [fastapi/param_functions.py]
+Declare a path parameter for a *path operation*.
+
+Read more about it in the
+[FastAPI docs for Path Parameters and Numeric Validations](https://fastapi.tiangolo.com/tutorial/path-params-numeric-validations/).
+
+⟦C1⟧
+=== 171 [fastapi/param_functions.py]
+Default value if the parameter field is not set.
+=== 172 [fastapi/param_functions.py]
+Default value if the parameter field is not set.
+
+Read more about it in the
+[FastAPI docs about Query parameters](https://fastapi.tiangolo.com/tutorial/query-params-str-validations/#alternative-old-query-as-the-default-value)
+=== 173 [fastapi/param_functions.py]
+Default value if the parameter field is not set.
+
+This doesn't affect `Path` parameters as the value is always required.
+The parameter is available only for compatibility.
+=== 174 [fastapi/param_functions.py]
+Example values for this field.
+
+Read more about it in the
+[FastAPI docs for Declare Request Example Data](https://fastapi.tiangolo.com/tutorial/schema-extra-example/)
+=== 175 [fastapi/param_functions.py]
+Greater than or equal. If set, value must be greater than or equal to
+this. Only applicable to numbers.
+=== 176 [fastapi/param_functions.py]
+Greater than or equal. If set, value must be greater than or equal to
+this. Only applicable to numbers.
+
+Read more about it in the
+[FastAPI docs about Path parameters numeric validations](https://fastapi.tiangolo.com/tutorial/path-params-numeric-validations/#number-validations-greater-than-and-less-than-or-equal)
+=== 177 [fastapi/param_functions.py]
+Greater than. If set, value must be greater than this. Only applicable to
+numbers.
+=== 178 [fastapi/param_functions.py]
+Greater than. If set, value must be greater than this. Only applicable to
+numbers.
+
+Read more about it in the
+[FastAPI docs about Path parameters numeric validations](https://fastapi.tiangolo.com/tutorial/path-params-numeric-validations/#number-validations-greater-than-and-less-than-or-equal)
+=== 179 [fastapi/param_functions.py]
+Human-readable description.
+=== 180 [fastapi/param_functions.py]
+Human-readable description.
+
+Read more about it in the
+[FastAPI docs about Query parameters](https://fastapi.tiangolo.com/tutorial/query-params-str-validations/#declare-more-metadata)
+=== 181 [fastapi/param_functions.py]
+Human-readable title.
+=== 182 [fastapi/param_functions.py]
+Human-readable title.
+
+Read more about it in the
+[FastAPI docs about Query parameters](https://fastapi.tiangolo.com/tutorial/query-params-str-validations/#declare-more-metadata)
+=== 183 [fastapi/param_functions.py]
+Human-readable title.
+
+Read more about it in the
+[FastAPI docs for Path Parameters and Numeric Validations](https://fastapi.tiangolo.com/tutorial/path-params-numeric-validations/#declare-metadata)
+=== 184 [fastapi/param_functions.py]
+If `True`, strict validation is applied to the field.
+=== 185 [fastapi/param_functions.py]
+Include extra fields used by the JSON Schema.
+=== 186 [fastapi/param_functions.py]
+Less than or equal. If set, value must be less than or equal to this.
+Only applicable to numbers.
+=== 187 [fastapi/param_functions.py]
+Less than or equal. If set, value must be less than or equal to this.
+Only applicable to numbers.
+
+Read more about it in the
+[FastAPI docs about Path parameters numeric validations](https://fastapi.tiangolo.com/tutorial/path-params-numeric-validations/#number-validations-greater-than-and-less-than-or-equal)
+=== 188 [fastapi/param_functions.py]
+Less than. If set, value must be less than this. Only applicable to numbers.
+=== 189 [fastapi/param_functions.py]
+Less than. If set, value must be less than this. Only applicable to numbers.
+
+Read more about it in the
+[FastAPI docs about Path parameters numeric validations](https://fastapi.tiangolo.com/tutorial/path-params-numeric-validations/#number-validations-greater-than-and-less-than-or-equal)
+=== 190 [fastapi/param_functions.py]
+Mainly for dependencies with `yield`, define when the dependency function
+should start (the code before `yield`) and when it should end (the code
+after `yield`).
+
+* `"function"`: start the dependency before the *path operation function*
+    that handles the request, end the dependency after the *path operation
+    function* ends, but **before** the response is sent back to the client.
+    So, the dependency function will be executed **around** the *path operation
+    **function***.
+* `"request"`: start the dependency before the *path operation function*
+    that handles the request (similar to when using `"function"`), but end
+    **after** the response is sent back to the client. So, the dependency
+    function will be executed **around** the **request** and response cycle.
+
+Read more about it in the
+[FastAPI docs for FastAPI Dependencies with yield](https://fastapi.tiangolo.com/tutorial/dependencies/dependencies-with-yield/#early-exit-and-scope)
+=== 191 [fastapi/param_functions.py]
+Mark this parameter field as deprecated.
+
+It will affect the generated OpenAPI (e.g. visible at `/docs`).
+=== 192 [fastapi/param_functions.py]
+Mark this parameter field as deprecated.
+
+It will affect the generated OpenAPI (e.g. visible at `/docs`).
+
+Read more about it in the
+[FastAPI docs about Query parameters](https://fastapi.tiangolo.com/tutorial/query-params-str-validations/#deprecating-parameters)
+=== 193 [fastapi/param_functions.py]
+Maximum length for strings.
+=== 194 [fastapi/param_functions.py]
+Maximum length for strings.
+
+Read more about it in the
+[FastAPI docs about Query parameters](https://fastapi.tiangolo.com/tutorial/query-params-str-validations/)
+=== 195 [fastapi/param_functions.py]
+Maximum number of decimal places allowed for decimal values.
+=== 196 [fastapi/param_functions.py]
+Maximum number of digits allowed for decimal values.
+=== 197 [fastapi/param_functions.py]
+Minimum length for strings.
+=== 198 [fastapi/param_functions.py]
+Minimum length for strings.
+
+Read more about it in the
+[FastAPI docs about Query parameters](https://fastapi.tiangolo.com/tutorial/query-params-str-validations/)
+=== 199 [fastapi/param_functions.py]
+OAuth2 scopes required for the *path operation* that uses this Security
+dependency.
+
+The term "scope" comes from the OAuth2 specification, it seems to be
+intentionally vague and interpretable. It normally refers to permissions,
+in cases to roles.
+
+These scopes are integrated with OpenAPI (and the API docs at `/docs`).
+So they are visible in the OpenAPI specification.
+
+Read more about it in the
+[FastAPI docs about OAuth2 scopes](https://fastapi.tiangolo.com/advanced/security/oauth2-scopes/)
+=== 200 [fastapi/param_functions.py]
+OpenAPI-specific examples.
+
+It will be added to the generated OpenAPI (e.g. visible at `/docs`).
+
+Swagger UI (that provides the `/docs` interface) has better support for the
+OpenAPI-specific examples than the JSON Schema `examples`, that's the main
+use case for this.
+
+Read more about it in the
+[FastAPI docs for Declare Request Example Data](https://fastapi.tiangolo.com/tutorial/schema-extra-example/#using-the-openapi_examples-parameter).
+=== 201 [fastapi/param_functions.py]
+Parameter field name for discriminating the type in a tagged union.
+=== 202 [fastapi/param_functions.py]
+Priority of the alias. This affects whether an alias generator is used.
+=== 203 [fastapi/param_functions.py]
+RegEx pattern for strings.
+=== 204 [fastapi/param_functions.py]
+RegEx pattern for strings.
+
+Read more about it in the
+[FastAPI docs about Query parameters](https://fastapi.tiangolo.com/tutorial/query-params-str-validations/#add-regular-expressions
+=== 205 [fastapi/param_functions.py]
+The media type of this parameter field. Changing it would affect the
+generated OpenAPI, but currently it doesn't affect the parsing of the data.
+=== 206 [fastapi/param_functions.py]
+To include (or not) this parameter field in the generated OpenAPI.
+You probably don't need it, but it's available.
+
+This affects the generated OpenAPI (e.g. visible at `/docs`).
+=== 207 [fastapi/param_functions.py]
+To include (or not) this parameter field in the generated OpenAPI.
+You probably don't need it, but it's available.
+
+This affects the generated OpenAPI (e.g. visible at `/docs`).
+
+Read more about it in the
+[FastAPI docs about Query parameters](https://fastapi.tiangolo.com/tutorial/query-params-str-validations/#exclude-parameters-from-openapi
+=== 208 [fastapi/param_functions.py]
+Value must be a multiple of this. Only applicable to numbers.
+=== 209 [fastapi/param_functions.py]
+When `embed` is `True`, the parameter will be expected in a JSON body as a
+key instead of being the JSON body itself.
+
+This happens automatically when more than one `Body` parameter is declared.
+
+Read more about it in the
+[FastAPI docs for Body - Multiple Parameters](https://fastapi.tiangolo.com/tutorial/body-multiple-params/#embed-a-single-body-parameter).
+=== 210 [fastapi/responses.py]
+JSON response using the orjson library to serialize data to JSON.
+
+**Deprecated**: `ORJSONResponse` is deprecated. FastAPI now serializes data
+directly to JSON bytes via Pydantic when a return type or response model is
+set, which is faster and doesn't need a custom response class.
+
+Read more in the
+[FastAPI docs for Custom Response](https://fastapi.tiangolo.com/advanced/custom-response/#orjson-or-response-model)
+and the
+[FastAPI docs for Response Model](https://fastapi.tiangolo.com/tutorial/response-model/).
+
+**Note**: `orjson` is not included with FastAPI and must be installed
+separately, e.g. `pip install orjson`.
+=== 211 [fastapi/responses.py]
+JSON response using the ujson library to serialize data to JSON.
+
+**Deprecated**: `UJSONResponse` is deprecated. FastAPI now serializes data
+directly to JSON bytes via Pydantic when a return type or response model is
+set, which is faster and doesn't need a custom response class.
+
+Read more in the
+[FastAPI docs for Custom Response](https://fastapi.tiangolo.com/advanced/custom-response/#orjson-or-response-model)
+and the
+[FastAPI docs for Response Model](https://fastapi.tiangolo.com/tutorial/response-model/).
+
+**Note**: `ujson` is not included with FastAPI and must be installed
+separately, e.g. `pip install ujson`.
+=== 212 [fastapi/routing.py]
+A list of dependencies (using `Depends()`) to be applied to all the
+*path operations* in this router.
+
+Read more about it in the
+[FastAPI docs for Bigger Applications - Multiple Files](https://fastapi.tiangolo.com/tutorial/bigger-applications/#include-an-apirouter-with-a-custom-prefix-tags-responses-and-dependencies).
+=== 213 [fastapi/routing.py]
+Add a *path operation* using an HTTP DELETE operation.
+
+## Example
+
+⟦C1⟧
+=== 214 [fastapi/routing.py]
+Add a *path operation* using an HTTP GET operation.
+
+## Example
+
+⟦C1⟧
+=== 215 [fastapi/routing.py]
+Add a *path operation* using an HTTP HEAD operation.
+
+## Example
+
+⟦C1⟧
+=== 216 [fastapi/routing.py]
+Add a *path operation* using an HTTP OPTIONS operation.
+
+## Example
+
+⟦C1⟧
+=== 217 [fastapi/routing.py]
+Add a *path operation* using an HTTP PATCH operation.
+
+## Example
+
+⟦C1⟧
+=== 218 [fastapi/routing.py]
+Add a *path operation* using an HTTP POST operation.
+
+## Example
+
+⟦C1⟧
+=== 219 [fastapi/routing.py]
+Add a *path operation* using an HTTP PUT operation.
+
+## Example
+
+⟦C1⟧
+=== 220 [fastapi/routing.py]
+Add a *path operation* using an HTTP TRACE operation.
+
+## Example
+
+⟦C1⟧
+=== 221 [fastapi/routing.py]
+Add an event handler for the router.
+
+`on_event` is deprecated, use `lifespan` event handlers instead.
+
+Read more about it in the
+[FastAPI docs for Lifespan Events](https://fastapi.tiangolo.com/advanced/events/#alternative-events-deprecated).
+=== 222 [fastapi/routing.py]
+Add an event handler function for startup or shutdown.
+
+This method is kept for backward compatibility after Starlette removed
+support for on_startup/on_shutdown handlers.
+
+Ref: https://github.com/Kludex/starlette/pull/3117
+=== 223 [fastapi/routing.py]
+Custom route (*path operation*) class to be used by this router.
+
+Read more about it in the
+[FastAPI docs for Custom Request and APIRoute class](https://fastapi.tiangolo.com/how-to/custom-request-and-route/#custom-apiroute-class-in-a-router).
+=== 224 [fastapi/routing.py]
+Decorate a WebSocket function.
+
+Read more about it in the
+[FastAPI docs for WebSockets](https://fastapi.tiangolo.com/advanced/websockets/).
+
+**Example**
+
+## Example
+
+⟦C1⟧
+=== 225 [fastapi/routing.py]
+Default function handler for this router. Used to handle
+404 Not Found errors.
+=== 226 [fastapi/routing.py]
+Default lifespan context manager that runs on_startup and on_shutdown handlers.
+
+This is a copy of the Starlette _DefaultLifespan class that was removed
+in Starlette. FastAPI keeps it to maintain backward compatibility with
+on_startup and on_shutdown event handlers.
+
+Ref: https://github.com/Kludex/starlette/pull/3117
+=== 227 [fastapi/routing.py]
+Extract endpoint context with caching to avoid repeated file I/O.
+=== 228 [fastapi/routing.py]
+Include (or not) all the *path operations* in this router in the
+generated OpenAPI schema.
+
+This affects the generated OpenAPI (e.g. visible at `/docs`).
+=== 229 [fastapi/routing.py]
+Include another `APIRouter` in the same current `APIRouter`.
+
+Read more about it in the
+[FastAPI docs for Bigger Applications](https://fastapi.tiangolo.com/tutorial/bigger-applications/).
+
+## Example
+
+⟦C1⟧
+=== 230 [fastapi/routing.py]
+Mark all *path operations* in this router as deprecated.
+
+It will be added to the generated OpenAPI (e.g. visible at `/docs`).
+
+Read more about it in the
+[FastAPI docs for Path Operation Configuration](https://fastapi.tiangolo.com/tutorial/path-operation-configuration/).
+=== 231 [fastapi/routing.py]
+Only used internally by FastAPI to handle dependency overrides.
+
+You shouldn't need to use it. It normally points to the `FastAPI` app
+object.
+=== 232 [fastapi/routing.py]
+OpenAPI callbacks that should apply to all *path operations* in this
+router.
+
+It will be added to the generated OpenAPI (e.g. visible at `/docs`).
+
+Read more about it in the
+[FastAPI docs for OpenAPI Callbacks](https://fastapi.tiangolo.com/advanced/openapi-callbacks/).
+=== 233 [fastapi/routing.py]
+Read from the producer and forward to the output,
+inserting keepalive comments on timeout.
+=== 234 [fastapi/routing.py]
+Run any `.on_shutdown` event handlers.
+
+This method is kept for backward compatibility after Starlette removed
+support for on_startup/on_shutdown handlers.
+
+Ref: https://github.com/Kludex/starlette/pull/3117
+=== 235 [fastapi/routing.py]
+Run any `.on_startup` event handlers.
+
+This method is kept for backward compatibility after Starlette removed
+support for on_startup/on_shutdown handlers.
+
+Ref: https://github.com/Kludex/starlette/pull/3117
+=== 236 [fastapi/routing.py]
+Serve a static frontend build as low-priority routes.
+
+Use this for frontend tools that build static files into a directory,
+such as `dist`. **FastAPI** path operations are checked first, and
+the frontend files are checked only if no normal route matched.
+
+A typical project could look like this:
+
+⟦C1⟧
+
+Then in `app/main.py`:
+
+⟦C2⟧
+=== 237 [fastapi/routing.py]
+Takes a coroutine `func(session)`, and returns an ASGI application.
+=== 238 [fastapi/routing.py]
+Takes a function or coroutine `func(request) -> response`,
+and returns an ASGI application.
+=== 239 [fastapi/routing.py]
+The default response class to be used.
+
+Read more in the
+[FastAPI docs for Custom Response - HTML, Stream, File, others](https://fastapi.tiangolo.com/advanced/custom-response/#default-response-class).
+=== 240 [fastapi/routing.py]
+To include (or not) all the *path operations* in this router in the
+generated OpenAPI.
+
+This affects the generated OpenAPI (e.g. visible at `/docs`).
+
+Read more about it in the
+[FastAPI docs for Query Parameters and String Validations](https://fastapi.tiangolo.com/tutorial/query-params-str-validations/#exclude-parameters-from-openapi).
+=== 241 [fastapi/routing.py]
+Whether to detect and redirect slashes in URLs when the client doesn't
+use the same format.
+=== 242 [fastapi/routing.py]
+Wrap a generator-based lifespan context into an async context manager.
+
+This is vendored from Starlette to avoid importing private symbols.
+=== 243 [fastapi/routing.py]
+Wraps a synchronous context manager to make it async.
+
+This is vendored from Starlette to avoid importing private symbols.
+=== 244 [fastapi/routing.py]
+`APIRouter` class, used to group *path operations*, for example to structure
+an app in multiple files. It would then be included in the `FastAPI` app, or
+in another `APIRouter` (ultimately included in the app).
+
+Read more about it in the
+[FastAPI docs for Bigger Applications - Multiple Files](https://fastapi.tiangolo.com/tutorial/bigger-applications/).
+
+## Example
+
+⟦C1⟧
+=== 245 [fastapi/security/api_key.py]
+API key authentication using a cookie.
+
+This defines the name of the cookie that should be provided in the request with
+the API key and integrates that into the OpenAPI documentation. It extracts
+the key value sent in the cookie automatically and provides it as the dependency
+result. But it doesn't define how to set that cookie.
+
+## Usage
+
+Create an instance object and use that object as the dependency in `Depends()`.
+
+The dependency result will be a string containing the key value.
+
+## Example
+
+⟦C1⟧
+=== 246 [fastapi/security/api_key.py]
+API key authentication using a header.
+
+This defines the name of the header that should be provided in the request with
+the API key and integrates that into the OpenAPI documentation. It extracts
+the key value sent in the header automatically and provides it as the dependency
+result. But it doesn't define how to send that key to the client.
+
+## Usage
+
+Create an instance object and use that object as the dependency in `Depends()`.
+
+The dependency result will be a string containing the key value.
+
+## Example
+
+⟦C1⟧
+=== 247 [fastapi/security/api_key.py]
+API key authentication using a query parameter.
+
+This defines the name of the query parameter that should be provided in the request
+with the API key and integrates that into the OpenAPI documentation. It extracts
+the key value sent in the query parameter automatically and provides it as the
+dependency result. But it doesn't define how to send that API key to the client.
+
+## Usage
+
+Create an instance object and use that object as the dependency in `Depends()`.
+
+The dependency result will be a string containing the key value.
+
+## Example
+
+⟦C1⟧
+=== 248 [fastapi/security/api_key.py]
+By default, if the cookie is not provided, `APIKeyCookie` will
+automatically cancel the request and send the client an error.
+
+If `auto_error` is set to `False`, when the cookie is not available,
+instead of erroring out, the dependency result will be `None`.
+
+This is useful when you want to have optional authentication.
+
+It is also useful when you want to have authentication that can be
+provided in one of multiple optional ways (for example, in a cookie or
+in an HTTP Bearer token).
+=== 249 [fastapi/security/api_key.py]
+By default, if the header is not provided, `APIKeyHeader` will
+automatically cancel the request and send the client an error.
+
+If `auto_error` is set to `False`, when the header is not available,
+instead of erroring out, the dependency result will be `None`.
+
+This is useful when you want to have optional authentication.
+
+It is also useful when you want to have authentication that can be
+provided in one of multiple optional ways (for example, in a header or
+in an HTTP Bearer token).
+=== 250 [fastapi/security/api_key.py]
+By default, if the query parameter is not provided, `APIKeyQuery` will
+automatically cancel the request and send the client an error.
+
+If `auto_error` is set to `False`, when the query parameter is not
+available, instead of erroring out, the dependency result will be
+`None`.
+
+This is useful when you want to have optional authentication.
+
+It is also useful when you want to have authentication that can be
+provided in one of multiple optional ways (for example, in a query
+parameter or in an HTTP Bearer token).
+=== 251 [fastapi/security/api_key.py]
+Cookie name.
+=== 252 [fastapi/security/api_key.py]
+Header name.
+=== 253 [fastapi/security/api_key.py]
+Query parameter name.
+=== 254 [fastapi/security/api_key.py]
+Security scheme description.
+
+It will be included in the generated OpenAPI (e.g. visible at `/docs`).
+=== 255 [fastapi/security/api_key.py]
+Security scheme name.
+
+It will be included in the generated OpenAPI (e.g. visible at `/docs`).
+=== 256 [fastapi/security/api_key.py]
+The WWW-Authenticate header is not standardized for API Key authentication but
+the HTTP specification requires that an error of 401 "Unauthorized" must
+include a WWW-Authenticate header.
+
+Ref: https://datatracker.ietf.org/doc/html/rfc9110#name-401-unauthorized
+
+For this, this method sends a custom challenge `APIKey`.
+=== 257 [fastapi/security/http.py]
+Bearer token format.
+=== 258 [fastapi/security/http.py]
+By default, if the HTTP Basic authentication is not provided (a
+header), `HTTPBasic` will automatically cancel the request and send the
+client an error.
+
+If `auto_error` is set to `False`, when the HTTP Basic authentication
+is not available, instead of erroring out, the dependency result will
+be `None`.
+
+This is useful when you want to have optional authentication.
+
+It is also useful when you want to have authentication that can be
+provided in one of multiple optional ways (for example, in HTTP Basic
+authentication or in an HTTP Bearer token).
+=== 259 [fastapi/security/http.py]
+By default, if the HTTP Bearer token is not provided (in an
+`Authorization` header), `HTTPBearer` will automatically cancel the
+request and send the client an error.
+
+If `auto_error` is set to `False`, when the HTTP Bearer token
+is not available, instead of erroring out, the dependency result will
+be `None`.
+
+This is useful when you want to have optional authentication.
+
+It is also useful when you want to have authentication that can be
+provided in one of multiple optional ways (for example, in an HTTP
+Bearer token or in a cookie).
+=== 260 [fastapi/security/http.py]
+By default, if the HTTP Digest is not provided, `HTTPDigest` will
+automatically cancel the request and send the client an error.
+
+If `auto_error` is set to `False`, when the HTTP Digest is not
+available, instead of erroring out, the dependency result will
+be `None`.
+
+This is useful when you want to have optional authentication.
+
+It is also useful when you want to have authentication that can be
+provided in one of multiple optional ways (for example, in HTTP
+Digest or in a cookie).
+=== 261 [fastapi/security/http.py]
+HTTP Basic authentication realm.
+=== 262 [fastapi/security/http.py]
+HTTP Basic authentication.
+
+Ref: https://datatracker.ietf.org/doc/html/rfc7617
+
+## Usage
+
+Create an instance object and use that object as the dependency in `Depends()`.
+
+The dependency result will be an `HTTPBasicCredentials` object containing the
+`username` and the `password`.
+
+Read more about it in the
+[FastAPI docs for HTTP Basic Auth](https://fastapi.tiangolo.com/advanced/security/http-basic-auth/).
+
+## Example
+
+⟦C1⟧
+=== 263 [fastapi/security/http.py]
+HTTP Bearer token authentication.
+
+## Usage
+
+Create an instance object and use that object as the dependency in `Depends()`.
+
+The dependency result will be an `HTTPAuthorizationCredentials` object containing
+the `scheme` and the `credentials`.
+
+## Example
+
+⟦C1⟧
+=== 264 [fastapi/security/http.py]
+HTTP Digest authentication.
+
+**Warning**: this is only a stub to connect the components with OpenAPI in FastAPI,
+but it doesn't implement the full Digest scheme, you would need to subclass it
+and implement it in your code.
+
+Ref: https://datatracker.ietf.org/doc/html/rfc7616
+
+## Usage
+
+Create an instance object and use that object as the dependency in `Depends()`.
+
+The dependency result will be an `HTTPAuthorizationCredentials` object containing
+the `scheme` and the `credentials`.
+
+## Example
+
+⟦C1⟧
+=== 265 [fastapi/security/http.py]
+The HTTP Basic credentials given as the result of using `HTTPBasic` in a
+dependency.
+
+Read more about it in the
+[FastAPI docs for HTTP Basic Auth](https://fastapi.tiangolo.com/advanced/security/http-basic-auth/).
+=== 266 [fastapi/security/http.py]
+The HTTP Basic password.
+=== 267 [fastapi/security/http.py]
+The HTTP Basic username.
+=== 268 [fastapi/security/http.py]
+The HTTP authorization credentials extracted from the header value.
+=== 269 [fastapi/security/http.py]
+The HTTP authorization credentials in the result of using `HTTPBearer` or
+`HTTPDigest` in a dependency.
+
+The HTTP authorization header value is split by the first space.
+
+The first part is the `scheme`, the second part is the `credentials`.
+
+For example, in an HTTP Bearer token scheme, the client will send a header
+like:
+
+⟦C1⟧
+
+In this case:
+
+* `scheme` will have the value `"Bearer"`
+* `credentials` will have the value `"deadbeef12346"`
+=== 270 [fastapi/security/http.py]
+The HTTP authorization scheme extracted from the header value.
+=== 271 [fastapi/security/oauth2.py]
+A single string with actually several scopes separated by spaces. Each
+scope is also a string.
+
+For example, a single string with:
+
+⟦C1⟧`
+
+would represent the scopes:
+
+* `items:read`
+* `items:write`
+* `users:read`
+* `profile`
+* `openid`
+
+Read more about it in the
+[FastAPI docs for Simple OAuth2 with Password and Bearer](https://fastapi.tiangolo.com/tutorial/security/simple-oauth2/).
+=== 272 [fastapi/security/oauth2.py]
+All the scopes required by all the dependencies in a single string
+separated by spaces, as defined in the OAuth2 specification.
+=== 273 [fastapi/security/oauth2.py]
+By default, if no HTTP Authorization header is provided, required for
+OAuth2 authentication, it will automatically cancel the request and
+send the client an error.
+
+If `auto_error` is set to `False`, when the HTTP Authorization header
+is not available, instead of erroring out, the dependency result will
+be `None`.
+
+This is useful when you want to have optional authentication.
+
+It is also useful when you want to have authentication that can be
+provided in one of multiple optional ways (for example, with OAuth2
+or in a cookie).
+=== 274 [fastapi/security/oauth2.py]
+If there's a `client_id`, it can be sent as part of the form fields.
+But the OAuth2 specification recommends sending the `client_id` and
+`client_secret` (if any) using HTTP Basic auth.
+=== 275 [fastapi/security/oauth2.py]
+If there's a `client_secret` (and a `client_id`), they can be sent
+as part of the form fields. But the OAuth2 specification recommends
+sending the `client_id` and `client_secret` (if any) using HTTP Basic
+auth.
+=== 276 [fastapi/security/oauth2.py]
+OAuth2 flow for authentication using a bearer token obtained with a password.
+An instance of it would be used as a dependency.
+
+Read more about it in the
+[FastAPI docs for Simple OAuth2 with Password and Bearer](https://fastapi.tiangolo.com/tutorial/security/simple-oauth2/).
+=== 277 [fastapi/security/oauth2.py]
+OAuth2 flow for authentication using a bearer token obtained with an OAuth2 code
+flow. An instance of it would be used as a dependency.
+=== 278 [fastapi/security/oauth2.py]
+The OAuth 2 specification doesn't define the challenge that should be used,
+because a `Bearer` token is not really the only option to authenticate.
+
+But declaring any other authentication challenge would be application-specific
+as it's not defined in the specification.
+
+For practical reasons, this method uses the `Bearer` challenge by default, as
+it's probably the most common one.
+
+If you are implementing an OAuth2 authentication scheme other than the provided
+ones in FastAPI (based on bearer tokens), you might want to override this.
+
+Ref: https://datatracker.ietf.org/doc/html/rfc6749
+=== 279 [fastapi/security/oauth2.py]
+The OAuth2 scopes that would be required by the *path operations* that
+use this dependency.
+=== 280 [fastapi/security/oauth2.py]
+The OAuth2 scopes that would be required by the *path operations* that
+use this dependency.
+
+Read more about it in the
+[FastAPI docs for Simple OAuth2 with Password and Bearer](https://fastapi.tiangolo.com/tutorial/security/simple-oauth2/).
+=== 281 [fastapi/security/oauth2.py]
+The OAuth2 spec says it is required and MUST be the fixed string
+"password". Nevertheless, this dependency class is permissive and
+allows not passing it. If you want to enforce it, use instead the
+`OAuth2PasswordRequestFormStrict` dependency.
+
+Read more about it in the
+[FastAPI docs for Simple OAuth2 with Password and Bearer](https://fastapi.tiangolo.com/tutorial/security/simple-oauth2/).
+=== 282 [fastapi/security/oauth2.py]
+The OAuth2 spec says it is required and MUST be the fixed string
+"password". This dependency is strict about it. If you want to be
+permissive, use instead the `OAuth2PasswordRequestForm` dependency
+class.
+
+Read more about it in the
+[FastAPI docs for Simple OAuth2 with Password and Bearer](https://fastapi.tiangolo.com/tutorial/security/simple-oauth2/).
+=== 283 [fastapi/security/oauth2.py]
+The URL to obtain the OAuth2 token.
+=== 284 [fastapi/security/oauth2.py]
+The URL to obtain the OAuth2 token. This would be the *path operation*
+that has `OAuth2PasswordRequestForm` as a dependency.
+
+Read more about it in the
+[FastAPI docs for Simple OAuth2 with Password and Bearer](https://fastapi.tiangolo.com/tutorial/security/simple-oauth2/).
+=== 285 [fastapi/security/oauth2.py]
+The URL to refresh the token and obtain a new one.
+=== 286 [fastapi/security/oauth2.py]
+The dictionary of OAuth2 flows.
+=== 287 [fastapi/security/oauth2.py]
+The list of all the scopes required by dependencies.
+=== 288 [fastapi/security/oauth2.py]
+This is a dependency class to collect the `username` and `password` as form data
+for an OAuth2 password flow.
+
+The OAuth2 specification dictates that for a password flow the data should be
+collected using form data (instead of JSON) and that it should have the specific
+fields `username` and `password`.
+
+All the initialization parameters are extracted from the request.
+
+Read more about it in the
+[FastAPI docs for Simple OAuth2 with Password and Bearer](https://fastapi.tiangolo.com/tutorial/security/simple-oauth2/).
+
+## Example
+
+⟦C1⟧
+
+Note that for OAuth2 the scope `items:read` is a single scope in an opaque string.
+You could have custom internal logic to separate it by colon characters (`:`) or
+similar, and get the two parts `items` and `read`. Many applications do that to
+group and organize permissions, you could do it as well in your application, just
+know that it is application specific, it's not part of the specification.
+=== 289 [fastapi/security/oauth2.py]
+This is a dependency class to collect the `username` and `password` as form data
+for an OAuth2 password flow.
+
+The OAuth2 specification dictates that for a password flow the data should be
+collected using form data (instead of JSON) and that it should have the specific
+fields `username` and `password`.
+
+All the initialization parameters are extracted from the request.
+
+The only difference between `OAuth2PasswordRequestFormStrict` and
+`OAuth2PasswordRequestForm` is that `OAuth2PasswordRequestFormStrict` requires the
+client to send the form field `grant_type` with the value `"password"`, which
+is required in the OAuth2 specification (it seems that for no particular reason),
+while for `OAuth2PasswordRequestForm` `grant_type` is optional.
+
+Read more about it in the
+[FastAPI docs for Simple OAuth2 with Password and Bearer](https://fastapi.tiangolo.com/tutorial/security/simple-oauth2/).
+
+## Example
+
+⟦C1⟧
+
+Note that for OAuth2 the scope `items:read` is a single scope in an opaque string.
+You could have custom internal logic to separate it by colon characters (`:`) or
+similar, and get the two parts `items` and `read`. Many applications do that to
+group and organize permissions, you could do it as well in your application, just
+know that it is application specific, it's not part of the specification.
+
+
+grant_type: the OAuth2 spec says it is required and MUST be the fixed string "password".
+    This dependency is strict about it. If you want to be permissive, use instead the
+    OAuth2PasswordRequestForm dependency class.
+username: username string. The OAuth2 spec requires the exact field name "username".
+password: password string. The OAuth2 spec requires the exact field name "password".
+scope: Optional string. Several scopes (each one a string) separated by spaces. E.g.
+    "items:read items:write users:read profile openid"
+client_id: optional string. OAuth2 recommends sending the client_id and client_secret (if any)
+    using HTTP Basic auth, as: client_id:client_secret
+client_secret: optional string. OAuth2 recommends sending the client_id and client_secret (if any)
+    using HTTP Basic auth, as: client_id:client_secret
+=== 290 [fastapi/security/oauth2.py]
+This is a special class that you can define in a parameter in a dependency to
+obtain the OAuth2 scopes required by all the dependencies in the same chain.
+
+This way, multiple dependencies can have different scopes, even when used in the
+same *path operation*. And with this, you can access all the scopes required in
+all those dependencies in a single place.
+
+Read more about it in the
+[FastAPI docs for OAuth2 scopes](https://fastapi.tiangolo.com/advanced/security/oauth2-scopes/).
+=== 291 [fastapi/security/oauth2.py]
+This is the base class for OAuth2 authentication, an instance of it would be used
+as a dependency. All other OAuth2 classes inherit from it and customize it for
+each OAuth2 flow.
+
+You normally would not create a new class inheriting from it but use one of the
+existing subclasses, and maybe compose them if you want to support multiple flows.
+
+Read more about it in the
+[FastAPI docs for Security](https://fastapi.tiangolo.com/tutorial/security/).
+=== 292 [fastapi/security/oauth2.py]
+This will be filled by FastAPI.
+=== 293 [fastapi/security/oauth2.py]
+`password` string. The OAuth2 spec requires the exact field name
+`password`.
+
+Read more about it in the
+[FastAPI docs for Simple OAuth2 with Password and Bearer](https://fastapi.tiangolo.com/tutorial/security/simple-oauth2/).
+=== 294 [fastapi/security/oauth2.py]
+`username` string. The OAuth2 spec requires the exact field name
+`username`.
+
+Read more about it in the
+[FastAPI docs for Simple OAuth2 with Password and Bearer](https://fastapi.tiangolo.com/tutorial/security/simple-oauth2/).
+=== 295 [fastapi/security/open_id_connect_url.py]
+By default, if no HTTP Authorization header is provided, required for
+OpenID Connect authentication, it will automatically cancel the request
+and send the client an error.
+
+If `auto_error` is set to `False`, when the HTTP Authorization header
+is not available, instead of erroring out, the dependency result will
+be `None`.
+
+This is useful when you want to have optional authentication.
+
+It is also useful when you want to have authentication that can be
+provided in one of multiple optional ways (for example, with OpenID
+Connect or in a cookie).
+=== 296 [fastapi/security/open_id_connect_url.py]
+OpenID Connect authentication class. An instance of it would be used as a
+dependency.
+
+**Warning**: this is only a stub to connect the components with OpenAPI in FastAPI,
+but it doesn't implement the full OpenIdConnect scheme, for example, it doesn't use
+the OpenIDConnect URL. You would need to subclass it and implement it in your
+code.
+=== 297 [fastapi/security/open_id_connect_url.py]
+The OpenID Connect URL.
+=== 298 [fastapi/sse.py]
+Build SSE wire-format bytes from **pre-serialized** data.
+
+The result always ends with `\n\n` (the event terminator).
+=== 299 [fastapi/sse.py]
+Optional comment line(s) (`:` prefix).
+=== 300 [fastapi/sse.py]
+Optional comment line(s).
+
+Comment lines start with `:` in the SSE wire format and are ignored by
+`EventSource` clients. Useful for keep-alive pings to prevent
+proxy/load-balancer timeouts.
+=== 301 [fastapi/sse.py]
+Optional event ID (`id:` field).
+=== 302 [fastapi/sse.py]
+Optional event ID.
+
+The browser sends this value back as the `Last-Event-ID` header on
+automatic reconnection. **Must be a single line** and must not contain
+null (`\0`) characters.
+=== 303 [fastapi/sse.py]
+Optional event type name (`event:` field).
+=== 304 [fastapi/sse.py]
+Optional event type name.
+
+Maps to `addEventListener(event, ...)` on the browser. When omitted,
+the browser dispatches on the generic `message` event. Must be a
+single line.
+=== 305 [fastapi/sse.py]
+Optional reconnection time in **milliseconds**.
+
+Tells the browser how long to wait before reconnecting after the
+connection is lost. Must be a non-negative integer.
+=== 306 [fastapi/sse.py]
+Optional reconnection time in milliseconds (`retry:` field).
+=== 307 [fastapi/sse.py]
+Pre-serialized data string to use as the `data:` field.
+=== 308 [fastapi/sse.py]
+Raw string to send as the `data:` field **without** JSON encoding.
+
+Use this when you need to send pre-formatted text, HTML fragments,
+CSV lines, or any non-JSON payload. The string is placed directly
+into the `data:` field as-is.
+
+Mutually exclusive with `data`.
+=== 309 [fastapi/sse.py]
+Represents a single Server-Sent Event.
+
+When `yield`ed from a *path operation function* that uses
+`response_class=EventSourceResponse`, each `ServerSentEvent` is encoded
+into the [SSE wire format](https://html.spec.whatwg.org/multipage/server-sent-events.html#parsing-an-event-stream)
+(`text/event-stream`).
+
+If you yield a plain object (dict, Pydantic model, etc.) instead, it is
+automatically JSON-encoded and sent as the `data:` field.
+
+All `data` values **including plain strings** are JSON-serialized.
+
+For example, `data="hello"` produces `data: "hello"` on the wire (with
+quotes).
+=== 310 [fastapi/sse.py]
+Streaming response with `text/event-stream` media type.
+
+Use as `response_class=EventSourceResponse` on a *path operation* that uses `yield`
+to enable Server Sent Events (SSE) responses.
+
+Works with **any HTTP method** (`GET`, `POST`, etc.), which makes it compatible
+with protocols like MCP that stream SSE over `POST`.
+
+The actual encoding logic lives in the FastAPI routing layer. This class
+serves mainly as a marker and sets the correct `Content-Type`.
+=== 311 [fastapi/sse.py]
+The event payload.
+
+Can be any JSON-serializable value: a Pydantic model, dict, list,
+string, number, etc. It is **always** serialized to JSON: strings
+are quoted (`"hello"` becomes `data: "hello"` on the wire).
+
+Mutually exclusive with `raw_data`.
+=== 312 [fastapi/telemetry/_api.py]
+A function that receives the ASGI scope. Return `True` to skip FastAPI telemetry for that request or connection.
+=== 313 [fastapi/telemetry/_api.py]
+Add OTLP exporters from environment variables. Defaults to `False` unless `FASTAPI_OTEL_AUTO_CONFIGURE=true` is set. An explicit value overrides the environment variable.
+=== 314 [fastapi/telemetry/_api.py]
+Enable HTTP request and WebSocket connection spans. Defaults to `True`.
+=== 315 [fastapi/telemetry/_api.py]
+Enable HTTP request metrics. Defaults to `True`.
+=== 316 [fastapi/telemetry/_api.py]
+Local request or connection data for synchronous OpenTelemetry processors.
+
+FastAPI populates these fields as it handles the request or connection.
+Integrations should treat the data as read-only and apply their capture and
+redaction settings before exporting any of it.
+=== 317 [fastapi/telemetry/_api.py]
+Optional settings for `FastAPI(telemetry={...})`.
+
+Omitted settings keep their defaults. FastAPI preserves existing providers
+and their exporters. Environment setup can add exporters when `auto_configure`
+is `True`. Providers supplied by the application are never shut down by FastAPI.
+=== 318 [fastapi/telemetry/_api.py]
+Read local FastAPI data from an OpenTelemetry context.
+
+Defaults to the current context. Log processors can pass `record.context`.
+Read the data synchronously while FastAPI handles the request or connection.
+After it finishes, this returns `None`, including for retained contexts.
+This data is not automatically added to exported spans or logs.
+=== 319 [fastapi/telemetry/_api.py]
+Record validation failures and unhandled exceptions, including exception messages and stack traces. Defaults to `True`.
+=== 320 [fastapi/telemetry/_api.py]
+Request validation errors, including the original input values.
+=== 321 [fastapi/telemetry/_api.py]
+The WebSocket, available when its route handler starts.
+=== 322 [fastapi/telemetry/_api.py]
+The body read by FastAPI, before parameter validation.
+=== 323 [fastapi/telemetry/_api.py]
+The original parsed arguments, available after dependency resolution.
+=== 324 [fastapi/telemetry/_api.py]
+The request, available when its route handler starts.
+=== 325 [fastapi/telemetry/_api.py]
+Trace dependency resolution, endpoints, serialization, and background tasks. Defaults to `True`.
+=== 326 [fastapi/telemetry/_api.py]
+Use this provider instead of the global logger provider.
+=== 327 [fastapi/telemetry/_api.py]
+Use this provider instead of the global meter provider.
+=== 328 [fastapi/telemetry/_api.py]
+Use this provider instead of the global tracer provider.
+=== 329 [fastapi/telemetry/_asgi.py]
+Observe exceptions before error handlers send and complete a response.
+=== 330 [fastapi/telemetry/_runtime.py]
+Add OTLP exporters from the environment to the selected providers.
+
+Called automatically before ASGI lifespan startup. Existing providers and
+their exporters are preserved. FastAPI registers its own export components once
+per provider. It does not inspect or deduplicate other components' exporters.
+Enable with `FASTAPI_OTEL_AUTO_CONFIGURE=true` or pass
+`telemetry={"auto_configure": True}` to `FastAPI()`.
+=== 331 [fastapi/utils.py]
+Pass items or `DefaultPlaceholder`s by descending priority.
+
+The first one to _not_ be a `DefaultPlaceholder` will be returned.
+
+Otherwise, the first item (a `DefaultPlaceholder`) will be returned.
