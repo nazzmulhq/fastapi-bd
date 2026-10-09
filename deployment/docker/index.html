@@ -1,0 +1,7343 @@
+
+<!doctype html>
+<html lang="bn" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="FastAPI framework, high performance, easy to learn, fast to code, ready for production">
+      
+      
+      
+        <link rel="canonical" href="http://localhost:8080/deployment/docker/">
+      
+      
+        <link rel="prev" href="../server-workers/">
+      
+      
+        <link rel="next" href="../../how-to/">
+      
+      
+        
+          <link rel="alternate" href="/" hreflang="bn">
+        
+          <link rel="alternate" href="https://fastapi.tiangolo.com/" hreflang="bn">
+        
+          <link rel="alternate" href="https://fastapi.tiangolo.com/de/" hreflang="bn">
+        
+          <link rel="alternate" href="https://fastapi.tiangolo.com/es/" hreflang="bn">
+        
+          <link rel="alternate" href="https://fastapi.tiangolo.com/fr/" hreflang="bn">
+        
+          <link rel="alternate" href="https://fastapi.tiangolo.com/hi/" hreflang="bn">
+        
+          <link rel="alternate" href="https://fastapi.tiangolo.com/ja/" hreflang="bn">
+        
+          <link rel="alternate" href="https://fastapi.tiangolo.com/ko/" hreflang="bn">
+        
+          <link rel="alternate" href="https://fastapi.tiangolo.com/pt/" hreflang="bn">
+        
+          <link rel="alternate" href="https://fastapi.tiangolo.com/ru/" hreflang="bn">
+        
+          <link rel="alternate" href="https://fastapi.tiangolo.com/tr/" hreflang="bn">
+        
+          <link rel="alternate" href="https://fastapi.tiangolo.com/uk/" hreflang="bn">
+        
+          <link rel="alternate" href="https://fastapi.tiangolo.com/zh/" hreflang="bn">
+        
+          <link rel="alternate" href="https://fastapi.tiangolo.com/zh-hant/" hreflang="bn">
+        
+      
+      
+      <link rel="icon" href="../../img/favicon.png">
+      <meta name="generator" content="zensical-0.0.65">
+    
+    
+      
+        <title>কন্টেইনারে FastAPI - Docker - FastAPI</title>
+      
+    
+    
+      
+        
+      
+      <link rel="stylesheet" href="../../assets/stylesheets/classic/main.1470d0a1.min.css">
+      
+        
+          
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/classic/palette.c7ab7c71.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,500,500i,700,700i%7CRoboto+Mono:400,400i,700,700i&amp;display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../css/termynal.css">
+    
+      <link rel="stylesheet" href="../../css/custom.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_scope.pathname.endsWith("/")||(__md_scope=new URL(__md_scope.pathname+"/",location)),__md_hash=e=>[...e].reduce(((e,t)=>(e<<5)-e+t.charCodeAt(0)),0),__md_get=(e,t=localStorage,_=__md_scope)=>JSON.parse(t.getItem(_.pathname+"."+e)),__md_set=(e,t,_=localStorage,a=__md_scope)=>{try{_.setItem(a.pathname+"."+e,JSON.stringify(t))}catch(e){}},document.documentElement.setAttribute("data-platform",navigator.platform)</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer" aria-label="ন্যাভিগেশন"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#fastapi-in-containers-docker" class="md-skip">
+          কনটেন্টে যান
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+        <aside class="md-banner">
+          <div class="md-banner__inner md-grid md-typeset">
+            
+            
+<div class="announce-wrapper">
+  <div id="announce-left">
+    <div class="item">
+      <a class="announce-link" href="https://fastapicloud.com" target="_blank">
+        <span class="twemoji">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 19c0 .34.04.67.09 1H6.5c-1.5 0-2.81-.5-3.89-1.57C1.54 17.38 1 16.09 1 14.58q0-1.95 1.17-3.48C3.34 9.57 4 9.43 5.25 9.15c.42-1.53 1.25-2.77 2.5-3.72S10.42 4 12 4c1.95 0 3.6.68 4.96 2.04S19 9.05 19 11c1.15.13 2.1.63 2.86 1.5.51.57.84 1.21 1 1.92A5.9 5.9 0 0 0 19 13c-3.31 0-6 2.69-6 6m3-1h2v4h2v-4h2l-3-3z"/></svg>
+        </span> Deploy on <strong>FastAPI Cloud</strong> 🚀
+      </a>
+    </div>
+    <div class="item">
+      <a class="announce-link" href="https://fastapiconf.com" target="_blank">
+        <span class="twemoji">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 19H5V8h14m-3-7v2H8V1H6v2H5c-1.1 0-2 .9-2 2v14a2 2 0 0 0 2 2h14c1.11 0 2-.89 2-2V5a2 2 0 0 0-2-2h-1V1m-7.12 11H7.27l2.92 2.11-1.11 3.45L12 15.43l2.92 2.13-1.12-3.44L16.72 12h-3.6L12 8.56z"/></svg>
+        </span> <strong>FastAPI Conf '26</strong> — Oct 28, 2026, Amsterdam 🎤
+      </a>
+    </div>
+    <div class="item">
+      <a class="announce-link" href="https://x.com/fastapi" target="_blank">
+        <span class="twemoji">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.3.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2026 Fonticons, Inc.--><path fill="currentColor" d="M357.2 48h70.6L273.6 224.2 455 464H313L201.7 318.6 74.5 464H3.8l164.9-188.5L-5.2 48h145.6l100.5 132.9zm-24.8 373.8h39.1L119.1 88h-42z"/></svg>
+        </span> Follow <strong>@fastapi</strong> on <strong>X (Twitter)</strong> to stay updated
+      </a>
+    </div>
+    <div class="item">
+      <a class="announce-link" href="https://www.linkedin.com/company/fastapi" target="_blank">
+        <span class="twemoji linkedin">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.3.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2026 Fonticons, Inc.--><path fill="currentColor" d="M416 32H31.9C14.3 32 0 46.5 0 64.3v383.4C0 465.5 14.3 480 31.9 480H416c17.6 0 32-14.5 32-32.3V64.3c0-17.8-14.4-32.3-32-32.3M135.4 416H69V202.2h66.5V416zM102.2 96a38.5 38.5 0 1 1 0 77 38.5 38.5 0 1 1 0-77m282.1 320h-66.4V312c0-24.8-.5-56.7-34.5-56.7-34.6 0-39.9 27-39.9 54.9V416h-66.4V202.2h63.7v29.2h.9c8.9-16.8 30.6-34.5 62.9-34.5 67.2 0 79.7 44.3 79.7 101.9z"/></svg>
+        </span> Follow <strong>FastAPI</strong> on <strong>LinkedIn</strong> to stay updated
+      </a>
+    </div>
+    <div class="item">
+      <a class="announce-link" href="https://fastapi.tiangolo.com/newsletter/">
+        <span class="twemoji">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m20 8-8 5-8-5V6l8 5 8-5m0-2H4c-1.11 0-2 .89-2 2v12a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2"/></svg>
+        </span> Subscribe to the <strong>FastAPI and friends</strong> newsletter 🎉
+      </a>
+    </div>
+  </div>
+  <div id="announce-right" style="position: relative;">
+    <div class="item">
+  <a title="BlockBee Cryptocurrency Payment Gateway" style="display: block; position: relative;" href="https://blockbee.io?ref=fastapi" target="_blank">
+    <span class="sponsor-badge">sponsor</span>
+    <img class="sponsor-image" src="/img/sponsors/blockbee-banner.png" alt="BlockBee Cryptocurrency Payment Gateway" />
+  </a>
+</div>
+<div class="item">
+  <a title="Auth, user management and more for your B2B product" style="display: block; position: relative;" href="https://www.propelauth.com/?utm_source=fastapi&utm_campaign=1223&utm_medium=topbanner" target="_blank">
+    <span class="sponsor-badge">sponsor</span>
+    <img class="sponsor-image" src="/img/sponsors/propelauth-banner.png" alt="Auth, user management and more for your B2B product" />
+  </a>
+</div>
+<div class="item">
+  <a title="Cut Code Review Time & Bugs in Half with CodeRabbit" style="display: block; position: relative;" href="https://www.coderabbit.ai/?utm_source=fastapi&utm_medium=banner&utm_campaign=fastapi" target="_blank">
+    <span class="sponsor-badge">sponsor</span>
+    <img class="sponsor-image" src="/img/sponsors/coderabbit-banner.png" alt="Cut Code Review Time & Bugs in Half with CodeRabbit" />
+  </a>
+</div>
+<div class="item">
+  <a title="Making Retail Purchases Actionable for Brands and Developers" style="display: block; position: relative;" href="https://subtotal.com/?utm_source=fastapi&utm_medium=sponsorship&utm_campaign=open-source" target="_blank">
+    <span class="sponsor-badge">sponsor</span>
+    <img class="sponsor-image" src="/img/sponsors/subtotal-banner.svg" alt="Making Retail Purchases Actionable for Brands and Developers" />
+  </a>
+</div>
+<div class="item">
+  <a title="Deploy enterprise applications at startup speed" style="display: block; position: relative;" href="https://docs.railway.com/guides/fastapi?utm_medium=integration&utm_source=docs&utm_campaign=fastapi" target="_blank">
+    <span class="sponsor-badge">sponsor</span>
+    <img class="sponsor-image" src="/img/sponsors/railway-banner.png" alt="Deploy enterprise applications at startup speed" />
+  </a>
+</div>
+<div class="item">
+  <a title="SerpApi: Web Search API" style="display: block; position: relative;" href="https://serpapi.com/?utm_source=fastapi_website" target="_blank">
+    <span class="sponsor-badge">sponsor</span>
+    <img class="sponsor-image" src="/img/sponsors/serpapi-banner.png" alt="SerpApi: Web Search API" />
+  </a>
+</div>
+<div class="item">
+  <a title="Greptile: The AI Code Reviewer" style="display: block; position: relative;" href="https://www.greptile.com/?utm_source=fastapi&utm_medium=sponsorship&utm_campaign=fastapi_sponsor_page" target="_blank">
+    <span class="sponsor-badge">sponsor</span>
+    <img class="sponsor-image" src="/img/sponsors/greptile-banner.png" alt="Greptile: The AI Code Reviewer" />
+  </a>
+</div>
+  </div>
+</div>
+
+          </div>
+          
+        </aside>
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="হেডার">
+    <a href="../.." title="FastAPI" class="md-header__button md-logo" aria-label="FastAPI" data-md-component="logo">
+      
+  <img src="../../img/icon-white.svg" alt="FastAPI">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer" aria-label="ন্যাভিগেশন">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            FastAPI
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              কন্টেইনারে FastAPI - Docker
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9 2C5.13 2 2 5.13 2 9c0 2.38 1.19 4.47 3 5.74V17c0 .55.45 1 1 1h6c.55 0 1-.45 1-1v-2.26c1.81-1.27 3-3.36 3-5.74 0-3.87-3.13-7-7-7M6 21c0 .55.45 1 1 1h4c.55 0 1-.45 1-1v-1H6zm13-8h-2l-3.2 9h1.9l.7-2h3.2l.7 2h1.9zm-2.15 5.65L18 15l1.15 3.65z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="teal" data-md-color-accent="amber"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_2" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2a7 7 0 0 0-7 7c0 2.38 1.19 4.47 3 5.74V17a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1v-2.26c1.81-1.27 3-3.36 3-5.74a7 7 0 0 0-7-7M9 21a1 1 0 0 0 1 1h4a1 1 0 0 0 1-1v-1H9z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="teal" data-md-color-accent="amber"  aria-label="Switch to system preference"  type="radio" name="__palette" id="__palette_2">
+    
+      <label class="md-header__button md-icon" title="Switch to system preference" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2a7 7 0 0 1 7 7c0 2.38-1.19 4.47-3 5.74V17a1 1 0 0 1-1 1H9a1 1 0 0 1-1-1v-2.26C6.19 13.47 5 11.38 5 9a7 7 0 0 1 7-7M9 21v-1h6v1a1 1 0 0 1-1 1h-4a1 1 0 0 1-1-1m3-17a5 5 0 0 0-5 5c0 2.05 1.23 3.81 3 4.58V16h4v-2.42c1.77-.77 3-2.53 3-4.58a5 5 0 0 0-5-5"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+      <div class="md-header__option">
+  <div class="md-select">
+    
+    <button class="md-header__button md-icon" aria-label="ভাষা নির্বাচন করুণ">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m12.87 15.07-2.54-2.51.03-.03A17.5 17.5 0 0 0 14.07 6H17V4h-7V2H8v2H1v2h11.17C11.5 7.92 10.44 9.75 9 11.35 8.07 10.32 7.3 9.19 6.69 8h-2c.73 1.63 1.73 3.17 2.98 4.56l-5.09 5.02L4 19l5-5 3.11 3.11zM18.5 10h-2L12 22h2l1.12-3h4.75L21 22h2zm-2.62 7 1.62-4.33L19.12 17z"/></svg>
+    </button>
+    <div class="md-select__inner">
+      <ul class="md-select__list">
+        
+          <li class="md-select__item">
+            <a href="/" hreflang="" class="md-select__link">
+              bn - বাংলা
+            </a>
+          </li>
+        
+          <li class="md-select__item">
+            <a href="https://fastapi.tiangolo.com/" hreflang="" class="md-select__link">
+              en - English
+            </a>
+          </li>
+        
+          <li class="md-select__item">
+            <a href="https://fastapi.tiangolo.com/de/" hreflang="" class="md-select__link">
+              de - Deutsch
+            </a>
+          </li>
+        
+          <li class="md-select__item">
+            <a href="https://fastapi.tiangolo.com/es/" hreflang="" class="md-select__link">
+              es - español
+            </a>
+          </li>
+        
+          <li class="md-select__item">
+            <a href="https://fastapi.tiangolo.com/fr/" hreflang="" class="md-select__link">
+              fr - français
+            </a>
+          </li>
+        
+          <li class="md-select__item">
+            <a href="https://fastapi.tiangolo.com/hi/" hreflang="" class="md-select__link">
+              hi - हिन्दी
+            </a>
+          </li>
+        
+          <li class="md-select__item">
+            <a href="https://fastapi.tiangolo.com/ja/" hreflang="" class="md-select__link">
+              ja - 日本語
+            </a>
+          </li>
+        
+          <li class="md-select__item">
+            <a href="https://fastapi.tiangolo.com/ko/" hreflang="" class="md-select__link">
+              ko - 한국어
+            </a>
+          </li>
+        
+          <li class="md-select__item">
+            <a href="https://fastapi.tiangolo.com/pt/" hreflang="" class="md-select__link">
+              pt - português
+            </a>
+          </li>
+        
+          <li class="md-select__item">
+            <a href="https://fastapi.tiangolo.com/ru/" hreflang="" class="md-select__link">
+              ru - русский язык
+            </a>
+          </li>
+        
+          <li class="md-select__item">
+            <a href="https://fastapi.tiangolo.com/tr/" hreflang="" class="md-select__link">
+              tr - Türkçe
+            </a>
+          </li>
+        
+          <li class="md-select__item">
+            <a href="https://fastapi.tiangolo.com/uk/" hreflang="" class="md-select__link">
+              uk - українська мова
+            </a>
+          </li>
+        
+          <li class="md-select__item">
+            <a href="https://fastapi.tiangolo.com/zh/" hreflang="" class="md-select__link">
+              zh - 简体中文
+            </a>
+          </li>
+        
+          <li class="md-select__item">
+            <a href="https://fastapi.tiangolo.com/zh-hant/" hreflang="" class="md-select__link">
+              zh-hant - 繁體中文
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</div>
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search" aria-label="অনুসন্ধান করুন">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog" aria-label="অনুসন্ধান করুন">
+  <button type="button" class="md-search__button">
+    অনুসন্ধান করুন
+  </button>
+</div>
+      
+    
+    <div class="md-header__source">
+      
+        <a href="https://github.com/fastapi/fastapi" title="রিপোজিটরিতে যান" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10.226 17.284c-2.965-.36-5.054-2.493-5.054-5.256 0-1.123.404-2.336 1.078-3.144-.292-.741-.247-2.314.09-2.965.898-.112 2.111.36 2.83 1.01.853-.269 1.752-.404 2.853-.404 1.1 0 1.999.135 2.807.382.696-.629 1.932-1.1 2.83-.988.315.606.36 2.179.067 2.942.72.854 1.101 2 1.101 3.167 0 2.763-2.089 4.852-5.098 5.234.763.494 1.28 1.572 1.28 2.807v2.336c0 .674.561 1.056 1.235.786 4.066-1.55 7.255-5.615 7.255-10.646C23.5 6.188 18.334 1 11.978 1 5.62 1 .5 6.188.5 12.545c0 4.986 3.167 9.12 7.435 10.669.606.225 1.19-.18 1.19-.786V20.63a2.9 2.9 0 0 1-1.078.224c-1.483 0-2.359-.808-2.987-2.313-.247-.607-.517-.966-1.034-1.033-.27-.023-.359-.135-.359-.27 0-.27.45-.471.898-.471.652 0 1.213.404 1.797 1.235.45.651.921.943 1.483.943.561 0 .92-.202 1.437-.719.382-.381.674-.718.944-.943"/></svg>
+  </div>
+  <div class="md-source__repository">
+    fastapi/fastapi
+  </div>
+</a>
+      
+    </div>
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="ট্যাব" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
+        
+  
+  FastAPI
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../features/" class="md-tabs__link">
+        
+  
+  Features
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+      
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../../learn/" class="md-tabs__link">
+          
+  
+  শিখুন
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+      
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../reference/" class="md-tabs__link">
+          
+  
+  রেফারেন্স
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+      
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../resources/" class="md-tabs__link">
+          
+  
+  Resources
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+      
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../about/" class="md-tabs__link">
+          
+  
+  About
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../release-notes/" class="md-tabs__link">
+        
+  
+  Release Notes
+
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+  
+    
+    <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+      <div class="md-sidebar__scrollwrap">
+        <div class="md-sidebar__inner">
+          
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="ন্যাভিগেশন" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="FastAPI" class="md-nav__button md-logo" aria-label="FastAPI" data-md-component="logo">
+      
+  <img src="../../img/icon-white.svg" alt="FastAPI">
+
+    </a>
+    FastAPI
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/fastapi/fastapi" title="রিপোজিটরিতে যান" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10.226 17.284c-2.965-.36-5.054-2.493-5.054-5.256 0-1.123.404-2.336 1.078-3.144-.292-.741-.247-2.314.09-2.965.898-.112 2.111.36 2.83 1.01.853-.269 1.752-.404 2.853-.404 1.1 0 1.999.135 2.807.382.696-.629 1.932-1.1 2.83-.988.315.606.36 2.179.067 2.942.72.854 1.101 2 1.101 3.167 0 2.763-2.089 4.852-5.098 5.234.763.494 1.28 1.572 1.28 2.807v2.336c0 .674.561 1.056 1.235.786 4.066-1.55 7.255-5.615 7.255-10.646C23.5 6.188 18.334 1 11.978 1 5.62 1 .5 6.188.5 12.545c0 4.986 3.167 9.12 7.435 10.669.606.225 1.19-.18 1.19-.786V20.63a2.9 2.9 0 0 1-1.078.224c-1.483 0-2.359-.808-2.987-2.313-.247-.607-.517-.966-1.034-1.033-.27-.023-.359-.135-.359-.27 0-.27.45-.471.898-.471.652 0 1.213.404 1.797 1.235.45.651.921.943 1.483.943.561 0 .92-.202 1.437-.719.382-.381.674-.718.944-.943"/></svg>
+  </div>
+  <div class="md-source__repository">
+    fastapi/fastapi
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  FastAPI
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../features/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Features
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+        
+        
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../learn/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  শিখুন
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3" id="__nav_3_label" tabindex="">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        
+          <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+            <label class="md-nav__title" for="__nav_3">
+              <span class="md-nav__icon md-icon"></span>
+              
+  
+  
+
+            </label>
+            <ul class="md-nav__list" data-md-scrollfix>
+              
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../python-types/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Python টাইপ পরিচিতি
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../async/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  কনকারেন্সি এবং async / await
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_4" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../tutorial/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  টিউটোরিয়াল - ইউজার গাইড
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3_4" id="__nav_3_4_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        
+          <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_4_label" aria-expanded="false">
+            <label class="md-nav__title" for="__nav_3_4">
+              <span class="md-nav__icon md-icon"></span>
+              
+  
+  
+
+            </label>
+            <ul class="md-nav__list" data-md-scrollfix>
+              
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tutorial/first-steps/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  প্রথম ধাপ
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tutorial/path-params/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  পাথ প্যারামিটার
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tutorial/query-params/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  কুয়েরি প্যারামিটার
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tutorial/body/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  রিকোয়েস্ট বডি
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tutorial/query-params-str-validations/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  কুয়েরি প্যারামিটার ও স্ট্রিং ভ্যালিডেশন
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tutorial/path-params-numeric-validations/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  পাথ প্যারামিটার ও সংখ্যার ভ্যালিডেশন
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tutorial/query-param-models/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  কুয়েরি প্যারামিটার মডেল
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tutorial/body-multiple-params/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  বডি - একাধিক প্যারামিটার
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tutorial/body-fields/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  বডি - ফিল্ড
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tutorial/body-nested-models/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  বডি - নেস্টেড মডেল
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tutorial/schema-extra-example/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  রিকোয়েস্টের উদাহরণ ডেটা ঘোষণা করুন
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tutorial/extra-data-types/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  অতিরিক্ত ডেটা টাইপ
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tutorial/cookie-params/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  কুকি প্যারামিটার
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tutorial/header-params/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  হেডার প্যারামিটার
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tutorial/cookie-param-models/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  কুকি প্যারামিটার মডেল
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tutorial/header-param-models/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  হেডার প্যারামিটার মডেল
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tutorial/response-model/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  রেসপন্স মডেল - রিটার্ন টাইপ
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tutorial/extra-models/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  অতিরিক্ত মডেল
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tutorial/response-status-code/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  রেসপন্স স্ট্যাটাস কোড
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tutorial/request-forms/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  ফর্ম ডেটা
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tutorial/request-form-models/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  ফর্ম মডেল
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tutorial/request-files/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  রিকোয়েস্ট ফাইল
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tutorial/request-forms-and-files/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  রিকোয়েস্টে ফর্ম ও ফাইল
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tutorial/handling-errors/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  এরর হ্যান্ডলিং
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tutorial/path-operation-configuration/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  পাথ অপারেশন কনফিগারেশন
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tutorial/encoder/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  JSON সামঞ্জস্যপূর্ণ এনকোডার
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tutorial/body-updates/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  বডি - আপডেট
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_4_29" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../tutorial/dependencies/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  ডিপেন্ডেন্সি
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3_4_29" id="__nav_3_4_29_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        
+          <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_4_29_label" aria-expanded="false">
+            <label class="md-nav__title" for="__nav_3_4_29">
+              <span class="md-nav__icon md-icon"></span>
+              
+  
+  
+
+            </label>
+            <ul class="md-nav__list" data-md-scrollfix>
+              
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tutorial/dependencies/classes-as-dependencies/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  ক্লাসকে ডিপেন্ডেন্সি হিসেবে ব্যবহার
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tutorial/dependencies/sub-dependencies/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  সাব-ডিপেন্ডেন্সি
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tutorial/dependencies/dependencies-in-path-operation-decorators/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  পাথ অপারেশন ডেকোরেটরে ডিপেন্ডেন্সি
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tutorial/dependencies/global-dependencies/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  গ্লোবাল ডিপেন্ডেন্সি
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tutorial/dependencies/dependencies-with-yield/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  yield-সহ ডিপেন্ডেন্সি
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+            </ul>
+          </nav>
+        
+      
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_4_30" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../tutorial/security/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  সিকিউরিটি
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3_4_30" id="__nav_3_4_30_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        
+          <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_4_30_label" aria-expanded="false">
+            <label class="md-nav__title" for="__nav_3_4_30">
+              <span class="md-nav__icon md-icon"></span>
+              
+  
+  
+
+            </label>
+            <ul class="md-nav__list" data-md-scrollfix>
+              
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tutorial/security/first-steps/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  সিকিউরিটি - প্রথম ধাপ
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tutorial/security/get-current-user/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  বর্তমান ইউজার পাওয়া
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tutorial/security/simple-oauth2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  পাসওয়ার্ড ও Bearer-সহ সহজ OAuth2
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tutorial/security/oauth2-jwt/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  পাসওয়ার্ড (ও হ্যাশিং)-সহ OAuth2, JWT টোকেনসহ Bearer
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+            </ul>
+          </nav>
+        
+      
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tutorial/middleware/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  মিডলওয়্যার
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tutorial/cors/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  CORS (ক্রস-অরিজিন রিসোর্স শেয়ারিং)
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tutorial/sql-databases/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  SQL (রিলেশনাল) ডেটাবেস
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tutorial/bigger-applications/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  বড় অ্যাপ্লিকেশন - একাধিক ফাইল
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tutorial/stream-json-lines/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  JSON Lines স্ট্রিম করুন
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tutorial/server-sent-events/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  সার্ভার-সেন্ট ইভেন্ট (SSE)
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tutorial/background-tasks/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  ব্যাকগ্রাউন্ড টাস্ক
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tutorial/metadata/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  মেটাডেটা ও ডকুমেন্টেশন URL
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tutorial/frontend/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  ফ্রন্টএন্ড
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tutorial/static-files/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  স্ট্যাটিক ফাইল
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tutorial/testing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  টেস্টিং
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tutorial/debugging/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  ডিবাগিং
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+            </ul>
+          </nav>
+        
+      
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_5" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../advanced/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  অ্যাডভান্সড ইউজার গাইড
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3_5" id="__nav_3_5_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        
+          <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_5_label" aria-expanded="false">
+            <label class="md-nav__title" for="__nav_3_5">
+              <span class="md-nav__icon md-icon"></span>
+              
+  
+  
+
+            </label>
+            <ul class="md-nav__list" data-md-scrollfix>
+              
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../advanced/stream-data/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  ডেটা স্ট্রিম
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../advanced/path-operation-advanced-configuration/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  পাথ অপারেশনের অ্যাডভান্সড কনফিগারেশন
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../advanced/additional-status-codes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  অতিরিক্ত স্ট্যাটাস কোড
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../advanced/response-directly/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  সরাসরি একটি Response রিটার্ন করুন
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../advanced/custom-response/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  কাস্টম রেসপন্স - HTML, স্ট্রিম, ফাইল ও অন্যান্য
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../advanced/additional-responses/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  OpenAPI-তে অতিরিক্ত রেসপন্স
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../advanced/response-cookies/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  রেসপন্স কুকি
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../advanced/response-headers/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  রেসপন্স হেডার
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../advanced/response-change-status-code/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  রেসপন্স - স্ট্যাটাস কোড পরিবর্তন
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../advanced/advanced-dependencies/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  অ্যাডভান্সড ডিপেন্ডেন্সি
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_5_12" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../advanced/security/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  অ্যাডভান্সড সিকিউরিটি
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3_5_12" id="__nav_3_5_12_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        
+          <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_5_12_label" aria-expanded="false">
+            <label class="md-nav__title" for="__nav_3_5_12">
+              <span class="md-nav__icon md-icon"></span>
+              
+  
+  
+
+            </label>
+            <ul class="md-nav__list" data-md-scrollfix>
+              
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../advanced/security/oauth2-scopes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  OAuth2 scopes
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../advanced/security/http-basic-auth/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  HTTP Basic Auth
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+            </ul>
+          </nav>
+        
+      
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../advanced/using-request-directly/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  সরাসরি Request ব্যবহার
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../advanced/dataclasses/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  ডেটাক্লাস ব্যবহার
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../advanced/middleware/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  অ্যাডভান্সড মিডলওয়্যার
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../advanced/sub-applications/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  সাব-অ্যাপ্লিকেশন - মাউন্ট
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../advanced/behind-a-proxy/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  প্রক্সির পেছনে
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../advanced/templates/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  টেমপ্লেট
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../advanced/websockets/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  WebSockets
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../advanced/events/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  লাইফস্প্যান ইভেন্ট
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../advanced/opentelemetry/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  OpenTelemetry
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../advanced/testing-websockets/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  WebSockets টেস্টিং
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../advanced/testing-events/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  ইভেন্ট টেস্টিং: lifespan এবং startup - shutdown
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../advanced/testing-dependencies/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  ওভাররাইড দিয়ে ডিপেন্ডেন্সি টেস্টিং
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../advanced/async-tests/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  অ্যাসিঙ্ক টেস্ট
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../advanced/settings/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  সেটিংস ও এনভায়রনমেন্ট ভেরিয়েবল
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../advanced/openapi-callbacks/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  OpenAPI কলব্যাক
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../advanced/openapi-webhooks/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  OpenAPI ওয়েবহুক
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../advanced/wsgi/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  WSGI যুক্ত করা - Flask, Django ও অন্যান্য
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../advanced/generate-clients/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  SDK তৈরি করা
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../advanced/advanced-python-types/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  অ্যাডভান্সড Python টাইপ
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../advanced/json-base64-bytes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Base64 হিসেবে বাইটসহ JSON
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../advanced/strict-content-type/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  কঠোর Content-Type যাচাই
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+            </ul>
+          </nav>
+        
+      
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../fastapi-cli/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  FastAPI CLI
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../editor-support/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  এডিটর সাপোর্ট
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_8" checked>
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  ডিপ্লয়মেন্ট
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3_8" id="__nav_3_8_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        
+          <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_8_label" aria-expanded="true">
+            <label class="md-nav__title" for="__nav_3_8">
+              <span class="md-nav__icon md-icon"></span>
+              
+  
+  
+
+            </label>
+            <ul class="md-nav__list" data-md-scrollfix>
+              
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../versions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  FastAPI-এর ভার্সন প্রসঙ্গে
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../fastapicloud/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  FastAPI Cloud
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../https/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  HTTPS প্রসঙ্গে
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../manually/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  ম্যানুয়ালি একটি সার্ভার চালান
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../concepts/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  ডিপ্লয়মেন্টের ধারণাসমূহ
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cloud/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  ক্লাউড প্রোভাইডারে FastAPI ডিপ্লয়
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../server-workers/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  সার্ভার ওয়ার্কার - ওয়ার্কারসহ Uvicorn
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      
+        <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  কন্টেইনারে FastAPI - Docker
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="././" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  কন্টেইনারে FastAPI - Docker
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+
+<nav class="md-nav md-nav--secondary" aria-label="সূচি তালিকা">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      সূচি তালিকা
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#what-is-a-container" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        কন্টেইনার কী
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#what-is-a-container-image" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        কন্টেইনার ইমেজ কী
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#container-images" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        কন্টেইনার ইমেজ
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#containers-and-processes" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        কন্টেইনার ও প্রসেস
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#build-a-docker-image-for-fastapi" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        FastAPI-এর জন্য একটি Docker ইমেজ তৈরি করুন
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="FastAPI-এর জন্য একটি Docker ইমেজ তৈরি করুন">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#package-requirements" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        প্যাকেজের প্রয়োজনীয়তা
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#create-the-fastapi-code" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        <strong>FastAPI</strong> কোড তৈরি করুন
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dockerfile" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Dockerfile
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Dockerfile">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#use-cmd-exec-form" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        <code>CMD</code> ব্যবহার করুন - Exec Form
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#directory-structure" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        ডিরেক্টরি কাঠামো
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#behind-a-tls-termination-proxy" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        একটি TLS Termination Proxy-র পেছনে
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#docker-cache" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Docker ক্যাশে
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#build-the-docker-image" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Docker ইমেজ তৈরি করুন
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#start-the-docker-container" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Docker কন্টেইনার চালু করুন
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#check-it" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        যাচাই করুন
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#interactive-api-docs" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        ইন্টারঅ্যাকটিভ API ডকুমেন্টেশন
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#alternative-api-docs" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        বিকল্প API ডকুমেন্টেশন
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#build-a-docker-image-with-a-single-file-fastapi" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        একক-ফাইল FastAPI দিয়ে একটি Docker ইমেজ তৈরি করুন
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#deployment-concepts" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        ডিপ্লয়মেন্টের ধারণাসমূহ
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#https" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        HTTPS
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#running-on-startup-and-restarts" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        startup-এ চালু হওয়া ও রিস্টার্ট
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#replication-number-of-processes" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        রেপ্লিকেশন - প্রসেসের সংখ্যা
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="রেপ্লিকেশন - প্রসেসের সংখ্যা">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#load-balancer" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        লোড ব্যালান্সার
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#one-load-balancer-multiple-worker-containers" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        একটি লোড ব্যালান্সার - একাধিক ওয়ার্কার কন্টেইনার
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#one-process-per-container" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        প্রতি কন্টেইনারে একটি প্রসেস
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#containers-with-multiple-processes-and-special-cases" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        একাধিক প্রসেসসহ কন্টেইনার ও বিশেষ ক্ষেত্র
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="একাধিক প্রসেসসহ কন্টেইনার ও বিশেষ ক্ষেত্র">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#a-simple-app" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        একটি সহজ অ্যাপ
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#docker-compose" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Docker Compose
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#memory" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        মেমরি
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#previous-steps-before-starting-and-containers" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        শুরুর আগের ধাপ ও কন্টেইনার
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="শুরুর আগের ধাপ ও কন্টেইনার">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#multiple-containers" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        একাধিক কন্টেইনার
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#single-container" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        একক কন্টেইনার
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#base-docker-image" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        বেস Docker ইমেজ
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#deploy-the-container-image" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        কন্টেইনার ইমেজ ডিপ্লয় করুন
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#docker-image-with-uv" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        <code>uv</code>-সহ Docker ইমেজ
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#recap" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        সংক্ষেপে
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+                
+              
+            </ul>
+          </nav>
+        
+      
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_9" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../how-to/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  হাউ-টু - রেসিপি
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3_9" id="__nav_3_9_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        
+          <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_9_label" aria-expanded="false">
+            <label class="md-nav__title" for="__nav_3_9">
+              <span class="md-nav__icon md-icon"></span>
+              
+  
+  
+
+            </label>
+            <ul class="md-nav__list" data-md-scrollfix>
+              
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../how-to/general/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  সাধারণ - হাউ-টু - রেসিপি
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../how-to/migrate-from-pydantic-v1-to-pydantic-v2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Pydantic v1 থেকে Pydantic v2-তে মাইগ্রেট করুন
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../how-to/graphql/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  GraphQL
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../how-to/custom-request-and-route/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  কাস্টম Request ও APIRoute ক্লাস
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../how-to/conditional-openapi/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  শর্তসাপেক্ষ OpenAPI
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../how-to/extending-openapi/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  OpenAPI সম্প্রসারণ
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../how-to/separate-openapi-schemas/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  ইনপুট ও আউটপুটের জন্য আলাদা OpenAPI স্কিমা, নাকি নয়
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../how-to/custom-docs-ui-assets/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  কাস্টম ডকুমেন্টেশন UI স্ট্যাটিক অ্যাসেট (সেলফ-হোস্টিং)
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../how-to/configure-swagger-ui/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Swagger UI কনফিগার করুন
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../how-to/testing-database/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  ডেটাবেস টেস্টিং
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../how-to/authentication-error-status-code/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  পুরোনো 403 অথেনটিকেশন এরর স্ট্যাটাস কোড ব্যবহার
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+            </ul>
+          </nav>
+        
+      
+    </li>
+  
+
+                
+              
+            </ul>
+          </nav>
+        
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../reference/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  রেফারেন্স
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_4" id="__nav_4_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        
+          <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+            <label class="md-nav__title" for="__nav_4">
+              <span class="md-nav__icon md-icon"></span>
+              
+  
+  
+
+            </label>
+            <ul class="md-nav__list" data-md-scrollfix>
+              
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/fastapi/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  FastAPI ক্লাস
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/parameters/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  রিকোয়েস্ট প্যারামিটার
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/status/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  স্ট্যাটাস কোড
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/uploadfile/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  UploadFile ক্লাস
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/exceptions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  এক্সেপশন - HTTPException ও WebSocketException
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/dependencies/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  ডিপেন্ডেন্সি - Depends() ও Security()
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/apirouter/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  APIRouter ক্লাস
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/background/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  ব্যাকগ্রাউন্ড টাস্ক - BackgroundTasks
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/request/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Request ক্লাস
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/websockets/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  WebSockets
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/httpconnection/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  HTTPConnection ক্লাস
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/response/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Response ক্লাস
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/responses/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  কাস্টম রেসপন্স ক্লাস - ফাইল, HTML, রিডাইরেক্ট, স্ট্রিমিং ইত্যাদি
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/sse/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  সার্ভার-সেন্ট ইভেন্ট - EventSourceResponse ও ServerSentEvent
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/middleware/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  মিডলওয়্যার
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_17" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../reference/openapi/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  OpenAPI
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_4_17" id="__nav_4_17_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        
+          <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_17_label" aria-expanded="false">
+            <label class="md-nav__title" for="__nav_4_17">
+              <span class="md-nav__icon md-icon"></span>
+              
+  
+  
+
+            </label>
+            <ul class="md-nav__list" data-md-scrollfix>
+              
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/openapi/docs/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  OpenAPI docs
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/openapi/models/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  OpenAPI models
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+            </ul>
+          </nav>
+        
+      
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/security/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  সিকিউরিটি টুল
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/encoders/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  এনকোডার - jsonable_encoder
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/staticfiles/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  স্ট্যাটিক ফাইল - StaticFiles
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/templating/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  টেমপ্লেটিং - Jinja2Templates
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../reference/testclient/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  টেস্ট ক্লায়েন্ট - TestClient
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+            </ul>
+          </nav>
+        
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../resources/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Resources
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_5" id="__nav_5_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        
+          <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+            <label class="md-nav__title" for="__nav_5">
+              <span class="md-nav__icon md-icon"></span>
+              
+  
+  
+
+            </label>
+            <ul class="md-nav__list" data-md-scrollfix>
+              
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../fastapi-people/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  FastAPI People
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../help-fastapi/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Help
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../contributing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Contributing
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../translations/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Translations
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../project-generation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Full Stack FastAPI Template
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../external-links/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  External Links
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../newsletter/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  FastAPI and friends newsletter
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+            </ul>
+          </nav>
+        
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../../about/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  About
+
+    
+  </span>
+  
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_6" id="__nav_6_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        
+          <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+            <label class="md-nav__title" for="__nav_6">
+              <span class="md-nav__icon md-icon"></span>
+              
+  
+  
+
+            </label>
+            <ul class="md-nav__list" data-md-scrollfix>
+              
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../alternatives/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Alternatives, Inspiration and Comparisons
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../history-design-future/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  History, Design and Future
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../benchmarks/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Benchmarks
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../management/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Repository Management
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+            </ul>
+          </nav>
+        
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../release-notes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Release Notes
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+          
+          
+        </div>
+      </div>
+    </div>
+  
+  
+    
+    <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+      <div class="md-sidebar__scrollwrap">
+        
+        <div class="md-sidebar__inner">
+          
+
+
+<nav class="md-nav md-nav--secondary" aria-label="সূচি তালিকা">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      সূচি তালিকা
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#what-is-a-container" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        কন্টেইনার কী
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#what-is-a-container-image" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        কন্টেইনার ইমেজ কী
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#container-images" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        কন্টেইনার ইমেজ
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#containers-and-processes" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        কন্টেইনার ও প্রসেস
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#build-a-docker-image-for-fastapi" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        FastAPI-এর জন্য একটি Docker ইমেজ তৈরি করুন
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="FastAPI-এর জন্য একটি Docker ইমেজ তৈরি করুন">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#package-requirements" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        প্যাকেজের প্রয়োজনীয়তা
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#create-the-fastapi-code" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        <strong>FastAPI</strong> কোড তৈরি করুন
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dockerfile" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Dockerfile
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Dockerfile">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#use-cmd-exec-form" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        <code>CMD</code> ব্যবহার করুন - Exec Form
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#directory-structure" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        ডিরেক্টরি কাঠামো
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#behind-a-tls-termination-proxy" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        একটি TLS Termination Proxy-র পেছনে
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#docker-cache" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Docker ক্যাশে
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#build-the-docker-image" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Docker ইমেজ তৈরি করুন
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#start-the-docker-container" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Docker কন্টেইনার চালু করুন
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#check-it" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        যাচাই করুন
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#interactive-api-docs" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        ইন্টারঅ্যাকটিভ API ডকুমেন্টেশন
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#alternative-api-docs" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        বিকল্প API ডকুমেন্টেশন
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#build-a-docker-image-with-a-single-file-fastapi" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        একক-ফাইল FastAPI দিয়ে একটি Docker ইমেজ তৈরি করুন
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#deployment-concepts" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        ডিপ্লয়মেন্টের ধারণাসমূহ
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#https" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        HTTPS
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#running-on-startup-and-restarts" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        startup-এ চালু হওয়া ও রিস্টার্ট
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#replication-number-of-processes" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        রেপ্লিকেশন - প্রসেসের সংখ্যা
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="রেপ্লিকেশন - প্রসেসের সংখ্যা">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#load-balancer" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        লোড ব্যালান্সার
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#one-load-balancer-multiple-worker-containers" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        একটি লোড ব্যালান্সার - একাধিক ওয়ার্কার কন্টেইনার
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#one-process-per-container" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        প্রতি কন্টেইনারে একটি প্রসেস
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#containers-with-multiple-processes-and-special-cases" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        একাধিক প্রসেসসহ কন্টেইনার ও বিশেষ ক্ষেত্র
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="একাধিক প্রসেসসহ কন্টেইনার ও বিশেষ ক্ষেত্র">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#a-simple-app" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        একটি সহজ অ্যাপ
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#docker-compose" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        Docker Compose
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#memory" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        মেমরি
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#previous-steps-before-starting-and-containers" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        শুরুর আগের ধাপ ও কন্টেইনার
+      </span>
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="শুরুর আগের ধাপ ও কন্টেইনার">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#multiple-containers" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        একাধিক কন্টেইনার
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#single-container" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        একক কন্টেইনার
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#base-docker-image" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        বেস Docker ইমেজ
+      </span>
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#deploy-the-container-image" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        কন্টেইনার ইমেজ ডিপ্লয় করুন
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#docker-image-with-uv" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        <code>uv</code>-সহ Docker ইমেজ
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#recap" class="md-nav__link">
+    <span class="md-ellipsis">
+      <span class="md-typeset">
+        সংক্ষেপে
+      </span>
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+        </div>
+      </div>
+    </div>
+  
+
+          
+            <div class="md-content" data-md-component="content">
+              
+                
+
+
+
+  
+
+
+  <nav class="md-path" aria-label="ন্যাভিগেশন" >
+    <ol class="md-path__list">
+      
+        
+  
+  
+    <li class="md-path__item">
+      <a href="../.." class="md-path__link">
+        
+  
+  <span class="md-ellipsis">
+    FastAPI
+  </span>
+
+      </a>
+    </li>
+  
+
+      
+      
+        
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+      <li class="md-path__item">
+        <a href="../../learn/" class="md-path__link">
+          
+  
+  <span class="md-ellipsis">
+    শিখুন
+  </span>
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+    
+    
+    
+      <li class="md-path__item">
+        <a href="../" class="md-path__link">
+          
+  
+  <span class="md-ellipsis">
+    ডিপ্লয়মেন্ট
+  </span>
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ol>
+  </nav>
+
+              
+              <article class="md-content__inner md-typeset">
+                
+  
+  
+  
+  
+
+
+<h1 id="fastapi-in-containers-docker">কন্টেইনারে FastAPI - Docker<a class="headerlink" href="#fastapi-in-containers-docker" title="Permanent link">&para;</a></h1>
+<details>
+<summary>🌐 AI এবং মানুষের যৌথ অনুবাদ</summary>
+<p>এই অনুবাদটি মানুষের নির্দেশনায় AI দিয়ে করা হয়েছে। 🤝</p>
+<p>এতে মূল অর্থ ভুল বোঝা বা অস্বাভাবিক শোনানোর মতো ভুল থাকতে পারে। 🤖</p>
+<p><a href="https://fastapi.tiangolo.com/deployment/docker/">ইংরেজি সংস্করণ</a></p>
+</details>
+<p>FastAPI অ্যাপ্লিকেশন ডিপ্লয় করার সময় একটি প্রচলিত পদ্ধতি হলো একটি <strong>Linux কন্টেইনার ইমেজ</strong> তৈরি করা। এটি সাধারণত করা হয় <a href="https://www.docker.com/"><strong>Docker</strong></a> ব্যবহার করে। তারপর আপনি সম্ভাব্য কয়েকটি উপায়ের একটিতে সেই কন্টেইনার ইমেজ ডিপ্লয় করতে পারেন।</p>
+<p>Linux কন্টেইনার ব্যবহারের বেশ কিছু সুবিধা আছে, যার মধ্যে আছে <strong>সিকিউরিটি</strong>, <strong>পুনরুৎপাদনযোগ্যতা</strong>, <strong>সরলতা</strong> এবং আরও অনেক কিছু।</p>
+<div class="admonition tip">
+<p class="admonition-title">পরামর্শ</p>
+<p>তাড়াহুড়োয় আছেন এবং এসব আগে থেকেই জানেন? <a href="#build-a-docker-image-for-fastapi">নিচের <code>Dockerfile</code>-এ চলে যান 👇</a>।</p>
+</div>
+<details>
+<summary>Dockerfile প্রিভিউ 👀</summary>
+
+<div class="highlight"><pre><span></span><code><span id="__span-0-1"><span class="k">FROM</span><span class="w"> </span><span class="s">python:3.14</span>
+</span><span id="__span-0-2">
+</span><span id="__span-0-3"><span class="k">WORKDIR</span><span class="w"> </span><span class="s">/code</span>
+</span><span id="__span-0-4">
+</span><span id="__span-0-5"><span class="k">COPY</span><span class="w"> </span>./requirements.txt<span class="w"> </span>/code/requirements.txt
+</span><span id="__span-0-6">
+</span><span id="__span-0-7"><span class="k">RUN</span><span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>--no-cache-dir<span class="w"> </span>--upgrade<span class="w"> </span>-r<span class="w"> </span>/code/requirements.txt
+</span><span id="__span-0-8">
+</span><span id="__span-0-9"><span class="k">COPY</span><span class="w"> </span>./app<span class="w"> </span>/code/app
+</span><span id="__span-0-10">
+</span><span id="__span-0-11"><span class="k">CMD</span><span class="w"> </span><span class="p">[</span><span class="s2">"fastapi"</span><span class="p">,</span><span class="w"> </span><span class="s2">"run"</span><span class="p">,</span><span class="w"> </span><span class="s2">"app/main.py"</span><span class="p">,</span><span class="w"> </span><span class="s2">"--port"</span><span class="p">,</span><span class="w"> </span><span class="s2">"80"</span><span class="p">]</span>
+</span><span id="__span-0-12">
+</span><span id="__span-0-13"><span class="c"># Nginx বা Traefik-এর মতো কোনো প্রক্সির পেছনে চালালে --proxy-headers যোগ করুন</span>
+</span><span id="__span-0-14"><span class="c"># CMD ["fastapi", "run", "app/main.py", "--port", "80", "--proxy-headers"]</span>
+</span></code></pre></div>
+
+</details>
+
+<h2 id="what-is-a-container">কন্টেইনার কী<a class="headerlink" href="#what-is-a-container" title="Permanent link">&para;</a></h2>
+<p>কন্টেইনার (প্রধানত Linux কন্টেইনার) হলো অ্যাপ্লিকেশনকে তাদের সব ডিপেন্ডেন্সি ও প্রয়োজনীয় ফাইলসহ প্যাকেজ করার একটি খুবই <strong>হালকা</strong> উপায়, আর একই সাথে একই সিস্টেমের অন্যান্য কন্টেইনার (অন্যান্য অ্যাপ্লিকেশন বা কম্পোনেন্ট) থেকে সেগুলোকে বিচ্ছিন্ন রাখে।</p>
+<p>Linux কন্টেইনারগুলো হোস্টের (মেশিন, ভার্চুয়াল মেশিন, ক্লাউড সার্ভার ইত্যাদি) একই Linux কার্নেল ব্যবহার করে চলে। এর মানে শুধু এই যে এগুলো খুবই হালকা (একটি পুরো অপারেটিং সিস্টেমের অনুকরণ করা পূর্ণ ভার্চুয়াল মেশিনের তুলনায়)।</p>
+<p>এভাবে কন্টেইনারগুলো <strong>কম রিসোর্স</strong> খরচ করে, যা সরাসরি প্রসেস চালানোর সাথে তুলনীয় (একটি ভার্চুয়াল মেশিন অনেক বেশি খরচ করত)।</p>
+<p>কন্টেইনারগুলোর নিজস্ব <strong>বিচ্ছিন্ন</strong> চলমান প্রসেস (সাধারণত মাত্র একটি প্রসেস), ফাইল সিস্টেম ও নেটওয়ার্কও থাকে, যা ডিপ্লয়মেন্ট, সিকিউরিটি, ডেভেলপমেন্ট ইত্যাদি সহজ করে।</p>
+<h2 id="what-is-a-container-image">কন্টেইনার ইমেজ কী<a class="headerlink" href="#what-is-a-container-image" title="Permanent link">&para;</a></h2>
+<p>একটি <strong>কন্টেইনার</strong> চালানো হয় একটি <strong>কন্টেইনার ইমেজ</strong> থেকে।</p>
+<p>একটি কন্টেইনার ইমেজ হলো সব ফাইল, এনভায়রনমেন্ট ভেরিয়েবল এবং একটি কন্টেইনারে থাকা উচিত এমন ডিফল্ট কমান্ড/প্রোগ্রামের একটি <strong>স্থির</strong> ভার্সন। এখানে <strong>স্থির</strong> মানে কন্টেইনার <strong>ইমেজটি</strong> চলছে না, এক্সিকিউট হচ্ছে না, এটি কেবল প্যাকেজ করা ফাইল ও মেটাডেটা।</p>
+<p>সংরক্ষিত স্থির বিষয়বস্তু "<strong>কন্টেইনার ইমেজ</strong>"-এর বিপরীতে, একটি "<strong>কন্টেইনার</strong>" সাধারণত চলমান ইনস্ট্যান্সকে বোঝায়, যে জিনিসটি <strong>এক্সিকিউট</strong> হচ্ছে।</p>
+<p>যখন <strong>কন্টেইনারটি</strong> চালু হয় এবং চলতে থাকে (একটি <strong>কন্টেইনার ইমেজ</strong> থেকে চালু হয়ে), তখন এটি ফাইল, এনভায়রনমেন্ট ভেরিয়েবল ইত্যাদি তৈরি বা পরিবর্তন করতে পারে। ওই পরিবর্তনগুলো কেবল ওই কন্টেইনারেই থাকবে, কিন্তু মূল কন্টেইনার ইমেজে স্থায়ী হবে না (ডিস্কে সংরক্ষিত হবে না)।</p>
+<p>একটি কন্টেইনার ইমেজ <strong>প্রোগ্রাম</strong> ফাইল ও বিষয়বস্তুর সাথে তুলনীয়, যেমন <code>python</code> এবং কোনো একটি ফাইল <code>main.py</code>।</p>
+<p>আর <strong>কন্টেইনারটি</strong> নিজে (<strong>কন্টেইনার ইমেজের</strong> বিপরীতে) হলো ইমেজের আসল চলমান ইনস্ট্যান্স, যা একটি <strong>প্রসেসের</strong> সাথে তুলনীয়। আসলে একটি কন্টেইনার কেবল তখনই চলে যখন এতে একটি <strong>প্রসেস চলে</strong> (এবং সাধারণত এটি মাত্র একটি প্রসেস)। এতে কোনো প্রসেস না চললে কন্টেইনারটি থেমে যায়।</p>
+<h2 id="container-images">কন্টেইনার ইমেজ<a class="headerlink" href="#container-images" title="Permanent link">&para;</a></h2>
+<p><strong>কন্টেইনার ইমেজ</strong> ও <strong>কন্টেইনার</strong> তৈরি ও পরিচালনার প্রধান টুলগুলোর একটি হলো Docker।</p>
+<p>আর একটি পাবলিক <a href="https://hub.docker.com/">Docker Hub</a> আছে, যেখানে অনেক টুল, এনভায়রনমেন্ট, ডেটাবেস ও অ্যাপ্লিকেশনের জন্য আগে থেকে তৈরি <strong>অফিসিয়াল কন্টেইনার ইমেজ</strong> আছে।</p>
+<p>যেমন, একটি অফিসিয়াল <a href="https://hub.docker.com/_/python">Python Image</a> আছে।</p>
+<p>আর ডেটাবেসের মতো বিভিন্ন জিনিসের জন্য আরও অনেক ইমেজ আছে, যেমন:</p>
+<ul>
+<li><a href="https://hub.docker.com/_/postgres">PostgreSQL</a></li>
+<li><a href="https://hub.docker.com/_/mysql">MySQL</a></li>
+<li><a href="https://hub.docker.com/_/mongo">MongoDB</a></li>
+<li><a href="https://hub.docker.com/_/redis">Redis</a> ইত্যাদি।</li>
+</ul>
+<p>আগে থেকে তৈরি একটি কন্টেইনার ইমেজ ব্যবহার করে বিভিন্ন টুল <strong>একত্রিত</strong> করে ব্যবহার করা খুবই সহজ। যেমন, একটি নতুন ডেটাবেস চেষ্টা করে দেখতে। বেশিরভাগ ক্ষেত্রে আপনি <strong>অফিসিয়াল ইমেজ</strong> ব্যবহার করে শুধু এনভায়রনমেন্ট ভেরিয়েবল দিয়ে সেগুলো কনফিগার করতে পারেন।</p>
+<p>এভাবে অনেক ক্ষেত্রে আপনি কন্টেইনার ও Docker সম্পর্কে শিখে সেই জ্ঞান অনেক ভিন্ন ভিন্ন টুল ও কম্পোনেন্টের সাথে পুনরায় ব্যবহার করতে পারেন।</p>
+<p>তাই আপনি ভিন্ন ভিন্ন জিনিসসহ <strong>একাধিক কন্টেইনার</strong> চালাবেন, যেমন একটি ডেটাবেস, একটি Python অ্যাপ্লিকেশন, একটি React ফ্রন্টএন্ড অ্যাপ্লিকেশনসহ একটি ওয়েব সার্ভার, এবং তাদের অভ্যন্তরীণ নেটওয়ার্কের মাধ্যমে সেগুলো একসাথে যুক্ত করবেন।</p>
+<p>সব কন্টেইনার ম্যানেজমেন্ট সিস্টেমে (যেমন Docker বা Kubernetes) এই নেটওয়ার্কিং ফিচারগুলো অন্তর্ভুক্ত আছে।</p>
+<h2 id="containers-and-processes">কন্টেইনার ও প্রসেস<a class="headerlink" href="#containers-and-processes" title="Permanent link">&para;</a></h2>
+<p>একটি <strong>কন্টেইনার ইমেজ</strong> সাধারণত এর মেটাডেটায় সেই ডিফল্ট প্রোগ্রাম বা কমান্ড অন্তর্ভুক্ত করে যা <strong>কন্টেইনার</strong> চালু হওয়ার সময় চালানো উচিত, এবং সেই প্রোগ্রামে পাঠানোর প্যারামিটারগুলোও। কমান্ড লাইনে থাকলে যেমন হতো তার খুবই অনুরূপ।</p>
+<p>যখন একটি <strong>কন্টেইনার</strong> চালু হয়, তখন এটি ওই কমান্ড/প্রোগ্রাম চালাবে (যদিও আপনি এটি ওভাররাইড করে ভিন্ন একটি কমান্ড/প্রোগ্রাম চালাতে পারেন)।</p>
+<p><strong>মূল প্রসেস</strong> (কমান্ড বা প্রোগ্রাম) যতক্ষণ চলে, একটি কন্টেইনার ততক্ষণ চলে।</p>
+<p>একটি কন্টেইনারে সাধারণত একটি <strong>একক প্রসেস</strong> থাকে, তবে মূল প্রসেস থেকে সাবপ্রসেস চালু করাও সম্ভব, আর এভাবে একই কন্টেইনারে আপনার <strong>একাধিক প্রসেস</strong> থাকবে।</p>
+<p>কিন্তু <strong>অন্তত একটি চলমান প্রসেস</strong> ছাড়া একটি চলমান কন্টেইনার থাকা সম্ভব নয়। মূল প্রসেস থামলে কন্টেইনার থেমে যায়।</p>
+<h2 id="build-a-docker-image-for-fastapi">FastAPI-এর জন্য একটি Docker ইমেজ তৈরি করুন<a class="headerlink" href="#build-a-docker-image-for-fastapi" title="Permanent link">&para;</a></h2>
+<p>ঠিক আছে, এবার কিছু তৈরি করা যাক! 🚀</p>
+<p>আমি আপনাকে দেখাব কীভাবে <strong>অফিসিয়াল Python</strong> ইমেজের ওপর ভিত্তি করে <strong>একদম শুরু থেকে</strong> FastAPI-এর জন্য একটি <strong>Docker ইমেজ</strong> তৈরি করতে হয়।</p>
+<p><strong>বেশিরভাগ ক্ষেত্রে</strong> আপনি এটিই করতে চাইবেন, যেমন:</p>
+<ul>
+<li><strong>Kubernetes</strong> বা এরকম টুল ব্যবহারের সময়</li>
+<li>একটি <strong>Raspberry Pi</strong>-তে চালানোর সময়</li>
+<li>আপনার হয়ে একটি কন্টেইনার ইমেজ চালাবে এমন একটি ক্লাউড সার্ভিস ব্যবহারের সময়, ইত্যাদি।</li>
+</ul>
+<h3 id="package-requirements">প্যাকেজের প্রয়োজনীয়তা<a class="headerlink" href="#package-requirements" title="Permanent link">&para;</a></h3>
+<p>আপনি যখন <code>uv</code> দিয়ে আপনার প্রজেক্ট পরিচালনা করেন, তখন এর সরাসরি ডিপেন্ডেন্সিগুলো <code>pyproject.toml</code>-এ ঘোষণা করা থাকে এবং নির্ধারিত হুবহু ভার্সনগুলো <code>uv.lock</code>-এ সংরক্ষিত থাকে।</p>
+<p>আপনার অ্যাপ্লিকেশনের প্রয়োজনীয় প্যাকেজগুলো আপনি এভাবে যোগ করতে পারেন:</p>
+<div class="termy">
+
+<div class="highlight"><pre><span></span><code><span id="__span-1-1"><span class="gp">$ </span>uv<span class="w"> </span>add<span class="w"> </span><span class="s2">"fastapi[standard]"</span><span class="w"> </span>pydantic
+</span><span id="__span-1-2"><span class="go">---&gt; 100%</span>
+</span></code></pre></div>
+
+</div>
+
+<div class="admonition note">
+<p class="admonition-title">নোট</p>
+<p>নিচের Dockerfile কন্টেইনারের ভেতরে <code>pip</code> ব্যবহার করে। আপনার uv প্রজেক্ট থেকে লক করা ডিপেন্ডেন্সিগুলো এর প্রত্যাশিত <code>requirements.txt</code> ফরম্যাটে এক্সপোর্ট করতে পারেন:</p>
+<div class="termy">
+
+<div class="highlight"><pre><span></span><code><span id="__span-2-1"><span class="gp">$ </span>uv<span class="w"> </span><span class="nb">export</span><span class="w"> </span>--format<span class="w"> </span>requirements-txt<span class="w"> </span>--no-dev<span class="w"> </span>--no-emit-project<span class="w"> </span>--output-file<span class="w"> </span>requirements.txt
+</span></code></pre></div>
+
+</div>
+
+<p>তৈরি হওয়া <code>requirements.txt</code> হলো কন্টেইনার বিল্ডের জন্য একটি এক্সপোর্ট। <code>uv add</code> দিয়ে ডিপেন্ডেন্সি পরিচালনা চালিয়ে যান এবং <code>uv.lock</code> বদলালে এটি আবার তৈরি করুন।</p>
+</div>
+<h3 id="create-the-fastapi-code"><strong>FastAPI</strong> কোড তৈরি করুন<a class="headerlink" href="#create-the-fastapi-code" title="Permanent link">&para;</a></h3>
+<ul>
+<li>একটি <code>app</code> ডিরেক্টরি তৈরি করে তাতে প্রবেশ করুন।</li>
+<li>একটি খালি ফাইল <code>__init__.py</code> তৈরি করুন।</li>
+<li>একটি <code>main.py</code> ফাইল তৈরি করুন, এতে লিখুন:</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span id="__span-3-1"><span class="kn">from</span><span class="w"> </span><span class="nn">fastapi</span><span class="w"> </span><span class="kn">import</span> <span class="n">FastAPI</span>
+</span><span id="__span-3-2">
+</span><span id="__span-3-3"><span class="n">app</span> <span class="o">=</span> <span class="n">FastAPI</span><span class="p">()</span>
+</span><span id="__span-3-4">
+</span><span id="__span-3-5">
+</span><span id="__span-3-6"><span class="nd">@app</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"/"</span><span class="p">)</span>
+</span><span id="__span-3-7"><span class="k">def</span><span class="w"> </span><span class="nf">read_root</span><span class="p">():</span>
+</span><span id="__span-3-8">    <span class="k">return</span> <span class="p">{</span><span class="s2">"Hello"</span><span class="p">:</span> <span class="s2">"World"</span><span class="p">}</span>
+</span><span id="__span-3-9">
+</span><span id="__span-3-10">
+</span><span id="__span-3-11"><span class="nd">@app</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">"/items/</span><span class="si">{item_id}</span><span class="s2">"</span><span class="p">)</span>
+</span><span id="__span-3-12"><span class="k">def</span><span class="w"> </span><span class="nf">read_item</span><span class="p">(</span><span class="n">item_id</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">q</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+</span><span id="__span-3-13">    <span class="k">return</span> <span class="p">{</span><span class="s2">"item_id"</span><span class="p">:</span> <span class="n">item_id</span><span class="p">,</span> <span class="s2">"q"</span><span class="p">:</span> <span class="n">q</span><span class="p">}</span>
+</span></code></pre></div>
+<h3 id="dockerfile">Dockerfile<a class="headerlink" href="#dockerfile" title="Permanent link">&para;</a></h3>
+<p>এবার একই প্রজেক্ট ডিরেক্টরিতে <code>Dockerfile</code> নামে একটি ফাইল তৈরি করুন, এতে লিখুন:</p>
+<div class="annotate highlight"><pre><span></span><code><span id="__span-4-1"><span class="c"># (1)!</span>
+</span><span id="__span-4-2"><span class="k">FROM</span><span class="w"> </span><span class="s">python:3.14</span>
+</span><span id="__span-4-3">
+</span><span id="__span-4-4"><span class="c"># (2)!</span>
+</span><span id="__span-4-5"><span class="k">WORKDIR</span><span class="w"> </span><span class="s">/code</span>
+</span><span id="__span-4-6">
+</span><span id="__span-4-7"><span class="c"># (3)!</span>
+</span><span id="__span-4-8"><span class="k">COPY</span><span class="w"> </span>./requirements.txt<span class="w"> </span>/code/requirements.txt
+</span><span id="__span-4-9">
+</span><span id="__span-4-10"><span class="c"># (4)!</span>
+</span><span id="__span-4-11"><span class="k">RUN</span><span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>--no-cache-dir<span class="w"> </span>--upgrade<span class="w"> </span>-r<span class="w"> </span>/code/requirements.txt
+</span><span id="__span-4-12">
+</span><span id="__span-4-13"><span class="c"># (5)!</span>
+</span><span id="__span-4-14"><span class="k">COPY</span><span class="w"> </span>./app<span class="w"> </span>/code/app
+</span><span id="__span-4-15">
+</span><span id="__span-4-16"><span class="c"># (6)!</span>
+</span><span id="__span-4-17"><span class="k">CMD</span><span class="w"> </span><span class="p">[</span><span class="s2">"fastapi"</span><span class="p">,</span><span class="w"> </span><span class="s2">"run"</span><span class="p">,</span><span class="w"> </span><span class="s2">"app/main.py"</span><span class="p">,</span><span class="w"> </span><span class="s2">"--port"</span><span class="p">,</span><span class="w"> </span><span class="s2">"80"</span><span class="p">]</span>
+</span></code></pre></div>
+<ol>
+<li>
+<p>অফিসিয়াল Python বেস ইমেজ থেকে শুরু করুন।</p>
+</li>
+<li>
+<p>বর্তমান ওয়ার্কিং ডিরেক্টরি <code>/code</code>-এ সেট করুন।</p>
+<p>এখানেই আমরা <code>requirements.txt</code> ফাইল ও <code>app</code> ডিরেক্টরি রাখব।</p>
+</li>
+<li>
+<p>প্রয়োজনীয়তাসহ ফাইলটি <code>/code</code> ডিরেক্টরিতে কপি করুন।</p>
+<p>প্রথমে <strong>কেবল</strong> প্রয়োজনীয়তাসহ ফাইলটি কপি করুন, বাকি কোড নয়।</p>
+<p>যেহেতু এই ফাইলটি <strong>খুব একটা বদলায় না</strong>, তাই Docker এটি শনাক্ত করে এই ধাপের জন্য <strong>ক্যাশে</strong> ব্যবহার করবে, ফলে পরের ধাপের জন্যও ক্যাশে চালু হবে।</p>
+</li>
+<li>
+<p>প্রয়োজনীয়তা ফাইলের প্যাকেজ ডিপেন্ডেন্সিগুলো ইনস্টল করুন।</p>
+<p><code>--no-cache-dir</code> অপশন <code>pip</code>-কে ডাউনলোড করা প্যাকেজগুলো লোকালি সংরক্ষণ না করতে বলে, কারণ তা কেবল তখনই দরকার যদি একই প্যাকেজ ইনস্টল করতে <code>pip</code> আবার চালানো হতো, কিন্তু কন্টেইনার নিয়ে কাজ করার সময় তা হয় না।</p>
+<div class="admonition note">
+<p class="admonition-title">নোট</p>
+<p><code>--no-cache-dir</code> কেবল <code>pip</code>-এর সাথে সম্পর্কিত, Docker বা কন্টেইনারের সাথে এর কোনো সম্পর্ক নেই।</p>
+</div>
+<p><code>--upgrade</code> অপশন <code>pip</code>-কে প্যাকেজগুলো আগে থেকে ইনস্টল থাকলে আপগ্রেড করতে বলে।</p>
+<p>যেহেতু ফাইল কপি করার আগের ধাপটি <strong>Docker ক্যাশে</strong> শনাক্ত করতে পারে, তাই উপলব্ধ থাকলে এই ধাপটিও <strong>Docker ক্যাশে ব্যবহার করবে</strong>।</p>
+<p>এই ধাপে ক্যাশে ব্যবহার করলে ডেভেলপমেন্টের সময় বারবার ইমেজ তৈরির সময় <strong>প্রতিবার</strong> সব ডিপেন্ডেন্সি <strong>ডাউনলোড ও ইনস্টল</strong> না করে আপনার অনেক <strong>সময় বাঁচবে</strong>।</p>
+</li>
+<li>
+<p><code>./app</code> ডিরেক্টরিটি <code>/code</code> ডিরেক্টরির ভেতরে কপি করুন।</p>
+<p>যেহেতু এতে সব কোড আছে, যা <strong>সবচেয়ে ঘন ঘন বদলায়</strong>, তাই এই ধাপ বা <strong>পরের কোনো ধাপের</strong> জন্য Docker <strong>ক্যাশে</strong> সহজে ব্যবহার হবে না।</p>
+<p>তাই কন্টেইনার ইমেজ তৈরির সময় অপটিমাইজ করতে এটিকে <code>Dockerfile</code>-এর <strong>শেষের কাছাকাছি</strong> রাখা গুরুত্বপূর্ণ।</p>
+</li>
+<li>
+<p><code>fastapi run</code> ব্যবহার করতে <strong>কমান্ড</strong> সেট করুন, যা ভেতরে ভেতরে Uvicorn ব্যবহার করে।</p>
+<p><code>CMD</code> স্ট্রিংয়ের একটি লিস্ট নেয়, এই প্রতিটি স্ট্রিং হলো কমান্ড লাইনে স্পেস দিয়ে আলাদা করে আপনি যা লিখতেন।</p>
+<p>এই কমান্ডটি <strong>বর্তমান ওয়ার্কিং ডিরেক্টরি</strong> থেকে চলবে, ওপরে <code>WORKDIR /code</code> দিয়ে সেট করা সেই একই <code>/code</code> ডিরেক্টরি।</p>
+</li>
+</ol>
+<div class="admonition tip">
+<p class="admonition-title">পরামর্শ</p>
+<p>কোডের প্রতিটি সংখ্যার বুদবুদে ক্লিক করে প্রতিটি লাইন কী করে তা দেখে নিন। 👆</p>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">সতর্কতা</p>
+<p>নিচে যেমন ব্যাখ্যা করা হয়েছে, <strong>সবসময়</strong> <code>CMD</code> নির্দেশনার <strong>exec form</strong> ব্যবহার করবেন।</p>
+</div>
+<h4 id="use-cmd-exec-form"><code>CMD</code> ব্যবহার করুন - Exec Form<a class="headerlink" href="#use-cmd-exec-form" title="Permanent link">&para;</a></h4>
+<p><a href="https://docs.docker.com/reference/dockerfile/#cmd"><code>CMD</code></a> Docker নির্দেশনাটি দুটি রূপে লেখা যায়:</p>
+<p>✅ <strong>Exec</strong> form:</p>
+<div class="highlight"><pre><span></span><code><span id="__span-5-1"><span class="c"># ✅ Do this</span>
+</span><span id="__span-5-2"><span class="k">CMD</span><span class="w"> </span><span class="p">[</span><span class="s2">"fastapi"</span><span class="p">,</span><span class="w"> </span><span class="s2">"run"</span><span class="p">,</span><span class="w"> </span><span class="s2">"app/main.py"</span><span class="p">,</span><span class="w"> </span><span class="s2">"--port"</span><span class="p">,</span><span class="w"> </span><span class="s2">"80"</span><span class="p">]</span>
+</span></code></pre></div>
+<p>⛔️ <strong>Shell</strong> form:</p>
+<div class="highlight"><pre><span></span><code><span id="__span-6-1"><span class="c"># ⛔️ Don't do this</span>
+</span><span id="__span-6-2"><span class="k">CMD</span><span class="w"> </span>fastapi<span class="w"> </span>run<span class="w"> </span>app/main.py<span class="w"> </span>--port<span class="w"> </span><span class="m">80</span>
+</span></code></pre></div>
+<p>FastAPI যাতে সুন্দরভাবে বন্ধ হতে পারে এবং <a href="../../advanced/events/">lifespan ইভেন্ট</a> চালু হয় তা নিশ্চিত করতে সবসময় <strong>exec</strong> form ব্যবহার করবেন।</p>
+<p>এ সম্পর্কে আরও পড়তে পারেন <a href="https://docs.docker.com/reference/dockerfile/#shell-and-exec-form">shell ও exec form নিয়ে Docker ডকুমেন্টেশনে</a>।</p>
+<p><code>docker compose</code> ব্যবহারের সময় এটি বেশ লক্ষণীয় হতে পারে। আরও কারিগরি বিবরণের জন্য Docker Compose FAQ-এর এই অংশটি দেখুন: <a href="https://docs.docker.com/compose/faq/#why-do-my-services-take-10-seconds-to-recreate-or-stop">Why do my services take 10 seconds to recreate or stop?</a>।</p>
+<h4 id="directory-structure">ডিরেক্টরি কাঠামো<a class="headerlink" href="#directory-structure" title="Permanent link">&para;</a></h4>
+<p>এখন আপনার এরকম একটি ডিরেক্টরি কাঠামো থাকা উচিত:</p>
+<div class="highlight"><pre><span></span><code><span id="__span-7-1">.
+</span><span id="__span-7-2">├── app
+</span><span id="__span-7-3">│   ├── __init__.py
+</span><span id="__span-7-4">│   └── main.py
+</span><span id="__span-7-5">├── Dockerfile
+</span><span id="__span-7-6">└── requirements.txt
+</span></code></pre></div>
+<h4 id="behind-a-tls-termination-proxy">একটি TLS Termination Proxy-র পেছনে<a class="headerlink" href="#behind-a-tls-termination-proxy" title="Permanent link">&para;</a></h4>
+<p>আপনি যদি Nginx বা Traefik-এর মতো একটি TLS Termination Proxy (লোড ব্যালান্সার)-এর পেছনে আপনার কন্টেইনার চালান, তাহলে <code>--proxy-headers</code> অপশন যোগ করুন, এটি Uvicorn-কে (FastAPI CLI-এর মাধ্যমে) ওই প্রক্সির পাঠানো হেডারগুলো বিশ্বাস করতে বলবে, যা জানায় যে অ্যাপ্লিকেশনটি HTTPS-এর পেছনে চলছে, ইত্যাদি।</p>
+<div class="highlight"><pre><span></span><code><span id="__span-8-1"><span class="k">CMD</span><span class="w"> </span><span class="p">[</span><span class="s2">"fastapi"</span><span class="p">,</span><span class="w"> </span><span class="s2">"run"</span><span class="p">,</span><span class="w"> </span><span class="s2">"app/main.py"</span><span class="p">,</span><span class="w"> </span><span class="s2">"--proxy-headers"</span><span class="p">,</span><span class="w"> </span><span class="s2">"--port"</span><span class="p">,</span><span class="w"> </span><span class="s2">"80"</span><span class="p">]</span>
+</span></code></pre></div>
+<h4 id="docker-cache">Docker ক্যাশে<a class="headerlink" href="#docker-cache" title="Permanent link">&para;</a></h4>
+<p>এই <code>Dockerfile</code>-এ একটি গুরুত্বপূর্ণ কৌশল আছে, আমরা প্রথমে <strong>শুধু ডিপেন্ডেন্সিসহ ফাইলটি</strong> কপি করি, বাকি কোড নয়। কেন তা বলছি।</p>
+<div class="highlight"><pre><span></span><code><span id="__span-9-1"><span class="k">COPY</span><span class="w"> </span>./requirements.txt<span class="w"> </span>/code/requirements.txt
+</span></code></pre></div>
+<p>Docker ও অন্যান্য টুল এই কন্টেইনার ইমেজগুলো <strong>ধাপে ধাপে</strong> <strong>তৈরি</strong> করে, <strong>একটি স্তরের ওপর আরেকটি স্তর</strong> যোগ করে, <code>Dockerfile</code>-এর ওপর থেকে শুরু করে এবং <code>Dockerfile</code>-এর প্রতিটি নির্দেশনায় তৈরি হওয়া যেকোনো ফাইল যোগ করে।</p>
+<p>ইমেজ তৈরির সময় Docker ও এরকম টুলগুলো একটি <strong>অভ্যন্তরীণ ক্যাশেও</strong> ব্যবহার করে, গতবার কন্টেইনার ইমেজ তৈরির পরে কোনো ফাইল না বদলালে এটি আবার ফাইল কপি করে শুরু থেকে নতুন স্তর তৈরি না করে গতবার তৈরি করা <strong>একই স্তর পুনরায় ব্যবহার করবে</strong>।</p>
+<p>শুধু ফাইলের কপি এড়ানো খুব একটা উন্নতি নাও আনতে পারে, কিন্তু যেহেতু এটি ওই ধাপের জন্য ক্যাশে ব্যবহার করেছে, তাই এটি <strong>পরের ধাপের জন্যও ক্যাশে ব্যবহার করতে</strong> পারে। যেমন, এটি ডিপেন্ডেন্সি ইনস্টল করার নির্দেশনার জন্য ক্যাশে ব্যবহার করতে পারে:</p>
+<div class="highlight"><pre><span></span><code><span id="__span-10-1"><span class="k">RUN</span><span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>--no-cache-dir<span class="w"> </span>--upgrade<span class="w"> </span>-r<span class="w"> </span>/code/requirements.txt
+</span></code></pre></div>
+<p>প্যাকেজের প্রয়োজনীয়তাসহ ফাইলটি <strong>খুব একটা বদলাবে না</strong>। তাই কেবল ওই ফাইলটি কপি করে Docker ওই ধাপের জন্য <strong>ক্যাশে ব্যবহার করতে</strong> পারবে।</p>
+<p>আর তারপর Docker ওই ডিপেন্ডেন্সিগুলো ডাউনলোড ও ইনস্টল করার <strong>পরের ধাপের জন্য ক্যাশে ব্যবহার করতে</strong> পারবে। আর এখানেই আমরা <strong>অনেক সময় বাঁচাই</strong>। ✨ ...আর অপেক্ষার একঘেয়েমি এড়াই। 😪😆</p>
+<p>প্যাকেজ ডিপেন্ডেন্সি ডাউনলোড ও ইনস্টল করতে <strong>কয়েক মিনিট লাগতে পারে</strong>, কিন্তু <strong>ক্যাশে</strong> ব্যবহার করলে বড়জোর <strong>কয়েক সেকেন্ড লাগবে</strong>।</p>
+<p>আর যেহেতু আপনার কোডের পরিবর্তনগুলো কাজ করছে কিনা যাচাই করতে ডেভেলপমেন্টের সময় আপনি বারবার কন্টেইনার ইমেজ তৈরি করবেন, তাই এতে জমে জমে অনেক সময় বাঁচবে।</p>
+<p>তারপর <code>Dockerfile</code>-এর শেষের কাছাকাছি আমরা সব কোড কপি করি। যেহেতু এটিই <strong>সবচেয়ে ঘন ঘন বদলায়</strong>, তাই আমরা এটি শেষের কাছাকাছি রাখি, কারণ প্রায় সবসময় এই ধাপের পরের কোনো কিছু ক্যাশে ব্যবহার করতে পারবে না।</p>
+<div class="highlight"><pre><span></span><code><span id="__span-11-1"><span class="k">COPY</span><span class="w"> </span>./app<span class="w"> </span>/code/app
+</span></code></pre></div>
+<h3 id="build-the-docker-image">Docker ইমেজ তৈরি করুন<a class="headerlink" href="#build-the-docker-image" title="Permanent link">&para;</a></h3>
+<p>এখন যেহেতু সব ফাইল জায়গামতো আছে, চলুন কন্টেইনার ইমেজ তৈরি করি।</p>
+<ul>
+<li>প্রজেক্ট ডিরেক্টরিতে যান (যেখানে আপনার <code>Dockerfile</code> আছে, যাতে আপনার <code>app</code> ডিরেক্টরি আছে)।</li>
+<li>আপনার FastAPI ইমেজ তৈরি করুন:</li>
+</ul>
+<div class="termy">
+
+<div class="highlight"><pre><span></span><code><span id="__span-12-1"><span class="gp">$ </span>docker<span class="w"> </span>build<span class="w"> </span>-t<span class="w"> </span>myimage<span class="w"> </span>.
+</span><span id="__span-12-2">
+</span><span id="__span-12-3"><span class="go">---&gt; 100%</span>
+</span></code></pre></div>
+
+</div>
+
+<div class="admonition tip">
+<p class="admonition-title">পরামর্শ</p>
+<p>শেষের <code>.</code>-টি লক্ষ করুন, এটি <code>./</code>-এর সমতুল্য, এটি Docker-কে কন্টেইনার ইমেজ তৈরিতে ব্যবহারের ডিরেক্টরি জানায়।</p>
+<p>এক্ষেত্রে এটি একই বর্তমান ডিরেক্টরি (<code>.</code>)।</p>
+</div>
+<h3 id="start-the-docker-container">Docker কন্টেইনার চালু করুন<a class="headerlink" href="#start-the-docker-container" title="Permanent link">&para;</a></h3>
+<ul>
+<li>আপনার ইমেজের ওপর ভিত্তি করে একটি কন্টেইনার চালান:</li>
+</ul>
+<div class="termy">
+
+<div class="highlight"><pre><span></span><code><span id="__span-13-1"><span class="gp">$ </span>docker<span class="w"> </span>run<span class="w"> </span>-d<span class="w"> </span>--name<span class="w"> </span>mycontainer<span class="w"> </span>-p<span class="w"> </span><span class="m">80</span>:80<span class="w"> </span>myimage
+</span></code></pre></div>
+
+</div>
+
+<h2 id="check-it">যাচাই করুন<a class="headerlink" href="#check-it" title="Permanent link">&para;</a></h2>
+<p>আপনার Docker কন্টেইনারের URL-এ আপনি এটি যাচাই করতে পারবেন, যেমন: <a href="http://192.168.99.100/items/5?q=somequery">http://192.168.99.100/items/5?q=somequery</a> বা <a href="http://127.0.0.1/items/5?q=somequery">http://127.0.0.1/items/5?q=somequery</a> (বা আপনার Docker হোস্ট ব্যবহার করে সমতুল্য)।</p>
+<p>আপনি এরকম কিছু দেখবেন:</p>
+<div class="highlight"><pre><span></span><code><span id="__span-14-1"><span class="p">{</span><span class="nt">"item_id"</span><span class="p">:</span><span class="w"> </span><span class="mi">5</span><span class="p">,</span><span class="w"> </span><span class="nt">"q"</span><span class="p">:</span><span class="w"> </span><span class="s2">"somequery"</span><span class="p">}</span>
+</span></code></pre></div>
+<h2 id="interactive-api-docs">ইন্টারঅ্যাকটিভ API ডকুমেন্টেশন<a class="headerlink" href="#interactive-api-docs" title="Permanent link">&para;</a></h2>
+<p>এবার আপনি <a href="http://192.168.99.100/docs">http://192.168.99.100/docs</a> বা <a href="http://127.0.0.1/docs">http://127.0.0.1/docs</a>-এ (বা আপনার Docker হোস্ট ব্যবহার করে সমতুল্য) যেতে পারেন।</p>
+<p>আপনি স্বয়ংক্রিয় ইন্টারঅ্যাকটিভ API ডকুমেন্টেশন দেখতে পাবেন (যা <a href="https://github.com/swagger-api/swagger-ui">Swagger UI</a> সরবরাহ করে):</p>
+<p><img alt="Swagger UI" src="https://fastapi.tiangolo.com/img/index/index-01-swagger-ui-simple.png" /></p>
+<h2 id="alternative-api-docs">বিকল্প API ডকুমেন্টেশন<a class="headerlink" href="#alternative-api-docs" title="Permanent link">&para;</a></h2>
+<p>আর আপনি <a href="http://192.168.99.100/redoc">http://192.168.99.100/redoc</a> বা <a href="http://127.0.0.1/redoc">http://127.0.0.1/redoc</a>-এও (বা আপনার Docker হোস্ট ব্যবহার করে সমতুল্য) যেতে পারেন।</p>
+<p>আপনি বিকল্প স্বয়ংক্রিয় ডকুমেন্টেশন দেখতে পাবেন (যা <a href="https://github.com/Redocly/redoc">ReDoc</a> সরবরাহ করে):</p>
+<p><img alt="ReDoc" src="https://fastapi.tiangolo.com/img/index/index-02-redoc-simple.png" /></p>
+<h2 id="build-a-docker-image-with-a-single-file-fastapi">একক-ফাইল FastAPI দিয়ে একটি Docker ইমেজ তৈরি করুন<a class="headerlink" href="#build-a-docker-image-with-a-single-file-fastapi" title="Permanent link">&para;</a></h2>
+<p>আপনার FastAPI যদি একটিমাত্র ফাইল হয়, যেমন <code>./app</code> ডিরেক্টরি ছাড়া <code>main.py</code>, তাহলে আপনার ফাইল কাঠামো দেখতে এরকম হতে পারে:</p>
+<div class="highlight"><pre><span></span><code><span id="__span-15-1">.
+</span><span id="__span-15-2">├── Dockerfile
+</span><span id="__span-15-3">├── main.py
+</span><span id="__span-15-4">└── requirements.txt
+</span></code></pre></div>
+<p>তাহলে আপনাকে শুধু <code>Dockerfile</code>-এর ভেতরে ফাইলটি কপি করার সংশ্লিষ্ট পাথগুলো বদলাতে হবে:</p>
+<div class="annotate highlight"><pre><span></span><code><span id="__span-16-1"><span class="k">FROM</span><span class="w"> </span><span class="s">python:3.14</span>
+</span><span id="__span-16-2">
+</span><span id="__span-16-3"><span class="k">WORKDIR</span><span class="w"> </span><span class="s">/code</span>
+</span><span id="__span-16-4">
+</span><span id="__span-16-5"><span class="k">COPY</span><span class="w"> </span>./requirements.txt<span class="w"> </span>/code/requirements.txt
+</span><span id="__span-16-6">
+</span><span id="__span-16-7"><span class="k">RUN</span><span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>--no-cache-dir<span class="w"> </span>--upgrade<span class="w"> </span>-r<span class="w"> </span>/code/requirements.txt
+</span><span id="__span-16-8">
+</span><span id="__span-16-9"><span class="c"># (1)!</span>
+</span><span id="__span-16-10"><span class="hll"><span class="k">COPY</span><span class="w"> </span>./main.py<span class="w"> </span>/code/
+</span></span><span id="__span-16-11">
+</span><span id="__span-16-12"><span class="c"># (2)!</span>
+</span><span id="__span-16-13"><span class="hll"><span class="k">CMD</span><span class="w"> </span><span class="p">[</span><span class="s2">"fastapi"</span><span class="p">,</span><span class="w"> </span><span class="s2">"run"</span><span class="p">,</span><span class="w"> </span><span class="s2">"main.py"</span><span class="p">,</span><span class="w"> </span><span class="s2">"--port"</span><span class="p">,</span><span class="w"> </span><span class="s2">"80"</span><span class="p">]</span>
+</span></span></code></pre></div>
+<ol>
+<li>
+<p><code>main.py</code> ফাইলটি সরাসরি <code>/code</code> ডিরেক্টরিতে কপি করুন (কোনো <code>./app</code> ডিরেক্টরি ছাড়া)।</p>
+</li>
+<li>
+<p>একক ফাইল <code>main.py</code>-তে থাকা আপনার অ্যাপ্লিকেশন সার্ভ করতে <code>fastapi run</code> ব্যবহার করুন।</p>
+</li>
+</ol>
+<p>আপনি যখন <code>fastapi run</code>-এ ফাইলটি দেন, তখন এটি স্বয়ংক্রিয়ভাবে শনাক্ত করবে যে এটি একটি একক ফাইল, কোনো প্যাকেজের অংশ নয়, এবং জানবে কীভাবে এটি ইম্পোর্ট করে আপনার FastAPI অ্যাপ সার্ভ করতে হয়। 😎</p>
+<h2 id="deployment-concepts">ডিপ্লয়মেন্টের ধারণাসমূহ<a class="headerlink" href="#deployment-concepts" title="Permanent link">&para;</a></h2>
+<p>চলুন কন্টেইনারের প্রেক্ষাপটে সেই একই কিছু <a href="../concepts/">ডিপ্লয়মেন্টের ধারণা</a> নিয়ে আবার কথা বলি।</p>
+<p>কন্টেইনার প্রধানত একটি অ্যাপ্লিকেশন <strong>তৈরি ও ডিপ্লয়</strong> করার প্রক্রিয়া সহজ করার একটি টুল, তবে এই <strong>ডিপ্লয়মেন্টের ধারণাগুলো</strong> সামলানোর জন্য এটি কোনো নির্দিষ্ট পদ্ধতি চাপিয়ে দেয় না, এবং বেশ কয়েকটি সম্ভাব্য কৌশল আছে।</p>
+<p><strong>সুখবর</strong> হলো, প্রতিটি ভিন্ন কৌশলেই সব ডিপ্লয়মেন্ট ধারণা কাভার করার একটি উপায় আছে। 🎉</p>
+<p>চলুন কন্টেইনারের প্রেক্ষাপটে এই <strong>ডিপ্লয়মেন্টের ধারণাগুলো</strong> পর্যালোচনা করি:</p>
+<ul>
+<li>HTTPS</li>
+<li>startup-এ চালু হওয়া</li>
+<li>রিস্টার্ট</li>
+<li>রেপ্লিকেশন (চলমান প্রসেসের সংখ্যা)</li>
+<li>মেমরি</li>
+<li>শুরুর আগের ধাপগুলো</li>
+</ul>
+<h2 id="https">HTTPS<a class="headerlink" href="#https" title="Permanent link">&para;</a></h2>
+<p>আমরা যদি কেবল একটি FastAPI অ্যাপ্লিকেশনের <strong>কন্টেইনার ইমেজে</strong> (এবং পরে চলমান <strong>কন্টেইনারে</strong>) মনোযোগ দিই, তাহলে HTTPS সাধারণত অন্য কোনো টুল দিয়ে <strong>বাহ্যিকভাবে</strong> সামলানো হবে।</p>
+<p>এটি আরেকটি কন্টেইনার হতে পারে, যেমন <a href="https://traefik.io/">Traefik</a>-সহ, যা <strong>HTTPS</strong> এবং <strong>সার্টিফিকেটের</strong> <strong>স্বয়ংক্রিয়</strong> সংগ্রহ সামলায়।</p>
+<div class="admonition tip">
+<p class="admonition-title">পরামর্শ</p>
+<p>Traefik-এর Docker, Kubernetes ও অন্যান্যের সাথে ইন্টিগ্রেশন আছে, তাই এটি দিয়ে আপনার কন্টেইনারের জন্য HTTPS সেট আপ ও কনফিগার করা খুবই সহজ।</p>
+</div>
+<p>বিকল্পভাবে, HTTPS একটি ক্লাউড প্রোভাইডার তাদের সার্ভিসগুলোর একটি হিসেবে সামলাতে পারে (তখনও একটি কন্টেইনারে অ্যাপ্লিকেশন চালানো অবস্থায়)।</p>
+<h2 id="running-on-startup-and-restarts">startup-এ চালু হওয়া ও রিস্টার্ট<a class="headerlink" href="#running-on-startup-and-restarts" title="Permanent link">&para;</a></h2>
+<p>সাধারণত আরেকটি টুল আপনার কন্টেইনার <strong>চালু ও চালানোর</strong> দায়িত্বে থাকে।</p>
+<p>এটি সরাসরি <strong>Docker</strong>, <strong>Docker Compose</strong>, <strong>Kubernetes</strong>, একটি <strong>ক্লাউড সার্ভিস</strong> ইত্যাদি হতে পারে।</p>
+<p>বেশিরভাগ (বা সব) ক্ষেত্রে startup-এ কন্টেইনার চালু করা এবং ব্যর্থতায় রিস্টার্ট চালু করার একটি সহজ অপশন থাকে। যেমন, Docker-এ এটি হলো কমান্ড লাইন অপশন <code>--restart</code>।</p>
+<p>কন্টেইনার ব্যবহার না করে অ্যাপ্লিকেশনগুলো startup-এ এবং রিস্টার্টসহ চালানো ঝামেলাপূর্ণ ও কঠিন হতে পারে। কিন্তু <strong>কন্টেইনার নিয়ে কাজ করার সময়</strong> বেশিরভাগ ক্ষেত্রে সেই কার্যকারিতা ডিফল্টভাবেই অন্তর্ভুক্ত থাকে। ✨</p>
+<h2 id="replication-number-of-processes">রেপ্লিকেশন - প্রসেসের সংখ্যা<a class="headerlink" href="#replication-number-of-processes" title="Permanent link">&para;</a></h2>
+<p>আপনার যদি <strong>Kubernetes</strong>, Docker Swarm Mode, Nomad, বা একাধিক মেশিনে ডিস্ট্রিবিউটেড কন্টেইনার পরিচালনার অন্য কোনো অনুরূপ জটিল সিস্টেমসহ মেশিনের একটি <dfn title="কোনো এক উপায়ে যুক্ত হয়ে একসাথে কাজ করার জন্য কনফিগার করা মেশিনের একটি দল।">ক্লাস্টার</dfn> থাকে, তাহলে আপনি সম্ভবত প্রতিটি কন্টেইনারে একটি <strong>প্রসেস ম্যানেজার</strong> (যেমন ওয়ার্কারসহ Uvicorn) ব্যবহার না করে <strong>ক্লাস্টার স্তরে</strong> <strong>রেপ্লিকেশন সামলাতে</strong> চাইবেন।</p>
+<p>Kubernetes-এর মতো ওই ডিস্ট্রিবিউটেড কন্টেইনার ম্যানেজমেন্ট সিস্টেমগুলোর একটিতে সাধারণত আগত রিকোয়েস্টের জন্য <strong>লোড ব্যালান্সিং</strong> সাপোর্ট বজায় রেখেই <strong>কন্টেইনারের রেপ্লিকেশন</strong> সামলানোর কোনো অন্তর্ভুক্ত উপায় থাকে। সবই <strong>ক্লাস্টার স্তরে</strong>।</p>
+<p>সেসব ক্ষেত্রে আপনি সম্ভবত <a href="#dockerfile">ওপরে যেমন ব্যাখ্যা করা হয়েছে</a> সেভাবে <strong>একদম শুরু থেকে একটি Docker ইমেজ</strong> তৈরি করতে চাইবেন, আপনার ডিপেন্ডেন্সি ইনস্টল করে, এবং একাধিক Uvicorn ওয়ার্কার ব্যবহারের বদলে <strong>একটি একক Uvicorn প্রসেস</strong> চালিয়ে।</p>
+<h3 id="load-balancer">লোড ব্যালান্সার<a class="headerlink" href="#load-balancer" title="Permanent link">&para;</a></h3>
+<p>কন্টেইনার ব্যবহারের সময় সাধারণত আপনার কোনো কম্পোনেন্ট থাকবে যা <strong>মূল পোর্টে শুনছে</strong>। এটি সম্ভবত আরেকটি কন্টেইনার হতে পারে যা <strong>HTTPS</strong> সামলানোর জন্য একটি <strong>TLS Termination Proxy</strong>-ও, বা এরকম কোনো টুল।</p>
+<p>যেহেতু এই কম্পোনেন্ট রিকোয়েস্টের <strong>ভার</strong> (load) নিয়ে সেগুলো ওয়ার্কারদের মধ্যে (আশা করি) <strong>ভারসাম্যপূর্ণভাবে</strong> (balanced) বণ্টন করবে, তাই একে সাধারণত একটি <strong>লোড ব্যালান্সার</strong>-ও বলা হয়।</p>
+<div class="admonition tip">
+<p class="admonition-title">পরামর্শ</p>
+<p>HTTPS-এর জন্য ব্যবহৃত একই <strong>TLS Termination Proxy</strong> কম্পোনেন্টটি সম্ভবত একটি <strong>লোড ব্যালান্সার</strong>-ও হবে।</p>
+</div>
+<p>আর কন্টেইনার নিয়ে কাজ করার সময় যে সিস্টেম দিয়ে আপনি সেগুলো চালু ও পরিচালনা করেন, তাতে ইতিমধ্যে সেই <strong>লোড ব্যালান্সার</strong> (যা একটি <strong>TLS Termination Proxy</strong>-ও হতে পারে) থেকে আপনার অ্যাপসহ কন্টেইনার(গুলো)-এ <strong>নেটওয়ার্ক যোগাযোগ</strong> (যেমন HTTP রিকোয়েস্ট) পাঠানোর অভ্যন্তরীণ টুল থাকবে।</p>
+<h3 id="one-load-balancer-multiple-worker-containers">একটি লোড ব্যালান্সার - একাধিক ওয়ার্কার কন্টেইনার<a class="headerlink" href="#one-load-balancer-multiple-worker-containers" title="Permanent link">&para;</a></h3>
+<p><strong>Kubernetes</strong> বা অনুরূপ ডিস্ট্রিবিউটেড কন্টেইনার ম্যানেজমেন্ট সিস্টেম নিয়ে কাজ করার সময় তাদের অভ্যন্তরীণ নেটওয়ার্কিং ব্যবস্থা ব্যবহার করলে মূল <strong>পোর্টে</strong> শোনা একক <strong>লোড ব্যালান্সারটি</strong> আপনার অ্যাপ চালানো সম্ভবত <strong>একাধিক কন্টেইনারে</strong> যোগাযোগ (রিকোয়েস্ট) পাঠাতে পারবে।</p>
+<p>আপনার অ্যাপ চালানো এই প্রতিটি কন্টেইনারে সাধারণত <strong>মাত্র একটি প্রসেস</strong> থাকবে (যেমন আপনার FastAPI অ্যাপ্লিকেশন চালানো একটি Uvicorn প্রসেস)। সেগুলো সবই হবে <strong>অভিন্ন কন্টেইনার</strong>, একই জিনিস চালাচ্ছে, কিন্তু প্রতিটির নিজস্ব প্রসেস, মেমরি ইত্যাদি। এভাবে আপনি CPU-র <strong>ভিন্ন ভিন্ন কোরে</strong>, বা এমনকি <strong>ভিন্ন ভিন্ন মেশিনে</strong> <strong>প্যারালালাইজেশনের</strong> সুবিধা নেবেন।</p>
+<p>আর <strong>লোড ব্যালান্সারসহ</strong> ডিস্ট্রিবিউটেড কন্টেইনার সিস্টেমটি আপনার অ্যাপসহ প্রতিটি কন্টেইনারে <strong>পালাক্রমে</strong> <strong>রিকোয়েস্টগুলো বণ্টন করবে</strong>। তাই প্রতিটি রিকোয়েস্ট আপনার অ্যাপ চালানো একাধিক <strong>রেপ্লিকেট করা কন্টেইনারের</strong> একটি সামলাতে পারে।</p>
+<p>আর সাধারণত এই <strong>লোড ব্যালান্সার</strong> আপনার ক্লাস্টারের <em>অন্যান্য</em> অ্যাপে যাওয়া রিকোয়েস্টও সামলাতে পারবে (যেমন একটি ভিন্ন ডোমেইনে, বা একটি ভিন্ন URL পাথ prefix-এর অধীনে), এবং আপনার ক্লাস্টারে চলমান <em>ওই অন্য</em> অ্যাপ্লিকেশনের সঠিক কন্টেইনারগুলোতে সেই যোগাযোগ পাঠাবে।</p>
+<h3 id="one-process-per-container">প্রতি কন্টেইনারে একটি প্রসেস<a class="headerlink" href="#one-process-per-container" title="Permanent link">&para;</a></h3>
+<p>এ ধরনের পরিস্থিতিতে আপনি সম্ভবত <strong>প্রতি কন্টেইনারে একটি একক (Uvicorn) প্রসেস</strong> রাখতে চাইবেন, কারণ আপনি ইতিমধ্যে ক্লাস্টার স্তরে রেপ্লিকেশন সামলাচ্ছেন।</p>
+<p>তাই এক্ষেত্রে আপনি কন্টেইনারে একাধিক ওয়ার্কার, যেমন <code>--workers</code> কমান্ড লাইন অপশন দিয়ে, রাখতে চাইবেন <strong>না</strong>। আপনি প্রতি কন্টেইনারে কেবল একটি <strong>একক Uvicorn প্রসেস</strong> রাখতে চাইবেন (তবে সম্ভবত একাধিক কন্টেইনার)।</p>
+<p>কন্টেইনারের ভেতরে আরেকটি প্রসেস ম্যানেজার রাখলে (একাধিক ওয়ার্কারের ক্ষেত্রে যেমন হতো) তা কেবল <strong>অপ্রয়োজনীয় জটিলতা</strong> যোগ করবে, যা আপনি খুব সম্ভবত ইতিমধ্যে আপনার ক্লাস্টার সিস্টেম দিয়ে সামলাচ্ছেন।</p>
+<h3 id="containers-with-multiple-processes-and-special-cases">একাধিক প্রসেসসহ কন্টেইনার ও বিশেষ ক্ষেত্র<a class="headerlink" href="#containers-with-multiple-processes-and-special-cases" title="Permanent link">&para;</a></h3>
+<p>অবশ্যই, এমন <strong>বিশেষ ক্ষেত্র</strong> আছে যেখানে আপনি ভেতরে কয়েকটি <strong>Uvicorn ওয়ার্কার প্রসেসসহ</strong> <strong>একটি কন্টেইনার</strong> রাখতে চাইতে পারেন।</p>
+<p>সেসব ক্ষেত্রে আপনি যতগুলো ওয়ার্কার চালাতে চান তা সেট করতে <code>--workers</code> কমান্ড লাইন অপশন ব্যবহার করতে পারেন:</p>
+<div class="annotate highlight"><pre><span></span><code><span id="__span-17-1"><span class="k">FROM</span><span class="w"> </span><span class="s">python:3.14</span>
+</span><span id="__span-17-2">
+</span><span id="__span-17-3"><span class="k">WORKDIR</span><span class="w"> </span><span class="s">/code</span>
+</span><span id="__span-17-4">
+</span><span id="__span-17-5"><span class="k">COPY</span><span class="w"> </span>./requirements.txt<span class="w"> </span>/code/requirements.txt
+</span><span id="__span-17-6">
+</span><span id="__span-17-7"><span class="k">RUN</span><span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>--no-cache-dir<span class="w"> </span>--upgrade<span class="w"> </span>-r<span class="w"> </span>/code/requirements.txt
+</span><span id="__span-17-8">
+</span><span id="__span-17-9"><span class="k">COPY</span><span class="w"> </span>./app<span class="w"> </span>/code/app
+</span><span id="__span-17-10">
+</span><span id="__span-17-11"><span class="c"># (1)!</span>
+</span><span id="__span-17-12"><span class="k">CMD</span><span class="w"> </span><span class="p">[</span><span class="s2">"fastapi"</span><span class="p">,</span><span class="w"> </span><span class="s2">"run"</span><span class="p">,</span><span class="w"> </span><span class="s2">"app/main.py"</span><span class="p">,</span><span class="w"> </span><span class="s2">"--port"</span><span class="p">,</span><span class="w"> </span><span class="s2">"80"</span><span class="p">,</span><span class="w"> </span><span class="s2">"--workers"</span><span class="p">,</span><span class="w"> </span><span class="s2">"4"</span><span class="p">]</span>
+</span></code></pre></div>
+<ol>
+<li>এখানে আমরা ওয়ার্কারের সংখ্যা ৪-এ সেট করতে <code>--workers</code> কমান্ড লাইন অপশন ব্যবহার করি।</li>
+</ol>
+<p>কখন এটি যুক্তিসঙ্গত হতে পারে তার কিছু উদাহরণ এখানে দেওয়া হলো:</p>
+<h4 id="a-simple-app">একটি সহজ অ্যাপ<a class="headerlink" href="#a-simple-app" title="Permanent link">&para;</a></h4>
+<p>আপনার অ্যাপ্লিকেশন যদি <strong>যথেষ্ট সহজ</strong> হয় যে এটি একটি ক্লাস্টারে নয়, একটি <strong>একক সার্ভারে</strong> চালাতে পারেন, তাহলে আপনি কন্টেইনারে একটি প্রসেস ম্যানেজার চাইতে পারেন।</p>
+<h4 id="docker-compose">Docker Compose<a class="headerlink" href="#docker-compose" title="Permanent link">&para;</a></h4>
+<p>আপনি হয়তো <strong>Docker Compose</strong> দিয়ে একটি <strong>একক সার্ভারে</strong> (ক্লাস্টার নয়) ডিপ্লয় করছেন, তাই শেয়ার করা নেটওয়ার্ক ও <strong>লোড ব্যালান্সিং</strong> বজায় রেখে কন্টেইনারের রেপ্লিকেশন পরিচালনার কোনো সহজ উপায় আপনার থাকবে না (Docker Compose দিয়ে)।</p>
+<p>তখন আপনি ভেতরে <strong>কয়েকটি ওয়ার্কার প্রসেস</strong> চালু করা একটি <strong>প্রসেস ম্যানেজারসহ</strong> <strong>একটি একক কন্টেইনার</strong> রাখতে চাইতে পারেন।</p>
+<hr />
+<p>মূল কথা হলো, এগুলোর <strong>কোনোটিই</strong> এমন <strong>পাথরে খোদাই করা নিয়ম</strong> নয় যা আপনাকে অন্ধভাবে মানতে হবে। এই ধারণাগুলো ব্যবহার করে আপনি <strong>নিজের ব্যবহারের ক্ষেত্র মূল্যায়ন</strong> করে আপনার সিস্টেমের জন্য সেরা পদ্ধতি কোনটি তা ঠিক করতে পারেন, এই ধারণাগুলো কীভাবে পরিচালনা করবেন তা যাচাই করে:</p>
+<ul>
+<li>সিকিউরিটি - HTTPS</li>
+<li>startup-এ চালু হওয়া</li>
+<li>রিস্টার্ট</li>
+<li>রেপ্লিকেশন (চলমান প্রসেসের সংখ্যা)</li>
+<li>মেমরি</li>
+<li>শুরুর আগের ধাপগুলো</li>
+</ul>
+<h2 id="memory">মেমরি<a class="headerlink" href="#memory" title="Permanent link">&para;</a></h2>
+<p>আপনি যদি <strong>প্রতি কন্টেইনারে একটি একক প্রসেস</strong> চালান, তাহলে ওই প্রতিটি কন্টেইনার (রেপ্লিকেট করা হলে একাধিক) মোটামুটি সুনির্দিষ্ট, স্থিতিশীল ও সীমিত পরিমাণ মেমরি খরচ করবে।</p>
+<p>আর তারপর আপনি আপনার কন্টেইনার ম্যানেজমেন্ট সিস্টেমের কনফিগারেশনে (যেমন <strong>Kubernetes</strong>-এ) সেই একই মেমরি সীমা ও প্রয়োজনীয়তা সেট করতে পারেন। এভাবে এটি কন্টেইনারগুলোর প্রয়োজনীয় মেমরির পরিমাণ এবং ক্লাস্টারের মেশিনগুলোতে উপলব্ধ পরিমাণ বিবেচনায় নিয়ে <strong>উপলব্ধ মেশিনে</strong> <strong>কন্টেইনারগুলো রেপ্লিকেট করতে</strong> পারবে।</p>
+<p>আপনার অ্যাপ্লিকেশন যদি <strong>সহজ</strong> হয়, তাহলে এটি সম্ভবত <strong>কোনো সমস্যা হবে না</strong>, এবং আপনার হয়তো কঠোর মেমরি সীমা উল্লেখ করার দরকার নেই। কিন্তু আপনি যদি <strong>অনেক মেমরি ব্যবহার করেন</strong> (যেমন <strong>মেশিন লার্নিং</strong> মডেলসহ), তাহলে আপনি কতটা মেমরি খরচ করছেন তা যাচাই করে <strong>প্রতিটি মেশিনে</strong> চলা <strong>কন্টেইনারের সংখ্যা</strong> সামঞ্জস্য করা উচিত (এবং হয়তো আপনার ক্লাস্টারে আরও মেশিন যোগ করা উচিত)।</p>
+<p>আপনি যদি <strong>প্রতি কন্টেইনারে একাধিক প্রসেস</strong> চালান, তাহলে আপনাকে নিশ্চিত করতে হবে যে চালু হওয়া প্রসেসের সংখ্যা উপলব্ধের চেয়ে <strong>বেশি মেমরি খরচ</strong> করছে না।</p>
+<h2 id="previous-steps-before-starting-and-containers">শুরুর আগের ধাপ ও কন্টেইনার<a class="headerlink" href="#previous-steps-before-starting-and-containers" title="Permanent link">&para;</a></h2>
+<p>আপনি যদি কন্টেইনার (যেমন Docker, Kubernetes) ব্যবহার করেন, তাহলে আপনি দুটি প্রধান পদ্ধতি ব্যবহার করতে পারেন।</p>
+<h3 id="multiple-containers">একাধিক কন্টেইনার<a class="headerlink" href="#multiple-containers" title="Permanent link">&para;</a></h3>
+<p>আপনার যদি <strong>একাধিক কন্টেইনার</strong> থাকে, সম্ভবত প্রতিটি একটি <strong>একক প্রসেস</strong> চালাচ্ছে (যেমন একটি <strong>Kubernetes</strong> ক্লাস্টারে), তাহলে আপনি সম্ভবত একটি <strong>আলাদা কন্টেইনার</strong> রাখতে চাইবেন যা রেপ্লিকেট করা ওয়ার্কার কন্টেইনারগুলো চালানোর <strong>আগে</strong> একটি একক কন্টেইনারে, একটি একক প্রসেস চালিয়ে <strong>আগের ধাপগুলোর</strong> কাজ করে।</p>
+<div class="admonition note">
+<p class="admonition-title">নোট</p>
+<p>আপনি যদি Kubernetes ব্যবহার করেন, তাহলে এটি সম্ভবত একটি <a href="https://kubernetes.io/docs/concepts/workloads/pods/init-containers/">Init Container</a> হবে।</p>
+</div>
+<p>আপনার ব্যবহারের ক্ষেত্রে যদি ওই আগের ধাপগুলো <strong>প্যারালালভাবে একাধিকবার</strong> চালাতে কোনো সমস্যা না থাকে (যেমন যদি আপনি ডেটাবেস মাইগ্রেশন না চালান, শুধু যাচাই করেন ডেটাবেস প্রস্তুত কিনা), তাহলে আপনি সেগুলো মূল প্রসেস চালু করার ঠিক আগে প্রতিটি কন্টেইনারেও রাখতে পারেন।</p>
+<h3 id="single-container">একক কন্টেইনার<a class="headerlink" href="#single-container" title="Permanent link">&para;</a></h3>
+<p>আপনার যদি একটি সহজ সেটআপ থাকে, একটি <strong>একক কন্টেইনারসহ</strong> যা তারপর একাধিক <strong>ওয়ার্কার প্রসেস</strong> (বা মাত্র একটি প্রসেসও) চালু করে, তাহলে আপনি অ্যাপসহ প্রসেসটি চালু করার ঠিক আগে একই কন্টেইনারে ওই আগের ধাপগুলো চালাতে পারেন।</p>
+<h3 id="base-docker-image">বেস Docker ইমেজ<a class="headerlink" href="#base-docker-image" title="Permanent link">&para;</a></h3>
+<p>একসময় একটি অফিসিয়াল FastAPI Docker ইমেজ ছিল: <a href="https://github.com/tiangolo/uvicorn-gunicorn-fastapi-docker">tiangolo/uvicorn-gunicorn-fastapi</a>। কিন্তু এটি এখন ডেপ্রিকেটেড। ⛔️</p>
+<p>আপনার সম্ভবত এই বেস Docker ইমেজ (বা অন্য কোনো অনুরূপ ইমেজ) ব্যবহার করা <strong>উচিত নয়</strong>।</p>
+<p>আপনি যদি <strong>Kubernetes</strong> (বা অন্যান্য) ব্যবহার করেন এবং ইতিমধ্যে একাধিক <strong>কন্টেইনারসহ</strong> ক্লাস্টার স্তরে <strong>রেপ্লিকেশন</strong> সেট করছেন। সেসব ক্ষেত্রে ওপরে যেমন বর্ণনা করা হয়েছে সেভাবে <strong>একদম শুরু থেকে একটি ইমেজ তৈরি করাই</strong> আপনার জন্য ভালো: <a href="#build-a-docker-image-for-fastapi">FastAPI-এর জন্য একটি Docker ইমেজ তৈরি করুন</a>।</p>
+<p>আর আপনার যদি একাধিক ওয়ার্কার দরকার হয়, তাহলে আপনি শুধু <code>--workers</code> কমান্ড লাইন অপশন ব্যবহার করতে পারেন।</p>
+<div class="admonition note">
+<p class="admonition-title">কারিগরি বিবরণ</p>
+<p>Docker ইমেজটি তৈরি হয়েছিল যখন Uvicorn মৃত ওয়ার্কারদের পরিচালনা ও রিস্টার্ট সাপোর্ট করত না, তাই Uvicorn-এর সাথে Gunicorn ব্যবহার করতে হতো, যা বেশ জটিলতা যোগ করত, শুধু Gunicorn দিয়ে Uvicorn ওয়ার্কার প্রসেসগুলো পরিচালনা ও রিস্টার্ট করানোর জন্য।</p>
+<p>কিন্তু এখন যেহেতু Uvicorn (এবং <code>fastapi</code> কমান্ড) <code>--workers</code> ব্যবহার সাপোর্ট করে, তাই নিজের ইমেজ তৈরির বদলে একটি বেস Docker ইমেজ ব্যবহারের কোনো কারণ নেই (কোডের পরিমাণ প্রায় একই 😅)।</p>
+</div>
+<h2 id="deploy-the-container-image">কন্টেইনার ইমেজ ডিপ্লয় করুন<a class="headerlink" href="#deploy-the-container-image" title="Permanent link">&para;</a></h2>
+<p>একটি কন্টেইনার (Docker) ইমেজ হয়ে গেলে এটি ডিপ্লয় করার বেশ কয়েকটি উপায় আছে।</p>
+<p>যেমন:</p>
+<ul>
+<li>একটি একক সার্ভারে <strong>Docker Compose</strong> দিয়ে</li>
+<li>একটি <strong>Kubernetes</strong> ক্লাস্টার দিয়ে</li>
+<li>একটি Docker Swarm Mode ক্লাস্টার দিয়ে</li>
+<li>Nomad-এর মতো অন্য কোনো টুল দিয়ে</li>
+<li>এমন একটি ক্লাউড সার্ভিস দিয়ে যা আপনার কন্টেইনার ইমেজ নিয়ে ডিপ্লয় করে</li>
+</ul>
+<h2 id="docker-image-with-uv"><code>uv</code>-সহ Docker ইমেজ<a class="headerlink" href="#docker-image-with-uv" title="Permanent link">&para;</a></h2>
+<p>আপনি যদি আপনার প্রজেক্ট ইনস্টল ও পরিচালনা করতে <a href="https://github.com/astral-sh/uv">uv</a> ব্যবহার করেন, তাহলে তাদের <a href="https://docs.astral.sh/uv/guides/integration/docker/">uv Docker গাইড</a> অনুসরণ করতে পারেন।</p>
+<h2 id="recap">সংক্ষেপে<a class="headerlink" href="#recap" title="Permanent link">&para;</a></h2>
+<p>কন্টেইনার সিস্টেম ব্যবহার করে (যেমন <strong>Docker</strong> ও <strong>Kubernetes</strong>-সহ) সব <strong>ডিপ্লয়মেন্টের ধারণা</strong> সামলানো বেশ সহজ হয়ে যায়:</p>
+<ul>
+<li>HTTPS</li>
+<li>startup-এ চালু হওয়া</li>
+<li>রিস্টার্ট</li>
+<li>রেপ্লিকেশন (চলমান প্রসেসের সংখ্যা)</li>
+<li>মেমরি</li>
+<li>শুরুর আগের ধাপগুলো</li>
+</ul>
+<p>বেশিরভাগ ক্ষেত্রে আপনি সম্ভবত কোনো বেস ইমেজ ব্যবহার করতে চাইবেন না, বরং অফিসিয়াল Python Docker ইমেজের ওপর ভিত্তি করে <strong>একদম শুরু থেকে একটি কন্টেইনার ইমেজ তৈরি</strong> করবেন।</p>
+<p><code>Dockerfile</code>-এ নির্দেশনাগুলোর <strong>ক্রম</strong> এবং <strong>Docker ক্যাশের</strong> দিকে খেয়াল রেখে আপনি <strong>বিল্ডের সময় কমাতে</strong> পারেন, যাতে আপনার উৎপাদনশীলতা সর্বোচ্চ হয় (এবং একঘেয়েমি এড়ানো যায়)। 😎</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  উপরে ফিরে যাও
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="ফুটার" >
+        
+          
+          <a href="../server-workers/" class="md-footer__link md-footer__link--prev" aria-label="পূর্ববর্তী: সার্ভার ওয়ার্কার - ওয়ার্কারসহ Uvicorn">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                পূর্ববর্তী
+              </span>
+              <div class="md-ellipsis">
+                সার্ভার ওয়ার্কার - ওয়ার্কারসহ Uvicorn
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../../how-to/" class="md-footer__link md-footer__link--next" aria-label="পরে: হাউ-টু - রেসিপি">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                পরে
+              </span>
+              <div class="md-ellipsis">
+                হাউ-টু - রেসিপি
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+    <div class="md-copyright__highlight">
+        The FastAPI trademark is owned by <a href="https://tiangolo.com" target="_blank">@tiangolo</a> and is registered in the US and across other regions
+    </div>
+    
+    Made with
+    <a href="https://zensical.org" target="_blank" rel="noopener">
+        Zensical
+    </a>
+    
+</div>
+      
+        
+<div class="md-social">
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://github.com/fastapi/fastapi" target="_blank" rel="noopener" title="github.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10.226 17.284c-2.965-.36-5.054-2.493-5.054-5.256 0-1.123.404-2.336 1.078-3.144-.292-.741-.247-2.314.09-2.965.898-.112 2.111.36 2.83 1.01.853-.269 1.752-.404 2.853-.404 1.1 0 1.999.135 2.807.382.696-.629 1.932-1.1 2.83-.988.315.606.36 2.179.067 2.942.72.854 1.101 2 1.101 3.167 0 2.763-2.089 4.852-5.098 5.234.763.494 1.28 1.572 1.28 2.807v2.336c0 .674.561 1.056 1.235.786 4.066-1.55 7.255-5.615 7.255-10.646C23.5 6.188 18.334 1 11.978 1 5.62 1 .5 6.188.5 12.545c0 4.986 3.167 9.12 7.435 10.669.606.225 1.19-.18 1.19-.786V20.63a2.9 2.9 0 0 1-1.078.224c-1.483 0-2.359-.808-2.987-2.313-.247-.607-.517-.966-1.034-1.033-.27-.023-.359-.135-.359-.27 0-.27.45-.471.898-.471.652 0 1.213.404 1.797 1.235.45.651.921.943 1.483.943.561 0 .92-.202 1.437-.719.382-.381.674-.718.944-.943"/></svg>
+    </a>
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://discord.com/invite/VQjSZaeJmf" target="_blank" rel="noopener" title="discord.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 7.3.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2026 Fonticons, Inc.--><path fill="currentColor" d="M492.5 69.8c-.2-.3-.4-.6-.8-.7-38.1-17.5-78.4-30-119.7-37.1-.4-.1-.8 0-1.1.1s-.6.4-.8.8c-5.5 9.9-10.5 20.2-14.9 30.6-44.6-6.8-89.9-6.8-134.4 0-4.5-10.5-9.5-20.7-15.1-30.6-.2-.3-.5-.6-.8-.8s-.7-.2-1.1-.2C162.5 39 122.2 51.5 84.1 69c-.3.1-.6.4-.8.7C7.1 183.5-13.8 294.6-3.6 404.2c0 .3.1.5.2.8s.3.4.5.6c44.4 32.9 94 58 146.8 74.2.4.1.8.1 1.1 0s.7-.4.9-.7c11.3-15.4 21.4-31.8 30-48.8.1-.2.2-.5.2-.8s0-.5-.1-.8-.2-.5-.4-.6-.4-.3-.7-.4c-15.8-6.1-31.2-13.4-45.9-21.9-.3-.2-.5-.4-.7-.6s-.3-.6-.3-.9 0-.6.2-.9.3-.5.6-.7c3.1-2.3 6.2-4.7 9.1-7.1.3-.2.6-.4.9-.4s.7 0 1 .1c96.2 43.9 200.4 43.9 295.5 0 .3-.1.7-.2 1-.2s.7.2.9.4c2.9 2.4 6 4.9 9.1 7.2.2.2.4.4.6.7s.2.6.2.9-.1.6-.3.9-.4.5-.6.6c-14.7 8.6-30 15.9-45.9 21.8-.2.1-.5.2-.7.4s-.3.4-.4.7-.1.5-.1.8.1.5.2.8c8.8 17 18.8 33.3 30 48.8.2.3.6.6.9.7s.8.1 1.1 0c52.9-16.2 102.6-41.3 147.1-74.2.2-.2.4-.4.5-.6s.2-.5.2-.8c12.3-126.8-20.5-236.9-86.9-334.5zm-302 267.7c-29 0-52.8-26.6-52.8-59.2s23.4-59.2 52.8-59.2c29.7 0 53.3 26.8 52.8 59.2 0 32.7-23.4 59.2-52.8 59.2m195.4 0c-29 0-52.8-26.6-52.8-59.2s23.4-59.2 52.8-59.2c29.7 0 53.3 26.8 52.8 59.2 0 32.7-23.2 59.2-52.8 59.2"/></svg>
+    </a>
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://x.com/fastapi" target="_blank" rel="noopener" title="x.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.3.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2026 Fonticons, Inc.--><path fill="currentColor" d="M357.2 48h70.6L273.6 224.2 455 464H313L201.7 318.6 74.5 464H3.8l164.9-188.5L-5.2 48h145.6l100.5 132.9zm-24.8 373.8h39.1L119.1 88h-42z"/></svg>
+    </a>
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://bsky.app/profile/fastapi.tiangolo.com" target="_blank" rel="noopener" title="bsky.app" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 7.3.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2026 Fonticons, Inc.--><path fill="currentColor" d="M407.8 294.7c-3.3-.4-6.7-.8-10-1.3 3.4.4 6.7.9 10 1.3M288 227.1c-26.1-50.7-97.1-145.2-163.1-191.8C61.6-9.4 37.5-1.7 21.6 5.5 3.3 13.8 0 41.9 0 58.4S9.1 194 15 213.9c19.5 65.7 89.1 87.9 153.2 80.7 3.3-.5 6.6-.9 10-1.4-3.3.5-6.6 1-10 1.4-93.9 14-177.3 48.2-67.9 169.9C220.6 589.1 265.1 437.8 288 361.1c22.9 76.7 49.2 222.5 185.6 103.4 102.4-103.4 28.1-156-65.8-169.9-3.3-.4-6.7-.8-10-1.3 3.4.4 6.7.9 10 1.3 64.1 7.1 133.6-15.1 153.2-80.7C566.9 194 576 75 576 58.4s-3.3-44.7-21.6-52.9c-15.8-7.1-40-14.9-103.2 29.8C385.1 81.9 314.1 176.4 288 227.1"/></svg>
+    </a>
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://www.linkedin.com/company/fastapi" target="_blank" rel="noopener" title="www.linkedin.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.3.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2026 Fonticons, Inc.--><path fill="currentColor" d="M416 32H31.9C14.3 32 0 46.5 0 64.3v383.4C0 465.5 14.3 480 31.9 480H416c17.6 0 32-14.5 32-32.3V64.3c0-17.8-14.4-32.3-32-32.3M135.4 416H69V202.2h66.5V416zM102.2 96a38.5 38.5 0 1 1 0 77 38.5 38.5 0 1 1 0-77m282.1 320h-66.4V312c0-24.8-.5-56.7-34.5-56.7-34.6 0-39.9 27-39.9 54.9V416h-66.4V202.2h63.7v29.2h.9c8.9-16.8 30.6-34.5 62.9-34.5 67.2 0 79.7 44.3 79.7 101.9z"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+      <div class="md-progress" data-md-component="progress" role="progressbar"></div>
+    
+    
+    
+      
+      
+      
+      
+        
+        
+      <script id="__config" type="application/json">{"annotate":null,"base":"../..","features":["content.code.annotate","content.code.copy","content.footnote.tooltips","content.tabs.link","content.tooltips","navigation.footer","navigation.indexes","navigation.instant","navigation.instant.prefetch","navigation.instant.progress","navigation.path","navigation.tabs","navigation.tabs.sticky","navigation.top","navigation.tracking","search.highlight","search.share","search.suggest","toc.follow"],"redirect":null,"search":"../../assets/javascripts/workers/search.7d14d953.min.js","tags":null,"translations":{"clipboard.copied":"ক্লিপবোর্ডে কপি হয়েছে","clipboard.copy":"ক্লিপবোর্ডে কপি করুন","search.result.more.one":"এই পৃষ্ঠায় আরও ১টি আছে","search.result.more.other":"এই পৃষ্ঠায় আরও #টি আছে","search.result.none":"কিছু পাওয়া যায়নি","search.result.one":"১ টা ডকুমেন্ট","search.result.other":"# টা ডকুমেন্ট","search.result.placeholder":"সার্চ টাইপ করুন","search.result.term.missing":"অনুপস্থিত","select.version":"সংস্করণ নির্বাচন করুণ"},"version":null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.c04ba553.min.js"></script>
+      
+        <script src="../../js/termynal.js"></script>
+      
+        <script src="../../js/custom.js"></script>
+      
+        <script src="../../js/init_kapa_widget.js"></script>
+      
+    
+  </body>
+</html>

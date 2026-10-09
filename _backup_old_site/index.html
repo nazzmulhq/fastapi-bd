@@ -1,0 +1,1368 @@
+<!doctype html>
+<html lang="bn" class="no-js">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="description" content="FastAPI ফ্রেমওয়ার্ক, উচ্চ পারফরম্যান্স, সহজে শেখা যায়, দ্রুত কোডিং, প্রোডাকশনের জন্য প্রস্তুত (বাংলা সংস্করণ)">
+    <link rel="canonical" href="https://fastapi.tiangolo.com/learn/">
+    <link rel="icon" href="img/favicon.png">
+    
+    <title>শিখুন - FastAPI (Learn Tutorial & Guide)</title>
+    
+    <link rel="stylesheet" href="assets/stylesheets/classic/main.css">
+    <link rel="stylesheet" href="assets/stylesheets/classic/palette.css">
+    <link rel="stylesheet" href="css/termynal.css">
+    <link rel="stylesheet" href="css/custom.css">
+    <link rel="stylesheet" href="css/bangla-enhancements.css">
+  </head>
+  
+  <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="teal" data-md-color-accent="amber">
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer" aria-label="Navigation"></label>
+    
+    <div data-md-component="skip">
+      <a href="#learn" class="md-skip">সরাসরি মূল কনটেন্টে যান (Skip to content)</a>
+    </div>
+    
+    <!-- Announcement Banner -->
+    <div data-md-component="announce">
+      <aside class="md-banner">
+        <div class="md-banner__inner md-grid md-typeset">
+          <div class="announce-wrapper">
+            <div id="announce-left">
+              <div class="item">
+                <a class="announce-link" href="https://fastapicloud.com" target="_blank">
+                  <span class="twemoji">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 19c0 .34.04.67.09 1H6.5c-1.5 0-2.81-.5-3.89-1.57C1.54 17.38 1 16.09 1 14.58q0-1.95 1.17-3.48C3.34 9.57 4 9.43 5.25 9.15c.42-1.53 1.25-2.77 2.5-3.72S10.42 4 12 4c1.95 0 3.6.68 4.96 2.04S19 9.05 19 11c1.15.13 2.1.63 2.86 1.5.51.57.84 1.21 1 1.92A5.9 5.9 0 0 0 19 13c-3.31 0-6 2.69-6 6m3-1h2v4h2v-4h2l-3-3z"/></svg>
+                  </span> <strong>FastAPI Cloud</strong>-এ ডিপ্লয় করুন 🚀
+                </a>
+              </div>
+              <div class="item">
+                <a class="announce-link" href="https://fastapiconf.com" target="_blank">
+                  <span class="twemoji">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 19H5V8h14m-3-7v2H8V1H6v2H5c-1.1 0-2 .9-2 2v14a2 2 0 0 0 2 2h14c1.11 0 2-.89 2-2V5a2 2 0 0 0-2-2h-1V1m-7.12 11H7.27l2.92 2.11-1.11 3.45L12 15.43l2.92 2.13-1.12-3.44L16.72 12h-3.6L12 8.56z"/></svg>
+                  </span> <strong>FastAPI Conf '26</strong> — ২৮ অক্টোবর, ২০২৬ 🎤
+                </a>
+              </div>
+              <div class="item">
+                <a class="announce-link" href="https://x.com/fastapi" target="_blank">
+                  <span class="twemoji">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path fill="currentColor" d="M357.2 48h70.6L273.6 224.2 455 464H313L201.7 318.6 74.5 464H3.8l164.9-188.5L-5.2 48h145.6l100.5 132.9zm-24.8 373.8h39.1L119.1 88h-42z"/></svg>
+                  </span> ফলো করুন <strong>@fastapi</strong>
+                </a>
+              </div>
+            </div>
+            <div id="announce-right" style="position: relative;">
+              <div class="item">
+                <a title="BlockBee Cryptocurrency Payment Gateway" style="display: block; position: relative;" href="https://blockbee.io?ref=fastapi" target="_blank">
+                  <span class="sponsor-badge">sponsor</span>
+                  <img class="sponsor-image" src="img/sponsors/blockbee-banner.png" alt="BlockBee" />
+                </a>
+              </div>
+              <div class="item">
+                <a title="CodeRabbit: AI Code Reviewer" style="display: block; position: relative;" href="https://www.coderabbit.ai/?utm_source=fastapi" target="_blank">
+                  <span class="sponsor-badge">sponsor</span>
+                  <img class="sponsor-image" src="img/sponsors/coderabbit-banner.png" alt="CodeRabbit" />
+                </a>
+              </div>
+              <div class="item">
+                <a title="Railway Deployment" style="display: block; position: relative;" href="https://docs.railway.com" target="_blank">
+                  <span class="sponsor-badge">sponsor</span>
+                  <img class="sponsor-image" src="img/sponsors/railway-banner.png" alt="Railway" />
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </aside>
+    </div>
+    
+    <!-- Header -->
+    <header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+      <nav class="md-header__inner md-grid" aria-label="Header">
+        <a href="./" title="FastAPI" class="md-header__button md-logo" aria-label="FastAPI" data-md-component="logo">
+          <img src="img/icon-white.svg" alt="FastAPI">
+        </a>
+        <label class="md-header__button md-icon" for="__drawer" aria-label="মেনু খুলুন">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+        </label>
+        
+        <div class="md-header__title" data-md-component="header-title">
+          <div class="md-header__ellipsis">
+            <div class="md-header__topic">
+              <span class="md-ellipsis">FastAPI</span>
+            </div>
+            <div class="md-header__topic" data-md-component="header-topic">
+              <span class="md-ellipsis">শিখুন (Learn) <span class="bn-badge">বাংলা</span></span>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Palette Switcher -->
+        <form class="md-header__option" data-md-component="palette">
+          <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="teal" data-md-color-accent="amber" aria-label="Switch to dark mode" type="radio" name="__palette" id="__palette_1">
+          <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2a7 7 0 0 0-7 7c0 2.38 1.19 4.47 3 5.74V17a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1v-2.26c1.81-1.27 3-3.36 3-5.74a7 7 0 0 0-7-7M9 21a1 1 0 0 0 1 1h4a1 1 0 0 0 1-1v-1H9z"/></svg>
+          </label>
+          <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="teal" data-md-color-accent="amber" aria-label="Switch to light mode" type="radio" name="__palette" id="__palette_2">
+          <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_2" hidden>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2a7 7 0 0 1 7 7c0 2.38-1.19 4.47-3 5.74V17a1 1 0 0 1-1 1H9a1 1 0 0 1-1-1v-2.26C6.19 13.47 5 11.38 5 9a7 7 0 0 1 7-7M9 21v-1h6v1a1 1 0 0 1-1 1h-4a1 1 0 0 1-1-1m3-17a5 5 0 0 0-5 5c0 2.05 1.23 3.81 3 4.58V16h4v-2.42c1.77-.77 3-2.53 3-4.58a5 5 0 0 0-5-5"/></svg>
+          </label>
+        </form>
+        
+        <!-- Language Selector -->
+        <div class="md-header__option">
+          <div class="md-select">
+            <button class="md-header__button md-icon" aria-label="ভাষা পরিবর্তন করুন">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m12.87 15.07-2.54-2.51.03-.03A17.5 17.5 0 0 0 14.07 6H17V4h-7V2H8v2H1v2h11.17C11.5 7.92 10.44 9.75 9 11.35 8.07 10.32 7.3 9.19 6.69 8h-2c.73 1.63 1.73 3.17 2.98 4.56l-5.09 5.02L4 19l5-5 3.11 3.11zM18.5 10h-2L12 22h2l1.12-3h4.75L21 22h2zm-2.62 7 1.62-4.33L19.12 17z"/></svg>
+            </button>
+            <div class="md-select__inner">
+              <ul class="md-select__list">
+                <li class="md-select__item">
+                  <a href="./" class="md-select__link" style="font-weight: bold; color: var(--md-accent-fg-color);">
+                    bn - বাংলা (Bengali) ✓
+                  </a>
+                </li>
+                <li class="md-select__item">
+                  <a href="https://fastapi.tiangolo.com/learn/" target="_blank" class="md-select__link">
+                    en - English
+                  </a>
+                </li>
+                <li class="md-select__item">
+                  <a href="https://fastapi.tiangolo.com/es/learn/" target="_blank" class="md-select__link">
+                    es - español
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Search Trigger -->
+        <label class="md-header__button md-icon" for="__search" aria-label="সার্চ করুন">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog" aria-label="Search">
+          <button type="button" class="md-search__button">
+            সার্চ করুন (Search)
+          </button>
+        </div>
+        
+        <!-- GitHub Source -->
+        <div class="md-header__source">
+          <a href="https://github.com/fastapi/fastapi" title="Go to repository" class="md-source" target="_blank" data-md-component="source">
+            <div class="md-source__icon md-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10.226 17.284c-2.965-.36-5.054-2.493-5.054-5.256 0-1.123.404-2.336 1.078-3.144-.292-.741-.247-2.314.09-2.965.898-.112 2.111.36 2.83 1.01.853-.269 1.752-.404 2.853-.404 1.1 0 1.999.135 2.807.382.696-.629 1.932-1.1 2.83-.988.315.606.36 2.179.067 2.942.72.854 1.101 2 1.101 3.167 0 2.763-2.089 4.852-5.098 5.234.763.494 1.28 1.572 1.28 2.807v2.336c0 .674.561 1.056 1.235.786 4.066-1.55 7.255-5.615 7.255-10.646C23.5 6.188 18.334 1 11.978 1 5.62 1 .5 6.188.5 12.545c0 4.986 3.167 9.12 7.435 10.669.606.225 1.19-.18 1.19-.786V20.63a2.9 2.9 0 0 1-1.078.224c-1.483 0-2.359-.808-2.987-2.313-.247-.607-.517-.966-1.034-1.033-.27-.023-.359-.135-.359-.27 0-.27.45-.471.898-.471.652 0 1.213.404 1.797 1.235.45.651.921.943 1.483.943.561 0 .92-.202 1.437-.719.382-.381.674-.718.944-.943"/></svg>
+            </div>
+            <div class="md-source__repository">
+              fastapi/fastapi
+            </div>
+          </a>
+        </div>
+      </nav>
+      
+      <!-- Top Navigation Tabs -->
+      <nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+        <div class="md-grid">
+          <ul class="md-tabs__list">
+            <li class="md-tabs__item">
+              <a href="./" class="md-tabs__link">FastAPI</a>
+            </li>
+            <li class="md-tabs__item">
+              <a href="#features" class="md-tabs__link">বৈশিষ্ট্যসমূহ (Features)</a>
+            </li>
+            <li class="md-tabs__item md-tabs__item--active">
+              <a href="./learn/" class="md-tabs__link">শিখুন (Learn)</a>
+            </li>
+            <li class="md-tabs__item">
+              <a href="./reference/" class="md-tabs__link">রেফারেন্স (Reference)</a>
+            </li>
+            <li class="md-tabs__item">
+              <a href="#resources" class="md-tabs__link">রিসোর্স (Resources)</a>
+            </li>
+            <li class="md-tabs__item">
+              <a href="#about" class="md-tabs__link">সম্পর্কে (About)</a>
+            </li>
+          </ul>
+        </div>
+      </nav>
+    </header>
+    
+    <!-- Main Content Container -->
+    <div class="md-container" data-md-component="container">
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+          <!-- Complete Left Sidebar Navigation (Matching exact official FastAPI topics) -->
+          <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation">
+            <div class="md-sidebar__scrollwrap">
+              <div class="md-sidebar__inner">
+                <nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="./" title="FastAPI" class="md-nav__button md-logo" aria-label="FastAPI">
+      <img src="./img/icon-white.svg" alt="FastAPI">
+    </a>
+    FastAPI
+  </label>
+  <div class="md-nav__source">
+    <a href="https://github.com/fastapi/fastapi" title="Go to repository" class="md-source" data-md-component="source" target="_blank">
+      <div class="md-source__icon md-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2A10 10 0 0 0 2 12c0 4.42 2.87 8.17 6.84 9.5.5.08.66-.23.66-.5v-1.69c-2.77.6-3.36-1.34-3.36-1.34-.46-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.87 1.52 2.34 1.07 2.91.83.1-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.92 0-1.11.38-2 1.03-2.71-.1-.25-.45-1.29.1-2.64 0 0 .84-.27 2.75 1.02.79-.22 1.65-.33 2.5-.33.85 0 1.71.11 2.5.33 1.91-1.29 2.75-1.02 2.75-1.02.55 1.35.2 2.39.1 2.64.65.71 1.03 1.6 1.03 2.71 0 3.82-2.34 4.66-4.57 4.91.36.31.69.92.69 1.85V21c0 .27.16.59.67.5C19.14 20.16 22 16.42 22 12A10 10 0 0 0 12 2"/></svg>
+      </div>
+      <div class="md-source__repository">fastapi/fastapi</div>
+    </a>
+  </div>
+  <ul class="md-nav__list" data-md-scrollfix>
+    <li class="md-nav__item md-nav__item--active">
+      <a href="./" class="md-nav__link">
+        <span class="md-ellipsis">FastAPI হোম (Home)</span>
+      </a>
+    </li>
+    <li class="md-nav__item md-nav__item--nested">
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__nav_tut" checked>
+      <div class="md-nav__link md-nav__container">
+        <a href="#fastapi-tutorial" class="md-nav__link">
+          <span class="md-ellipsis"><strong>FastAPI Tutorial</strong> (FastAPI টিউটোরিয়াল)</span>
+        </a>
+        <label class="md-nav__link" for="__nav_tut" id="__nav_tut_label">
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      </div>
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_tut_label" aria-expanded="true">
+        <ul class="md-nav__list" data-md-scrollfix>
+          <li class="md-nav__item">
+            <a href="./learn/#first-steps" class="md-nav__link" title="First Steps - প্রথম পদক্ষেপ">
+              <span class="md-ellipsis"><span class="item-num">১.</span> First Steps <span class="en-sub">(প্রথম পদক্ষেপ)</span></span>
+            </a>
+          </li>
+          <li class="md-nav__item">
+            <a href="./learn/#path-parameters" class="md-nav__link" title="Path Parameters - পাথ প্যারামিটার">
+              <span class="md-ellipsis"><span class="item-num">২.</span> Path Parameters <span class="en-sub">(পাথ প্যারামিটার)</span></span>
+            </a>
+          </li>
+          <li class="md-nav__item">
+            <a href="./learn/#query-parameters" class="md-nav__link" title="Query Parameters - কুয়েরি প্যারামিটার">
+              <span class="md-ellipsis"><span class="item-num">৩.</span> Query Parameters <span class="en-sub">(কুয়েরি প্যারামিটার)</span></span>
+            </a>
+          </li>
+          <li class="md-nav__item">
+            <a href="./learn/#request-body" class="md-nav__link" title="Request Body - রিকোয়েস্ট বডি">
+              <span class="md-ellipsis"><span class="item-num">৪.</span> Request Body <span class="en-sub">(রিকোয়েস্ট বডি)</span></span>
+            </a>
+          </li>
+          <li class="md-nav__item">
+            <a href="./learn/#query-params-str-validations" class="md-nav__link" title="Query Parameters and String Validations - কুয়েরি প্যারামিটার ও স্ট্রিং ভ্যালিডেশন">
+              <span class="md-ellipsis"><span class="item-num">৫.</span> Query Parameters and String Validations <span class="en-sub">(কুয়েরি প্যারামিটার ও স্ট্রিং ভ্যালিডেশন)</span></span>
+            </a>
+          </li>
+          <li class="md-nav__item">
+            <a href="./learn/#path-params-num-validations" class="md-nav__link" title="Path Parameters and Numeric Validations - পাথ প্যারামিটার ও নিউমেরিক ভ্যালিডেশন">
+              <span class="md-ellipsis"><span class="item-num">৬.</span> Path Parameters and Numeric Validations <span class="en-sub">(পাথ প্যারামিটার ও নিউমেরিক ভ্যালিডেশন)</span></span>
+            </a>
+          </li>
+          <li class="md-nav__item">
+            <a href="./learn/#query-param-models" class="md-nav__link" title="Query Parameter Models - কুয়েরি প্যারামিটার মডেল">
+              <span class="md-ellipsis"><span class="item-num">৭.</span> Query Parameter Models <span class="en-sub">(কুয়েরি প্যারামিটার মডেল)</span></span>
+            </a>
+          </li>
+          <li class="md-nav__item">
+            <a href="./learn/#body-multiple-params" class="md-nav__link" title="Body – Multiple Parameters - বডি – একাধিক প্যারামিটার">
+              <span class="md-ellipsis"><span class="item-num">৮.</span> Body – Multiple Parameters <span class="en-sub">(বডি – একাধিক প্যারামিটার)</span></span>
+            </a>
+          </li>
+          <li class="md-nav__item">
+            <a href="./learn/#body-fields" class="md-nav__link" title="Body – Fields - বডি – ফিল্ডস">
+              <span class="md-ellipsis"><span class="item-num">৯.</span> Body – Fields <span class="en-sub">(বডি – ফিল্ডস)</span></span>
+            </a>
+          </li>
+          <li class="md-nav__item">
+            <a href="./learn/#body-nested-models" class="md-nav__link" title="Body – Nested Models - বডি – নেস্টেড মডেল">
+              <span class="md-ellipsis"><span class="item-num">১০.</span> Body – Nested Models <span class="en-sub">(বডি – নেস্টেড মডেল)</span></span>
+            </a>
+          </li>
+          <li class="md-nav__item">
+            <a href="./learn/#declare-example-data" class="md-nav__link" title="Declare Request Example Data - রিকোয়েস্ট এক্সাম্পল ডেটা ডিক্লেয়ারেশন">
+              <span class="md-ellipsis"><span class="item-num">১১.</span> Declare Request Example Data <span class="en-sub">(রিকোয়েস্ট এক্সাম্পল ডেটা ডিক্লেয়ারেশন)</span></span>
+            </a>
+          </li>
+          <li class="md-nav__item">
+            <a href="./learn/#extra-data-types" class="md-nav__link" title="Extra Data Types - অতিরিক্ত ডেটা টাইপস">
+              <span class="md-ellipsis"><span class="item-num">১২.</span> Extra Data Types <span class="en-sub">(অতিরিক্ত ডেটা টাইপস)</span></span>
+            </a>
+          </li>
+          <li class="md-nav__item">
+            <a href="./learn/#cookie-parameters" class="md-nav__link" title="Cookie Parameters - কুকি প্যারামিটার">
+              <span class="md-ellipsis"><span class="item-num">১৩.</span> Cookie Parameters <span class="en-sub">(কুকি প্যারামিটার)</span></span>
+            </a>
+          </li>
+          <li class="md-nav__item">
+            <a href="./learn/#header-parameters" class="md-nav__link" title="Header Parameters - হেডার প্যারামিটার">
+              <span class="md-ellipsis"><span class="item-num">১৪.</span> Header Parameters <span class="en-sub">(হেডার প্যারামিটার)</span></span>
+            </a>
+          </li>
+          <li class="md-nav__item">
+            <a href="./learn/#cookie-param-models" class="md-nav__link" title="Cookie Parameter Models - কুকি প্যারামিটার মডেল">
+              <span class="md-ellipsis"><span class="item-num">১৫.</span> Cookie Parameter Models <span class="en-sub">(কুকি প্যারামিটার মডেল)</span></span>
+            </a>
+          </li>
+          <li class="md-nav__item">
+            <a href="./learn/#header-param-models" class="md-nav__link" title="Header Parameter Models - হেডার প্যারামিটার মডেল">
+              <span class="md-ellipsis"><span class="item-num">১৬.</span> Header Parameter Models <span class="en-sub">(হেডার প্যারামিটার মডেল)</span></span>
+            </a>
+          </li>
+          <li class="md-nav__item">
+            <a href="./learn/#response-model" class="md-nav__link" title="Response Model – Return Type - রেসপন্স মডেল – রিটার্ন টাইপ">
+              <span class="md-ellipsis"><span class="item-num">১৭.</span> Response Model – Return Type <span class="en-sub">(রেসপন্স মডেল – রিটার্ন টাইপ)</span></span>
+            </a>
+          </li>
+          <li class="md-nav__item">
+            <a href="./learn/#extra-models" class="md-nav__link" title="Extra Models - অতিরিক্ত মডেলস">
+              <span class="md-ellipsis"><span class="item-num">১৮.</span> Extra Models <span class="en-sub">(অতিরিক্ত মডেলস)</span></span>
+            </a>
+          </li>
+          <li class="md-nav__item">
+            <a href="./learn/#response-status-code" class="md-nav__link" title="Response Status Code - রেসপন্স স্ট্যাটাস কোড">
+              <span class="md-ellipsis"><span class="item-num">১৯.</span> Response Status Code <span class="en-sub">(রেসপন্স স্ট্যাটাস কোড)</span></span>
+            </a>
+          </li>
+          <li class="md-nav__item">
+            <a href="./learn/#form-data" class="md-nav__link" title="Form Data - ফর্ম ডেটা">
+              <span class="md-ellipsis"><span class="item-num">২০.</span> Form Data <span class="en-sub">(ফর্ম ডেটা)</span></span>
+            </a>
+          </li>
+          <li class="md-nav__item">
+            <a href="./learn/#form-models" class="md-nav__link" title="Form Models - ফর্ম মডেলস">
+              <span class="md-ellipsis"><span class="item-num">২১.</span> Form Models <span class="en-sub">(ফর্ম মডেলস)</span></span>
+            </a>
+          </li>
+          <li class="md-nav__item">
+            <a href="./learn/#request-files" class="md-nav__link" title="Request Files - রিকোয়েস্ট ফাইলস">
+              <span class="md-ellipsis"><span class="item-num">২২.</span> Request Files <span class="en-sub">(রিকোয়েস্ট ফাইলস)</span></span>
+            </a>
+          </li>
+          <li class="md-nav__item">
+            <a href="./learn/#request-forms-and-files" class="md-nav__link" title="Request Forms and Files - রিকোয়েস্ট ফর্মস ও ফাইলস">
+              <span class="md-ellipsis"><span class="item-num">২৩.</span> Request Forms and Files <span class="en-sub">(রিকোয়েস্ট ফর্মস ও ফাইলস)</span></span>
+            </a>
+          </li>
+          <li class="md-nav__item">
+            <a href="./learn/#handling-errors" class="md-nav__link" title="Handling Errors - এরর হ্যান্ডলিং">
+              <span class="md-ellipsis"><span class="item-num">২৪.</span> Handling Errors <span class="en-sub">(এরর হ্যান্ডলিং)</span></span>
+            </a>
+          </li>
+          <li class="md-nav__item">
+            <a href="./learn/#path-op-config" class="md-nav__link" title="Path Operation Configuration - পাথ অপারেশন কনফিগারেশন">
+              <span class="md-ellipsis"><span class="item-num">২৫.</span> Path Operation Configuration <span class="en-sub">(পাথ অপারেশন কনফিগারেশন)</span></span>
+            </a>
+          </li>
+          <li class="md-nav__item">
+            <a href="./learn/#json-encoder" class="md-nav__link" title="JSON Compatible Encoder - JSON কম্প্যাটিবল এনকোডার">
+              <span class="md-ellipsis"><span class="item-num">২৬.</span> JSON Compatible Encoder <span class="en-sub">(JSON কম্প্যাটিবল এনকোডার)</span></span>
+            </a>
+          </li>
+          <li class="md-nav__item">
+            <a href="./learn/#body-updates" class="md-nav__link" title="Body – Updates - বডি – আপডেটস">
+              <span class="md-ellipsis"><span class="item-num">২৭.</span> Body – Updates <span class="en-sub">(বডি – আপডেটস)</span></span>
+            </a>
+          </li>
+        </ul>
+      </nav>
+    </li>
+    <li class="md-nav__item md-nav__item--nested">
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__nav_dep" checked>
+      <div class="md-nav__link md-nav__container">
+        <a href="#dependencies" class="md-nav__link">
+          <span class="md-ellipsis"><strong>Dependencies</strong> (ডিপেন্ডেন্সিস)</span>
+        </a>
+        <label class="md-nav__link" for="__nav_dep" id="__nav_dep_label">
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      </div>
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_dep_label" aria-expanded="true">
+        <ul class="md-nav__list" data-md-scrollfix>
+          <li class="md-nav__item">
+            <a href="./learn/#dependencies" class="md-nav__link" title="Dependencies - ডিপেন্ডেন্সিস">
+              <span class="md-ellipsis"><span class="item-num">২৮.</span> Dependencies <span class="en-sub">(ডিপেন্ডেন্সিস)</span></span>
+            </a>
+          </li>
+          <li class="md-nav__item">
+            <a href="./learn/#classes-as-deps" class="md-nav__link" title="Classes as Dependencies - ক্লাস ডিপেন্ডেন্সি">
+              <span class="md-ellipsis"><span class="item-num">২৯.</span> Classes as Dependencies <span class="en-sub">(ক্লাস ডিপেন্ডেন্সি)</span></span>
+            </a>
+          </li>
+          <li class="md-nav__item">
+            <a href="./learn/#sub-dependencies" class="md-nav__link" title="Sub-dependencies - সাব-ডিপেন্ডেন্সিস">
+              <span class="md-ellipsis"><span class="item-num">৩০.</span> Sub-dependencies <span class="en-sub">(সাব-ডিপেন্ডেন্সিস)</span></span>
+            </a>
+          </li>
+          <li class="md-nav__item">
+            <a href="./learn/#deps-in-decorators" class="md-nav__link" title="Dependencies in Path Operation Decorators - পাথ অপারেশন ডেকোরেটরে ডিপেন্ডেন্সিস">
+              <span class="md-ellipsis"><span class="item-num">৩১.</span> Dependencies in Path Operation Decorators <span class="en-sub">(পাথ অপারেশন ডেকোরেটরে ডিপেন্ডেন্সিস)</span></span>
+            </a>
+          </li>
+          <li class="md-nav__item">
+            <a href="./learn/#global-dependencies" class="md-nav__link" title="Global Dependencies - গ্লোবাল ডিপেন্ডেন্সিস">
+              <span class="md-ellipsis"><span class="item-num">৩২.</span> Global Dependencies <span class="en-sub">(গ্লোবাল ডিপেন্ডেন্সিস)</span></span>
+            </a>
+          </li>
+          <li class="md-nav__item">
+            <a href="./learn/#deps-with-yield" class="md-nav__link" title="Dependencies with yield - yield সহ ডিপেন্ডেন্সিস">
+              <span class="md-ellipsis"><span class="item-num">৩৩.</span> Dependencies with yield <span class="en-sub">(yield সহ ডিপেন্ডেন্সিস)</span></span>
+            </a>
+          </li>
+        </ul>
+      </nav>
+    </li>
+    <li class="md-nav__item md-nav__item--nested">
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__nav_sec" checked>
+      <div class="md-nav__link md-nav__container">
+        <a href="#security" class="md-nav__link">
+          <span class="md-ellipsis"><strong>Security</strong> (সিকিউরিটি)</span>
+        </a>
+        <label class="md-nav__link" for="__nav_sec" id="__nav_sec_label">
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      </div>
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_sec_label" aria-expanded="true">
+        <ul class="md-nav__list" data-md-scrollfix>
+          <li class="md-nav__item">
+            <a href="./learn/#security-first-steps" class="md-nav__link" title="Security – First Steps - সিকিউরিটি – প্রথম পদক্ষেপ">
+              <span class="md-ellipsis"><span class="item-num">৩৪.</span> Security – First Steps <span class="en-sub">(সিকিউরিটি – প্রথম পদক্ষেপ)</span></span>
+            </a>
+          </li>
+          <li class="md-nav__item">
+            <a href="./learn/#get-current-user" class="md-nav__link" title="Get Current User - বর্তমান ব্যবহারকারী যাচাই">
+              <span class="md-ellipsis"><span class="item-num">৩৫.</span> Get Current User <span class="en-sub">(বর্তমান ব্যবহারকারী যাচাই)</span></span>
+            </a>
+          </li>
+          <li class="md-nav__item">
+            <a href="./learn/#oauth2-password-bearer" class="md-nav__link" title="Simple OAuth2 with Password and Bearer - সিম্পল OAuth2 Password ও Bearer">
+              <span class="md-ellipsis"><span class="item-num">৩৬.</span> Simple OAuth2 with Password and Bearer <span class="en-sub">(সিম্পল OAuth2 Password ও Bearer)</span></span>
+            </a>
+          </li>
+          <li class="md-nav__item">
+            <a href="./learn/#oauth2-jwt" class="md-nav__link" title="OAuth2 with Password, Hashing, Bearer with JWT Tokens - OAuth2 Hashing ও JWT Tokens">
+              <span class="md-ellipsis"><span class="item-num">৩৭.</span> OAuth2 with Password, Hashing, Bearer with JWT Tokens <span class="en-sub">(OAuth2 Hashing ও JWT Tokens)</span></span>
+            </a>
+          </li>
+        </ul>
+      </nav>
+    </li>
+    <li class="md-nav__item md-nav__item--nested">
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__nav_other">
+      <div class="md-nav__link md-nav__container">
+        <a href="#other-tutorial-topics" class="md-nav__link">
+          <span class="md-ellipsis"><strong>Other Tutorial Topics</strong> (অন্যান্য বিষয়)</span>
+        </a>
+        <label class="md-nav__link" for="__nav_other" id="__nav_other_label">
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      </div>
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_other_label" aria-expanded="true">
+        <ul class="md-nav__list" data-md-scrollfix>
+          <li class="md-nav__item">
+            <a href="./learn/#middleware" class="md-nav__link" title="Middleware - মিডলওয়্যার">
+              <span class="md-ellipsis"><span class="item-num">৩৮.</span> Middleware <span class="en-sub">(মিডলওয়্যার)</span></span>
+            </a>
+          </li>
+          <li class="md-nav__item">
+            <a href="./learn/#cors" class="md-nav__link" title="CORS - CORS (ক্রস-অরিজিন শেয়ারিং)">
+              <span class="md-ellipsis"><span class="item-num">৩৯.</span> CORS <span class="en-sub">(CORS (ক্রস-অরিজিন শেয়ারিং))</span></span>
+            </a>
+          </li>
+          <li class="md-nav__item">
+            <a href="./learn/#sql-databases" class="md-nav__link" title="SQL (Relational) Databases - SQL রিলেশনাল ডাটাবেস">
+              <span class="md-ellipsis"><span class="item-num">৪০.</span> SQL (Relational) Databases <span class="en-sub">(SQL রিলেশনাল ডাটাবেস)</span></span>
+            </a>
+          </li>
+          <li class="md-nav__item">
+            <a href="./learn/#bigger-applications" class="md-nav__link" title="Bigger Applications – Multiple Files - বড় অ্যাপ্লিকেশন – একাধিক ফাইল">
+              <span class="md-ellipsis"><span class="item-num">৪১.</span> Bigger Applications – Multiple Files <span class="en-sub">(বড় অ্যাপ্লিকেশন – একাধিক ফাইল)</span></span>
+            </a>
+          </li>
+          <li class="md-nav__item">
+            <a href="./learn/#stream-json-lines" class="md-nav__link" title="Stream JSON Lines - স্ট্রিম JSON লাইনস">
+              <span class="md-ellipsis"><span class="item-num">৪২.</span> Stream JSON Lines <span class="en-sub">(স্ট্রিম JSON লাইনস)</span></span>
+            </a>
+          </li>
+          <li class="md-nav__item">
+            <a href="./learn/#server-sent-events" class="md-nav__link" title="Server-Sent Events (SSE) - সার্ভার-সেন্ট ইভেন্টস (SSE)">
+              <span class="md-ellipsis"><span class="item-num">৪৩.</span> Server-Sent Events (SSE) <span class="en-sub">(সার্ভার-সেন্ট ইভেন্টস (SSE))</span></span>
+            </a>
+          </li>
+          <li class="md-nav__item">
+            <a href="./learn/#background-tasks" class="md-nav__link" title="Background Tasks - ব্যাকগ্রাউন্ড টাস্ক">
+              <span class="md-ellipsis"><span class="item-num">৪৪.</span> Background Tasks <span class="en-sub">(ব্যাকগ্রাউন্ড টাস্ক)</span></span>
+            </a>
+          </li>
+          <li class="md-nav__item">
+            <a href="./learn/#metadata-docs" class="md-nav__link" title="Metadata and Docs URLs - মেটাডাটা ও ডক্স ইউআরএল">
+              <span class="md-ellipsis"><span class="item-num">৪৫.</span> Metadata and Docs URLs <span class="en-sub">(মেটাডাটা ও ডক্স ইউআরএল)</span></span>
+            </a>
+          </li>
+          <li class="md-nav__item">
+            <a href="./learn/#frontend" class="md-nav__link" title="Frontend - ফ্রন্টএন্ড ইন্টিগ্রেশন">
+              <span class="md-ellipsis"><span class="item-num">৪৬.</span> Frontend <span class="en-sub">(ফ্রন্টএন্ড ইন্টিগ্রেশন)</span></span>
+            </a>
+          </li>
+          <li class="md-nav__item">
+            <a href="./learn/#static-files" class="md-nav__link" title="Static Files - স্ট্যাটিক ফাইলস">
+              <span class="md-ellipsis"><span class="item-num">৪৭.</span> Static Files <span class="en-sub">(স্ট্যাটিক ফাইলস)</span></span>
+            </a>
+          </li>
+          <li class="md-nav__item">
+            <a href="./learn/#testing" class="md-nav__link" title="Testing - টেস্টিং (pytest)">
+              <span class="md-ellipsis"><span class="item-num">৪৮.</span> Testing <span class="en-sub">(টেস্টিং (pytest))</span></span>
+            </a>
+          </li>
+          <li class="md-nav__item">
+            <a href="./learn/#debugging" class="md-nav__link" title="Debugging - ডিবাগিং">
+              <span class="md-ellipsis"><span class="item-num">৪৯.</span> Debugging <span class="en-sub">(ডিবাগিং)</span></span>
+            </a>
+          </li>
+        </ul>
+      </nav>
+    </li>
+    <li class="md-nav__item md-nav__item--nested">
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__nav_adv">
+      <div class="md-nav__link md-nav__container">
+        <a href="#advanced" class="md-nav__link">
+          <span class="md-ellipsis"><strong>Advanced</strong> (অ্যাডভান্সড)</span>
+        </a>
+        <label class="md-nav__link" for="__nav_adv" id="__nav_adv_label">
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      </div>
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_adv_label" aria-expanded="true">
+        <ul class="md-nav__list" data-md-scrollfix>
+          <li class="md-nav__item">
+            <a href="./learn/#adv-stream-data" class="md-nav__link" title="Stream Data - স্ট্রিম ডেটা">
+              <span class="md-ellipsis"><span class="item-num">৫০.</span> Stream Data <span class="en-sub">(স্ট্রিম ডেটা)</span></span>
+            </a>
+          </li>
+          <li class="md-nav__item">
+            <a href="./learn/#adv-path-config" class="md-nav__link" title="Path Operation Advanced Configuration - পাথ অপারেশন অ্যাডভান্সড কনফিগারেশন">
+              <span class="md-ellipsis"><span class="item-num">৫১.</span> Path Operation Advanced Configuration <span class="en-sub">(পাথ অপারেশন অ্যাডভান্সড কনফিগারেশন)</span></span>
+            </a>
+          </li>
+          <li class="md-nav__item">
+            <a href="./learn/#adv-status-codes" class="md-nav__link" title="Additional Status Codes - অতিরিক্ত স্ট্যাটাস কোডস">
+              <span class="md-ellipsis"><span class="item-num">৫২.</span> Additional Status Codes <span class="en-sub">(অতিরিক্ত স্ট্যাটাস কোডস)</span></span>
+            </a>
+          </li>
+          <li class="md-nav__item">
+            <a href="./learn/#adv-direct-response" class="md-nav__link" title="Return a Response Directly - সরাসরি রেসপন্স রিটার্ন">
+              <span class="md-ellipsis"><span class="item-num">৫৩.</span> Return a Response Directly <span class="en-sub">(সরাসরি রেসপন্স রিটার্ন)</span></span>
+            </a>
+          </li>
+          <li class="md-nav__item">
+            <a href="./learn/#adv-custom-response" class="md-nav__link" title="Custom Response - কাস্টম রেসপন্স">
+              <span class="md-ellipsis"><span class="item-num">৫৪.</span> Custom Response <span class="en-sub">(কাস্টম রেসপন্স)</span></span>
+            </a>
+          </li>
+          <li class="md-nav__item">
+            <a href="./learn/#adv-openapi-responses" class="md-nav__link" title="Additional Responses in OpenAPI - OpenAPI-তে অতিরিক্ত রেসপন্স">
+              <span class="md-ellipsis"><span class="item-num">৫৫.</span> Additional Responses in OpenAPI <span class="en-sub">(OpenAPI-তে অতিরিক্ত রেসপন্স)</span></span>
+            </a>
+          </li>
+          <li class="md-nav__item">
+            <a href="./learn/#adv-response-cookies" class="md-nav__link" title="Response Cookies - রেসপন্স কুকিজ">
+              <span class="md-ellipsis"><span class="item-num">৫৬.</span> Response Cookies <span class="en-sub">(রেসপন্স কুকিজ)</span></span>
+            </a>
+          </li>
+          <li class="md-nav__item">
+            <a href="./learn/#adv-response-headers" class="md-nav__link" title="Response Headers - রেসপন্স হেডার্স">
+              <span class="md-ellipsis"><span class="item-num">৫৭.</span> Response Headers <span class="en-sub">(রেসপন্স হেডার্স)</span></span>
+            </a>
+          </li>
+          <li class="md-nav__item">
+            <a href="./learn/#adv-change-status" class="md-nav__link" title="Response – Change Status Code - রেসপন্স স্ট্যাটাস কোড পরিবর্তন">
+              <span class="md-ellipsis"><span class="item-num">৫৮.</span> Response – Change Status Code <span class="en-sub">(রেসপন্স স্ট্যাটাস কোড পরিবর্তন)</span></span>
+            </a>
+          </li>
+          <li class="md-nav__item">
+            <a href="./learn/#adv-dependencies" class="md-nav__link" title="Advanced Dependencies - অ্যাডভান্সড ডিপেন্ডেন্সিস">
+              <span class="md-ellipsis"><span class="item-num">৫৯.</span> Advanced Dependencies <span class="en-sub">(অ্যাডভান্সড ডিপেন্ডেন্সিস)</span></span>
+            </a>
+          </li>
+          <li class="md-nav__item">
+            <a href="./learn/#adv-oauth2-scopes" class="md-nav__link" title="OAuth2 Scopes - OAuth2 স্কোপস">
+              <span class="md-ellipsis"><span class="item-num">৬০.</span> OAuth2 Scopes <span class="en-sub">(OAuth2 স্কোপস)</span></span>
+            </a>
+          </li>
+          <li class="md-nav__item">
+            <a href="./learn/#adv-http-basic-auth" class="md-nav__link" title="HTTP Basic Auth - HTTP Basic Auth">
+              <span class="md-ellipsis"><span class="item-num">৬১.</span> HTTP Basic Auth <span class="en-sub">(HTTP Basic Auth)</span></span>
+            </a>
+          </li>
+          <li class="md-nav__item">
+            <a href="./learn/#adv-using-request" class="md-nav__link" title="Using the Request Directly - সরাসরি রিকোয়েস্ট অবজেক্ট ব্যবহার">
+              <span class="md-ellipsis"><span class="item-num">৬২.</span> Using the Request Directly <span class="en-sub">(সরাসরি রিকোয়েস্ট অবজেক্ট ব্যবহার)</span></span>
+            </a>
+          </li>
+          <li class="md-nav__item">
+            <a href="./learn/#adv-dataclasses" class="md-nav__link" title="Using Dataclasses - Dataclasses ব্যবহার">
+              <span class="md-ellipsis"><span class="item-num">৬৩.</span> Using Dataclasses <span class="en-sub">(Dataclasses ব্যবহার)</span></span>
+            </a>
+          </li>
+          <li class="md-nav__item">
+            <a href="./learn/#adv-middleware" class="md-nav__link" title="Advanced Middleware - অ্যাডভান্সড মিডলওয়্যার">
+              <span class="md-ellipsis"><span class="item-num">৬৪.</span> Advanced Middleware <span class="en-sub">(অ্যাডভান্সড মিডলওয়্যার)</span></span>
+            </a>
+          </li>
+          <li class="md-nav__item">
+            <a href="./learn/#adv-sub-apps" class="md-nav__link" title="Sub Applications – Mounts - সাব অ্যাপ্লিকেশন ও মাউন্টস">
+              <span class="md-ellipsis"><span class="item-num">৬৫.</span> Sub Applications – Mounts <span class="en-sub">(সাব অ্যাপ্লিকেশন ও মাউন্টস)</span></span>
+            </a>
+          </li>
+          <li class="md-nav__item">
+            <a href="./learn/#adv-behind-proxy" class="md-nav__link" title="Behind a Proxy - প্রক্সির পেছনে সার্ভার">
+              <span class="md-ellipsis"><span class="item-num">৬৬.</span> Behind a Proxy <span class="en-sub">(প্রক্সির পেছনে সার্ভার)</span></span>
+            </a>
+          </li>
+          <li class="md-nav__item">
+            <a href="./learn/#adv-templates" class="md-nav__link" title="Templates - টেমপ্লেটস - Jinja2">
+              <span class="md-ellipsis"><span class="item-num">৬৭.</span> Templates <span class="en-sub">(টেমপ্লেটস - Jinja2)</span></span>
+            </a>
+          </li>
+          <li class="md-nav__item">
+            <a href="./learn/#adv-websockets" class="md-nav__link" title="WebSockets - ওয়েবসকেটস">
+              <span class="md-ellipsis"><span class="item-num">৬৮.</span> WebSockets <span class="en-sub">(ওয়েবসকেটস)</span></span>
+            </a>
+          </li>
+          <li class="md-nav__item">
+            <a href="./learn/#adv-lifespan" class="md-nav__link" title="Lifespan Events - লাইফস্প্যান ইভেন্টস">
+              <span class="md-ellipsis"><span class="item-num">৬৯.</span> Lifespan Events <span class="en-sub">(লাইফস্প্যান ইভেন্টস)</span></span>
+            </a>
+          </li>
+          <li class="md-nav__item">
+            <a href="./learn/#adv-opentelemetry" class="md-nav__link" title="OpenTelemetry - ওপেনটেলিমეტ্রি">
+              <span class="md-ellipsis"><span class="item-num">৭০.</span> OpenTelemetry <span class="en-sub">(ওপেনটেলিমეტ্রি)</span></span>
+            </a>
+          </li>
+          <li class="md-nav__item">
+            <a href="./learn/#adv-test-websockets" class="md-nav__link" title="Testing WebSockets - ওয়েবসকেট টেস্টিং">
+              <span class="md-ellipsis"><span class="item-num">৭১.</span> Testing WebSockets <span class="en-sub">(ওয়েবসকেট টেস্টিং)</span></span>
+            </a>
+          </li>
+          <li class="md-nav__item">
+            <a href="./learn/#adv-test-events" class="md-nav__link" title="Testing Events - ইভেন্ট টেস্টিং">
+              <span class="md-ellipsis"><span class="item-num">৭২.</span> Testing Events <span class="en-sub">(ইভেন্ট টেস্টিং)</span></span>
+            </a>
+          </li>
+          <li class="md-nav__item">
+            <a href="./learn/#adv-test-overrides" class="md-nav__link" title="Testing Dependencies with Overrides - ডিপেন্ডেন্সি ওভাররাইড টেস্ট">
+              <span class="md-ellipsis"><span class="item-num">৭৩.</span> Testing Dependencies with Overrides <span class="en-sub">(ডিপেন্ডেন্সি ওভাররাইড টেস্ট)</span></span>
+            </a>
+          </li>
+          <li class="md-nav__item">
+            <a href="./learn/#adv-async-tests" class="md-nav__link" title="Async Tests - অ্যাসিঙ্ক টেস্ট">
+              <span class="md-ellipsis"><span class="item-num">৭৪.</span> Async Tests <span class="en-sub">(অ্যাসিঙ্ক টেস্ট)</span></span>
+            </a>
+          </li>
+          <li class="md-nav__item">
+            <a href="./learn/#adv-settings-env" class="md-nav__link" title="Settings and Environment Variables - সেটিংস ও এনভায়রনমেন্ট ভেরিয়েবল">
+              <span class="md-ellipsis"><span class="item-num">৭৫.</span> Settings and Environment Variables <span class="en-sub">(সেটিংস ও এনভায়রনমেন্ট ভেরিয়েবল)</span></span>
+            </a>
+          </li>
+          <li class="md-nav__item">
+            <a href="./learn/#adv-openapi-callbacks" class="md-nav__link" title="OpenAPI Callbacks - OpenAPI কলব্যাকস">
+              <span class="md-ellipsis"><span class="item-num">৭৬.</span> OpenAPI Callbacks <span class="en-sub">(OpenAPI কলব্যাকস)</span></span>
+            </a>
+          </li>
+          <li class="md-nav__item">
+            <a href="./learn/#adv-openapi-webhooks" class="md-nav__link" title="OpenAPI Webhooks - OpenAPI ওয়েবহুকস">
+              <span class="md-ellipsis"><span class="item-num">৭৭.</span> OpenAPI Webhooks <span class="en-sub">(OpenAPI ওয়েবহুকস)</span></span>
+            </a>
+          </li>
+          <li class="md-nav__item">
+            <a href="./learn/#adv-wsgi" class="md-nav__link" title="Including WSGI – Flask, Django, others - WSGI ইন্টিগ্রেশন – Flask, Django">
+              <span class="md-ellipsis"><span class="item-num">৭৮.</span> Including WSGI – Flask, Django, others <span class="en-sub">(WSGI ইন্টিগ্রেশন – Flask, Django)</span></span>
+            </a>
+          </li>
+          <li class="md-nav__item">
+            <a href="./learn/#adv-sdks" class="md-nav__link" title="Generating SDKs - SDK জেনারেশন">
+              <span class="md-ellipsis"><span class="item-num">৭৯.</span> Generating SDKs <span class="en-sub">(SDK জেনারেশন)</span></span>
+            </a>
+          </li>
+          <li class="md-nav__item">
+            <a href="./learn/#adv-types" class="md-nav__link" title="Advanced Python Types - অ্যাডভান্সড পাইথন টাইপস">
+              <span class="md-ellipsis"><span class="item-num">৮০.</span> Advanced Python Types <span class="en-sub">(অ্যাডভান্সড পাইথন টাইপস)</span></span>
+            </a>
+          </li>
+          <li class="md-nav__item">
+            <a href="./learn/#adv-base64-bytes" class="md-nav__link" title="JSON with Bytes as Base64 - Base64 বাইটস সহ JSON">
+              <span class="md-ellipsis"><span class="item-num">৮১.</span> JSON with Bytes as Base64 <span class="en-sub">(Base64 বাইটস সহ JSON)</span></span>
+            </a>
+          </li>
+          <li class="md-nav__item">
+            <a href="./learn/#adv-strict-content-type" class="md-nav__link" title="Strict Content-Type Checking - কঠোর কন্টেন্ট-টাইপ চেকিং">
+              <span class="md-ellipsis"><span class="item-num">৮২.</span> Strict Content-Type Checking <span class="en-sub">(কঠোর কন্টেন্ট-টাইপ চেকিং)</span></span>
+            </a>
+          </li>
+        </ul>
+      </nav>
+    </li>
+    <li class="md-nav__item md-nav__item--nested">
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__nav_deploy">
+      <div class="md-nav__link md-nav__container">
+        <a href="#deployment" class="md-nav__link">
+          <span class="md-ellipsis"><strong>Deployment</strong> (ডিপ্লয়মেন্ট)</span>
+        </a>
+        <label class="md-nav__link" for="__nav_deploy" id="__nav_deploy_label">
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      </div>
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_deploy_label" aria-expanded="true">
+        <ul class="md-nav__list" data-md-scrollfix>
+          <li class="md-nav__item">
+            <a href="./learn/#dep-versions" class="md-nav__link" title="About FastAPI Versions - FastAPI ভার্সন পরিচিতি">
+              <span class="md-ellipsis"><span class="item-num">৮৩.</span> About FastAPI Versions <span class="en-sub">(FastAPI ভার্সন পরিচিতি)</span></span>
+            </a>
+          </li>
+          <li class="md-nav__item">
+            <a href="./learn/#dep-cloud" class="md-nav__link" title="FastAPI Cloud - FastAPI ক্লাউড">
+              <span class="md-ellipsis"><span class="item-num">৮৪.</span> FastAPI Cloud <span class="en-sub">(FastAPI ক্লাউড)</span></span>
+            </a>
+          </li>
+          <li class="md-nav__item">
+            <a href="./learn/#dep-https" class="md-nav__link" title="About HTTPS - HTTPS সম্পর্কে">
+              <span class="md-ellipsis"><span class="item-num">৮৫.</span> About HTTPS <span class="en-sub">(HTTPS সম্পর্কে)</span></span>
+            </a>
+          </li>
+          <li class="md-nav__item">
+            <a href="./learn/#dep-manual-server" class="md-nav__link" title="Run a Server Manually - ম্যানুয়ালি সার্ভার রান করা">
+              <span class="md-ellipsis"><span class="item-num">৮৬.</span> Run a Server Manually <span class="en-sub">(ম্যানুয়ালি সার্ভার রান করা)</span></span>
+            </a>
+          </li>
+          <li class="md-nav__item">
+            <a href="./learn/#dep-concepts" class="md-nav__link" title="Deployment Concepts - ডিপ্লয়মেন্ট কনসেপ্টস">
+              <span class="md-ellipsis"><span class="item-num">৮৭.</span> Deployment Concepts <span class="en-sub">(ডিপ্লয়মেন্ট কনসেপ্টস)</span></span>
+            </a>
+          </li>
+          <li class="md-nav__item">
+            <a href="./learn/#dep-cloud-providers" class="md-nav__link" title="Deploy FastAPI on Cloud Providers - ক্লাউড প্রোভাইডারে ডিপ্লয়">
+              <span class="md-ellipsis"><span class="item-num">৮৮.</span> Deploy FastAPI on Cloud Providers <span class="en-sub">(ক্লাউড প্রোভাইডারে ডিপ্লয়)</span></span>
+            </a>
+          </li>
+          <li class="md-nav__item">
+            <a href="./learn/#dep-server-workers" class="md-nav__link" title="Server Workers – Uvicorn with Workers - সার্ভার ওয়ার্কার্স – Uvicorn with Workers">
+              <span class="md-ellipsis"><span class="item-num">৮৯.</span> Server Workers – Uvicorn with Workers <span class="en-sub">(সার্ভার ওয়ার্কার্স – Uvicorn with Workers)</span></span>
+            </a>
+          </li>
+          <li class="md-nav__item">
+            <a href="./learn/#dep-docker" class="md-nav__link" title="FastAPI in Containers – Docker - ডকার কন্টেইনারে FastAPI">
+              <span class="md-ellipsis"><span class="item-num">৯০.</span> FastAPI in Containers – Docker <span class="en-sub">(ডকার কন্টেইনারে FastAPI)</span></span>
+            </a>
+          </li>
+        </ul>
+      </nav>
+    </li>
+    <li class="md-nav__item md-nav__item--nested">
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__nav_ref" checked>
+      <div class="md-nav__link md-nav__container">
+        <a href="./reference/" class="md-nav__link">
+          <span class="md-ellipsis"><strong>Reference</strong> (রেফারেন্স)</span>
+        </a>
+        <label class="md-nav__link" for="__nav_ref" id="__nav_ref_label">
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      </div>
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_ref_label" aria-expanded="true">
+        <ul class="md-nav__list" data-md-scrollfix>
+          <li class="md-nav__item">
+            <a href="./reference/#fastapi-class" class="md-nav__link" title="FastAPI Class - FastAPI Class">
+              <span class="md-ellipsis"><span class="item-num">৯১.</span> FastAPI Class <span class="en-sub">(FastAPI Class)</span></span>
+            </a>
+          </li>
+          <li class="md-nav__item">
+            <a href="./reference/#request-parameters" class="md-nav__link" title="Request Parameters - Request Parameters">
+              <span class="md-ellipsis"><span class="item-num">৯২.</span> Request Parameters <span class="en-sub">(Request Parameters)</span></span>
+            </a>
+          </li>
+          <li class="md-nav__item">
+            <a href="./reference/#status-codes" class="md-nav__link" title="Status Codes - Status Codes">
+              <span class="md-ellipsis"><span class="item-num">৯৩.</span> Status Codes <span class="en-sub">(Status Codes)</span></span>
+            </a>
+          </li>
+          <li class="md-nav__item">
+            <a href="./reference/#uploadfile-class" class="md-nav__link" title="UploadFile Class - UploadFile Class">
+              <span class="md-ellipsis"><span class="item-num">৯৪.</span> UploadFile Class <span class="en-sub">(UploadFile Class)</span></span>
+            </a>
+          </li>
+          <li class="md-nav__item">
+            <a href="./reference/#exceptions-reference" class="md-nav__link" title="Exceptions – HTTPException and WebSocketException - Exceptions – HTTPException & WebSocketException">
+              <span class="md-ellipsis"><span class="item-num">৯৫.</span> Exceptions – HTTPException and WebSocketException <span class="en-sub">(Exceptions – HTTPException & WebSocketException)</span></span>
+            </a>
+          </li>
+          <li class="md-nav__item">
+            <a href="./reference/#depends-reference" class="md-nav__link" title="Dependencies – Depends() and Security() - Dependencies – Depends() and Security()">
+              <span class="md-ellipsis"><span class="item-num">৯৬.</span> Dependencies – Depends() and Security() <span class="en-sub">(Dependencies – Depends() and Security())</span></span>
+            </a>
+          </li>
+          <li class="md-nav__item">
+            <a href="./reference/#apirouter-class" class="md-nav__link" title="APIRouter Class - APIRouter Class">
+              <span class="md-ellipsis"><span class="item-num">৯৭.</span> APIRouter Class <span class="en-sub">(APIRouter Class)</span></span>
+            </a>
+          </li>
+          <li class="md-nav__item">
+            <a href="./reference/#background-tasks" class="md-nav__link" title="Background Tasks - Background Tasks">
+              <span class="md-ellipsis"><span class="item-num">৯৮.</span> Background Tasks <span class="en-sub">(Background Tasks)</span></span>
+            </a>
+          </li>
+          <li class="md-nav__item">
+            <a href="./reference/#request-class" class="md-nav__link" title="Request Class - Request Class">
+              <span class="md-ellipsis"><span class="item-num">৯৯.</span> Request Class <span class="en-sub">(Request Class)</span></span>
+            </a>
+          </li>
+          <li class="md-nav__item">
+            <a href="./reference/#websockets" class="md-nav__link" title="WebSockets - WebSockets">
+              <span class="md-ellipsis"><span class="item-num">১০০.</span> WebSockets <span class="en-sub">(WebSockets)</span></span>
+            </a>
+          </li>
+          <li class="md-nav__item">
+            <a href="./reference/#http-connection" class="md-nav__link" title="HTTPConnection Class - HTTPConnection Class">
+              <span class="md-ellipsis"><span class="item-num">১০১.</span> HTTPConnection Class <span class="en-sub">(HTTPConnection Class)</span></span>
+            </a>
+          </li>
+          <li class="md-nav__item">
+            <a href="./reference/#response-class" class="md-nav__link" title="Response Class - Response Class">
+              <span class="md-ellipsis"><span class="item-num">১০২.</span> Response Class <span class="en-sub">(Response Class)</span></span>
+            </a>
+          </li>
+          <li class="md-nav__item">
+            <a href="./reference/#custom-responses" class="md-nav__link" title="Custom Response Classes - Custom Response Classes">
+              <span class="md-ellipsis"><span class="item-num">১০৩.</span> Custom Response Classes <span class="en-sub">(Custom Response Classes)</span></span>
+            </a>
+          </li>
+          <li class="md-nav__item">
+            <a href="./reference/#server-sent-events" class="md-nav__link" title="Server-Sent Events - Server-Sent Events">
+              <span class="md-ellipsis"><span class="item-num">১০৪.</span> Server-Sent Events <span class="en-sub">(Server-Sent Events)</span></span>
+            </a>
+          </li>
+          <li class="md-nav__item">
+            <a href="./reference/#middleware" class="md-nav__link" title="Middleware - Middleware">
+              <span class="md-ellipsis"><span class="item-num">১০৫.</span> Middleware <span class="en-sub">(Middleware)</span></span>
+            </a>
+          </li>
+          <li class="md-nav__item">
+            <a href="./reference/#openapi" class="md-nav__link" title="OpenAPI - OpenAPI">
+              <span class="md-ellipsis"><span class="item-num">১০৬.</span> OpenAPI <span class="en-sub">(OpenAPI)</span></span>
+            </a>
+          </li>
+          <li class="md-nav__item">
+            <a href="./reference/#openapi-docs" class="md-nav__link" title="OpenAPI Docs - OpenAPI Docs">
+              <span class="md-ellipsis"><span class="item-num">১০৭.</span> OpenAPI Docs <span class="en-sub">(OpenAPI Docs)</span></span>
+            </a>
+          </li>
+        </ul>
+      </nav>
+    </li>
+  </ul>
+</nav>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Secondary Right Sidebar (Table of Contents / সূচিপত্র) -->
+          <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc">
+            <div class="md-sidebar__scrollwrap">
+              <div class="md-sidebar__inner">
+                <nav class="md-nav md-nav--secondary" aria-label="এই পৃষ্ঠায়">
+                  <label class="md-nav__title" for="__toc">
+                    <span class="md-nav__icon md-icon"></span>
+                    এই পৃষ্ঠায় (On this page)
+                  </label>
+                  <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+                    <li class="md-nav__item">
+                      <a href="#learn" class="md-nav__link">
+                        <span class="md-ellipsis">শিখুন (Learn)</span>
+                      </a>
+                    </li>
+                    <li class="md-nav__item">
+                      <a href="#fastapi-tutorial" class="md-nav__link">
+                        <span class="md-ellipsis">FastAPI টিউটোরিয়াল (Topics 1 - 27)</span>
+                      </a>
+                    </li>
+                    <li class="md-nav__item">
+                      <a href="#dependencies" class="md-nav__link">
+                        <span class="md-ellipsis">ডিপেন্ডেন্সিস (Topics 28 - 33)</span>
+                      </a>
+                    </li>
+                    <li class="md-nav__item">
+                      <a href="#security" class="md-nav__link">
+                        <span class="md-ellipsis">সিকিউরিটি ও প্রমাণীকরণ (34 - 37)</span>
+                      </a>
+                    </li>
+                    <li class="md-nav__item">
+                      <a href="#other-tutorial-topics" class="md-nav__link">
+                        <span class="md-ellipsis">অন্যান্য টিউটোরিয়াল বিষয় (38 - 49)</span>
+                      </a>
+                    </li>
+                    <li class="md-nav__item">
+                      <a href="#advanced" class="md-nav__link">
+                        <span class="md-ellipsis">অ্যাডভান্সড গাইড (50 - 82)</span>
+                      </a>
+                    </li>
+                    <li class="md-nav__item">
+                      <a href="#deployment" class="md-nav__link">
+                        <span class="md-ellipsis">ডিপ্লয়মেন্ট গাইড (83 - 90)</span>
+                      </a>
+                    </li>
+                  </ul>
+                </nav>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Main Content Area -->
+          <div class="md-content" data-md-component="content">
+            <nav class="md-path" aria-label="Navigation">
+              <ol class="md-path__list">
+                <li class="md-path__item">
+                  <a href="./" class="md-path__link">
+                    <span class="md-ellipsis">FastAPI</span>
+                  </a>
+                </li>
+                <li class="md-path__item">
+                  <a href="./learn/" class="md-path__link">
+                    <span class="md-ellipsis">শিখুন (Learn)</span>
+                  </a>
+                </li>
+              </ol>
+            </nav>
+            
+            <article class="md-content__inner md-typeset">
+              <h1 id="learn">শিখুন - FastAPI<a class="headerlink" href="#learn" title="Permanent link">&para;</a></h1>
+              
+              <p>এখানে রয়েছে <strong>FastAPI</strong> শেখার পূর্ণাঙ্গ ১০৭টি বিষয়ভিত্তিক ধারাবাহিক টিউটোরিয়াল ও রেফারেন্স।</p>
+              <p>আপনি এটিকে একটি <strong>বই</strong> 📖, একটি পূর্ণাঙ্গ <strong>কোর্স</strong> 🎓, এবং FastAPI শেখার <strong>অফিসিয়াল</strong> ও সর্বাধিক সুপারিশকৃত উপায় হিসেবে বিবেচনা করতে পারেন। 😎</p>
+              
+              <div class="admonition info">
+                <p class="admonition-title">
+                  <svg style="width:18px;height:18px;fill:currentColor;" viewBox="0 0 24 24"><path d="M13 9h-2V7h2m0 10h-2v-6h2m-1-9A10 10 0 0 0 2 12a10 10 0 0 0 10 10 10 10 0 0 0 10-10A10 10 0 0 0 12 2Z"/></svg>
+                  নেভিগেশন সহায়িকা (Sidebar Guide)
+                </p>
+                <p>বামের সাইডবারে অফিশিয়াল ডকুমেন্টেশনের অনুরূপ <strong>FastAPI Tutorial</strong>, <strong>Dependencies</strong>, <strong>Security</strong>, <strong>Other Tutorial Topics</strong>, <strong>Advanced</strong>, <strong>Deployment</strong> এবং <strong>Reference</strong>-এর সম্পূর্ণ ১০৭টি বিষয় সাজানো হয়েছে। যেকোনো শিরোনামে ক্লিক করে সরাসরি সেই বিষয়ে যেতে পারেন।</p>
+              </div>
+
+              <!-- ================= SECTION 1: TUTORIAL ================= -->
+              <h2 id="fastapi-tutorial">FastAPI টিউটোরিয়াল - ইউজার গাইড (Tutorial)<a class="headerlink" href="#fastapi-tutorial" title="Permanent link">&para;</a></h2>
+              
+              <!-- 1. First Steps -->
+              <h3 id="first-steps">১. প্রথম পদক্ষেপ (First Steps)</h3>
+              <p>সবচেয়ে সহজ একটি FastAPI ফাইল তৈরি করা যাক। একটি নতুন ফাইল <code>main.py</code> তৈরি করুন:</p>
+
+              <div class="tabbed-set">
+                <div class="tabbed-labels">
+                  <label class="active">Python 3.10+</label>
+                  <label>Python 3.9+</label>
+                  <label>Python 3.8+</label>
+                </div>
+                <div class="tabbed-content">
+                  <div class="tabbed-block active">
+                    <div class="highlight">
+                      <pre><code><span class="kn">from</span> <span class="nn">fastapi</span> <span class="kn">import</span> <span class="n">FastAPI</span>
+
+<span class="n">app</span> <span class="o">=</span> <span class="n">FastAPI</span><span class="p">()</span>
+
+<span class="nd">@app</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">"/"</span><span class="p">)</span>
+<span class="k">async</span> <span class="k">def</span> <span class="nf">root</span><span class="p">():</span>
+    <span class="k">return</span> <span class="p">{</span><span class="s">"message"</span><span class="p">:</span> <span class="s">"স্বাগতম! এটি আমাদের প্রথম FastAPI অ্যাপ্লিকেশন"</span><span class="p">}</span>
+</code></pre>
+                    </div>
+                  </div>
+                  <div class="tabbed-block">
+                    <div class="highlight">
+                      <pre><code><span class="kn">from</span> <span class="nn">fastapi</span> <span class="kn">import</span> <span class="n">FastAPI</span>
+
+<span class="n">app</span> <span class="o">=</span> <span class="n">FastAPI</span><span class="p">()</span>
+
+<span class="nd">@app</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">"/"</span><span class="p">)</span>
+<span class="k">async</span> <span class="k">def</span> <span class="nf">root</span><span class="p">():</span>
+    <span class="k">return</span> <span class="p">{</span><span class="s">"message"</span><span class="p">:</span> <span class="s">"স্বাগতম! এটি আমাদের প্রথম FastAPI অ্যাপ্লিকেশন"</span><span class="p">}</span>
+</code></pre>
+                    </div>
+                  </div>
+                  <div class="tabbed-block">
+                    <div class="highlight">
+                      <pre><code><span class="kn">from</span> <span class="nn">fastapi</span> <span class="kn">import</span> <span class="n">FastAPI</span>
+
+<span class="n">app</span> <span class="o">=</span> <span class="n">FastAPI</span><span class="p">()</span>
+
+<span class="nd">@app</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">"/"</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">root</span><span class="p">():</span>
+    <span class="k">return</span> <span class="p">{</span><span class="s">"message"</span><span class="p">:</span> <span class="s">"স্বাগতম! এটি আমাদের প্রথম FastAPI অ্যাপ্লিকেশন"</span><span class="p">}</span>
+</code></pre>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- 2. Path Parameters -->
+              <h3 id="path-parameters">২. পাথ প্যারামিটার (Path Parameters)</h3>
+              <p>পাথ থেকে সরাসরি ভেরিয়েবল গ্রহণ করতে ফরম্যাট স্ট্রিং সিনট্যাক্স ব্যবহার করুন:</p>
+              <div class="highlight">
+                <pre><code><span class="nd">@app</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">"/items/{item_id}"</span><span class="p">)</span>
+<span class="k">async</span> <span class="k">def</span> <span class="nf">read_item</span><span class="p">(</span><span class="n">item_id</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
+    <span class="k">return</span> <span class="p">{</span><span class="s">"item_id"</span><span class="p">:</span> <span class="n">item_id</span><span class="p">}</span>
+</code></pre>
+              </div>
+
+              <!-- 3. Query Parameters -->
+              <h3 id="query-parameters">৩. কুয়েরি প্যারামিটার (Query Parameters)</h3>
+              <p>যেসব প্যারামিটার পাথে ডিক্লেয়ার করা নেই, সেগুলো কুয়েরি প্যারামিটার হিসেবে গণ্য হয়:</p>
+              <div class="highlight">
+                <pre><code><span class="nd">@app</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">"/items/"</span><span class="p">)</span>
+<span class="k">async</span> <span class="k">def</span> <span class="nf">read_items</span><span class="p">(</span><span class="n">skip</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">limit</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">10</span><span class="p">):</span>
+    <span class="k">return</span> <span class="p">{</span><span class="s">"skip"</span><span class="p">:</span> <span class="n">skip</span><span class="p">,</span> <span class="s">"limit"</span><span class="p">:</span> <span class="n">limit</span><span class="p">}</span>
+</code></pre>
+              </div>
+
+              <!-- 4. Request Body -->
+              <h3 id="request-body">৪. রিকোয়েস্ট বডি (Request Body)</h3>
+              <p>ক্লায়েন্ট থেকে JSON ডেটা গ্রহণ করতে Pydantic <code>BaseModel</code> ব্যবহার করুন:</p>
+              <div class="highlight">
+                <pre><code><span class="kn">from</span> <span class="nn">pydantic</span> <span class="kn">import</span> <span class="n">BaseModel</span>
+
+<span class="k">class</span> <span class="nc">Item</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
+    <span class="n">name</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">description</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">price</span><span class="p">:</span> <span class="nb">float</span>
+
+<span class="nd">@app</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="s">"/items/"</span><span class="p">)</span>
+<span class="k">async</span> <span class="k">def</span> <span class="nf">create_item</span><span class="p">(</span><span class="n">item</span><span class="p">:</span> <span class="n">Item</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">item</span>
+</code></pre>
+              </div>
+
+              <!-- 5. Query Parameters and String Validations -->
+              <h3 id="query-params-str-validations">৫. কুয়েরি প্যারামিটার ও স্ট্রিং ভ্যালিডেশন (String Validations)</h3>
+              <p><code>Query()</code> ফাংশন ব্যবহার করে <code>min_length</code>, <code>max_length</code>, এবং রেগুলার এক্সপ্রেশন <code>pattern</code> প্রয়োগ করা যায়:</p>
+              <div class="highlight">
+                <pre><code><span class="kn">from</span> <span class="nn">fastapi</span> <span class="kn">import</span> <span class="n">Query</span>
+
+<span class="nd">@app</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">"/items/"</span><span class="p">)</span>
+<span class="k">async</span> <span class="k">def</span> <span class="nf">read_items</span><span class="p">(</span><span class="n">q</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="n">Query</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">min_length</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">max_length</span><span class="o">=</span><span class="mi">50</span><span class="p">)):</span>
+    <span class="k">return</span> <span class="p">{</span><span class="s">"q"</span><span class="p">:</span> <span class="n">q</span><span class="p">}</span>
+</code></pre>
+              </div>
+
+              <!-- 6. Path Parameters and Numeric Validations -->
+              <h3 id="path-params-num-validations">৬. পাথ প্যারামিটার ও নিউমেরিক ভ্যালিডেশন (Numeric Validations)</h3>
+              <p><code>Path()</code> ব্যবহার করে <code>ge</code> (Greater than or equal) এবং <code>le</code> (Less than or equal) সংখ্যা ভ্যালিডেশন:</p>
+              <div class="highlight">
+                <pre><code><span class="kn">from</span> <span class="nn">fastapi</span> <span class="kn">import</span> <span class="n">Path</span>
+
+<span class="nd">@app</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">"/items/{item_id}"</span><span class="p">)</span>
+<span class="k">async</span> <span class="k">def</span> <span class="nf">read_item</span><span class="p">(</span><span class="n">item_id</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s">"আইটেম আইডি"</span><span class="p">,</span> <span class="n">ge</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">le</span><span class="o">=</span><span class="mi">1000</span><span class="p">)):</span>
+    <span class="k">return</span> <span class="p">{</span><span class="s">"item_id"</span><span class="p">:</span> <span class="n">item_id</span><span class="p">}</span>
+</code></pre>
+              </div>
+
+              <!-- 7. Query Parameter Models -->
+              <h3 id="query-param-models">৭. কুয়েরি প্যারামিটার মডেল (Query Parameter Models)</h3>
+              <p>একাধিক কুয়েরি প্যারামিটারকে একটি Pydantic মডেলে গুছিয়ে নিতে পারেন:</p>
+              <div class="highlight">
+                <pre><code><span class="k">class</span> <span class="nc">FilterParams</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
+    <span class="n">limit</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">100</span>
+    <span class="n">offset</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">order_by</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s">"created_at"</span>
+
+<span class="nd">@app</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">"/items/"</span><span class="p">)</span>
+<span class="k">async</span> <span class="k">def</span> <span class="nf">read_items</span><span class="p">(</span><span class="filter_query</span><span class="p">:</span> <span class="n">FilterParams</span> <span class="o">=</span> <span class="n">Query</span><span class="p">()):</span>
+    <span class="k">return</span> <span class="p">{</span><span class="s">"params"</span><span class="p">:</span> <span class="n">filter_query</span><span class="p">}</span>
+</code></pre>
+              </div>
+
+              <!-- 8. Body – Multiple Parameters -->
+              <h3 id="body-multiple-params">৮. বডি – একাধিক প্যারামিটার (Body – Multiple Parameters)</h3>
+              <p>একই এন্ডপয়েন্টে একাধিক বডি মডেল বা প্রাইমিটিভ বডি প্যারামিটার (<code>Body()</code>) একসাথে গ্রহণ করা যায়:</p>
+              <div class="highlight">
+                <pre><code><span class="kn">from</span> <span class="nn">fastapi</span> <span class="kn">import</span> <span class="n">Body</span>
+
+<span class="nd">@app</span><span class="o">.</span><span class="n">put</span><span class="p">(</span><span class="s">"/items/{item_id}"</span><span class="p">)</span>
+<span class="k">async</span> <span class="k">def</span> <span class="nf">update_item</span><span class="p">(</span><span class="n">item_id</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">item</span><span class="p">:</span> <span class="n">Item</span><span class="p">,</span> <span class="n">importance</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="n">Body</span><span class="p">(</span><span class="n">gt</span><span class="o">=</span><span class="mi">0</span><span class="p">)):</span>
+    <span class="k">return</span> <span class="p">{</span><span class="s">"item_id"</span><span class="p">:</span> <span class="n">item_id</span><span class="p">,</span> <span class="s">"item"</span><span class="p">:</span> <span class="n">item</span><span class="p">,</span> <span class="s">"importance"</span><span class="p">:</span> <span class="n">importance</span><span class="p">}</span>
+</code></pre>
+              </div>
+
+              <!-- 9. Body – Fields -->
+              <h3 id="body-fields">৯. বডি – ফিল্ডস (Body – Fields)</h3>
+              <p>Pydantic মডেলে <code>Field()</code> ব্যবহার করে ফিল্ড লেভেলে ভ্যালিডেশন এবং মেটাডাটা যুক্ত করুন:</p>
+              <div class="highlight">
+                <pre><code><span class="kn">from</span> <span class="nn">pydantic</span> <span class="kn">import</span> <span class="n">Field</span>
+
+<span class="k">class</span> <span class="nc">Item</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
+    <span class="n">name</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">description</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">max_length</span><span class="o">=</span><span class="mi">300</span><span class="p">)</span>
+    <span class="n">price</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="n">Field</span><span class="p">(</span><span class="n">gt</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">description</span><span class="o">=</span><span class="s">"মূল্য শূন্যের বেশি হতে হবে"</span><span class="p">)</span>
+</code></pre>
+              </div>
+
+              <!-- 10. Body – Nested Models -->
+              <h3 id="body-nested-models">১০. বডি – নেস্টেড মডেল (Body – Nested Models)</h3>
+              <p>গভীরভাবে নেস্টেড JSON স্কিমা সমর্থন করে:</p>
+              <div class="highlight">
+                <pre><code><span class="k">class</span> <span class="nc">Image</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
+    <span class="n">url</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">name</span><span class="p">:</span> <span class="nb">str</span>
+
+<span class="k">class</span> <span class="nc">Item</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
+    <span class="n">name</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">image</span><span class="p">:</span> <span class="n">Image</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+</code></pre>
+              </div>
+
+              <!-- 11 to 27 Highlights -->
+              <h3 id="declare-example-data">১১. রিকোয়েস্ট এক্সাম্পল ডেটা (Declare Example Data)</h3>
+              <p>সোয়েগার ডক্সে মডেলের উদাহরণ প্রদর্শন করতে <code>examples=[{"name": "Foo", "price": 35.4}]</code> যুক্ত করুন।</p>
+
+              <h3 id="extra-data-types">১২. অতিরিক্ত ডেটা টাইপস (Extra Data Types)</h3>
+              <p><code>UUID</code>, <code>datetime</code>, <code>date</code>, <code>timedelta</code>, <code>frozenset</code>, <code>bytes</code> সরাসরি সমর্থন করে।</p>
+
+              <h3 id="cookie-parameters">১৩. কুকি প্যারামিটার (Cookie Parameters)</h3>
+              <p><code>Cookie()</code> ব্যবহার করে ব্রাউজারের সেশন কুকি রিড করুন: <code>ads_id: str | None = Cookie(default=None)</code>।</p>
+
+              <h3 id="header-parameters">১৪. হেডার প্যারামিটার (Header Parameters)</h3>
+              <p><code>Header()</code> ব্যবহার করে রিকোয়েস্ট হেডার রিড করুন: <code>user_agent: str | None = Header(default=None)</code>।</p>
+
+              <h3 id="cookie-param-models">১৫. কুকি প্যারামিটার মডেল & ১৬. হেডার প্যারামিটার মডেল</h3>
+              <p>কুকি এবং হেডার সমূহকে Pydantic মডেলে গ্রুপ করে ডিক্লেয়ার করার সুবিধা।</p>
+
+              <h3 id="response-model">১৭. রেসপন্স মডেল – রিটার্ন টাইপ (Response Model)</h3>
+              <p>পাথ অপারেশনের আউটপুট ফিল্টার এবং ভ্যালিডেট করতে <code>response_model=ItemOut</code> ডিক্লেয়ার করুন। পাসওয়ার্ড বা সংবেদনশীল ফিল্ড স্বয়ংক্রিয়ভাবে ফিল্টার হয়ে যাবে।</p>
+
+              <h3 id="extra-models">১৮. অতিরিক্ত মডেলস & ১৯. রেসপন্স স্ট্যাটাস কোড</h3>
+              <p>এইচটিটিপি স্ট্যাটাস কোড যেমন <code>status_code=status.HTTP_201_CREATED</code> নির্ধারণের নিয়মাবলী।</p>
+
+              <h3 id="form-data">২০. ফর্ম ডেটা & ২১. ফর্ম মডেলস (Form Data & Models)</h3>
+              <p><code>Form()</code> ব্যবহার করে <code>application/x-www-form-urlencoded</code> ডেটা পার্সিং।</p>
+
+              <h3 id="request-files">২২. রিকোয়েস্ট ফাইলস & ২৩. ফর্মস ও ফাইলস (Request Files)</h3>
+              <p><code>UploadFile</code> এবং <code>File()</code> দিয়ে নিরাপদ ও মেমোরি-দক্ষ ফাইল আপলোড।</p>
+
+              <h3 id="handling-errors">২৪. এরর হ্যান্ডলিং (Handling Errors)</h3>
+              <p><code>raise HTTPException(status_code=404, detail="আইটেম পাওয়া যায়নি")</code> দ্বারা পরিষ্কার JSON এরর রেসপন্স প্রদান।</p>
+
+              <h3 id="path-op-config">২৫. পাথ অপারেশন কনফিগারেশন</h3>
+              <p><code>tags=["আইটেমস"]</code>, <code>summary="আইটেম তৈরি"</code>, <code>description="বিস্তারিত বিবরণ"</code> এবং <code>deprecated=True</code>।</p>
+
+              <h3 id="json-encoder">২৬. JSON কম্প্যাটিবল এনকোডার</h3>
+              <p><code>jsonable_encoder()</code> ফাংশন দিয়ে যেকোনো জটিল অবজেক্ট বা ডেটাটাইমকে JSON-উপযোগী ডিকশনারিতে রূপান্তর।</p>
+
+              <h3 id="body-updates">২৭. বডি – আপডেটস (Body – Updates)</h3>
+              <p><code>PATCH</code> মেথড দিয়ে আংশিক ডেটা আপডেট করার জন্য <code>item.model_dump(exclude_unset=True)</code> প্যাটার্ন।</p>
+
+
+              <!-- ================= SECTION 2: DEPENDENCIES ================= -->
+              <h2 id="dependencies">ডিপেন্ডেন্সিস (Dependencies - Topics 28 to 33)<a class="headerlink" href="#dependencies" title="Permanent link">&para;</a></h2>
+              
+              <h3 id="dependencies-intro">২৮. ডিপেন্ডেন্সিস পরিচিতি (Dependencies)</h3>
+              <p>FastAPI-এর সবচেয়ে শক্তিশালী বৈশিষ্ট্য হলো এর ডিপেন্ডেন্সি ইনজেকশন সিস্টেম <code>Depends()</code>।</p>
+
+              <div class="highlight">
+                <pre><code><span class="kn">from</span> <span class="nn">fastapi</span> <span class="kn">import</span> <span class="n">Depends</span><span class="p">,</span> <span class="n">FastAPI</span>
+
+<span class="n">app</span> <span class="o">=</span> <span class="n">FastAPI</span><span class="p">()</span>
+
+<span class="k">async</span> <span class="k">def</span> <span class="nf">common_params</span><span class="p">(</span><span class="n">q</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">skip</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">limit</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">100</span><span class="p">):</span>
+    <span class="k">return</span> <span class="p">{</span><span class="s">"q"</span><span class="p">:</span> <span class="n">q</span><span class="p">,</span> <span class="s">"skip"</span><span class="p">:</span> <span class="n">skip</span><span class="p">,</span> <span class="s">"limit"</span><span class="p">:</span> <span class="n">limit</span><span class="p">}</span>
+
+<span class="nd">@app</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">"/items/"</span><span class="p">)</span>
+<span class="k">async</span> <span class="k">def</span> <span class="nf">read_items</span><span class="p">(</span><span class="n">commons</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="n">Depends</span><span class="p">(</span><span class="n">common_params</span><span class="p">)):</span>
+    <span class="k">return</span> <span class="n">commons</span>
+</code></pre>
+              </div>
+
+              <h3 id="classes-as-deps">২৯. ক্লাস ডিপেন্ডেন্সি (Classes as Dependencies)</h3>
+              <p>ফাংশনের পরিবর্তে পাইথন ক্লাসকে সরাসরি ডিপেন্ডেন্সি হিসেবে ব্যবহার করা যায়: <code>Depends(CommonQueryParams)</code>।</p>
+
+              <h3 id="sub-dependencies">৩০. সাব-ডিপেন্ডেন্সিস (Sub-dependencies)</h3>
+              <p>একটি ডিপেন্ডেন্সি অন্য আরেকটি ডিপেন্ডেন্সির ওপর নির্ভর করতে পারে। FastAPI স্বয়ংক্রিয়ভাবে একটি নির্ভরতার ট্রি তৈরি করে সমাধান করে।</p>
+
+              <h3 id="deps-in-decorators">৩১. পাথ অপারেশন ডেকোরেটরে ডিপেন্ডেন্সিস</h3>
+              <p>যদি রিটার্ন ভ্যালুর প্রয়োজন না থাকে তবে সরাসরি ডেকোরেটরে যুক্ত করুন: <code>@app.get("/items/", dependencies=[Depends(verify_token)])</code>।</p>
+
+              <h3 id="global-dependencies">৩২. গ্লোবাল ডিপেন্ডেন্সিস (Global Dependencies)</h3>
+              <p>পুরো অ্যাপ্লিকেশনের প্রতিটি রাউটে একবারে প্রয়োগ করতে: <code>app = FastAPI(dependencies=[Depends(verify_key)])</code>।</p>
+
+              <h3 id="deps-with-yield">৩৩. `yield` সহ ডিপেন্ডেন্সিস (Dependencies with yield)</h3>
+              <p>ডাটাবেস কানেকশন খোলা এবং রিকোয়েস্ট শেষে তা বন্ধ (cleanup) করার জন্য পাইথনের <code>yield</code> ব্যবহার:</p>
+              <div class="highlight">
+                <pre><code><span class="k">async</span> <span class="k">def</span> <span class="nf">get_db</span><span class="p">():</span>
+    <span class="n">db</span> <span class="o">=</span> <span class="n">DBSession</span><span class="p">()</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="k">yield</span> <span class="n">db</span>
+    <span class="k">finally</span><span class="p">:</span>
+        <span class="n">db</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+</code></pre>
+              </div>
+
+
+              <!-- ================= SECTION 3: SECURITY ================= -->
+              <h2 id="security">সিকিউরিটি ও প্রমাণীকরণ (Security - Topics 34 to 37)<a class="headerlink" href="#security" title="Permanent link">&para;</a></h2>
+              
+              <h3 id="security-first-steps">৩৪. সিকিউরিটি – প্রথম পদক্ষেপ (Security First Steps)</h3>
+              <p>FastAPI-তে রয়েছে স্ট্যান্ডার্ড <code>OAuth2PasswordBearer</code> ইন্টিগ্রেশন যা সোয়েগার ডক্সে অথেনটিকেশন বাটন যোগ করে।</p>
+
+              <h3 id="get-current-user">৩৫. বর্তমান ব্যবহারকারী যাচাই (Get Current User)</h3>
+              <p>ইনকামিং রিকোয়েস্টের টোকেন ডিকোড করে ডেটাবেস থেকে ব্যবহারকারী তথ্য রিড করার সাধারণ ডিপেন্ডেন্সি।</p>
+
+              <h3 id="oauth2-password-bearer">৩৬. সিম্পল OAuth2 Password ও Bearer</h3>
+              <p>ইউজারনেম ও পাসওয়ার্ড দিয়ে অথেনটিকেশন এবং ক্লায়েন্টকে Bearer টোকেন রিটার্ন।</p>
+
+              <h3 id="oauth2-jwt">৩৭. OAuth2 Hashing & JWT Tokens</h3>
+              <p><code>Passlib</code> / <code>bcrypt</code> দিয়ে পাসওয়ার্ড হ্যাশ করা এবং <code>PyJWT</code> দিয়ে নিরাপদ সইযুক্ত এক্সেস টোকেন তৈরি ও যাচাই।</p>
+
+
+              <!-- ================= SECTION 4: OTHER TUTORIAL TOPICS ================= -->
+              <h2 id="other-tutorial-topics">অন্যান্য টিউটোরিয়াল বিষয় (Topics 38 to 49)<a class="headerlink" href="#other-tutorial-topics" title="Permanent link">&para;</a></h2>
+              
+              <h3 id="middleware">৩৮. মিডলওয়্যার (Middleware)</h3>
+              <p>প্রতিটি রিকোয়েস্ট প্রসেস হওয়ার আগে এবং রেসপন্স ফেরত পাঠানোর পরে কাস্টম লজিক রান করা:</p>
+              <div class="highlight">
+                <pre><code><span class="nd">@app</span><span class="o">.</span><span class="n">middleware</span><span class="p">(</span><span class="s">"http"</span><span class="p">)</span>
+<span class="k">async</span> <span class="k">def</span> <span class="nf">add_process_time_header</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">call_next</span><span class="p">):</span>
+    <span class="n">response</span> <span class="o">=</span> <span class="k">await</span> <span class="n">call_next</span><span class="p">(</span><span class="n">request</span><span class="p">)</span>
+    <span class="n">response</span><span class="o">.</span><span class="n">headers</span><span class="p">[</span><span class="s">"X-Process-Time"</span><span class="p">]</span> <span class="o">=</span> <span class="s">"0.001s"</span>
+    <span class="k">return</span> <span class="n">response</span>
+</code></pre>
+              </div>
+
+              <h3 id="cors">৩৯. CORS (Cross-Origin Resource Sharing)</h3>
+              <p>অন্য ডোমেইন বা পোর্ট (যেমন React বা Vue ফ্রন্টএন্ড) থেকে এপিআই অ্যাক্সেস করার অনুমতি প্রদান:</p>
+              <div class="highlight">
+                <pre><code><span class="kn">from</span> <span class="nn">fastapi.middleware.cors</span> <span class="kn">import</span> <span class="n">CORSMiddleware</span>
+
+<span class="n">app</span><span class="o">.</span><span class="n">add_middleware</span><span class="p">(</span>
+    <span class="n">CORSMiddleware</span><span class="p">,</span>
+    <span class="n">allow_origins</span><span class="o">=</span><span class="p">[</span><span class="s">"*"</span><span class="p">],</span>
+    <span class="n">allow_credentials</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">allow_methods</span><span class="o">=</span><span class="p">[</span><span class="s">"*"</span><span class="p">],</span>
+    <span class="n">allow_headers</span><span class="o">=</span><span class="p">[</span><span class="s">"*"</span><span class="p">],</span>
+<span class="p">)</span>
+</code></pre>
+              </div>
+
+              <h3 id="sql-databases">৪০. SQL রিলেশনাল ডাটাবেস (SQL Databases)</h3>
+              <p>SQLAlchemy এবং SQLModel ব্যবহার করে PostgreSQL, MySQL বা SQLite ডাটাবেসে ডেটা সংরক্ষণ ও কোয়েরি।</p>
+
+              <h3 id="bigger-applications">৪১. বড় অ্যাপ্লিকেশন – একাধিক ফাইল (Multiple Files)</h3>
+              <p><code>APIRouter</code> ব্যবহার করে প্রজেক্টকে বিভিন্ন মডিউল বা প্যাকেজে সুশৃঙ্খলভাবে বিভক্ত করা।</p>
+
+              <h3 id="stream-json-lines">৪২. স্ট্রিম JSON লাইনস (Stream JSON Lines)</h3>
+              <p>বড় ডেটাসেট একসাথে মেমোরিতে না এনে লাইন-বাই-লাইন ক্লায়েন্টে স্ট্রিম করে পাঠানো।</p>
+
+              <h3 id="server-sent-events">৪৩. সার্ভার-সেন্ট ইভেন্টস (SSE)</h3>
+              <p>রিয়েল-টাইম একমুখী ইভেন্ট ব্রডকাস্ট করার প্রযুক্তি।</p>
+
+              <h3 id="background-tasks">৪৪. ব্যাকগ্রাউন্ড টাস্ক (Background Tasks)</h3>
+              <p><code>BackgroundTasks</code> অবজেক্টের সাহায্যে ইমেইল পাঠানো বা লগ লেখার মতো কাজগুলো রেসপন্স শেষ হওয়ার পর ব্যাকগ্রাউন্ডে সম্পন্ন করা।</p>
+
+              <h3 id="metadata-docs">৪৫. মেটাডাটা ও ডক্স ইউআরএল (Metadata & Docs)</h3>
+              <p>Swagger UI-এর টাইটেল, ডেসক্রিপশন, লাইসেন্স, টার্মস অফ সার্ভিস এবং ট্যাগ ডেসক্রিপশন কাস্টমাইজ করা।</p>
+
+              <h3 id="frontend">৪৬. ফ্রন্টএন্ড & ৪৭. স্ট্যাটিক ফাইলস (Static Files)</h3>
+              <p><code>StaticFiles</code> মাউন্ট করে CSS, JavaScript এবং ইমেজ ফাইল সরবরাহ করা।</p>
+
+              <h3 id="testing">৪৮. টেস্টিং & ৪৯. ডিবাগিং (Testing with pytest)</h3>
+              <p><code>pytest</code> এবং <code>httpx.AsyncClient</code> ব্যবহার করে এপিআই-এর অটোমেটেড ইউনিট ও ইন্টিগ্রেশন টেস্ট পরিচালনা।</p>
+
+
+              <!-- ================= SECTION 5: ADVANCED ================= -->
+              <h2 id="advanced">অ্যাডভান্সড গাইড (Advanced User Guide - Topics 50 to 82)<a class="headerlink" href="#advanced" title="Permanent link">&para;</a></h2>
+              <p>এই বিভাগে FastAPI-এর গভীর ও উন্নত আর্কিটেকচারাল ফিচারসমূহ অন্তর্ভুক্ত রয়েছে:</p>
+              <ul>
+                <li><strong>৫০. Stream Data:</strong> মেমোরি ছাড়াই অডিও, ভিডিও বা বড় ডেটা স্ট্রিম করা।</li>
+                <li><strong>৫১. Path Operation Advanced Config:</strong> OpenAPI অপারেশন আইডি, রুট নেম এবং কাস্টম স্কিমা মেটাডাটা।</li>
+                <li><strong>৫২. Additional Status Codes:</strong> OpenAPI-তে একাধিক ভিন্ন এরর স্ট্যাটাস কোড ও রেসপন্স মডেল ডিক্লেয়ার করা।</li>
+                <li><strong>৫৩-৫৪. Direct & Custom Response:</strong> সরাসরি <code>HTMLResponse</code>, <code>PlainTextResponse</code>, বা বাইনারি রেসপন্স ফেরত দেওয়া।</li>
+                <li><strong>৫৫-৫৮. Response Cookies & Headers:</strong> রেসপন্সে কাস্টম কুকি সেট করা এবং হেডার পরিবর্তন করা।</li>
+                <li><strong>৫৯-৬০. Advanced Dependencies & OAuth2 Scopes:</strong> সূক্ষ্ম পারমিশন কন্ট্রোল ও স্কোপ ম্যানেজমেন্ট।</li>
+                <li><strong>৬১. HTTP Basic Auth:</strong> সাধারণ ব্রাউজার পপআপ বেসিক অথেনটিকেশন।</li>
+                <li><strong>৬২-৬৩. Request Object & Dataclasses:</strong> সরাসরি Starlette রিকোয়েস্ট অবজেক্ট ও পাইথন <code>dataclass</code> সমর্থন।</li>
+                <li><strong>৬৪-৬৬. Advanced Middleware, Sub-Apps & Proxies:</strong> সাব-অ্যাপ্লিকেশন মাউন্ট করা এবং রিভার্স প্রক্সি হ্যান্ডলিং।</li>
+                <li><strong>৬৭-৬৮. Templates & WebSockets:</strong> Jinja2 এইচটিএমএল টেমপ্লেটিং এবং দ্বিমুখী রিয়েল-টাইম ওয়েবসকেট কমিউনিকেশন।</li>
+                <li><strong>৬৯-৭৪. Lifespan, Testing Overrides & Async Tests:</strong> আধুনিক লাইফস্প্যান হ্যান্ডলার এবং অ্যাসিঙ্ক টেস্ট স্যুট।</li>
+                <li><strong>৭৫-৮২. Settings, OpenAPI Callbacks & Strict Types:</strong> <code>pydantic-settings</code> দিয়ে এনভায়রনমেন্ট ভেরিয়েবল লোড এবং উন্নত টাইপ সেফটি।</li>
+              </ul>
+
+
+              <!-- ================= SECTION 6: DEPLOYMENT ================= -->
+              <h2 id="deployment">ডিপ্লয়মেন্ট গাইড (Deployment - Topics 83 to 90)<a class="headerlink" href="#deployment" title="Permanent link">&para;</a></h2>
+              <p>প্রোডাকশনে FastAPI অ্যাপ্লিকেশন স্থাপন করার পদ্ধতি:</p>
+              <ul>
+                <li><strong>৮৩. About FastAPI Versions:</strong> সেম্যান্টিক ভার্সনিং এবং আপগ্রেড নিরাপত্তা।</li>
+                <li><strong>৮৪. FastAPI Cloud:</strong> অফিশিয়াল ক্লাউড প্ল্যাটফর্মে এক ক্লিকে অ্যাপ্লিকেশন ডিপ্লয়।</li>
+                <li><strong>৮৫. About HTTPS:</strong> TLS/SSL সার্টিফিকেট ও নিরাপদ ট্রাফিক এনক্রিপশন।</li>
+                <li><strong>৮৬-৮৭. Run a Server Manually & Concepts:</strong> প্রোডাকশনে পোর্ট বাইন্ডিং, প্রসেস ম্যানেজার এবং রিসোর্স অ্যালোকেশন।</li>
+                <li><strong>৮৮. Cloud Providers:</strong> AWS, Google Cloud, DigitalOcean, Railway ও Render-এ স্থাপনের নির্দেশিকা।</li>
+                <li><strong>৮৯. Server Workers:</strong> মাল্টিপল সিপিইউ কোর ব্যবহারের জন্য Uvicorn Workers: <code>uvicorn main:app --workers 4</code>।</li>
+                <li><strong>৯০. Docker Containers:</strong> অফিশিয়াল ডকার বেস ইমেজ এবং কনটেইনারাইজড ডিপ্লয়মেন্ট।</li>
+              </ul>
+
+              <div class="admonition tip" style="margin-top: 2rem;">
+                <p class="admonition-title">রেফারেন্স অন্বেষণ করুন</p>
+                <p>FastAPI-এর প্রতিটি ক্লাস, মেথড এবং প্যারামিটারের বিশদ টেকনিক্যাল স্পেসিফিকেশন দেখতে আমাদের <a href="./reference/"><strong>রেফারেন্স পেজ (Topics 91 - 107)</strong></a> দেখুন।</p>
+              </div>
+
+            </article>
+          </div>
+        </div>
+      </main>
+      
+      <!-- Footer -->
+      <footer class="md-footer">
+        <nav class="md-footer__inner md-grid" aria-label="Footer">
+          <a href="./" class="md-footer__link md-footer__link--prev" aria-label="পূর্ববর্তী: FastAPI হোম">
+            <div class="md-footer__button md-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">পূর্ববর্তী</span>
+              <div class="md-ellipsis">FastAPI হোম</div>
+            </div>
+          </a>
+          <a href="./reference/" class="md-footer__link md-footer__link--next" aria-label="পরবর্তী: রেফারেন্স (Reference)">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">পরবর্তী</span>
+              <div class="md-ellipsis">রেফারেন্স (Reference)</div>
+            </div>
+            <div class="md-footer__button md-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        </nav>
+        
+        <div class="md-footer-meta md-typeset">
+          <div class="md-footer-meta__inner md-grid">
+            <div class="md-copyright">
+              <div class="md-copyright__highlight">
+                The FastAPI trademark is owned by <a href="https://tiangolo.com" target="_blank">@tiangolo</a> | বাংলা সংস্করণ প্রস্তুতকৃত
+              </div>
+              Made with <a href="https://fastapi.tiangolo.com" target="_blank">FastAPI Documentation Theme</a>
+            </div>
+            
+            <div class="md-social">
+              <a href="https://github.com/fastapi/fastapi" target="_blank" class="md-social__link" title="GitHub">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10.226 17.284c-2.965-.36-5.054-2.493-5.054-5.256 0-1.123.404-2.336 1.078-3.144-.292-.741-.247-2.314.09-2.965.898-.112 2.111.36 2.83 1.01.853-.269 1.752-.404 2.853-.404 1.1 0 1.999.135 2.807.382.696-.629 1.932-1.1 2.83-.988.315.606.36 2.179.067 2.942.72.854 1.101 2 1.101 3.167 0 2.763-2.089 4.852-5.098 5.234.763.494 1.28 1.572 1.28 2.807v2.336c0 .674.561 1.056 1.235.786 4.066-1.55 7.255-5.615 7.255-10.646C23.5 6.188 18.334 1 11.978 1 5.62 1 .5 6.188.5 12.545c0 4.986 3.167 9.12 7.435 10.669.606.225 1.19-.18 1.19-.786V20.63a2.9 2.9 0 0 1-1.078.224c-1.483 0-2.359-.808-2.987-2.313-.247-.607-.517-.966-1.034-1.033-.27-.023-.359-.135-.359-.27 0-.27.45-.471.898-.471.652 0 1.213.404 1.797 1.235.45.651.921.943 1.483.943.561 0 .92-.202 1.437-.719.382-.381.674-.718.944-.943"/></svg>
+              </a>
+              <a href="https://x.com/fastapi" target="_blank" class="md-social__link" title="X (Twitter)">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path fill="currentColor" d="M357.2 48h70.6L273.6 224.2 455 464H313L201.7 318.6 74.5 464H3.8l164.9-188.5L-5.2 48h145.6l100.5 132.9zm-24.8 373.8h39.1L119.1 88h-42z"/></svg>
+              </a>
+              <a href="https://discord.com/invite/VQjSZaeJmf" target="_blank" class="md-social__link" title="Discord">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><path fill="currentColor" d="M492.5 69.8c-.2-.3-.4-.6-.8-.7-38.1-17.5-78.4-30-119.7-37.1-.4-.1-.8 0-1.1.1s-.6.4-.8.8c-5.5 9.9-10.5 20.2-14.9 30.6-44.6-6.8-89.9-6.8-134.4 0-4.5-10.5-9.5-20.7-15.1-30.6-.2-.3-.5-.6-.8-.8s-.7-.2-1.1-.2C162.5 39 122.2 51.5 84.1 69c-.3.1-.6.4-.8.7C7.1 183.5-13.8 294.6-3.6 404.2c0 .3.1.5.2.8s.3.4.5.6c44.4 32.9 94 58 146.8 74.2.4.1.8.1 1.1 0s.7-.4.9-.7c11.3-15.4 21.4-31.8 30-48.8.1-.2.2-.5.2-.8s0-.5-.1-.8-.2-.5-.4-.6-.4-.3-.7-.4c-15.8-6.1-31.2-13.4-45.9-21.9-.3-.2-.5-.4-.7-.6s-.3-.6-.3-.9 0-.6.2-.9.3-.5.6-.7c3.1-2.3 6.2-4.7 9.1-7.1.3-.2.6-.4.9-.4s.7 0 1 .1c96.2 43.9 200.4 43.9 295.5 0 .3-.1.7-.2 1-.2s.7.2.9.4c2.9 2.4 6 4.9 9.1 7.2.2.2.4.4.6.7s.2.6.2.9-.1.6-.3.9-.4.5-.6.6c-14.7 8.6-30 15.9-45.9 21.8-.2.1-.5.2-.7.4s-.3.4-.4.7-.1.5-.1.8.1.5.2.8c8.8 17 18.8 33.3 30 48.8.2.3.6.6.9.7s.8.1 1.1 0c52.9-16.2 102.6-41.3 147.1-74.2.2-.2.4-.4.5-.6s.2-.5.2-.8c12.3-126.8-20.5-236.9-86.9-334.5zm-302 267.7c-29 0-52.8-26.6-52.8-59.2s23.4-59.2 52.8-59.2c29.7 0 53.3 26.8 52.8 59.2 0 32.7-23.4 59.2-52.8 59.2m195.4 0c-29 0-52.8-26.6-52.8-59.2s23.4-59.2 52.8-59.2c29.7 0 53.3 26.8 52.8 59.2 0 32.7-23.2 59.2-52.8 59.2"/></svg>
+              </a>
+            </div>
+          </div>
+        </div>
+      </footer>
+    </div>
+    
+    <!-- Scripts -->
+    <script src="assets/javascripts/app.js"></script>
+    <script src="js/termynal.js"></script>
+  </body>
+</html>

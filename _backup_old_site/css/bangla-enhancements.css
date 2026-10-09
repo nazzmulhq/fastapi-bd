@@ -1,0 +1,13 @@
+/* Bengali Typography Enhancements
+   Ensures authentic Material for MkDocs Classic design while providing crisp Bengali rendering
+*/
+@import url('https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@300;400;500;600;700&family=Noto+Sans+Bengali:wght@400;500;600;700&family=Roboto:300,300i,400,400i,500,500i,700,700i&display=swap');
+
+:root {
+  --md-text-font: 'Hind Siliguri', 'Noto Sans Bengali', Roboto, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --md-code-font: 'Roboto Mono', SFMono-Regular, Consolas, Menlo, monospace;
+}
+
+body {
+  font-family: var(--md-text-font);
+}
