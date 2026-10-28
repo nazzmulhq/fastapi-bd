@@ -16,7 +16,7 @@ def restore(rel):
     txt='\n'.join(out)
     return txt if txt.endswith('\n') else txt+'\n'
 def check(rel,bn):
-    en=open(os.path.join(EN,rel),encoding='utf8').read();probs=[]
+    en=open(en_path(rel),encoding='utf8').read();probs=[]
     if '⟦CODE' in bn: probs.append('unrestored placeholder')
     H=lambda t:re.findall(r'^#{1,6} .*?\{ ?#([^ }]+) ?\}',t,re.M)
     hb=H(bn); it=iter(hb)
@@ -35,7 +35,7 @@ def check(rel,bn):
     ib=inc(bn)
     for x in inc(en):
         if x not in ib: probs.append(f'include missing: {x}')
-    U=lambda t:re.findall(r'\]\(([^)\s]+)\)',t)+re.findall(r'(?:href|src)="([^"]+)"',t)
+    U=lambda t:re.findall(r'\]\(([^)\s]+)\)',t)+re.findall(r'(?:href|src)="([^"]+)"',t)+['['+x+']' for x in re.findall(r'\]\[([\w.\-:]+)\]',re.sub(r'```.*?```','',t,flags=re.S))]+['{#'+x+'}' for x in re.findall(r'\{#([\w.\-:]+)\}',t)]
     ub=U(bn)
     miss=[x for x in U(en) if x not in ub]
     if miss: probs.append(f'links missing: {miss}')

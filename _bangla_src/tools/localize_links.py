@@ -1,5 +1,6 @@
 import os,re,sys,glob
 root=sys.argv[1]; n=0; files=0
+CODE_HREF=re.compile(r'\b(href|src|action)="(?:\.\./)+(</span>)')
 A=re.compile(r'<a([^>]*?)href="https://fastapi\.tiangolo\.com/([^"#]*)(#[^"]*)?"([^>]*)>(.*?)</a>',re.S)
 for f in glob.glob(os.path.join(root,'**/*.html'),recursive=True):
     if '_backup_old_site' in f or '_bangla_src' in f: continue
@@ -16,6 +17,8 @@ for f in glob.glob(os.path.join(root,'**/*.html'),recursive=True):
         n+=1
         return f'<a{pre}href="/{path}{frag or ""}"{post}>{text}</a>'
     new=A.sub(rep,art)
+    # the builder treats href="{{ ... }}" inside highlighted template code as a relative link and prefixes ../
+    new=CODE_HREF.sub(r'\1="\2',new)
     if new!=art:
         open(f,'w',encoding='utf8').write(t[:s]+new+t[e:]); files+=1
 print('rewrote',n,'links in',files,'files')

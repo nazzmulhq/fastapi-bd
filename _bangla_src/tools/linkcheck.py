@@ -6,7 +6,7 @@ for f in glob.glob(os.path.join(root,'**/*.html'),recursive=True):
     t=open(f,encoding='utf8',errors='ignore').read()
     for m in re.finditer(r'(?:href|src)="([^"#?]*)[^"]*"',t):
         u=m.group(1)
-        if not u or re.match(r'^[a-z]+:',u) or u.startswith('//'): continue
+        if not u or u.startswith('<') or re.match(r'^[a-z]+:',u) or u.startswith('//'): continue
         if u.startswith('/'): p=os.path.join(root,urllib.parse.unquote(u.lstrip('/')))
         else: p=os.path.normpath(os.path.join(os.path.dirname(f),urllib.parse.unquote(u)))
         if os.path.isdir(p): p=os.path.join(p,'index.html')

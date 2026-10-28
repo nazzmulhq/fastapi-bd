@@ -3,7 +3,7 @@
 set -e
 SRC=/Users/nazmulhaque/Desktop/fastapi/_bangla_src
 ROOT=/Users/nazmulhaque/Desktop/fastapi
-SP=${BN_SP:-/private/tmp/claude-501/-Users-nazmulhaque-Desktop-fastapi/be144999-a451-4d94-9f2b-4d8452f63251/scratchpad}
+SP=${BN_SP:-/Users/nazmulhaque/Desktop/fastapi/_bangla_src/.build}
 cd "$SRC"
 "$SP/venv/bin/python" tools/build_bn.py > "$SP/build.log" 2>&1 || { tail -30 "$SP/build.log"; exit 1; }
 grep -iE "warn|error" "$SP/build.log" || true

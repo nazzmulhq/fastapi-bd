@@ -1,6 +1,6 @@
 import re,os,json,sys
 SRC=os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-SP=os.environ.get('BN_SP','/private/tmp/claude-501/-Users-nazmulhaque-Desktop-fastapi/be144999-a451-4d94-9f2b-4d8452f63251/scratchpad')
+SP=os.environ.get('BN_SP','/Users/nazmulhaque/Desktop/fastapi/_bangla_src/.build')
 EN=os.path.join(SP,'repo/docs/en/docs')
 BN=os.path.join(SRC,'docs')
 WORK=os.path.join(SRC,'work')
@@ -28,3 +28,9 @@ def strip_comments(l):
     l=re.sub(r'^\s*//.*$','',l)
     l=re.sub(r'(^|\s)#\s.*$','',l)
     return l.rstrip()
+
+EXT_SETS=('pydantic','pydantic-ai')
+def is_ext(rel): return rel.split('/')[0] in EXT_SETS
+def en_path(rel):
+    """English source for a page: FastAPI docs, or the prepared English of an external doc set"""
+    return os.path.join(SP,'en_ext',rel) if is_ext(rel) else os.path.join(EN,rel)

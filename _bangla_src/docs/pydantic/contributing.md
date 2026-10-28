@@ -1,0 +1,318 @@
+# অবদান রাখা { #contributing }
+
+/// note | এই পেজে যা জানবেন
+
+* Pydantic-এ প্রশ্ন, বাগ রিপোর্ট আর Pull Request কীভাবে পাঠাবেন।
+* নিজের কম্পিউটারে Pydantic-এর কোড সেটআপ করে টেস্ট চালানো আর ডকুমেন্টেশন তৈরি করা।
+* AI ব্যবহারের নীতি আর ডকুমেন্টেশন লেখার ধরন।
+* আপনার প্রজেক্টে "Pydantic ব্যবহৃত" ব্যাজ লাগানো।
+
+///
+
+আমরা চাই আপনি Pydantic-এ অবদান রাখুন!
+
+## Issue { #issues }
+
+প্রশ্ন, ফিচারের অনুরোধ আর বাগ রিপোর্ট সবই [discussion বা issue](https://github.com/pydantic/pydantic/issues/new/choose) হিসেবে স্বাগত।
+**তবে, একটি নিরাপত্তা দুর্বলতা জানাতে অনুগ্রহ করে আমাদের [নিরাপত্তা নীতি](https://github.com/pydantic/pydantic/security/policy) দেখুন।**
+
+আমাদের পক্ষে আপনাকে সাহায্য করা যতটা সম্ভব সহজ করতে, অনুগ্রহ করে আপনার issue-তে নিচের কমান্ডের আউটপুট যোগ করুন:
+
+```bash
+python -c "import pydantic.version; print(pydantic.version.version_info())"
+```
+
+যদি **v2.0**-এর আগের Pydantic ব্যবহার করেন, তাহলে এটি ব্যবহার করুন:
+
+```bash
+python -c "import pydantic.utils; print(pydantic.utils.version_info())"
+```
+
+সবসময় ওপরেরটি যোগ করার চেষ্টা করুন, যদি না আপনি Pydantic ইনস্টল করতে না পারেন বা **জানেন** যে এটি আপনার প্রশ্ন বা ফিচারের অনুরোধের
+সাথে প্রাসঙ্গিক নয়।
+
+## Pull Request { #pull-requests }
+
+শুরু করে একটি Pull Request (কোড পরিবর্তনের প্রস্তাব) তৈরি করা খুবই সহজ হওয়া উচিত।
+
+আপনার পরিবর্তন যদি খুব ছোট না হয় (বানান ভুল, ডকসের ছোট সংশোধন ইত্যাদি), তাহলে pull request তৈরির আগে পরিবর্তন নিয়ে আলোচনার জন্য
+একটি issue তৈরি করুন। আগে assign না করেই কোনো বিদ্যমান issue ঠিক করা যেকোনো pull request
+স্বয়ংক্রিয়ভাবে বন্ধ করে দেওয়া হবে।
+
+/// note | Pydantic V1 রক্ষণাবেক্ষণ মোডে আছে
+
+Pydantic v1 রক্ষণাবেক্ষণ মোডে আছে, অর্থাৎ শুধু বাগ ফিক্স আর নিরাপত্তা ফিক্স গ্রহণ করা হবে।
+নতুন ফিচার Pydantic v2-এর জন্য হওয়া উচিত।
+
+Pydantic v1-এ একটি ফিক্স জমা দিতে, টার্গেট ব্রাঞ্চ হিসেবে [`1.10.X-fixes`](https://github.com/pydantic/pydantic/tree/1.10.X-fixes) ব্যবহার করুন।
+
+///
+
+অবদান রাখা যতটা সম্ভব সহজ আর দ্রুত করতে, আপনি নিজের কম্পিউটারে টেস্ট আর linting চালাতে চাইবেন। সৌভাগ্যক্রমে,
+Pydantic-এর ডিপেন্ডেন্সি কম, কম্পাইল করার দরকার নেই আর টেস্টের জন্য ডেটাবেস ইত্যাদির প্রয়োজন নেই।
+এই কারণে টেস্ট সেটআপ করে চালানো খুবই সহজ হওয়া উচিত।
+
+/// tip | পরামর্শ
+
+**সংক্ষেপে**: ফরম্যাটিং ঠিক করতে `make format`, টেস্ট আর linting চালাতে `make`, আর ডকস তৈরি করতে `make docs`
+ব্যবহার করুন।
+
+///
+
+## AI নীতি { #ai-policy }
+
+Pydantic-এ অবদান রাখার সময় AI ব্যবহারকে আমরা স্বাগত জানাই। তবে, ব্যবহারকারীদের নিশ্চিত করতে হবে যে তারা জমা দেওয়া কোড পুরোপুরি বোঝেন।
+আমরা আমাদের বিবেচনায়, আর কোনো ব্যাখ্যা ছাড়াই, যেকোনো pull request বন্ধ করার অধিকার রাখি। এর মধ্যে আছে, তবে এতেই সীমাবদ্ধ নয়, এমন ক্ষেত্র যেখানে:
+
+* অবদানটি আমাদের মানদণ্ড পূরণ করে না,
+* লেখক একাধিক রিপোজিটরিতে একসাথে অনেক pull request জমা দিচ্ছেন বলে মনে হয় (স্প্যাম),
+* pull request-এর বর্ণনা AI দিয়ে তৈরি *এবং* অসংলগ্ন বা অর্থহীন।
+
+এমন আচরণে সংস্থা থেকে স্থায়ীভাবে নিষিদ্ধও হতে পারেন।
+
+### পূর্বশর্ত { #prerequisites }
+
+আপনার নিচের পূর্বশর্তগুলো লাগবে:
+
+* **Python 3.10 থেকে 3.14**-এর মধ্যে যেকোনো Python সংস্করণ
+* [**uv**](https://docs.astral.sh/uv/getting-started/installation/)
+* [**git**](https://git-scm.com/) - ভার্সন কন্ট্রোলের জন্য
+* [**make**](https://www.gnu.org/software/make/) - ডেভেলপমেন্টের কমান্ড চালানোর জন্য (অথবা Windows-এ `nmake` ব্যবহার করুন)
+* [**Rust**](https://rustup.rs/) - Rust stable (অথবা কভারেজের জন্য nightly)
+
+### ইনস্টলেশন আর সেটআপ { #installation-and-setup }
+
+GitHub-এ রিপোজিটরিটি fork (নিজের অ্যাকাউন্টে একটি কপি) করুন আর আপনার fork নিজের কম্পিউটারে clone করুন।
+
+```bash
+# Clone your fork and cd into the repo directory
+git clone git@github.com:<your username>/pydantic.git
+cd pydantic
+
+# Install UV and pre-commit
+# We use uv here, for other options see:
+# https://docs.astral.sh/uv/getting-started/installation/
+# https://pre-commit.com/#install
+curl -LsSf https://astral.sh/uv/install.sh | sh
+uv tool install pre-commit
+
+# Install pydantic, dependencies, test dependencies and doc dependencies
+make install
+```
+
+### একটি নতুন ব্রাঞ্চ খুলে পরিবর্তন করুন { #check-out-a-new-branch-and-make-your-changes }
+
+আপনার পরিবর্তনের জন্য একটি নতুন ব্রাঞ্চ তৈরি করুন।
+
+```bash
+# Checkout a new branch and make your changes
+git switch -c my-new-feature-branch
+# Make your changes...
+```
+
+### টেস্ট আর linting চালান { #run-tests-and-linting }
+
+সবকিছু প্রত্যাশামতো কাজ করছে কিনা নিশ্চিত হতে নিজের কম্পিউটারে টেস্ট আর linting চালান।
+
+```bash
+# Run automated code formatting and linting
+make format
+# Pydantic uses ruff, an awesome Python linter written in Rust
+# https://github.com/astral-sh/ruff
+
+# Run tests and linting
+make
+# There are a few sub-commands in Makefile like `test`, `testcov` and `lint`
+# which you might want to use, but generally just `make` should be all you need.
+# You can run `make help` to see more options.
+```
+
+`pydantic-core`-এর টেস্ট স্যুট আছে `tests/pydantic-core`-এ, একটি symlink (শর্টকাট) হিসেবে। এটি কাজ করাতে আপনাকে হয়তো
+Git-এর [`core.symlinks`](https://git-scm.com/docs/git-config#Documentation/git-config.txt-coresymlinks)
+অপশন চালু করতে হবে।
+
+### ডকুমেন্টেশন তৈরি করুন { #build-documentation }
+
+যদি ডকুমেন্টেশনে কোনো পরিবর্তন করে থাকেন (ফাংশনের signature, ক্লাসের সংজ্ঞা বা API ডকুমেন্টেশনে দেখা যাবে এমন docstring-এর পরিবর্তনসহ), তাহলে নিশ্চিত করুন যে এটি সফলভাবে তৈরি হয়।
+
+সোশ্যাল প্রিভিউ সমর্থনের জন্য আমরা `mkdocs-material[imaging]` ব্যবহার করি ([plugin-এর ডকুমেন্টেশন](https://squidfunk.github.io/mkdocs-material/plugins/requirements/image-processing/) দেখুন)।
+
+```bash
+# Build documentation
+make docs
+# If you have changed the documentation, make sure it builds successfully.
+# You can also use `uv run mkdocs serve` to serve the documentation at localhost:8000
+```
+
+যদি imaging plugin-এর সমস্যার কারণে এটি কাজ না করে, তাহলে `mkdocs.yml`-এ `social` plugin-এর লাইনটি কমেন্ট করে দিয়ে আবার `make docs` চালিয়ে দেখুন।
+
+#### ডকুমেন্টেশন আপডেট করা { #updating-the-documentation }
+
+প্রতিটি minor রিলিজের সাথে আমরা ডকুমেন্টেশনের একটি নতুন সংস্করণ প্রকাশ করি, আর `main`-এ প্রতিটি commit-এর সাথে একটি `dev` path-এ প্রকাশ করি।
+
+যদি minor রিলিজের চক্রের বাইরে ডকুমেন্টেশন আপডেট করেন আর চান আপনার পরিবর্তনগুলো `latest`-এ দেখা যাক,
+তাহলে নিচেরগুলো করুন:
+
+1. আপনার ডকসের পরিবর্তনসহ `main`-এর বিপরীতে একটি PR খুলুন
+2. PR মার্জ হলে, `docs-update` ব্রাঞ্চে যান। এই ব্রাঞ্চটি সর্বশেষ patch রিলিজের সাথে হালনাগাদ থাকা উচিত।
+যেমন, সর্বশেষ রিলিজ `v2.9.2` হলে, নিশ্চিত করুন যে `docs-update` `v2.9.2` ট্যাগের সাথে হালনাগাদ আছে।
+3. `docs-update` থেকে একটি নতুন ব্রাঞ্চ খুলে আপনার পরিবর্তনগুলো এই ব্রাঞ্চে cherry-pick করুন।
+4. আপনার পরিবর্তনগুলো push করে `docs-update`-এর বিপরীতে একটি PR খুলুন।
+5. PR মার্জ হলে, নতুন ডকস তৈরি হয়ে প্রকাশিত হবে।
+
+/// note | নোট
+
+রক্ষণাবেক্ষণকারীদের জন্য শর্টকাট - একজন রক্ষণাবেক্ষণকারী হিসেবে, আপনি দ্বিতীয় PR বাদ দিয়ে সরাসরি `docs-update` ব্রাঞ্চে cherry pick করতে পারেন।
+
+///
+
+### আপনার পরিবর্তন commit আর push করুন { #commit-and-push-your-changes }
+
+আপনার পরিবর্তনগুলো commit করুন, ব্রাঞ্চটি GitHub-এ push করুন, আর একটি pull request তৈরি করুন।
+
+অনুগ্রহ করে pull request টেমপ্লেট অনুসরণ করে যতটা সম্ভব তথ্য পূরণ করুন। প্রাসঙ্গিক issue-গুলোর লিংক দিন আর আপনার পরিবর্তনের একটি বর্ণনা যোগ করুন।
+
+আপনার pull request রিভিউয়ের জন্য প্রস্তুত হলে, "please review" বার্তাসহ একটি মন্তব্য যোগ করুন, আর আমরা যত দ্রুত সম্ভব দেখব।
+
+/// tip | উদাহরণ দিয়ে বুঝি
+
+পুরো প্রক্রিয়াটি অনেকটা একটি বইয়ে সংশোধনী পাঠানোর মতো: বইয়ের একটি কপি নিজের কাছে নিন (fork + clone), একটি আলাদা খাতায় সংশোধন লিখুন (branch), নিজে মিলিয়ে দেখুন (test), তারপর প্রকাশককে পাঠান (push + pull request), আর প্রকাশক দেখে বইয়ে যোগ করবেন (merge)।
+
+///
+
+## ডকুমেন্টেশন লেখার ধরন { #documentation-style }
+
+ডকুমেন্টেশন Markdown-এ লেখা আর [Material for MkDocs](https://squidfunk.github.io/mkdocs-material/) দিয়ে তৈরি। API ডকুমেন্টেশন docstring থেকে [mkdocstrings](https://mkdocstrings.github.io/) দিয়ে তৈরি হয়।
+
+### কোডের ডকুমেন্টেশন { #code-documentation }
+
+Pydantic-এ অবদান রাখার সময়, অনুগ্রহ করে নিশ্চিত করুন যে সব কোড ভালোভাবে ডকুমেন্ট করা। নিচেরগুলো সঠিকভাবে ফরম্যাট করা docstring দিয়ে ডকুমেন্ট করা উচিত:
+
+* মডিউল
+* ক্লাসের সংজ্ঞা
+* ফাংশনের সংজ্ঞা
+* মডিউল-স্তরের ভেরিয়েবল
+
+Pydantic [PEP 257](https://www.python.org/dev/peps/pep-0257/) নির্দেশিকা অনুযায়ী ফরম্যাট করা [Google-style docstring](https://google.github.io/styleguide/pyguide.html#38-comments-and-docstrings) ব্যবহার করে। (আরও উদাহরণের জন্য দেখুন [Example Google Style Python Docstrings](https://sphinxcontrib-napoleon.readthedocs.io/en/latest/example_google.html)।)
+
+Ruff স্বয়ংক্রিয়ভাবে docstring lint করে। যেকোনো docstring সমস্যা স্বয়ংক্রিয়ভাবে ঠিক করতে `make format` চালাতে পারেন।
+
+যেখানে Google-style docstring আর Ruff linting-এর মধ্যে সংঘাত হয়, সেখানে Ruff linting-এর ইঙ্গিত অনুসরণ করুন।
+
+ক্লাসের অ্যাট্রিবিউট আর ফাংশনের আর্গুমেন্ট "name: description." ফরম্যাটে ডকুমেন্ট করা উচিত। প্রযোজ্য হলে, রিটার্ন টাইপ শুধু একটি বর্ণনা দিয়ে ডকুমেন্ট করা উচিত। টাইপগুলো signature থেকে অনুমান করা হয়।
+
+```python
+class Foo:
+    """A class docstring.
+
+    Attributes:
+        bar: A description of bar. Defaults to "bar".
+    """
+
+    bar: str = 'bar'
+```
+
+```python
+def bar(self, baz: int) -> str:
+    """A function docstring.
+
+    Args:
+        baz: A description of `baz`.
+
+    Returns:
+        A description of the return value.
+    """
+
+    return 'bar'
+```
+
+docstring-এ উদাহরণ কোড রাখতে পারেন। এই কোড সম্পূর্ণ, স্বয়ংসম্পূর্ণ আর চালানোর মতো হওয়া উচিত। docstring-এর উদাহরণ টেস্ট করা হয়, তাই নিশ্চিত করুন সেগুলো সঠিক আর সম্পূর্ণ। উদাহরণ হিসেবে দেখুন [`AfterValidator`][pydantic.functional_validators.AfterValidator]।
+
+/// note | ক্লাস আর ইনস্ট্যান্সের অ্যাট্রিবিউট
+
+ক্লাস অ্যাট্রিবিউট ক্লাসের docstring-এ ডকুমেন্ট করা উচিত।
+
+ইনস্ট্যান্স অ্যাট্রিবিউট `__init__`-এর docstring-এ "Args" হিসেবে ডকুমেন্ট করা উচিত।
+
+///
+
+### ডকুমেন্টেশনের ধরন { #documentation-style_1 }
+
+সাধারণভাবে, ডকুমেন্টেশন একটি বন্ধুত্বপূর্ণ, সহজবোধ্য ধরনে লেখা উচিত। এটি পড়তে আর বুঝতে সহজ হওয়া উচিত, আর সম্পূর্ণ থেকেও যতটা সম্ভব সংক্ষিপ্ত হওয়া উচিত।
+
+কোডের উদাহরণ উৎসাহিত করা হয়, তবে ছোট আর সহজ রাখা উচিত। তবে প্রতিটি কোডের উদাহরণ সম্পূর্ণ, স্বয়ংসম্পূর্ণ আর চালানোর মতো হওয়া উচিত। (কীভাবে করবেন নিশ্চিত না হলে, সাহায্য চান!) আমরা খালি assert-এর চেয়ে print আউটপুট পছন্দ করি, তবে যদি এমন কিছু টেস্ট করেন যার কোনো উপকারী print আউটপুট নেই, তাহলে assert চলবে।
+
+Pydantic-এর ইউনিট টেস্ট ডকুমেন্টেশনের সব কোড উদাহরণ টেস্ট করবে, তাই সেগুলো সঠিক আর সম্পূর্ণ হওয়া জরুরি। নতুন কোড উদাহরণ যোগ করার সময়, উদাহরণ টেস্ট করতে আর তাদের ফরম্যাটিং ও আউটপুট আপডেট করতে নিচেরটি ব্যবহার করুন:
+
+```bash
+# Run tests and update code examples
+pytest tests/test_docs.py --update-examples
+```
+
+## Python আর Rust ডিবাগ করা { #debugging-python-and-rust }
+
+`pydantic` আর `pydantic-core` নিয়ে কাজ করলে, Python আর Rust কোড একসাথে ডিবাগ করা উপকারী মনে হতে পারে।
+এটি কীভাবে করবেন তার একটি দ্রুত গাইড এখানে। এই টিউটোরিয়ালটি VSCode-এ করা, তবে অন্য IDE-তেও একই রকম ধাপ ব্যবহার করতে পারেন।
+
+<div style="position: relative; padding-bottom: 56.4035546262415%; height: 0;">
+    <iframe src="https://www.loom.com/embed/71019f8b92b04839ae233eb70c23c5b5?sid=1ea39ca9-d0cc-494b-8214-159f7cc26190" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;">
+    </iframe>
+</div>
+
+## ব্যাজ { #badges }
+
+[![Pydantic v1](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/pydantic/pydantic/main/docs/badge/v1.json)](https://pydantic.dev)
+[![Pydantic v2](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/pydantic/pydantic/main/docs/badge/v2.json)](https://pydantic.dev)
+
+Pydantic-এর একটি ব্যাজ আছে, যা দিয়ে দেখাতে পারেন যে আপনার প্রজেক্ট Pydantic ব্যবহার করে। এই ব্যাজটি আপনার `README.md`-তে ব্যবহার করতে পারেন:
+
+### Markdown দিয়ে { #with-markdown }
+
+```md
+[![Pydantic v1](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/pydantic/pydantic/main/docs/badge/v1.json)](https://pydantic.dev)
+
+[![Pydantic v2](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/pydantic/pydantic/main/docs/badge/v2.json)](https://pydantic.dev)
+```
+
+### reStructuredText দিয়ে { #with-restructuredtext }
+
+```rst
+.. image:: https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/pydantic/pydantic/main/docs/badge/v1.json
+    :target: https://pydantic.dev
+    :alt: Pydantic
+
+.. image:: https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/pydantic/pydantic/main/docs/badge/v2.json
+    :target: https://pydantic.dev
+    :alt: Pydantic
+```
+
+### HTML দিয়ে { #with-html }
+
+```html
+<a href="https://pydantic.dev"><img src="https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/pydantic/pydantic/main/docs/badge/v1.json" alt="Pydantic Version 1" style="max-width:100%;"></a>
+
+<a href="https://pydantic.dev"><img src="https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/pydantic/pydantic/main/docs/badge/v2.json" alt="Pydantic Version 2" style="max-width:100%;"></a>
+```
+
+## Pydantic-এর তৃতীয় পক্ষের টেস্ট স্যুটে আপনার লাইব্রেরি যুক্ত করা { #adding-your-library-as-part-of-pydantics-third-party-test-suite }
+
+ডেভেলপমেন্টের সময় আগেভাগেই regression (নতুন পরিবর্তনে পুরনো কিছু ভেঙে যাওয়া) শনাক্ত করতে, Pydantic Pydantic ব্যবহারকারী বিভিন্ন তৃতীয় পক্ষের প্রজেক্টে
+টেস্ট চালায়। যদি আপনার প্রজেক্ট নিচের কিছু শর্ত পূরণ করে, তাহলে (Pydantic-এর ওপর ব্যাপকভাবে নির্ভরশীল) নতুন ওপেন সোর্স প্রজেক্টের টেস্টিং সমর্থন যোগ করার কথা আমরা বিবেচনা করি:
+
+* প্রজেক্টটি সক্রিয়ভাবে রক্ষণাবেক্ষণ করা হয়।
+* প্রজেক্টটি Pydantic-এর ভেতরের জিনিস ব্যবহার করে (যেমন [`BaseModel`][pydantic.BaseModel] metaclass, টাইপিং ইউটিলিটির ওপর নির্ভর করা)।
+* প্রজেক্টটি যথেষ্ট জনপ্রিয় (যদিও Pydantic কীভাবে ব্যবহার হচ্ছে তার ওপর নির্ভর করে ছোট প্রজেক্টও অন্তর্ভুক্ত হতে পারে)।
+* প্রজেক্টের CI যথেষ্ট সহজ, যাতে Pydantic-এর টেস্টিং ওয়ার্কফ্লোতে আনা যায়।
+
+যদি আপনার প্রজেক্ট এই শর্তগুলোর কিছু পূরণ করে, তাহলে আপনার প্রজেক্ট অন্তর্ভুক্ত করা নিয়ে আলোচনা করতে
+একটি [feature request খুলতে][open feature request] পারেন।
+
+[open feature request]: https://github.com/pydantic/pydantic/issues/new?assignees=&labels=feature+request&projects=&template=feature_request.yml
+
+/// check | সংক্ষেপে মনে রাখুন
+
+* বড় পরিবর্তনের আগে issue খুলে আলোচনা করুন; issue-তে `version_info()`-এর আউটপুট দিন।
+* সেটআপ: fork → clone → `make install`; কাজের পরে `make format` আর `make`।
+* AI ব্যবহার চলবে, কিন্তু জমা দেওয়া কোড পুরোপুরি বুঝে জমা দিতে হবে।
+
+///

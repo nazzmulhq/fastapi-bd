@@ -1,0 +1,144 @@
+# Logfire দিয়ে যাচাই এররের সমস্যা সমাধান { #troubleshooting-validation-errors-with-logfire }
+
+/// note | এই পেজে যা শিখবেন
+
+* প্রোডাকশনে `ValidationError` হলে কেন শুধু এররের বার্তা যথেষ্ট নয়।
+* Logfire দিয়ে ব্যর্থ যাচাই রেকর্ড করা: প্রত্যাখ্যাত মান, কোন রিকোয়েস্টে ঘটেছে, কতবার ঘটছে।
+* সংবেদনশীল ডেটা লুকানো (scrubbing), alert, আর AI দিয়ে এরর ব্যাখ্যা।
+
+///
+
+একটি [`ValidationError`][pydantic_core.ValidationError] উঠলে, বার্তাটি আপনাকে বলে *কী* ভুল
+হয়েছে: কোন ফিল্ড, কোন নিয়ম, আর কোন মান এটি ঘটাল। প্রোডাকশনে কঠিন অংশটি সাধারণত সেগুলো, যা বার্তা
+দেখাতে *পারে না*: ডেটা কোথা থেকে এল, এটি কত ঘন ঘন ঘটে, আর সেই সময়ে আপনার অ্যাপ্লিকেশন আর কী করছিল।
+আপনি লগ পড়তে পড়তে, ব্যর্থ হওয়া payload (ডেটা) প্রায়ই আর থাকে না।
+
+/// tip | উদাহরণ দিয়ে বুঝি
+
+এররের বার্তা হলো দুর্ঘটনার পরে পাওয়া একটি চিরকুট: "গাড়ির সামনের চাকা পাংচার"। Logfire হলো ড্যাশক্যামের ভিডিও: কোন রাস্তায়, কখন, আগে কী ঘটেছিল, আর গত সপ্তাহে আরও কতবার একই রাস্তায় চাকা পাংচার হয়েছে।
+
+///
+
+## প্রোডাকশনের একটি ব্যর্থতা রেকর্ড করা { #record-a-production-failure }
+
+আপনার দরকার একটি [ফ্রি Logfire অ্যাকাউন্ট](https://logfire.pydantic.dev/login) আর একটি project। আপনার প্রজেক্টের
+ফোল্ডার থেকে SDK ইনস্টল করে সাইন ইন করুন:
+
+```bash
+pip install logfire
+logfire auth
+```
+
+তারপর যে মডেলগুলো পর্যবেক্ষণ করতে চান সেগুলো সংজ্ঞায়িত বা import করার আগে আপনার অ্যাপ্লিকেশন instrument করুন:
+
+```python
+from datetime import date
+
+import logfire
+
+from pydantic import BaseModel
+
+logfire.configure()
+logfire.instrument_pydantic(record='failure')  # (1)!
+
+
+class User(BaseModel):
+    name: str
+    country_code: str
+    dob: date
+
+
+User(name='Anne', country_code='USA', dob='not-a-date')  # (2)!
+```
+
+1. `record='failure'` শুধু যাচাই ব্যর্থ হলে একটি আলাদা warning রেকর্ড তৈরি করে, তবে প্রতিটি যাচাইয়ের
+   metric (পরিসংখ্যান) তবুও সংগ্রহ করে।
+2. উদাহরণটি চালান আর জিজ্ঞাসা করলে একটি Logfire project বেছে নিন বা তৈরি করুন। অবৈধ তারিখটি
+   Logfire-এর Live view-তে একটি warning তৈরি করে।
+
+instrument হয়ে গেলে, প্রতিটি ব্যর্থ যাচাই Live view-তে দেখা যায়, রেকর্ড হয় এগুলোসহ:
+
+* **এর প্রত্যাখ্যাত মান**: Pydantic-এর গোছানো এররে থাকা মানগুলো, ফলে তৈরি হওয়া exception স্ট্রিং
+  পার্স না করেই কী ব্যর্থ হলো তা দেখতে পারেন।
+* **এর প্রেক্ষাপট**: আশেপাশের রিকোয়েস্ট, task বা trace-এর সাথে যুক্ত একটি warning, ফলে খারাপ ডেটা
+  তার উৎস পর্যন্ত অনুসরণ করতে পারেন।
+* **খোঁজা যায় এমন ইতিহাস**: প্রতিটি ব্যর্থতা জমা থাকে, ফলে SQL দিয়ে জিজ্ঞাসা করতে পারেন "কোন ফিল্ড সবচেয়ে বেশি ব্যর্থ হয়?"
+  বা "শেষ deploy-এর পরে কি এই এরর হঠাৎ বেড়েছে?"।
+* **বাড়তি logging কোড লাগে না**: একটি `logfire.instrument_pydantic()` ডাক আপনার সব মডেল ঢেকে দেয়; প্রতিটি
+  যাচাইয়ের চেষ্টা `try`/`except`-এ মুড়তে হয় না।
+
+একটি প্রত্যাখ্যাত মান কোথা থেকে এল তা দেখতে, অ্যাপ্লিকেশনের যে অংশ মডেলে ডেটা দেয় সেটিও
+instrument করুন। Logfire-এর [framework আর library integration](https://pydantic.dev/docs/logfire/integrations/)
+ব্যর্থ-যাচাইয়ের রেকর্ডটি সক্রিয় রিকোয়েস্ট, task বা job trace-এর ভেতরে রাখে। তখন আলাদা আলাদা লগ থেকে পথ
+সাজানোর বদলে, একই trace ধরে caller, মডেল যাচাই, ডেটাবেসের কাজ আর রেসপন্স পর্যন্ত অনুসরণ করতে পারেন।
+
+/// warning | export করার আগে যাচাইয়ের ডেটা পর্যালোচনা করুন
+
+ব্যর্থ-যাচাইয়ের রেকর্ডে Pydantic-এর গোছানো এরর থেকে প্রত্যাখ্যাত মান থাকে।
+Logfire SDK export-এর আগে [প্রচলিত সংবেদনশীল মান মুছে দেয় (scrub)](https://pydantic.dev/docs/logfire/instrument/scrubbing/),
+কিন্তু Logfire প্রতিটি প্রত্যাখ্যাত মান সিরিয়ালাইজ করা `errors` অ্যাট্রিবিউটের ভেতরে `input` key-এর নিচে রাখে,
+ফিল্ডের পথ থেকে আলাদা করে। সেই মানগুলোতে secret বা ব্যক্তিগত তথ্য থাকতে পারলে,
+`logfire.configure()`-এ `scrubbing=logfire.ScrubbingOptions(extra_patterns=[r'(?:^input$|"input"\s*:)'])` দিন।
+দুটি বিকল্প প্যাটার্ন scrubber-কে বলে সিরিয়ালাইজ করা যাচাই এরর পরীক্ষা করে যে মানের key হুবহু `input`
+সেগুলো মুছে দিতে; কোনোটিই আপনার মডেলের ফিল্ডের নাম উল্লেখ করে না। বিকল্প হিসেবে `record='metrics'` ব্যবহার করুন,
+তাহলে আলাদা আলাদা ব্যর্থতা export হবে না।
+
+///
+
+![Logfire live view-তে রেকর্ড হওয়া একটি ব্যর্থ Pydantic যাচাই](../img/logfire-validation-live-view.png)
+
+## গোছানো এরর পড়া { #read-the-structured-error }
+
+সহজ ভাষার ব্যাখ্যার বাইরেও, প্রতিটি ব্যর্থ-যাচাইয়ের রেকর্ডে কাঁচা গোছানো
+[`errors()`][pydantic_core.ValidationError.errors] তালিকা দেখায়: ফিল্ডের পথ (`loc`), মেশিনের পড়ার উপযোগী
+`type`, আর সেই এররের সাথে থাকা সমস্যার মান। তৈরি হওয়া বার্তার স্ট্রিং হাতে পার্স না করেই কোন ফিল্ড কোন
+মান নিয়ে ব্যর্থ হলো তা দেখতে পারেন।
+
+![Logfire live view-তে একটি Pydantic যাচাই ব্যর্থতা, রেকর্ডে ধরা গোছানো এররসহ](../img/logfire-validation-error-trace.png)
+
+## ব্যর্থতাটি বারবার ঘটছে কিনা দেখা { #see-whether-the-failure-is-recurring }
+
+একটি রেকর্ড আপনাকে একটি ব্যর্থতার কথা বলে। `record='failure'`-এ সংগৃহীত metric দেখায়
+প্রতিবার সফল ইনপুট জমা না রেখেই যাচাই ব্যর্থতা বাড়ছে কিনা। `schema_name` দিয়ে Live view ছাঁকুন,
+বা গোছানো `errors` ফিল্ডে query চালিয়ে খুঁজুন কোন মডেল, ফিল্ড আর এরর টাইপ সবচেয়ে বেশি ব্যর্থ হয়।
+
+কোন ব্যর্থতাগুলো গুরুত্বপূর্ণ তা জানা হয়ে গেলে, সেগুলোর ওপর সারাক্ষণ চোখ রাখার দরকার নেই। Logfire-এর
+[alert](https://pydantic.dev/docs/logfire/observe/alerts/) নির্দিষ্ট সময় পরপর একটি SQL query চালায় আর মিলে গেলে
+আপনাকে জানায় (যেমন Slack-এ)। "এই মডেলের যাচাই ব্যর্থতা একটি সীমা পার করেছে" এমন একটি নিয়ম মানে পরেরবার ঘটলে
+কোনো ব্যবহারকারী অভিযোগ করার আগেই খবরটি আপনার কাছে পৌঁছাবে।
+
+## Logfire দিয়ে এরর ব্যাখ্যা করানো { #have-logfire-explain-the-error }
+
+Logfire একটি ব্যর্থ-যাচাইয়ের span সহজ ভাষায় ব্যাখ্যা করতে পারে: গোছানো এরর পড়ে,
+প্রতিটি ফিল্ডের জন্য বলে কী প্রত্যাশিত ছিল আর কী পাওয়া গেছে, আপনার নিজের
+[custom validator](../concepts/validators.md#raising-validation-errors)-এর বার্তাসহ। এই early-access সুবিধার জন্য
+এখন Logfire-এ **Pydantic validation suggestions** চালু থাকা আর
+`record='all'` দরকার, যাতে ব্যর্থতাটি warning রেকর্ডের বদলে একটি যাচাই span হিসেবে ধরা পড়ে। প্রতিটি
+[এরর কোড](validation_errors.md) মুখস্থ না করেই সমাধানে পৌঁছে যান।
+
+<figure markdown="span">
+  ![Logfire explaining a Pydantic validation error](../img/logfire-validation-error-explained.png){ width="500" }
+</figure>
+
+AI coding agent দিয়ে ডিবাগ করলে, [Logfire MCP server](https://pydantic.dev/docs/logfire/guides/mcp-server/)
+agent-কে সরাসরি আপনার telemetry-তে query চালাতে দেয়, গোছানো এরর আর আশেপাশের trace সহ,
+ফলে এটি অনুমান না করে আপনার আসল ডেটা দেখে তদন্ত করতে পারে।
+
+## পরের ধাপ { #next-steps }
+
+* [Pydantic Logfire integration](../integrations/logfire.md): কী রেকর্ড করবেন তা বেছে নিন আর
+  আশেপাশের অ্যাপ্লিকেশন trace যোগ করুন।
+* [Scrubbing](https://pydantic.dev/docs/logfire/instrument/scrubbing/): export-এর আগে সংবেদনশীল যাচাইয়ের ডেটা
+  পর্যালোচনা করে মুছে দিন।
+* [Alerts](https://pydantic.dev/docs/logfire/observe/alerts/): ব্যর্থতা একটি সীমা পার করলে খবর পান।
+
+যে আলাদা আলাদা এরর টাইপ পেতে পারেন তার তথ্যসূত্রের জন্য দেখুন
+[Validation Errors](validation_errors.md) আর [Usage Errors](usage_errors.md)।
+
+/// check | সংক্ষেপে মনে রাখুন
+
+* `pip install logfire`, `logfire auth`, তারপর মডেল import-এর আগে `logfire.configure()` আর `logfire.instrument_pydantic(record='failure')`।
+* ব্যর্থ যাচাই প্রত্যাখ্যাত মান আর trace-সহ জমা থাকে; সংবেদনশীল ডেটা থাকলে scrubbing বা `record='metrics'`।
+* বারবার ঘটা ব্যর্থতার জন্য alert।
+
+///

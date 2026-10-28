@@ -1,0 +1,361 @@
+# নিজের Validator { #custom-validators }
+
+/// note | এই পেজে যা শিখবেন
+
+* `Annotated` metadata আর `__get_pydantic_core_schema__` দিয়ে বারবার ব্যবহারযোগ্য নিজের validator (timezone আর UTC offset যাচাই)।
+* নেস্টেড মডেলের ফিল্ড অভিভাবক মডেলের ডেটা দিয়ে যাচাইয়ের দুটি উপায়: বাইরের মডেলে `model_validator`, আর validation context।
+* এররের বার্তা ভালো করে লেখা কেন জরুরি।
+
+///
+
+এই পেজে Pydantic-এ আরও জটিল, নিজের বানানো validator তৈরির কিছু উদাহরণ কোড দেওয়া হলো।
+এর অনেকগুলো উদাহরণ Pydantic-এর issue আর আলোচনা থেকে নেওয়া, আর এগুলোর উদ্দেশ্য Pydantic-এর
+যাচাই ব্যবস্থার নমনীয়তা আর ক্ষমতা দেখানো।
+
+/// tip | আগে যা জানা দরকার
+
+validator-এর মূল ধারণা (*before*, *after*, *wrap*) না জানলে আগে [Validators](../concepts/validators.md) পেজটি পড়ে নিন। এখানের উদাহরণগুলো তার ওপরে দাঁড়ানো।
+
+///
+
+## [`Annotated`][typing.Annotated] metadata দিয়ে নিজের `datetime` validator { #custom-datetime-validator-via-annotated-metadata }
+
+এই উদাহরণে, আমরা একটি [`Annotated`][typing.Annotated] টাইপের সাথে যুক্ত একটি নিজের validator তৈরি করব,
+যা নিশ্চিত করে একটি [`datetime`][datetime.datetime] অবজেক্ট একটি নির্দিষ্ট timezone শর্ত মানে।
+
+নিজের validator-টি স্ট্রিং দিয়ে timezone উল্লেখ সমর্থন করে, আর [`datetime`][datetime.datetime] অবজেক্টের timezone সঠিক না হলে এরর তুলবে।
+
+validator-এ আমরা `__get_pydantic_core_schema__` ব্যবহার করি annotation দেওয়া টাইপের (এক্ষেত্রে [`datetime`][datetime.datetime]) schema নিজের মতো করতে, যা দিয়ে নিজের যাচাইয়ের যুক্তি যোগ করা যায়। উল্লেখযোগ্যভাবে, আমরা একটি `wrap` validator ফাংশন ব্যবহার করি, যাতে একটি [`datetime`][datetime.datetime]-এর ডিফল্ট `pydantic` যাচাইয়ের আগে আর পরে দুই সময়েই কাজ করা যায়।
+
+```python
+import datetime as dt
+from dataclasses import dataclass
+from pprint import pprint
+from typing import Annotated, Any
+
+import pytz
+from pydantic_core import CoreSchema, core_schema
+
+from pydantic import (
+    GetCoreSchemaHandler,
+    PydanticUserError,
+    TypeAdapter,
+    ValidationError,
+    ValidatorFunctionWrapHandler,
+)
+
+
+@dataclass(frozen=True)
+class MyDatetimeValidator:
+    tz_constraint: str | None = None
+
+    def tz_constraint_validator(
+        self,
+        value: Any,
+        handler: ValidatorFunctionWrapHandler,  # (1)!
+    ):
+        """Validate tz_constraint and tz_info."""
+        result = handler(value)  # (2)!
+
+        # handle naive datetimes
+        if self.tz_constraint is None:
+            assert (
+                result.tzinfo is None
+            ), 'tz_constraint is None, but provided value is tz-aware.'
+            return result
+
+        # validate tz_constraint and tz-aware tzinfo
+        if self.tz_constraint not in pytz.all_timezones:
+            raise PydanticUserError(
+                f'Invalid tz_constraint: {self.tz_constraint}',
+                code='unevaluable-type-annotation',
+            )
+        assert self.tz_constraint == str(
+            result.tzinfo
+        ), f'Invalid tzinfo: {str(result.tzinfo)}, expected: {self.tz_constraint}'
+
+        return result
+
+    def __get_pydantic_core_schema__(
+        self,
+        source_type: Any,
+        handler: GetCoreSchemaHandler,
+    ) -> CoreSchema:
+        return core_schema.no_info_wrap_validator_function(
+            self.tz_constraint_validator,
+            handler(source_type),
+        )
+
+
+LA = 'America/Los_Angeles'
+ta = TypeAdapter(Annotated[dt.datetime, MyDatetimeValidator(LA)])
+print(
+    ta.validate_python(dt.datetime(2023, 1, 1, 0, 0, tzinfo=pytz.timezone(LA)))
+)
+#> 2023-01-01 00:00:00-07:53
+
+naive_ta = TypeAdapter(Annotated[dt.datetime, MyDatetimeValidator()])
+print(naive_ta.validate_python('2023-01-01T00:00:00'))
+#> 2023-01-01 00:00:00
+
+LONDON = 'Europe/London'
+try:
+    ta.validate_python(
+        dt.datetime(2023, 1, 1, 0, 0, tzinfo=pytz.timezone(LONDON))
+    )
+except ValidationError as ve:
+    pprint(ve.errors(), width=100)
+    """
+    [{'ctx': {'error': AssertionError('Invalid tzinfo: Europe/London, expected: America/Los_Angeles')},
+    'input': datetime.datetime(2023, 1, 1, 0, 0, tzinfo=<DstTzInfo 'Europe/London' LMT-1 day, 23:59:00 STD>),
+    'loc': (),
+    'msg': 'Assertion failed, Invalid tzinfo: Europe/London, expected: America/Los_Angeles',
+    'type': 'assertion_error',
+    'url': 'https://errors.pydantic.dev/2/v/assertion_error'}]
+    """
+```
+
+1. `handler` ফাংশনটি ডেকেই আমরা সাধারণ `pydantic` যাচাই দিয়ে ইনপুট যাচাই করি
+2. এই wrap validator-এ সাধারণ `pydantic` যাচাই দিয়ে ইনপুট যাচাই করতে আমরা `handler` ফাংশন ডাকি
+
+/// info | কোডটি সহজ ভাষায়
+
+* `MyDatetimeValidator(LA)` একটি "লেবেল" যা `Annotated[dt.datetime, ...]`-এ লাগানো হয়েছে। Pydantic টাইপটি দেখার সময় লেবেলের `__get_pydantic_core_schema__` ডাকে।
+* সেখানে `no_info_wrap_validator_function` বলে: "`datetime`-এর স্বাভাবিক যাচাইকে (`handler(source_type)`) আমার `tz_constraint_validator` দিয়ে মুড়ে দাও"।
+* validator-এর ভেতরে আগে `handler(value)` দিয়ে আসল `datetime` পাওয়া যায়, তারপর তার `tzinfo` মিলিয়ে দেখা হয়।
+* `assert` ব্যর্থ হলে Pydantic সেটিকে `assertion_error` ধরনের যাচাই এরর বানায়।
+
+///
+
+একইভাবে আমরা UTC offset-এর শর্তও চাপাতে পারি। ধরে নিচ্ছি আমাদের একটি `lower_bound` আর একটি `upper_bound` আছে; আমরা একটি নিজের validator তৈরি করতে পারি যা নিশ্চিত করে আমাদের `datetime`-এর UTC offset আমাদের নির্ধারিত সীমার ভেতরে (সীমাসহ):
+
+```python
+import datetime as dt
+from dataclasses import dataclass
+from pprint import pprint
+from typing import Annotated, Any
+
+import pytz
+from pydantic_core import CoreSchema, core_schema
+
+from pydantic import (
+    GetCoreSchemaHandler,
+    TypeAdapter,
+    ValidationError,
+    ValidatorFunctionWrapHandler,
+)
+
+
+@dataclass(frozen=True)
+class MyDatetimeValidator:
+    lower_bound: int
+    upper_bound: int
+
+    def validate_tz_bounds(
+        self, value: Any, handler: ValidatorFunctionWrapHandler
+    ):
+        """Validate and test bounds"""
+        assert self.lower_bound <= self.upper_bound, 'Invalid bounds'
+
+        result = handler(value)
+        assert result.utcoffset() is not None, 'UTC offset must exist'
+
+        hours_offset = result.utcoffset().total_seconds() / 3600
+        assert (
+            self.lower_bound <= hours_offset <= self.upper_bound
+        ), 'Value out of bounds'
+
+        return result
+
+    def __get_pydantic_core_schema__(
+        self,
+        source_type: Any,
+        handler: GetCoreSchemaHandler,
+    ) -> CoreSchema:
+        return core_schema.no_info_wrap_validator_function(
+            self.validate_tz_bounds,
+            handler(source_type),
+        )
+
+
+LA = 'America/Los_Angeles'  # UTC-7 or UTC-8
+ta = TypeAdapter(Annotated[dt.datetime, MyDatetimeValidator(-10, -5)])
+print(
+    ta.validate_python(dt.datetime(2023, 1, 1, 0, 0, tzinfo=pytz.timezone(LA)))
+)
+#> 2023-01-01 00:00:00-07:53
+
+print(ta.validate_json('"2023-01-01T00:00:00-08:00"'))
+#> 2023-01-01 00:00:00-08:00
+
+LONDON = 'Europe/London'
+try:
+    print(
+        ta.validate_python(
+            dt.datetime(2023, 1, 1, 0, 0, tzinfo=pytz.timezone(LONDON))
+        )
+    )
+except ValidationError as e:
+    pprint(e.errors(), width=100)
+    """
+    [{'ctx': {'error': AssertionError('Value out of bounds')},
+    'input': datetime.datetime(2023, 1, 1, 0, 0, tzinfo=<DstTzInfo 'Europe/London' LMT-1 day, 23:59:00 STD>),
+    'loc': (),
+    'msg': 'Assertion failed, Value out of bounds',
+    'type': 'assertion_error',
+    'url': 'https://errors.pydantic.dev/2/v/assertion_error'}]
+    """
+```
+
+/// tip | উদাহরণ দিয়ে বুঝি
+
+`MyDatetimeValidator(-10, -5)` মানে "সময়টি UTC থেকে ৫ থেকে ১০ ঘণ্টা পিছিয়ে থাকা কোনো অঞ্চলের হতে হবে" (যেমন আমেরিকা)। লন্ডনের সময় (offset প্রায় ০) এই সীমার বাইরে, তাই এরর। বাংলাদেশের সময় (`+06:00`) পরীক্ষা করতে চাইলে `MyDatetimeValidator(6, 6)` লিখতেন।
+
+///
+
+## নেস্টেড মডেলের ফিল্ড যাচাই { #validating-nested-model-fields }
+
+এখানে, একটি নেস্টেড মডেলের ফিল্ড যাচাইয়ের দুটি উপায় দেখাব, যেখানে validator অভিভাবক মডেলের ডেটা ব্যবহার করে।
+
+এই উদাহরণে, আমরা একটি validator তৈরি করি যা পরীক্ষা করে প্রতিটি ব্যবহারকারীর পাসওয়ার্ড অভিভাবক মডেলে দেওয়া নিষিদ্ধ পাসওয়ার্ডের তালিকায় নেই।
+
+এটি করার একটি উপায় হলো বাইরের মডেলে একটি নিজের validator বসানো:
+
+```python
+from typing_extensions import Self
+
+from pydantic import BaseModel, ValidationError, model_validator
+
+
+class User(BaseModel):
+    username: str
+    password: str
+
+
+class Organization(BaseModel):
+    forbidden_passwords: list[str]
+    users: list[User]
+
+    @model_validator(mode='after')
+    def validate_user_passwords(self) -> Self:
+        """Check that user password is not in forbidden list. Raise a validation error if a forbidden password is encountered."""
+        for user in self.users:
+            current_pw = user.password
+            if current_pw in self.forbidden_passwords:
+                raise ValueError(
+                    f'Password {current_pw} is forbidden. Please choose another password for user {user.username}.'
+                )
+        return self
+
+
+data = {
+    'forbidden_passwords': ['123'],
+    'users': [
+        {'username': 'Spartacat', 'password': '123'},
+        {'username': 'Iceburgh', 'password': '87'},
+    ],
+}
+try:
+    org = Organization(**data)
+except ValidationError as e:
+    print(e)
+    """
+    1 validation error for Organization
+      Value error, Password 123 is forbidden. Please choose another password for user Spartacat. [type=value_error, input_value={'forbidden_passwords': [...gh', 'password': '87'}]}, input_type=dict]
+    """
+```
+
+বিকল্প হিসেবে, নেস্টেড মডেল ক্লাসে (`User`) একটি নিজের validator ব্যবহার করা যায়, যেখানে অভিভাবক মডেলের নিষিদ্ধ পাসওয়ার্ডের ডেটা
+[validation context](../concepts/validators.md#validation-context) দিয়ে পাঠানো হয়।
+
+/// warning | সতর্কতা
+
+validator-এর ভেতরে context বদলানোর ক্ষমতা নেস্টেড যাচাইয়ে অনেক শক্তি যোগ করে, কিন্তু বিভ্রান্তিকর বা ডিবাগ করা কঠিন কোডের দিকেও নিয়ে যেতে পারে। নিজের দায়িত্বে এই পদ্ধতি ব্যবহার করুন!
+
+///
+
+```python
+from pydantic import BaseModel, ValidationError, ValidationInfo, field_validator
+
+
+class User(BaseModel):
+    username: str
+    password: str
+
+    @field_validator('password', mode='after')
+    @classmethod
+    def validate_user_passwords(
+        cls, password: str, info: ValidationInfo
+    ) -> str:
+        """Check that user password is not in forbidden list."""
+        forbidden_passwords = (
+            info.context.get('forbidden_passwords', []) if info.context else []
+        )
+        if password in forbidden_passwords:
+            raise ValueError(f'Password {password} is forbidden.')
+        return password
+
+
+class Organization(BaseModel):
+    forbidden_passwords: list[str]
+    users: list[User]
+
+    @field_validator('forbidden_passwords', mode='after')
+    @classmethod
+    def add_context(cls, v: list[str], info: ValidationInfo) -> list[str]:
+        if info.context is not None:
+            info.context.update({'forbidden_passwords': v})
+        return v
+
+
+data = {
+    'forbidden_passwords': ['123'],
+    'users': [
+        {'username': 'Spartacat', 'password': '123'},
+        {'username': 'Iceburgh', 'password': '87'},
+    ],
+}
+
+try:
+    org = Organization.model_validate(data, context={})
+except ValidationError as e:
+    print(e)
+    """
+    1 validation error for Organization
+    users.0.password
+      Value error, Password 123 is forbidden. [type=value_error, input_value='123', input_type=str]
+    """
+```
+
+/// info | কোডটি সহজ ভাষায়
+
+* ফিল্ড যাচাই হয় সংজ্ঞার ক্রমে: আগে `forbidden_passwords`, তারপর `users`।
+* `add_context` `forbidden_passwords` যাচাইয়ের পরে তালিকাটি context ডিকশনারিতে রেখে দেয়।
+* পরে প্রতিটি `User`-এর `password` যাচাইয়ের সময় সেই context থেকে তালিকা পড়া হয়।
+* দুই উপায়ের পার্থক্য এররের অবস্থানে: প্রথমটিতে এরর পুরো `Organization`-এ (`loc` খালি), দ্বিতীয়টিতে ঠিক `users.0.password`-এ, যা ব্যবহারকারীকে দেখাতে বেশি কাজের।
+
+///
+
+মনে রাখুন, [`model_validate()`][pydantic.main.BaseModel.model_validate]-এ context property না দিলে, [`context`][pydantic.ValidationInfo.context] হবে `None`,
+আর ওপরের বাস্তবায়নে নিষিদ্ধ পাসওয়ার্ডের তালিকা context-এ যোগ হবে না। ফলে `validate_user_passwords()` কাঙ্ক্ষিত পাসওয়ার্ড যাচাই করবে না।
+
+/// warning | সাধারণ ভুল
+
+`Organization(**data)` দিয়ে সরাসরি তৈরি করলে context দেওয়া যায় না, তাই দ্বিতীয় উপায়ে নিষিদ্ধ পাসওয়ার্ড চুপচাপ পার হয়ে যাবে। সবসময় `Organization.model_validate(data, context={})` ব্যবহার করুন।
+
+///
+
+validation context নিয়ে আরও বিস্তারিত পাওয়া যাবে [validators ডকুমেন্টেশনে](../concepts/validators.md#validation-context)।
+
+এই `raise ValueError(...)` ডাকগুলোতে লেখা বার্তা যত্ন করে লেখা উচিত: নিয়মটি যখন একদিন আসল ডেটা প্রত্যাখ্যান করবে,
+তখন আপনি এগুলোই পড়বেন। এগুলো গোছানো এরর ব্যবহার করা টুলেও পৌঁছায়: যেমন
+[Logfire-এর ব্যর্থ যাচাইয়ের ব্যাখ্যায়](../errors/troubleshooting.md) আপনার নিজের validator-এর বার্তাগুলো থাকে।
+
+/// check | সংক্ষেপে মনে রাখুন
+
+* বারবার ব্যবহারযোগ্য validator: একটি ক্লাসে `__get_pydantic_core_schema__` লিখে `Annotated[টাইপ, MyValidator(...)]`।
+* wrap validator-এ `handler(value)` ডেকে আগে স্বাভাবিক যাচাই, তারপর নিজের পরীক্ষা।
+* অভিভাবকের ডেটা দিয়ে নেস্টেড যাচাই: বাইরের মডেলে `model_validator(mode='after')`, অথবা context দিয়ে (`model_validate(..., context={})`)।
+* এররের বার্তা পরিষ্কার লিখুন; এটিই পরে ডিবাগে আপনার সবচেয়ে বড় সাহায্য।
+
+///
