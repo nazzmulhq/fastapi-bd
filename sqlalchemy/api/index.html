@@ -22631,6 +22631,16 @@
       
         
       
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
     
     
     
@@ -23102,6 +23112,141 @@
     
   
   কাস্টম টাইপ API: TypeDecorator, UserDefinedType, Comparator
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="./engine/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Engine, Connection ও URL API: create_engine() থেকে Transaction
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="./pool/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  কানেকশন পুল API: QueuePool, NullPool, StaticPool …
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="./inspection/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  inspect() ও Inspector API: ডেটাবেসের গঠন পড়া
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="./events/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Core Event API: listen(), Pool, Connection, Dialect ও DDL event
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="./orm-events/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  ORM Event API: Session, Mapper, Instance ও Attribute event
 
     
   </span>
@@ -23888,6 +24033,16 @@
       
         
       
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
     
     
     
@@ -23981,6 +24136,31 @@
 <td style="text-align: left;">৫টি ক্লাস</td>
 </tr>
 <tr>
+<td style="text-align: left;"><a href="engine/">Engine, Connection ও URL</a></td>
+<td style="text-align: left;"><code>create_engine()</code>-এর প্রতিটি অপশন, <code>engine_from_config()</code>, <code>create_mock_engine()</code>, <code>create_pool_from_url()</code>, <code>make_url()</code>, <code>Engine</code>, <code>Connection</code>, <code>Transaction</code>, <code>RootTransaction</code>, <code>NestedTransaction</code>, <code>TwoPhaseTransaction</code>, <code>URL</code>, <code>CreateEnginePlugin</code></td>
+<td style="text-align: left;">১৭ + ৩১ + ২১ …</td>
+</tr>
+<tr>
+<td style="text-align: left;"><a href="pool/">কানেকশন পুল</a></td>
+<td style="text-align: left;"><code>Pool</code>, <code>QueuePool</code>, <code>AsyncAdaptedQueuePool</code>, <code>NullPool</code>, <code>StaticPool</code>, <code>SingletonThreadPool</code>, <code>AssertionPool</code>, <code>PoolProxiedConnection</code>, <code>ConnectionPoolEntry</code>, <code>ManagesConnection</code>, <code>PoolResetState</code></td>
+<td style="text-align: left;">১৪টি ক্লাস/ধ্রুবক</td>
+</tr>
+<tr>
+<td style="text-align: left;"><a href="inspection/">inspect() ও Inspector</a></td>
+<td style="text-align: left;"><code>inspect()</code>, <code>Inspector</code>-এর সব মেথড (২.১-এর <code>has_multi_table()</code>-সহ), <code>ObjectKind</code>, <code>ObjectScope</code></td>
+<td style="text-align: left;">৩৯</td>
+</tr>
+<tr>
+<td style="text-align: left;"><a href="events/">Core Event</a></td>
+<td style="text-align: left;"><code>event.listen()</code>, <code>listens_for()</code>, <code>remove()</code>, <code>contains()</code>, <code>PoolEvents</code>, <code>ConnectionEvents</code>, <code>DialectEvents</code>, <code>DDLEvents</code></td>
+<td style="text-align: left;">৪১টি event</td>
+</tr>
+<tr>
+<td style="text-align: left;"><a href="orm-events/">ORM Event</a></td>
+<td style="text-align: left;"><code>SessionEvents</code>, <code>MapperEvents</code>, <code>InstanceEvents</code>, <code>AttributeEvents</code>, <code>InstrumentationEvents</code>, <code>QueryEvents</code></td>
+<td style="text-align: left;">৬০টি event</td>
+</tr>
+<tr>
 <td style="text-align: left;"><a href="result/">Result ও Row API</a></td>
 <td style="text-align: left;"><code>Result</code>, <code>ScalarResult</code>, <code>MappingResult</code>, <code>TupleResult</code>, <code>Row</code>, <code>RowMapping</code>, <code>CursorResult</code>, <code>FrozenResult</code>, <code>IteratorResult</code>, <code>ChunkedIteratorResult</code>, <code>MergedResult</code>, <code>FilterResult</code></td>
 <td style="text-align: left;">২০০</td>
@@ -24045,7 +24225,7 @@
 <li>✅ <strong>লোডিং অপশন:</strong> <code>selectinload</code>, <code>joinedload</code>, <code>load_only</code>, <code>defer</code>, <code>contains_eager</code>, <code>with_loader_criteria</code>, <code>Load</code> … (যোগ হয়েছে)</li>
 <li>✅ <strong>SQL এক্সপ্রেশন:</strong> কলামের অপারেটর (<code>==</code>, <code>in_</code>, <code>like</code> …), <code>func</code>, <code>and_</code>/<code>or_</code>, <code>case</code>, <code>cast</code>, window (যোগ হয়েছে)।</li>
 <li>✅ <strong>স্কিমা ও টাইপ:</strong> <code>MetaData</code>, <code>Table</code>, <code>Column</code>, কনস্ট্রেইন্ট, ইনডেক্স, DDL, সব কলাম টাইপ (যোগ হয়েছে)।</li>
-<li><strong>Engine, কানেকশন, পুল ও Event:</strong> <code>create_engine()</code>-এর সব প্যারামিটার, <code>Engine</code>, <code>Connection</code>, পুলের ধরন, সব event hook।</li>
+<li>✅ <strong>Engine, কানেকশন, পুল ও Event:</strong> <code>create_engine()</code>-এর সব প্যারামিটার, <code>Engine</code>, <code>Connection</code>, পুলের ধরন, <code>Inspector</code>, সব event hook (যোগ হয়েছে)।</li>
 <li><strong>এক্সটেনশন, ডায়ালেক্ট ও এক্সেপশন:</strong> hybrid, association proxy, mutable, automap; PostgreSQL / MySQL / SQLite-এর বিশেষ টাইপ ও ফাংশন; সব এক্সেপশন ক্লাস।</li>
 </ol>
 

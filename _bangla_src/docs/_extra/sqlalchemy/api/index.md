@@ -35,6 +35,11 @@
 | [DDL](ddl.md) | `DDL`, `CreateTable`, `DropTable`, ২.১-এর `CreateTableAs`, `CreateView`, `DropView`, `CreateIndex`, `AddConstraint`, `CreateSchema`, `CreateSequence`, comment DDL … | ২৫টি ক্লাস |
 | [কলাম টাইপ](types.md) | `TypeEngine`-এর সব মেথড, সব generic টাইপ (`String`, `Integer`, `Numeric`, `DateTime`, `Enum`, `JSON`, `ARRAY`, `Uuid` …), সব SQL-standard টাইপ (`VARCHAR`, `TIMESTAMP` …), ২.১-এর `OperatorClass` | ৫৩টি ক্লাস |
 | [কাস্টম টাইপ](custom-types.md) | `TypeDecorator`, `UserDefinedType`, `ExternalType`, `TypeEngine.Comparator`, `Variant` | ৫টি ক্লাস |
+| [Engine, Connection ও URL](engine.md) | `create_engine()`-এর প্রতিটি অপশন, `engine_from_config()`, `create_mock_engine()`, `create_pool_from_url()`, `make_url()`, `Engine`, `Connection`, `Transaction`, `RootTransaction`, `NestedTransaction`, `TwoPhaseTransaction`, `URL`, `CreateEnginePlugin` | ১৭ + ৩১ + ২১ … |
+| [কানেকশন পুল](pool.md) | `Pool`, `QueuePool`, `AsyncAdaptedQueuePool`, `NullPool`, `StaticPool`, `SingletonThreadPool`, `AssertionPool`, `PoolProxiedConnection`, `ConnectionPoolEntry`, `ManagesConnection`, `PoolResetState` | ১৪টি ক্লাস/ধ্রুবক |
+| [inspect() ও Inspector](inspection.md) | `inspect()`, `Inspector`-এর সব মেথড (২.১-এর `has_multi_table()`-সহ), `ObjectKind`, `ObjectScope` | ৩৯ |
+| [Core Event](events.md) | `event.listen()`, `listens_for()`, `remove()`, `contains()`, `PoolEvents`, `ConnectionEvents`, `DialectEvents`, `DDLEvents` | ৪১টি event |
+| [ORM Event](orm-events.md) | `SessionEvents`, `MapperEvents`, `InstanceEvents`, `AttributeEvents`, `InstrumentationEvents`, `QueryEvents` | ৬০টি event |
 | [Result ও Row API](result.md) | `Result`, `ScalarResult`, `MappingResult`, `TupleResult`, `Row`, `RowMapping`, `CursorResult`, `FrozenResult`, `IteratorResult`, `ChunkedIteratorResult`, `MergedResult`, `FilterResult` | ২০০ |
 | [ORM ম্যাপিং API](mapping.md) | `DeclarativeBase`, `DeclarativeBaseNoMeta`, `MappedAsDataclass`, `Mapped`, `WriteOnlyMapped`, `DynamicMapped`, `declared_attr`, `mapped_column()` ও `relationship()`-এর **সব** প্যারামিটার, `backref()`, `foreign()`, `remote()`, `column_property()`, `deferred()`, `query_expression()`, `composite()`, `synonym()`, `synonym_for()`, `validates()`, `reconstructor()`, `declarative_mixin()`, `declarative_base()`, `as_declarative()` | ২৪টি ক্লাস/ফাংশন, ১৬৭টি প্যারামিটার |
 | [Registry ও Mapper API](registry.md) | `registry`, `Mapper` (৮৫টি সদস্যের সবগুলো), `configure_mappers()`, `clear_mappers()`, `class_mapper()`, `object_mapper()`, `mapped_as_dataclass()`, `add_mapped_attribute()`, `polymorphic_union()` | ৯৯, আর ৪৮টি প্যারামিটার |
@@ -56,5 +61,5 @@
 3. ✅ **লোডিং অপশন:** `selectinload`, `joinedload`, `load_only`, `defer`, `contains_eager`, `with_loader_criteria`, `Load` … (যোগ হয়েছে)
 4. ✅ **SQL এক্সপ্রেশন:** কলামের অপারেটর (`==`, `in_`, `like` …), `func`, `and_`/`or_`, `case`, `cast`, window (যোগ হয়েছে)।
 5. ✅ **স্কিমা ও টাইপ:** `MetaData`, `Table`, `Column`, কনস্ট্রেইন্ট, ইনডেক্স, DDL, সব কলাম টাইপ (যোগ হয়েছে)।
-6. **Engine, কানেকশন, পুল ও Event:** `create_engine()`-এর সব প্যারামিটার, `Engine`, `Connection`, পুলের ধরন, সব event hook।
+6. ✅ **Engine, কানেকশন, পুল ও Event:** `create_engine()`-এর সব প্যারামিটার, `Engine`, `Connection`, পুলের ধরন, `Inspector`, সব event hook (যোগ হয়েছে)।
 7. **এক্সটেনশন, ডায়ালেক্ট ও এক্সেপশন:** hybrid, association proxy, mutable, automap; PostgreSQL / MySQL / SQLite-এর বিশেষ টাইপ ও ফাংশন; সব এক্সেপশন ক্লাস।

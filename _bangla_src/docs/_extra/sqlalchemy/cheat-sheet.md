@@ -132,7 +132,7 @@ parents = (await session.scalars(stmt)).all()
 | CRUD | [Create ও Read](crud.md) · [Update ও Delete](crud-update-delete.md) · [সম্পর্কিত টেবিল](related-crud.md) |
 | প্রজেক্ট | [পূর্ণ FastAPI প্রজেক্ট](fastapi-project.md) · [Alembic](alembic.md) · [টেস্টিং](testing.md) |
 | অ্যাডভান্সড | [ম্যাপিং ও Event](advanced-mapping.md) · [Concurrency](concurrency.md) · [পারফরম্যান্স](performance.md) |
-| রেফারেন্স | [API রেফারেন্স](api/index.md) · [Session](api/session.md) · [ORM ম্যাপিং](api/mapping.md) · [Registry ও Mapper](api/registry.md) · [Select](api/select.md) · [অপারেটর](api/operators.md) · [এক্সপ্রেশন](api/expressions.md) · [func](api/functions.md) · [এক্সপ্রেশন ক্লাস](api/elements.md) · [লোডিং অপশন](api/loading.md) · [Insert/Update/Delete](api/dml.md) · [Table ও Column](api/schema.md) · [কনস্ট্রেইন্ট](api/constraints.md) · [টাইপ](api/types.md) · [কাস্টম টাইপ](api/custom-types.md) · [DDL](api/ddl.md) · [Result ও Row](api/result.md) · [Async](api/async.md) |
+| রেফারেন্স | [API রেফারেন্স](api/index.md) · [Session](api/session.md) · [ORM ম্যাপিং](api/mapping.md) · [Registry ও Mapper](api/registry.md) · [Select](api/select.md) · [অপারেটর](api/operators.md) · [এক্সপ্রেশন](api/expressions.md) · [func](api/functions.md) · [এক্সপ্রেশন ক্লাস](api/elements.md) · [লোডিং অপশন](api/loading.md) · [Insert/Update/Delete](api/dml.md) · [Table ও Column](api/schema.md) · [কনস্ট্রেইন্ট](api/constraints.md) · [টাইপ](api/types.md) · [কাস্টম টাইপ](api/custom-types.md) · [DDL](api/ddl.md) · [Engine](api/engine.md) · [পুল](api/pool.md) · [Inspector](api/inspection.md) · [Core Event](api/events.md) · [ORM Event](api/orm-events.md) · [Result ও Row](api/result.md) · [Async](api/async.md) |
 
 /// check | শেষ কথা
 

@@ -50,5 +50,10 @@
         - sqlalchemy/api/ddl.md
         - sqlalchemy/api/types.md
         - sqlalchemy/api/custom-types.md
+        - sqlalchemy/api/engine.md
+        - sqlalchemy/api/pool.md
+        - sqlalchemy/api/inspection.md
+        - sqlalchemy/api/events.md
+        - sqlalchemy/api/orm-events.md
         - sqlalchemy/api/result.md
         - sqlalchemy/api/async.md

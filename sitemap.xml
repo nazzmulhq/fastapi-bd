@@ -1825,6 +1825,21 @@
         <loc>http://localhost:8080/sqlalchemy/api/custom-types/</loc>
       </url>
       <url>
+        <loc>http://localhost:8080/sqlalchemy/api/engine/</loc>
+      </url>
+      <url>
+        <loc>http://localhost:8080/sqlalchemy/api/pool/</loc>
+      </url>
+      <url>
+        <loc>http://localhost:8080/sqlalchemy/api/inspection/</loc>
+      </url>
+      <url>
+        <loc>http://localhost:8080/sqlalchemy/api/events/</loc>
+      </url>
+      <url>
+        <loc>http://localhost:8080/sqlalchemy/api/orm-events/</loc>
+      </url>
+      <url>
         <loc>http://localhost:8080/sqlalchemy/api/result/</loc>
       </url>
       <url>
