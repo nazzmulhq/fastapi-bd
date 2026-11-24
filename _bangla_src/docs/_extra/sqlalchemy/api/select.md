@@ -17,7 +17,7 @@
 
 ///
 
-## `select()` { #select }
+## `select()` { #select-fn }
 
 ```python
 from sqlalchemy import select
@@ -3323,7 +3323,7 @@ CTE.with_cols(type_)
 
 কাজ হুবহু [`Subquery.with_cols`](#subquery-with-cols)-এর মতো।
 
-## `values()` { #values }
+## `values()` { #values-fn }
 
 ```python
 from sqlalchemy import values

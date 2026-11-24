@@ -55,5 +55,14 @@
         - sqlalchemy/api/inspection.md
         - sqlalchemy/api/events.md
         - sqlalchemy/api/orm-events.md
+        - sqlalchemy/api/hybrid.md
+        - sqlalchemy/api/association-proxy.md
+        - sqlalchemy/api/mutable.md
+        - sqlalchemy/api/ext-misc.md
+        - sqlalchemy/api/postgresql.md
+        - sqlalchemy/api/postgresql-types.md
+        - sqlalchemy/api/mysql.md
+        - sqlalchemy/api/sqlite.md
+        - sqlalchemy/api/exceptions.md
         - sqlalchemy/api/result.md
         - sqlalchemy/api/async.md

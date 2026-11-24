@@ -9,7 +9,7 @@
 
 ///
 
-**কোনটা ব্যবহার করবেন:** সাধারণত CamelCase **generic** টাইপ (`String`, `Integer`, `DateTime`): SQLAlchemy প্রতিটি ডেটাবেসে সবচেয়ে উপযুক্ত আসল টাইপ বসায়। ঠিক কোন SQL টাইপ চান তা নিশ্চিত করতে বড় হাতের **SQL-standard** টাইপ (`VARCHAR`, `TIMESTAMP`)। আর PostgreSQL-এর বিশেষ টাইপ (`JSONB`, `INET`, `TSVECTOR`) আসবে ডায়ালেক্ট পেজে। ORM-এ `Mapped[int]`, `Mapped[str]` লিখলে টাইপ নিজে থেকে বেছে নেওয়া হয় ([Model অধ্যায়](../models.md))।
+**কোনটা ব্যবহার করবেন:** সাধারণত CamelCase **generic** টাইপ (`String`, `Integer`, `DateTime`): SQLAlchemy প্রতিটি ডেটাবেসে সবচেয়ে উপযুক্ত আসল টাইপ বসায়। ঠিক কোন SQL টাইপ চান তা নিশ্চিত করতে বড় হাতের **SQL-standard** টাইপ (`VARCHAR`, `TIMESTAMP`)। আর ডেটাবেস-বিশেষ টাইপ আছে ডায়ালেক্ট পেজে: [PostgreSQL](postgresql.md) (`JSONB`, `ARRAY`, `HSTORE`), [PostgreSQL টাইপ](postgresql-types.md) (range, `ENUM`, `INET`, `TSVECTOR` …), [MySQL](mysql.md), [SQLite](sqlite.md)। ORM-এ `Mapped[int]`, `Mapped[str]` লিখলে টাইপ নিজে থেকে বেছে নেওয়া হয় ([Model অধ্যায়](../models.md))।
 
 /// info | উদাহরণগুলোর জন্য ধরে নেওয়া সেটআপ
 
@@ -2310,7 +2310,7 @@ print(pgt(CHAR(3)), repr(rt(CHAR(3), "ab")))   # CHAR(3) 'ab '
 
 **সদস্য:** নিজস্ব নতুন কোনো সদস্য নেই; সব মেথড ও অ্যাট্রিবিউট [`String`](#string-summary)-এর মতো।
 
-## `TEXT` { #text }
+## `TEXT` { #sql-text }
 
 ```python
 from sqlalchemy import TEXT
@@ -2374,7 +2374,7 @@ print(NCHAR(5).compile())   # NCHAR(5)
 
 **সদস্য:** নিজস্ব নতুন কোনো সদস্য নেই; সব মেথড ও অ্যাট্রিবিউট [`String`](#string-summary)-এর মতো।
 
-## `INTEGER` { #integer }
+## `INTEGER` { #sql-integer }
 
 ```python
 from sqlalchemy import INTEGER
@@ -2438,7 +2438,7 @@ print(pgt(BIGINT()))   # BIGINT
 
 **সদস্য:** নিজস্ব নতুন কোনো সদস্য নেই; সব মেথড ও অ্যাট্রিবিউট [`Integer`](#integer)-এর মতো, অর্থাৎ [`TypeEngine`](#typeengine-summary)-এর মতো।
 
-## `NUMERIC` { #numeric }
+## `NUMERIC` { #sql-numeric }
 
 ```python
 from sqlalchemy import NUMERIC
@@ -2470,7 +2470,7 @@ print(pgt(DECIMAL(8, 2)))   # DECIMAL(8, 2)
 
 **সদস্য:** নিজস্ব নতুন কোনো সদস্য নেই; সব মেথড ও অ্যাট্রিবিউট [`Numeric`](#numeric-summary)-এর মতো।
 
-## `FLOAT` { #float }
+## `FLOAT` { #sql-float }
 
 ```python
 from sqlalchemy import FLOAT
@@ -2502,7 +2502,7 @@ print(pgt(REAL()))   # REAL
 
 **সদস্য:** নিজস্ব নতুন কোনো সদস্য নেই; সব মেথড ও অ্যাট্রিবিউট [`Float`](#float)-এর মতো, অর্থাৎ [`Numeric`](#numeric-summary)-এর মতো।
 
-## `DOUBLE` { #double }
+## `DOUBLE` { #sql-double }
 
 ```python
 from sqlalchemy import DOUBLE
@@ -2534,7 +2534,7 @@ print(pgt(DOUBLE_PRECISION()))   # DOUBLE PRECISION
 
 **সদস্য:** নিজস্ব নতুন কোনো সদস্য নেই; সব মেথড ও অ্যাট্রিবিউট [`Float`](#float)-এর মতো, অর্থাৎ [`Numeric`](#numeric-summary)-এর মতো।
 
-## `BOOLEAN` { #boolean }
+## `BOOLEAN` { #sql-boolean }
 
 ```python
 from sqlalchemy import BOOLEAN
@@ -2550,7 +2550,7 @@ print(pgt(BOOLEAN()))   # BOOLEAN
 
 **সদস্য:** নিজস্ব নতুন কোনো সদস্য নেই; সব মেথড ও অ্যাট্রিবিউট [`Boolean`](#boolean-summary)-এর মতো।
 
-## `DATE` { #date }
+## `DATE` { #sql-date }
 
 ```python
 from sqlalchemy import DATE
@@ -2566,7 +2566,7 @@ print(pgt(DATE()))   # DATE
 
 **সদস্য:** নিজস্ব নতুন কোনো সদস্য নেই; সব মেথড ও অ্যাট্রিবিউট [`TypeEngine`](#typeengine-summary)-এর মতো।
 
-## `DATETIME` { #datetime }
+## `DATETIME` { #sql-datetime }
 
 ```python
 from sqlalchemy import DATETIME
@@ -2598,7 +2598,7 @@ print(pgt(TIMESTAMP(timezone=True)))   # TIMESTAMP WITH TIME ZONE
 
 **সদস্য:** নিজস্ব নতুন কোনো সদস্য নেই; সব মেথড ও অ্যাট্রিবিউট [`DateTime`](#datetime-summary)-এর মতো।
 
-## `TIME` { #time }
+## `TIME` { #sql-time }
 
 ```python
 from sqlalchemy import TIME
@@ -2662,7 +2662,7 @@ print(BLOB().compile(dialect=mysql.dialect()))   # BLOB
 
 **সদস্য:** নিজস্ব নতুন কোনো সদস্য নেই; সব মেথড ও অ্যাট্রিবিউট [`LargeBinary`](#largebinary-summary)-এর মতো।
 
-## `UUID` { #uuid }
+## `UUID` { #sql-uuid }
 
 ```python
 from sqlalchemy import UUID
@@ -2676,12 +2676,12 @@ from sqlalchemy import UUID
 print(pgt(UUID()), type(rt(UUID(), uuid.uuid4())).__name__)   # UUID UUID
 ```
 
-### সব মেথড ও অ্যাট্রিবিউট এক নজরে { #uuid-summary }
+### সব মেথড ও অ্যাট্রিবিউট এক নজরে { #sql-uuid-summary }
 
 | সদস্য | ধরন | কাজ |
 | :--- | :--- | :--- |
-| [`adapt_emulated_to_native()`](#uuid-adapt-emulated-to-native) | ক্লাস মেথড (internal) | emulated রূপ থেকে native UUID-তে রূপান্তর (ডায়ালেক্টের ভেতরের কাজ)। |
-| [`adapt_native_to_emulated()`](#uuid-adapt-native-to-emulated) | ক্লাস মেথড (internal) | native UUID থেকে emulated রূপে রূপান্তর। |
+| [`adapt_emulated_to_native()`](#sql-uuid-adapt-emulated-to-native) | ক্লাস মেথড (internal) | emulated রূপ থেকে native UUID-তে রূপান্তর (ডায়ালেক্টের ভেতরের কাজ)। |
+| [`adapt_native_to_emulated()`](#sql-uuid-adapt-native-to-emulated) | ক্লাস মেথড (internal) | native UUID থেকে emulated রূপে রূপান্তর। |
 
 /// details | উত্তরাধিকার সূত্রে পাওয়া আরও ৩১টি সদস্য (দেখতে ক্লিক করুন)
     type: info
@@ -2696,7 +2696,7 @@ print(pgt(UUID()), type(rt(UUID(), uuid.uuid4())).__name__)   # UUID UUID
 
 ///
 
-### `UUID.adapt_emulated_to_native()` { #uuid-adapt-emulated-to-native }
+### `UUID.adapt_emulated_to_native()` { #sql-uuid-adapt-emulated-to-native }
 
 ```python
 UUID.adapt_emulated_to_native(impl, **kw)
@@ -2712,7 +2712,7 @@ UUID.adapt_emulated_to_native(impl, **kw)
 
 emulated রূপ থেকে native UUID-তে রূপান্তর (ডায়ালেক্টের ভেতরের কাজ)।
 
-### `UUID.adapt_native_to_emulated()` { #uuid-adapt-native-to-emulated }
+### `UUID.adapt_native_to_emulated()` { #sql-uuid-adapt-native-to-emulated }
 
 ```python
 UUID.adapt_native_to_emulated(impl, **kw)

@@ -114,7 +114,7 @@ from sqlalchemy.orm import Mapped
 
 মডেলের প্রতিটি ম্যাপ করা অ্যাট্রিবিউটের টাইপ হিন্ট। `Mapped[int]` বলে দেয় "এটা ORM-নিয়ন্ত্রিত, Python-এ মান `int`"। টাইপ থেকেই SQL টাইপ আর NULL-যোগ্যতা অনুমান হয়: `Mapped[str]` = NOT NULL, `Mapped[str | None]` = NULL চলবে। রিলেশনশিপে `Mapped[list["Address"]]` (কালেকশন) বা `Mapped["User"]` (একটি)।
 
-ক্লাস লেভেলে (`User.name`) এটি একটি SQL এক্সপ্রেশন, তাই `User.name == "x"`, `User.name.like(...)`, `User.id.in_([...])` লেখা যায়। এই অপারেটর-মেথডগুলোর (`==`, `in_`, `like`, `between` …) পূর্ণ রেফারেন্স আসছে SQL এক্সপ্রেশন পেজে।
+ক্লাস লেভেলে (`User.name`) এটি একটি SQL এক্সপ্রেশন, তাই `User.name == "x"`, `User.name.like(...)`, `User.id.in_([...])` লেখা যায়। এই অপারেটর-মেথডগুলোর (`==`, `in_`, `like`, `between` …) পূর্ণ রেফারেন্স [কলাম অপারেটর পেজে](operators.md)।
 
 **উদাহরণ:**
 

@@ -1840,6 +1840,33 @@
         <loc>http://localhost:8080/sqlalchemy/api/orm-events/</loc>
       </url>
       <url>
+        <loc>http://localhost:8080/sqlalchemy/api/hybrid/</loc>
+      </url>
+      <url>
+        <loc>http://localhost:8080/sqlalchemy/api/association-proxy/</loc>
+      </url>
+      <url>
+        <loc>http://localhost:8080/sqlalchemy/api/mutable/</loc>
+      </url>
+      <url>
+        <loc>http://localhost:8080/sqlalchemy/api/ext-misc/</loc>
+      </url>
+      <url>
+        <loc>http://localhost:8080/sqlalchemy/api/postgresql/</loc>
+      </url>
+      <url>
+        <loc>http://localhost:8080/sqlalchemy/api/postgresql-types/</loc>
+      </url>
+      <url>
+        <loc>http://localhost:8080/sqlalchemy/api/mysql/</loc>
+      </url>
+      <url>
+        <loc>http://localhost:8080/sqlalchemy/api/sqlite/</loc>
+      </url>
+      <url>
+        <loc>http://localhost:8080/sqlalchemy/api/exceptions/</loc>
+      </url>
+      <url>
         <loc>http://localhost:8080/sqlalchemy/api/result/</loc>
       </url>
       <url>

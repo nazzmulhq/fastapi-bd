@@ -22641,6 +22641,24 @@
       
         
       
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
     
     
     
@@ -23543,7 +23561,7 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#binaryexpression-group" class="md-nav__link">
+  <a href="#binaryexpression-heading-group" class="md-nav__link">
     <span class="md-ellipsis">
       <span class="md-typeset">
         এক্সপ্রেশনের ধরন
@@ -24691,6 +24709,249 @@
     
   
   ORM Event API: Session, Mapper, Instance ও Attribute event
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../hybrid/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Hybrid Attribute API: hybrid_property, hybrid_method, index_property
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../association-proxy/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Association Proxy API: সম্পর্ক পেরিয়ে সরাসরি অ্যাট্রিবিউট
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../mutable/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Mutable ও OrderingList API: JSON/ARRAY-এর ভেতরের বদল ধরা
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ext-misc/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  আরও এক্সটেনশন: automap, compiler, DeferredReflection, sharding, serializer, baked
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../postgresql/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  PostgreSQL API: upsert, JSONB, ARRAY, HSTORE, ফুল-টেক্সট সার্চ
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../postgresql-types/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  PostgreSQL টাইপ API: Range, ENUM, DOMAIN, INET, BIT, INTERVAL …
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../mysql/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  MySQL ও MariaDB API: upsert, UPDATE … LIMIT, MATCH, বিশেষ টাইপ
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../sqlite/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  SQLite API: upsert, তারিখ-সময়ের স্টোরেজ, JSON ও JSONB
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../exceptions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  এক্সেপশন ও সতর্কবার্তা: sqlalchemy.exc আর sqlalchemy.orm.exc
 
     
   </span>
@@ -25900,7 +26161,7 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#binaryexpression-group" class="md-nav__link">
+  <a href="#binaryexpression-heading-group" class="md-nav__link">
     <span class="md-ellipsis">
       <span class="md-typeset">
         এক্সপ্রেশনের ধরন
@@ -26840,6 +27101,24 @@
       
         
       
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
     
     
     
@@ -27525,7 +27804,7 @@
 <div class="highlight"><pre><span></span><code><span id="__span-57-1"><span class="n">n</span> <span class="o">=</span> <span class="n">select</span><span class="p">(</span><span class="n">func</span><span class="o">.</span><span class="n">count</span><span class="p">(</span><span class="n">Address</span><span class="o">.</span><span class="n">id</span><span class="p">))</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">Address</span><span class="o">.</span><span class="n">user_id</span> <span class="o">==</span> <span class="n">User</span><span class="o">.</span><span class="n">id</span><span class="p">)</span><span class="o">.</span><span class="n">scalar_subquery</span><span class="p">()</span>
 </span><span id="__span-57-2"><span class="nb">print</span><span class="p">(</span><span class="n">session</span><span class="o">.</span><span class="n">scalars</span><span class="p">(</span><span class="n">select</span><span class="p">(</span><span class="n">n</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">Address</span><span class="o">.</span><span class="n">city</span> <span class="o">==</span> <span class="s2">"ঢাকা"</span><span class="p">))</span><span class="o">.</span><span class="n">select_from</span><span class="p">(</span><span class="n">User</span><span class="p">)</span><span class="o">.</span><span class="n">order_by</span><span class="p">(</span><span class="n">User</span><span class="o">.</span><span class="n">id</span><span class="p">))</span><span class="o">.</span><span class="n">all</span><span class="p">())</span>   <span class="c1"># [1, 0, 1]</span>
 </span></code></pre></div>
-<h2 id="binaryexpression-group">এক্সপ্রেশনের ধরন<a class="headerlink" href="#binaryexpression-group" title="Permanent link">&para;</a></h2>
+<h2 id="binaryexpression-heading-group">এক্সপ্রেশনের ধরন<a class="headerlink" href="#binaryexpression-heading-group" title="Permanent link">&para;</a></h2>
 <h2 id="binaryexpression"><code>BinaryExpression</code><a class="headerlink" href="#binaryexpression" title="Permanent link">&para;</a></h2>
 <div class="highlight"><pre><span></span><code><span id="__span-58-1"><span class="kn">from</span><span class="w"> </span><span class="nn">sqlalchemy.sql.expression</span><span class="w"> </span><span class="kn">import</span> <span class="n">BinaryExpression</span>
 </span></code></pre></div>

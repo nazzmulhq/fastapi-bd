@@ -40,6 +40,15 @@
 | [inspect() ও Inspector](inspection.md) | `inspect()`, `Inspector`-এর সব মেথড (২.১-এর `has_multi_table()`-সহ), `ObjectKind`, `ObjectScope` | ৩৯ |
 | [Core Event](events.md) | `event.listen()`, `listens_for()`, `remove()`, `contains()`, `PoolEvents`, `ConnectionEvents`, `DialectEvents`, `DDLEvents` | ৪১টি event |
 | [ORM Event](orm-events.md) | `SessionEvents`, `MapperEvents`, `InstanceEvents`, `AttributeEvents`, `InstrumentationEvents`, `QueryEvents` | ৬০টি event |
+| [Hybrid Attribute](hybrid.md) | `hybrid_property` (`expression`, `setter`, `update_expression`, `inplace` …), `hybrid_method`, `Comparator`, `ExprComparator`, `HybridExtensionType`, `index_property` | ৬টি ক্লাস |
+| [Association Proxy](association-proxy.md) | `association_proxy()`, `AssociationProxy`, `AssociationProxyInstance`, `ColumnAssociationProxyInstance`, `ObjectAssociationProxyInstance`, `AmbiguousAssociationProxyInstance`, `AliasedAssociationProxyInstance`, `AssociationProxyExtensionType` | ৮টি ক্লাস/ফাংশন |
+| [Mutable ও OrderingList](mutable.md) | `MutableBase`, `Mutable`, `MutableComposite`, `MutableDict`, `MutableList`, `MutableSet`, `ordering_list()`, `OrderingList`, `count_from_0()`, `count_from_1()`, `count_from_n_factory()` | ১১টি ক্লাস/ফাংশন |
+| [আরও এক্সটেনশন](ext-misc.md) | automap (`automap_base()`, `AutomapBase`, নামকরণ ফাংশন), `DeferredReflection`, `ConcreteBase`, `AbstractConcreteBase`, `@compiles`, horizontal sharding, serializer, baked query | ২৪টি ক্লাস/ফাংশন |
+| [PostgreSQL API](postgresql.md) | upsert (`insert()`, `on_conflict_do_update()`), ২.১-এর `distinct_on()`, `aggregate_order_by`, `array_agg()`, `JSONB`/`JSON` ও অপারেটর, `ARRAY`, `HSTORE`, ফুল-টেক্সট সার্চ ফাংশন, `ExcludeConstraint` | ২৬টি ক্লাস/ফাংশন |
+| [PostgreSQL টাইপ](postgresql-types.md) | `Range`, `MultiRange`, range অপারেটর, ১২টি range/multirange টাইপ, `ENUM`, `DOMAIN`, `NamedType`, `CreateEnumType` …, `PGInspector`, `INET`, `CIDR`, `CITEXT`, `MONEY`, `BIT` ও ২.১-এর `BitString`, `INTERVAL` … | ৪৩টি ক্লাস |
+| [MySQL ও MariaDB](mysql.md) | upsert (`on_duplicate_key_update()`), ২.১-এর `limit()`, `match()`, `TINYINT` … `BIGINT`, `UNSIGNED`/`charset`, `TINYTEXT` … `LONGTEXT`, `ENUM`, `SET`, `YEAR`, `fsp`, BLOB, `JSON`, `INET4`/`INET6` | ৩৬টি ক্লাস/ফাংশন |
+| [SQLite](sqlite.md) | upsert (`on_conflict_do_update()`), তারিখ-সময়ের স্টোরেজ (`DATETIME`, `DATE`, `TIME`), `JSON`, ২.১-এর `JSONB` | ৮টি ক্লাস/ফাংশন |
+| [এক্সেপশন ও সতর্কবার্তা](exceptions.md) | `sqlalchemy.exc`-এর সব ৫১টি ক্লাস (`IntegrityError`, `NoResultFound`, `PendingRollbackError`, `MissingGreenlet` …), `sqlalchemy.orm.exc`-এর ১২টি (`DetachedInstanceError`, `StaleDataError` …), ক্লাস-গাছ, FastAPI-তে HTTP কোড | ৬৪টি ক্লাস |
 | [Result ও Row API](result.md) | `Result`, `ScalarResult`, `MappingResult`, `TupleResult`, `Row`, `RowMapping`, `CursorResult`, `FrozenResult`, `IteratorResult`, `ChunkedIteratorResult`, `MergedResult`, `FilterResult` | ২০০ |
 | [ORM ম্যাপিং API](mapping.md) | `DeclarativeBase`, `DeclarativeBaseNoMeta`, `MappedAsDataclass`, `Mapped`, `WriteOnlyMapped`, `DynamicMapped`, `declared_attr`, `mapped_column()` ও `relationship()`-এর **সব** প্যারামিটার, `backref()`, `foreign()`, `remote()`, `column_property()`, `deferred()`, `query_expression()`, `composite()`, `synonym()`, `synonym_for()`, `validates()`, `reconstructor()`, `declarative_mixin()`, `declarative_base()`, `as_declarative()` | ২৪টি ক্লাস/ফাংশন, ১৬৭টি প্যারামিটার |
 | [Registry ও Mapper API](registry.md) | `registry`, `Mapper` (৮৫টি সদস্যের সবগুলো), `configure_mappers()`, `clear_mappers()`, `class_mapper()`, `object_mapper()`, `mapped_as_dataclass()`, `add_mapped_attribute()`, `polymorphic_union()` | ৯৯, আর ৪৮টি প্যারামিটার |
@@ -52,9 +61,9 @@
 | [Insert, Update, Delete ও text()](dml.md) | `insert()`, `Insert`, `update()`, `Update`, `delete()`, `Delete`, `text()`, `TextClause`, `TextualSelect` | ২৪৯ |
 | [Async API](async.md) | `create_async_engine()`, `async_engine_from_config()`, `AsyncEngine`, `AsyncConnection`, `AsyncTransaction`, `async_sessionmaker`, `AsyncSession`, `AsyncSessionTransaction`, `AsyncAttrs`, `async_scoped_session`, `AsyncResult`, `AsyncScalarResult`, `AsyncMappingResult`, `AsyncTupleResult`, `async_object_session()`, `async_session()` | ২২৬ |
 
-## পরের ধাপে যা আসছে { #bn-roadmap }
+## যেভাবে ধাপে ধাপে যোগ হয়েছে { #bn-roadmap }
 
-অফিসিয়াল রেফারেন্সের বাকি অংশ একই নিয়মে ধাপে ধাপে যোগ হবে:
+অফিসিয়াল রেফারেন্সের সব অংশ এই সাতটি ধাপে যোগ হয়েছে:
 
 1. ✅ **কুয়েরি ও স্টেটমেন্ট:** `select()`, `insert()`, `update()`, `delete()`, `text()` (যোগ হয়েছে)। `exists()` / `Exists` আর `ScalarSelect` এসেছে ৪ নম্বরের সাথে।
 2. ✅ **ORM ম্যাপিং:** `DeclarativeBase`, `Mapped`, `mapped_column()`, `relationship()`-এর সব প্যারামিটার, `registry`, `Mapper` (যোগ হয়েছে)।
@@ -62,4 +71,4 @@
 4. ✅ **SQL এক্সপ্রেশন:** কলামের অপারেটর (`==`, `in_`, `like` …), `func`, `and_`/`or_`, `case`, `cast`, window (যোগ হয়েছে)।
 5. ✅ **স্কিমা ও টাইপ:** `MetaData`, `Table`, `Column`, কনস্ট্রেইন্ট, ইনডেক্স, DDL, সব কলাম টাইপ (যোগ হয়েছে)।
 6. ✅ **Engine, কানেকশন, পুল ও Event:** `create_engine()`-এর সব প্যারামিটার, `Engine`, `Connection`, পুলের ধরন, `Inspector`, সব event hook (যোগ হয়েছে)।
-7. **এক্সটেনশন, ডায়ালেক্ট ও এক্সেপশন:** hybrid, association proxy, mutable, automap; PostgreSQL / MySQL / SQLite-এর বিশেষ টাইপ ও ফাংশন; সব এক্সেপশন ক্লাস।
+7. ✅ **এক্সটেনশন, ডায়ালেক্ট ও এক্সেপশন:** hybrid, association proxy, mutable, automap; PostgreSQL / MySQL / SQLite-এর বিশেষ টাইপ ও ফাংশন; সব এক্সেপশন ক্লাস (যোগ হয়েছে)।

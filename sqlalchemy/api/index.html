@@ -22641,6 +22641,24 @@
       
         
       
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
     
     
     
@@ -23247,6 +23265,249 @@
     
   
   ORM Event API: Session, Mapper, Instance ও Attribute event
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="./hybrid/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Hybrid Attribute API: hybrid_property, hybrid_method, index_property
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="./association-proxy/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Association Proxy API: সম্পর্ক পেরিয়ে সরাসরি অ্যাট্রিবিউট
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="./mutable/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Mutable ও OrderingList API: JSON/ARRAY-এর ভেতরের বদল ধরা
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="./ext-misc/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  আরও এক্সটেনশন: automap, compiler, DeferredReflection, sharding, serializer, baked
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="./postgresql/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  PostgreSQL API: upsert, JSONB, ARRAY, HSTORE, ফুল-টেক্সট সার্চ
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="./postgresql-types/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  PostgreSQL টাইপ API: Range, ENUM, DOMAIN, INET, BIT, INTERVAL …
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="./mysql/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  MySQL ও MariaDB API: upsert, UPDATE … LIMIT, MATCH, বিশেষ টাইপ
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="./sqlite/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  SQLite API: upsert, তারিখ-সময়ের স্টোরেজ, JSON ও JSONB
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="./exceptions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  এক্সেপশন ও সতর্কবার্তা: sqlalchemy.exc আর sqlalchemy.orm.exc
 
     
   </span>
@@ -23896,7 +24157,7 @@
   <a href="#bn-roadmap" class="md-nav__link">
     <span class="md-ellipsis">
       <span class="md-typeset">
-        পরের ধাপে যা আসছে
+        যেভাবে ধাপে ধাপে যোগ হয়েছে
       </span>
     </span>
   </a>
@@ -23995,6 +24256,24 @@
       
         
           
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
         
       
         
@@ -24161,6 +24440,51 @@
 <td style="text-align: left;">৬০টি event</td>
 </tr>
 <tr>
+<td style="text-align: left;"><a href="hybrid/">Hybrid Attribute</a></td>
+<td style="text-align: left;"><code>hybrid_property</code> (<code>expression</code>, <code>setter</code>, <code>update_expression</code>, <code>inplace</code> …), <code>hybrid_method</code>, <code>Comparator</code>, <code>ExprComparator</code>, <code>HybridExtensionType</code>, <code>index_property</code></td>
+<td style="text-align: left;">৬টি ক্লাস</td>
+</tr>
+<tr>
+<td style="text-align: left;"><a href="association-proxy/">Association Proxy</a></td>
+<td style="text-align: left;"><code>association_proxy()</code>, <code>AssociationProxy</code>, <code>AssociationProxyInstance</code>, <code>ColumnAssociationProxyInstance</code>, <code>ObjectAssociationProxyInstance</code>, <code>AmbiguousAssociationProxyInstance</code>, <code>AliasedAssociationProxyInstance</code>, <code>AssociationProxyExtensionType</code></td>
+<td style="text-align: left;">৮টি ক্লাস/ফাংশন</td>
+</tr>
+<tr>
+<td style="text-align: left;"><a href="mutable/">Mutable ও OrderingList</a></td>
+<td style="text-align: left;"><code>MutableBase</code>, <code>Mutable</code>, <code>MutableComposite</code>, <code>MutableDict</code>, <code>MutableList</code>, <code>MutableSet</code>, <code>ordering_list()</code>, <code>OrderingList</code>, <code>count_from_0()</code>, <code>count_from_1()</code>, <code>count_from_n_factory()</code></td>
+<td style="text-align: left;">১১টি ক্লাস/ফাংশন</td>
+</tr>
+<tr>
+<td style="text-align: left;"><a href="ext-misc/">আরও এক্সটেনশন</a></td>
+<td style="text-align: left;">automap (<code>automap_base()</code>, <code>AutomapBase</code>, নামকরণ ফাংশন), <code>DeferredReflection</code>, <code>ConcreteBase</code>, <code>AbstractConcreteBase</code>, <code>@compiles</code>, horizontal sharding, serializer, baked query</td>
+<td style="text-align: left;">২৪টি ক্লাস/ফাংশন</td>
+</tr>
+<tr>
+<td style="text-align: left;"><a href="postgresql/">PostgreSQL API</a></td>
+<td style="text-align: left;">upsert (<code>insert()</code>, <code>on_conflict_do_update()</code>), ২.১-এর <code>distinct_on()</code>, <code>aggregate_order_by</code>, <code>array_agg()</code>, <code>JSONB</code>/<code>JSON</code> ও অপারেটর, <code>ARRAY</code>, <code>HSTORE</code>, ফুল-টেক্সট সার্চ ফাংশন, <code>ExcludeConstraint</code></td>
+<td style="text-align: left;">২৬টি ক্লাস/ফাংশন</td>
+</tr>
+<tr>
+<td style="text-align: left;"><a href="postgresql-types/">PostgreSQL টাইপ</a></td>
+<td style="text-align: left;"><code>Range</code>, <code>MultiRange</code>, range অপারেটর, ১২টি range/multirange টাইপ, <code>ENUM</code>, <code>DOMAIN</code>, <code>NamedType</code>, <code>CreateEnumType</code> …, <code>PGInspector</code>, <code>INET</code>, <code>CIDR</code>, <code>CITEXT</code>, <code>MONEY</code>, <code>BIT</code> ও ২.১-এর <code>BitString</code>, <code>INTERVAL</code> …</td>
+<td style="text-align: left;">৪৩টি ক্লাস</td>
+</tr>
+<tr>
+<td style="text-align: left;"><a href="mysql/">MySQL ও MariaDB</a></td>
+<td style="text-align: left;">upsert (<code>on_duplicate_key_update()</code>), ২.১-এর <code>limit()</code>, <code>match()</code>, <code>TINYINT</code> … <code>BIGINT</code>, <code>UNSIGNED</code>/<code>charset</code>, <code>TINYTEXT</code> … <code>LONGTEXT</code>, <code>ENUM</code>, <code>SET</code>, <code>YEAR</code>, <code>fsp</code>, BLOB, <code>JSON</code>, <code>INET4</code>/<code>INET6</code></td>
+<td style="text-align: left;">৩৬টি ক্লাস/ফাংশন</td>
+</tr>
+<tr>
+<td style="text-align: left;"><a href="sqlite/">SQLite</a></td>
+<td style="text-align: left;">upsert (<code>on_conflict_do_update()</code>), তারিখ-সময়ের স্টোরেজ (<code>DATETIME</code>, <code>DATE</code>, <code>TIME</code>), <code>JSON</code>, ২.১-এর <code>JSONB</code></td>
+<td style="text-align: left;">৮টি ক্লাস/ফাংশন</td>
+</tr>
+<tr>
+<td style="text-align: left;"><a href="exceptions/">এক্সেপশন ও সতর্কবার্তা</a></td>
+<td style="text-align: left;"><code>sqlalchemy.exc</code>-এর সব ৫১টি ক্লাস (<code>IntegrityError</code>, <code>NoResultFound</code>, <code>PendingRollbackError</code>, <code>MissingGreenlet</code> …), <code>sqlalchemy.orm.exc</code>-এর ১২টি (<code>DetachedInstanceError</code>, <code>StaleDataError</code> …), ক্লাস-গাছ, FastAPI-তে HTTP কোড</td>
+<td style="text-align: left;">৬৪টি ক্লাস</td>
+</tr>
+<tr>
 <td style="text-align: left;"><a href="result/">Result ও Row API</a></td>
 <td style="text-align: left;"><code>Result</code>, <code>ScalarResult</code>, <code>MappingResult</code>, <code>TupleResult</code>, <code>Row</code>, <code>RowMapping</code>, <code>CursorResult</code>, <code>FrozenResult</code>, <code>IteratorResult</code>, <code>ChunkedIteratorResult</code>, <code>MergedResult</code>, <code>FilterResult</code></td>
 <td style="text-align: left;">২০০</td>
@@ -24217,8 +24541,8 @@
 </tr>
 </tbody>
 </table>
-<h2 id="bn-roadmap">পরের ধাপে যা আসছে<a class="headerlink" href="#bn-roadmap" title="Permanent link">&para;</a></h2>
-<p>অফিসিয়াল রেফারেন্সের বাকি অংশ একই নিয়মে ধাপে ধাপে যোগ হবে:</p>
+<h2 id="bn-roadmap">যেভাবে ধাপে ধাপে যোগ হয়েছে<a class="headerlink" href="#bn-roadmap" title="Permanent link">&para;</a></h2>
+<p>অফিসিয়াল রেফারেন্সের সব অংশ এই সাতটি ধাপে যোগ হয়েছে:</p>
 <ol>
 <li>✅ <strong>কুয়েরি ও স্টেটমেন্ট:</strong> <code>select()</code>, <code>insert()</code>, <code>update()</code>, <code>delete()</code>, <code>text()</code> (যোগ হয়েছে)। <code>exists()</code> / <code>Exists</code> আর <code>ScalarSelect</code> এসেছে ৪ নম্বরের সাথে।</li>
 <li>✅ <strong>ORM ম্যাপিং:</strong> <code>DeclarativeBase</code>, <code>Mapped</code>, <code>mapped_column()</code>, <code>relationship()</code>-এর সব প্যারামিটার, <code>registry</code>, <code>Mapper</code> (যোগ হয়েছে)।</li>
@@ -24226,7 +24550,7 @@
 <li>✅ <strong>SQL এক্সপ্রেশন:</strong> কলামের অপারেটর (<code>==</code>, <code>in_</code>, <code>like</code> …), <code>func</code>, <code>and_</code>/<code>or_</code>, <code>case</code>, <code>cast</code>, window (যোগ হয়েছে)।</li>
 <li>✅ <strong>স্কিমা ও টাইপ:</strong> <code>MetaData</code>, <code>Table</code>, <code>Column</code>, কনস্ট্রেইন্ট, ইনডেক্স, DDL, সব কলাম টাইপ (যোগ হয়েছে)।</li>
 <li>✅ <strong>Engine, কানেকশন, পুল ও Event:</strong> <code>create_engine()</code>-এর সব প্যারামিটার, <code>Engine</code>, <code>Connection</code>, পুলের ধরন, <code>Inspector</code>, সব event hook (যোগ হয়েছে)।</li>
-<li><strong>এক্সটেনশন, ডায়ালেক্ট ও এক্সেপশন:</strong> hybrid, association proxy, mutable, automap; PostgreSQL / MySQL / SQLite-এর বিশেষ টাইপ ও ফাংশন; সব এক্সেপশন ক্লাস।</li>
+<li>✅ <strong>এক্সটেনশন, ডায়ালেক্ট ও এক্সেপশন:</strong> hybrid, association proxy, mutable, automap; PostgreSQL / MySQL / SQLite-এর বিশেষ টাইপ ও ফাংশন; সব এক্সেপশন ক্লাস (যোগ হয়েছে)।</li>
 </ol>
 
 

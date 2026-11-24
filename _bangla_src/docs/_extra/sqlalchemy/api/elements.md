@@ -802,7 +802,7 @@ n = select(func.count(Address.id)).where(Address.user_id == User.id).scalar_subq
 print(session.scalars(select(n.where(Address.city == "ঢাকা")).select_from(User).order_by(User.id)).all())   # [1, 0, 1]
 ```
 
-## এক্সপ্রেশনের ধরন { #binaryexpression-group }
+## এক্সপ্রেশনের ধরন { #binaryexpression-heading-group }
 
 ## `BinaryExpression` { #binaryexpression }
 

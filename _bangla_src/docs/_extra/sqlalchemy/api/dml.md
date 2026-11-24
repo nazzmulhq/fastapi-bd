@@ -18,7 +18,7 @@
 
 ///
 
-## `insert()` { #insert }
+## `insert()` { #insert-fn }
 
 ```python
 from sqlalchemy import insert
@@ -635,7 +635,7 @@ Insert.with_hint(text, selectable=None, dialect_name='*')
 
 কাজ হুবহু [`Select.with_hint`](select.md#select-with-hint)-এর মতো।
 
-## `update()` { #update }
+## `update()` { #update-fn }
 
 ```python
 from sqlalchemy import update
@@ -1222,7 +1222,7 @@ Update.with_hint(text, selectable=None, dialect_name='*')
 
 কাজ হুবহু [`Select.with_hint`](select.md#select-with-hint)-এর মতো।
 
-## `delete()` { #delete }
+## `delete()` { #delete-fn }
 
 ```python
 from sqlalchemy import delete

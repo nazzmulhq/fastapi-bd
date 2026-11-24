@@ -22641,6 +22641,24 @@
       
         
       
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
     
     
     
@@ -23886,6 +23904,249 @@
     
   
   ORM Event API: Session, Mapper, Instance ও Attribute event
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../hybrid/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Hybrid Attribute API: hybrid_property, hybrid_method, index_property
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../association-proxy/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Association Proxy API: সম্পর্ক পেরিয়ে সরাসরি অ্যাট্রিবিউট
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../mutable/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Mutable ও OrderingList API: JSON/ARRAY-এর ভেতরের বদল ধরা
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ext-misc/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  আরও এক্সটেনশন: automap, compiler, DeferredReflection, sharding, serializer, baked
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../postgresql/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  PostgreSQL API: upsert, JSONB, ARRAY, HSTORE, ফুল-টেক্সট সার্চ
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../postgresql-types/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  PostgreSQL টাইপ API: Range, ENUM, DOMAIN, INET, BIT, INTERVAL …
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../mysql/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  MySQL ও MariaDB API: upsert, UPDATE … LIMIT, MATCH, বিশেষ টাইপ
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../sqlite/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  SQLite API: upsert, তারিখ-সময়ের স্টোরেজ, JSON ও JSONB
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../exceptions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  এক্সেপশন ও সতর্কবার্তা: sqlalchemy.exc আর sqlalchemy.orm.exc
 
     
   </span>
@@ -25230,6 +25491,24 @@
       
         
       
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
     
     
     
@@ -25378,7 +25657,7 @@
 <div class="highlight"><pre><span></span><code><span id="__span-6-1"><span class="kn">from</span><span class="w"> </span><span class="nn">sqlalchemy.orm</span><span class="w"> </span><span class="kn">import</span> <span class="n">Mapped</span>
 </span></code></pre></div>
 <p>মডেলের প্রতিটি ম্যাপ করা অ্যাট্রিবিউটের টাইপ হিন্ট। <code>Mapped[int]</code> বলে দেয় "এটা ORM-নিয়ন্ত্রিত, Python-এ মান <code>int</code>"। টাইপ থেকেই SQL টাইপ আর NULL-যোগ্যতা অনুমান হয়: <code>Mapped[str]</code> = NOT NULL, <code>Mapped[str | None]</code> = NULL চলবে। রিলেশনশিপে <code>Mapped[list["Address"]]</code> (কালেকশন) বা <code>Mapped["User"]</code> (একটি)।</p>
-<p>ক্লাস লেভেলে (<code>User.name</code>) এটি একটি SQL এক্সপ্রেশন, তাই <code>User.name == "x"</code>, <code>User.name.like(...)</code>, <code>User.id.in_([...])</code> লেখা যায়। এই অপারেটর-মেথডগুলোর (<code>==</code>, <code>in_</code>, <code>like</code>, <code>between</code> …) পূর্ণ রেফারেন্স আসছে SQL এক্সপ্রেশন পেজে।</p>
+<p>ক্লাস লেভেলে (<code>User.name</code>) এটি একটি SQL এক্সপ্রেশন, তাই <code>User.name == "x"</code>, <code>User.name.like(...)</code>, <code>User.id.in_([...])</code> লেখা যায়। এই অপারেটর-মেথডগুলোর (<code>==</code>, <code>in_</code>, <code>like</code>, <code>between</code> …) পূর্ণ রেফারেন্স <a href="../operators/">কলাম অপারেটর পেজে</a>।</p>
 <p><strong>উদাহরণ:</strong></p>
 <div class="highlight"><pre><span></span><code><span id="__span-7-1"><span class="k">class</span><span class="w"> </span><span class="nc">Base</span><span class="p">(</span><span class="n">DeclarativeBase</span><span class="p">):</span>
 </span><span id="__span-7-2">    <span class="k">pass</span>
