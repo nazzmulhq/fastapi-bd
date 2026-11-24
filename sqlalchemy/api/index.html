@@ -22659,6 +22659,10 @@
       
         
       
+        
+      
+        
+      
     
     
     
@@ -23527,6 +23531,60 @@
   
   
     <li class="md-nav__item">
+      <a href="./query/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Legacy Query API: session.query() আর তার ২.০ বিকল্প
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="./collections/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Relationship Collection API: write-only, dynamic, dict আর নিজের collection
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="./result/" class="md-nav__link">
         
   
@@ -24157,7 +24215,7 @@
   <a href="#bn-roadmap" class="md-nav__link">
     <span class="md-ellipsis">
       <span class="md-typeset">
-        যেভাবে ধাপে ধাপে যোগ হয়েছে
+        যেভাবে ধাপে ধাপে যোগ হচ্ছে
       </span>
     </span>
   </a>
@@ -24256,6 +24314,10 @@
       
         
           
+        
+      
+        
+      
         
       
         
@@ -24485,6 +24547,16 @@
 <td style="text-align: left;">৬৪টি ক্লাস</td>
 </tr>
 <tr>
+<td style="text-align: left;"><a href="query/">Legacy Query API</a></td>
+<td style="text-align: left;"><code>Query</code>-এর সব ৯৭টি মেথড ও প্রপার্টি (প্রতিটির ২.০ বিকল্পসহ), <code>QueryPropertyDescriptor</code>, <code>merge_frozen_result()</code>, <code>merge_result()</code>, <code>contains_alias()</code>, <code>AliasOption</code>, <code>create_session()</code>, <code>FromStatement</code>, রূপান্তর-টেবিল</td>
+<td style="text-align: left;">৯৭ + ৭টি ক্লাস/ফাংশন</td>
+</tr>
+<tr>
+<td style="text-align: left;"><a href="collections/">Relationship Collection</a></td>
+<td style="text-align: left;"><code>WriteOnlyCollection</code>, <code>AppenderQuery</code>, <code>attribute_keyed_dict()</code>, <code>column_keyed_dict()</code>, <code>keyfunc_mapping()</code>, <code>KeyFuncDict</code>, <code>collection</code> ডেকোরেটর, <code>collection_adapter()</code>, <code>CollectionAdapter</code>, <code>bulk_replace()</code>, <code>InstrumentedList</code> / <code>Set</code> / <code>Dict</code></td>
+<td style="text-align: left;">১৪টি ক্লাস/ফাংশন</td>
+</tr>
+<tr>
 <td style="text-align: left;"><a href="result/">Result ও Row API</a></td>
 <td style="text-align: left;"><code>Result</code>, <code>ScalarResult</code>, <code>MappingResult</code>, <code>TupleResult</code>, <code>Row</code>, <code>RowMapping</code>, <code>CursorResult</code>, <code>FrozenResult</code>, <code>IteratorResult</code>, <code>ChunkedIteratorResult</code>, <code>MergedResult</code>, <code>FilterResult</code></td>
 <td style="text-align: left;">২০০</td>
@@ -24541,8 +24613,8 @@
 </tr>
 </tbody>
 </table>
-<h2 id="bn-roadmap">যেভাবে ধাপে ধাপে যোগ হয়েছে<a class="headerlink" href="#bn-roadmap" title="Permanent link">&para;</a></h2>
-<p>অফিসিয়াল রেফারেন্সের সব অংশ এই সাতটি ধাপে যোগ হয়েছে:</p>
+<h2 id="bn-roadmap">যেভাবে ধাপে ধাপে যোগ হচ্ছে<a class="headerlink" href="#bn-roadmap" title="Permanent link">&para;</a></h2>
+<p>অফিসিয়াল রেফারেন্স ধাপে ধাপে যোগ হচ্ছে। প্রথম সাতটি ধাপে সাধারণ কাজের সব API এসেছে; পরের ধাপগুলোতে পুরোনো (legacy) আর ভেতরের (internal) API:</p>
 <ol>
 <li>✅ <strong>কুয়েরি ও স্টেটমেন্ট:</strong> <code>select()</code>, <code>insert()</code>, <code>update()</code>, <code>delete()</code>, <code>text()</code> (যোগ হয়েছে)। <code>exists()</code> / <code>Exists</code> আর <code>ScalarSelect</code> এসেছে ৪ নম্বরের সাথে।</li>
 <li>✅ <strong>ORM ম্যাপিং:</strong> <code>DeclarativeBase</code>, <code>Mapped</code>, <code>mapped_column()</code>, <code>relationship()</code>-এর সব প্যারামিটার, <code>registry</code>, <code>Mapper</code> (যোগ হয়েছে)।</li>
@@ -24551,6 +24623,9 @@
 <li>✅ <strong>স্কিমা ও টাইপ:</strong> <code>MetaData</code>, <code>Table</code>, <code>Column</code>, কনস্ট্রেইন্ট, ইনডেক্স, DDL, সব কলাম টাইপ (যোগ হয়েছে)।</li>
 <li>✅ <strong>Engine, কানেকশন, পুল ও Event:</strong> <code>create_engine()</code>-এর সব প্যারামিটার, <code>Engine</code>, <code>Connection</code>, পুলের ধরন, <code>Inspector</code>, সব event hook (যোগ হয়েছে)।</li>
 <li>✅ <strong>এক্সটেনশন, ডায়ালেক্ট ও এক্সেপশন:</strong> hybrid, association proxy, mutable, automap; PostgreSQL / MySQL / SQLite-এর বিশেষ টাইপ ও ফাংশন; সব এক্সেপশন ক্লাস (যোগ হয়েছে)।</li>
+<li>✅ <strong>Legacy Query ও Relationship Collection:</strong> <code>session.query()</code>-এর সব মেথড ও ২.০ বিকল্প, write-only / dynamic / dict / নিজের collection (যোগ হয়েছে)।</li>
+<li><strong>ORM-এর ভেতরের API:</strong> <code>InstanceState</code>, <code>AttributeState</code>, <code>ORMExecuteState</code>, <code>Relationship</code>, <code>ColumnProperty</code>, <code>PropComparator</code> …</li>
+<li><strong>Core-এর ভেতরের API:</strong> <code>Compiled</code>, <code>Dialect</code>, <code>ExecutionContext</code>, <code>ExceptionContext</code>, <code>quoted_name</code>, <code>custom_op</code> আর <code>Select</code>/<code>Insert</code>-এর মূল ক্লাসগুলো।</li>
 </ol>
 
 

@@ -1867,6 +1867,12 @@
         <loc>http://localhost:8080/sqlalchemy/api/exceptions/</loc>
       </url>
       <url>
+        <loc>http://localhost:8080/sqlalchemy/api/query/</loc>
+      </url>
+      <url>
+        <loc>http://localhost:8080/sqlalchemy/api/collections/</loc>
+      </url>
+      <url>
         <loc>http://localhost:8080/sqlalchemy/api/result/</loc>
       </url>
       <url>

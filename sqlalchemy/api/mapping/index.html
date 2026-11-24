@@ -22659,6 +22659,10 @@
       
         
       
+        
+      
+        
+      
     
     
     
@@ -24166,6 +24170,60 @@
   
   
     <li class="md-nav__item">
+      <a href="../query/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Legacy Query API: session.query() আর তার ২.০ বিকল্প
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../collections/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Relationship Collection API: write-only, dynamic, dict আর নিজের collection
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../result/" class="md-nav__link">
         
   
@@ -25509,6 +25567,10 @@
       
         
       
+        
+      
+        
+      
     
     
     
@@ -25675,7 +25737,7 @@
 <h2 id="writeonlymapped"><code>WriteOnlyMapped</code><a class="headerlink" href="#writeonlymapped" title="Permanent link">&para;</a></h2>
 <div class="highlight"><pre><span></span><code><span id="__span-8-1"><span class="kn">from</span><span class="w"> </span><span class="nn">sqlalchemy.orm</span><span class="w"> </span><span class="kn">import</span> <span class="n">WriteOnlyMapped</span>
 </span></code></pre></div>
-<p>"write-only" কালেকশন রিলেশনশিপের টাইপ। কালেকশনটি কখনো পুরোটা লোড হয় না; বদলে <code>.add()</code>, <code>.remove()</code> আর <code>.select()</code> (ফিল্টার করা কুয়েরি) পাওয়া যায়। লক্ষ লক্ষ চাইল্ডের ক্ষেত্রে (লগ, অডিট ইভেন্ট) আদর্শ। <strong><code>Mapped[...]</code> দিয়ে মোড়াবেন না</strong>: লিখুন <code>WriteOnlyMapped["Event"]</code>।</p>
+<p>"write-only" কালেকশন রিলেশনশিপের টাইপ। কালেকশনটি কখনো পুরোটা লোড হয় না; বদলে <code>.add()</code>, <code>.remove()</code> আর <code>.select()</code> (ফিল্টার করা কুয়েরি) পাওয়া যায়। লক্ষ লক্ষ চাইল্ডের ক্ষেত্রে (লগ, অডিট ইভেন্ট) আদর্শ। <strong><code>Mapped[...]</code> দিয়ে মোড়াবেন না</strong>: লিখুন <code>WriteOnlyMapped["Event"]</code>। কালেকশন অবজেক্টের সব মেথড: <a href="../collections/#writeonlycollection"><code>WriteOnlyCollection</code></a>।</p>
 <p><strong>উদাহরণ:</strong></p>
 <div class="highlight"><pre><span></span><code><span id="__span-9-1"><span class="k">class</span><span class="w"> </span><span class="nc">Base</span><span class="p">(</span><span class="n">DeclarativeBase</span><span class="p">):</span>
 </span><span id="__span-9-2">    <span class="k">pass</span>
@@ -25702,7 +25764,7 @@
 <h2 id="dynamicmapped"><code>DynamicMapped</code><a class="headerlink" href="#dynamicmapped" title="Permanent link">&para;</a></h2>
 <div class="highlight"><pre><span></span><code><span id="__span-10-1"><span class="kn">from</span><span class="w"> </span><span class="nn">sqlalchemy.orm</span><span class="w"> </span><span class="kn">import</span> <span class="n">DynamicMapped</span>
 </span></code></pre></div>
-<p>পুরোনো (legacy) "dynamic" রিলেশনশিপের টাইপ (<code>lazy="dynamic"</code>)। কালেকশন অ্যাক্সেস করলে legacy <code>Query</code> পাওয়া যায়। async-এ চলে না। নতুন কোডে <code>WriteOnlyMapped</code> ব্যবহার করুন।</p>
+<p>পুরোনো (legacy) "dynamic" রিলেশনশিপের টাইপ (<code>lazy="dynamic"</code>)। কালেকশন অ্যাক্সেস করলে legacy <code>Query</code> পাওয়া যায়। async-এ চলে না। নতুন কোডে <code>WriteOnlyMapped</code> ব্যবহার করুন। কালেকশন অবজেক্টের সব মেথড: <a href="../collections/#appenderquery"><code>AppenderQuery</code></a>।</p>
 <p><strong>উদাহরণ:</strong></p>
 <div class="highlight"><pre><span></span><code><span id="__span-11-1"><span class="k">class</span><span class="w"> </span><span class="nc">Base</span><span class="p">(</span><span class="n">DeclarativeBase</span><span class="p">):</span>
 </span><span id="__span-11-2">    <span class="k">pass</span>

@@ -139,7 +139,7 @@ print(select(User.id).where(User.name.like("র%")))
 from sqlalchemy.orm import WriteOnlyMapped
 ```
 
-"write-only" কালেকশন রিলেশনশিপের টাইপ। কালেকশনটি কখনো পুরোটা লোড হয় না; বদলে `.add()`, `.remove()` আর `.select()` (ফিল্টার করা কুয়েরি) পাওয়া যায়। লক্ষ লক্ষ চাইল্ডের ক্ষেত্রে (লগ, অডিট ইভেন্ট) আদর্শ। **`Mapped[...]` দিয়ে মোড়াবেন না**: লিখুন `WriteOnlyMapped["Event"]`।
+"write-only" কালেকশন রিলেশনশিপের টাইপ। কালেকশনটি কখনো পুরোটা লোড হয় না; বদলে `.add()`, `.remove()` আর `.select()` (ফিল্টার করা কুয়েরি) পাওয়া যায়। লক্ষ লক্ষ চাইল্ডের ক্ষেত্রে (লগ, অডিট ইভেন্ট) আদর্শ। **`Mapped[...]` দিয়ে মোড়াবেন না**: লিখুন `WriteOnlyMapped["Event"]`। কালেকশন অবজেক্টের সব মেথড: [`WriteOnlyCollection`](collections.md#writeonlycollection)।
 
 **উদাহরণ:**
 
@@ -173,7 +173,7 @@ with Session(engine) as s:
 from sqlalchemy.orm import DynamicMapped
 ```
 
-পুরোনো (legacy) "dynamic" রিলেশনশিপের টাইপ (`lazy="dynamic"`)। কালেকশন অ্যাক্সেস করলে legacy `Query` পাওয়া যায়। async-এ চলে না। নতুন কোডে `WriteOnlyMapped` ব্যবহার করুন।
+পুরোনো (legacy) "dynamic" রিলেশনশিপের টাইপ (`lazy="dynamic"`)। কালেকশন অ্যাক্সেস করলে legacy `Query` পাওয়া যায়। async-এ চলে না। নতুন কোডে `WriteOnlyMapped` ব্যবহার করুন। কালেকশন অবজেক্টের সব মেথড: [`AppenderQuery`](collections.md#appenderquery)।
 
 **উদাহরণ:**
 

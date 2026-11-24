@@ -922,7 +922,7 @@ Session.query(*entities, **kwargs)
 
 ///
 
-1.x যুগের `Query` অবজেক্ট দেয়। এখনো চলে, কিন্তু নতুন কোডে `select()` + `session.scalars()` / `session.execute()` ব্যবহার করুন।
+1.x যুগের `Query` অবজেক্ট দেয়। এখনো চলে, কিন্তু নতুন কোডে `select()` + `session.scalars()` / `session.execute()` ব্যবহার করুন। `Query`-এর সব মেথড আর তাদের ২.০ বিকল্প: [Legacy Query API](query.md)।
 
 **উদাহরণ:**
 

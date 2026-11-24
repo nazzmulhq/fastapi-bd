@@ -619,12 +619,79 @@ from sqlalchemy.ext.horizontal_shard import ShardedQuery
 
 ///
 
-পুরোনো `session.query(...)` API-তে sharding-এর Query ক্লাস। ২.০-স্টাইলে (`select()` + `execute_chooser`) দরকার নেই; একমাত্র নিজস্ব মেথড `set_shard()` (একটি নির্দিষ্ট shard-এ কুয়েরি সীমিত করা); বাকি সব পুরোনো `Query`-এর সদস্য, যেগুলো এই রেফারেন্সে আধুনিক সমতুল্য দিয়ে ব্যাখ্যা করা (`select()`, `Session.execute()`)।
+পুরোনো `session.query(...)` API-তে sharding-এর Query ক্লাস (`ShardedSession.query()` এটাই দেয়)। ২.০-স্টাইলে (`select()` + `execute_chooser`) দরকার নেই। একমাত্র নিজস্ব মেথড `set_shard()`; বাকি সব সদস্য সাধারণ [`Query`](query.md)-এর (ভাঁজ করা বক্সে)।
+
+**সাবধান:** একাধিক shard-এ `count()` বা `scalar()` চলে না (`MultipleResultsFound`), কারণ প্রতিটি shard নিজের একটি count রো ফেরত দেয়। একটি shard-এ সীমিত করুন (`set_shard()`), বা ফল এনে নিজে গুনুন।
 
 **উদাহরণ:**
 
 ```python
-print(hasattr(ShardedQuery, "set_shard"))   # True
+class Base(DeclarativeBase): pass
+class Order(Base):
+    __tablename__ = "orders"
+    id: Mapped[int] = mapped_column(primary_key=True)
+    region: Mapped[str]
+shards = {r: create_engine("sqlite://", poolclass=StaticPool) for r in ["bd", "in"]}
+for e in shards.values():
+    Base.metadata.create_all(e)
+s = ShardedSession(shards=shards, shard_chooser=lambda m, i, c=None: i.region,
+                   identity_chooser=lambda *a, **k: ["bd", "in"], execute_chooser=lambda ctx: ["bd", "in"])
+s.add_all([Order(id=1, region="bd"), Order(id=2, region="in")]); s.commit()
+print(type(s.query(Order)).__name__, len(s.query(Order).all()))   # ShardedQuery 2
+try:
+    s.query(Order).count()          # প্রতিটি shard আলাদা count রো দেয়
+except Exception as e:
+    print(type(e).__name__)   # MultipleResultsFound
+```
+
+### সব মেথড ও অ্যাট্রিবিউট এক নজরে { #shardedquery-summary }
+
+| সদস্য | ধরন | কাজ |
+| :--- | :--- | :--- |
+| [`set_shard()`](#shardedquery-set-shard) | মেথড (legacy) | কুয়েরিটি শুধু একটি shard-এ চালায় (`execute_chooser` উপেক্ষা করে)। |
+
+/// details | উত্তরাধিকার সূত্রে পাওয়া আরও ৯১টি সদস্য (দেখতে ক্লিক করুন)
+    type: info
+
+নিচের সদস্যগুলো `ShardedQuery`-এ হুবহু একই কাজ করে; ব্যাখ্যা ও উদাহরণ মূল ক্লাসের অংশে আছে (লিংকে ক্লিক করুন)।
+
+**`Query` থেকে:** [`add_column()`](query.md#query-add-column) · [`add_columns()`](query.md#query-add-columns) · [`add_entity()`](query.md#query-add-entity) · [`all()`](query.md#query-all) · [`apply_labels()`](query.md#query-apply-labels) · [`as_scalar()`](query.md#query-as-scalar) · [`autoflush()`](query.md#query-autoflush) · [`column_descriptions`](query.md#query-column-descriptions) · [`correlate()`](query.md#query-correlate) · [`count()`](query.md#query-count) · [`cte()`](query.md#query-cte) · [`delete()`](query.md#query-delete) · [`distinct()`](query.md#query-distinct) · [`enable_assertions()`](query.md#query-enable-assertions) · [`enable_eagerloads()`](query.md#query-enable-eagerloads) · [`except_()`](query.md#query-except-) · [`except_all()`](query.md#query-except-all) · [`execution_options()`](query.md#query-execution-options) · [`exists()`](query.md#query-exists) · [`ext()`](query.md#query-ext) · [`filter()`](query.md#query-filter) · [`filter_by()`](query.md#query-filter-by) · [`first()`](query.md#query-first) · [`from_statement()`](query.md#query-from-statement) · [`get()`](query.md#query-get) · [`get_children()`](query.md#query-get-children) · [`get_execution_options()`](query.md#query-get-execution-options) · [`get_label_style`](query.md#query-get-label-style) · [`group_by()`](query.md#query-group-by) · [`having()`](query.md#query-having) · [`instances()`](query.md#query-instances) · [`intersect()`](query.md#query-intersect) · [`intersect_all()`](query.md#query-intersect-all) · [`is_single_entity`](query.md#query-is-single-entity) · [`join()`](query.md#query-join) · [`label()`](query.md#query-label) · [`lazy_loaded_from`](query.md#query-lazy-loaded-from) · [`limit()`](query.md#query-limit) · [`load_options`](query.md#query-load-options) · [`logger`](query.md#query-logger) · [`logging_name`](query.md#query-logging-name) · [`merge_result()`](query.md#query-merge-result) · [`offset()`](query.md#query-offset) · [`one()`](query.md#query-one) · [`one_or_none()`](query.md#query-one-or-none) · [`only_return_tuples()`](query.md#query-only-return-tuples) · [`options()`](query.md#query-options) · [`order_by()`](query.md#query-order-by) · [`outerjoin()`](query.md#query-outerjoin) · [`params()`](query.md#query-params) · [`populate_existing()`](query.md#query-populate-existing) · [`prefix_with()`](query.md#query-prefix-with) · [`reset_joinpoint()`](query.md#query-reset-joinpoint) · [`scalar()`](query.md#query-scalar) · [`scalar_subquery()`](query.md#query-scalar-subquery) · [`select_from()`](query.md#query-select-from) · [`selectable`](query.md#query-selectable) · [`set_label_style()`](query.md#query-set-label-style) · [`slice()`](query.md#query-slice) · [`statement`](query.md#query-statement) · [`subquery()`](query.md#query-subquery) · [`suffix_with()`](query.md#query-suffix-with) · [`tuples()`](query.md#query-tuples) · [`union()`](query.md#query-union) · [`union_all()`](query.md#query-union-all) · [`update()`](query.md#query-update) · [`value()`](query.md#query-value) · [`values()`](query.md#query-values) · [`where()`](query.md#query-where) · [`whereclause`](query.md#query-whereclause) · [`with_entities()`](query.md#query-with-entities) · [`with_for_update()`](query.md#query-with-for-update) · [`with_hint()`](query.md#query-with-hint) · [`with_labels()`](query.md#query-with-labels) · [`with_parent()`](query.md#query-with-parent) · [`with_session()`](query.md#query-with-session) · [`with_statement_hint()`](query.md#query-with-statement-hint) · [`with_transformation()`](query.md#query-with-transformation) · [`yield_per()`](query.md#query-yield-per)
+
+**`Select` থেকে:** [`allows_lambda`](select.md#select-allows-lambda) · [`is_delete`](select.md#select-is-delete) · [`is_dml`](select.md#select-is-dml) · [`is_from_statement`](select.md#select-is-from-statement) · [`is_insert`](select.md#select-is-insert) · [`is_select`](select.md#select-is-select) · [`is_text`](select.md#select-is-text) · [`is_update`](select.md#select-is-update) · [`memoized_attribute`](select.md#select-memoized-attribute) · [`memoized_instancemethod()`](select.md#select-memoized-instancemethod) · [`supports_execution`](select.md#select-supports-execution) · [`uses_inspection`](select.md#select-uses-inspection)
+
+///
+
+### `ShardedQuery.set_shard()` { #shardedquery-set-shard }
+
+```python
+ShardedQuery.set_shard(shard_id)
+```
+
+**ধরন:** মেথড
+
+/// warning | পুরোনো (legacy) API
+
+নতুন কোডে এটি এড়িয়ে চলুন; বিকল্প নিচে বলা আছে।
+
+///
+
+কুয়েরিটি শুধু একটি shard-এ চালায় (`execute_chooser` উপেক্ষা করে)। ২.০ বিকল্প: `select(...).execution_options(shard_id="bd")` (বা `set_shard_id()` অপশন)।
+
+**উদাহরণ:**
+
+```python
+class Base(DeclarativeBase): pass
+class Order(Base):
+    __tablename__ = "orders"
+    id: Mapped[int] = mapped_column(primary_key=True)
+    region: Mapped[str]
+shards = {r: create_engine("sqlite://", poolclass=StaticPool) for r in ["bd", "in"]}
+for e in shards.values():
+    Base.metadata.create_all(e)
+s = ShardedSession(shards=shards, shard_chooser=lambda m, i, c=None: i.region,
+                   identity_chooser=lambda *a, **k: ["bd", "in"], execute_chooser=lambda ctx: ["bd", "in"])
+s.add_all([Order(id=1, region="bd"), Order(id=2, region="in"), Order(id=3, region="in")]); s.commit()
+print(s.query(Order).set_shard("in").count(), len(s.query(Order).all()))   # 2 3
 ```
 
 ## `set_shard_id` { #set-shard-id }
