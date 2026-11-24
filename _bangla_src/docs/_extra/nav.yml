@@ -32,3 +32,8 @@
         - sqlalchemy/concurrency.md
         - sqlalchemy/performance.md
     - sqlalchemy/cheat-sheet.md
+    - API রেফারেন্স:
+        - sqlalchemy/api/index.md
+        - sqlalchemy/api/session.md
+        - sqlalchemy/api/result.md
+        - sqlalchemy/api/async.md

@@ -1774,6 +1774,18 @@
         <loc>http://localhost:8080/sqlalchemy/cheat-sheet/</loc>
       </url>
       <url>
+        <loc>http://localhost:8080/sqlalchemy/api/</loc>
+      </url>
+      <url>
+        <loc>http://localhost:8080/sqlalchemy/api/session/</loc>
+      </url>
+      <url>
+        <loc>http://localhost:8080/sqlalchemy/api/result/</loc>
+      </url>
+      <url>
+        <loc>http://localhost:8080/sqlalchemy/api/async/</loc>
+      </url>
+      <url>
         <loc>http://localhost:8080/resources/</loc>
       </url>
       <url>
