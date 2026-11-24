@@ -22605,6 +22605,10 @@
       
         
       
+        
+      
+        
+      
     
     
     
@@ -22671,6 +22675,60 @@
     
   
   Session API: সম্পূর্ণ রেফারেন্স
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="./mapping/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  ORM ম্যাপিং API: মডেল, কলাম ও রিলেশনশিপ
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="./registry/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Registry ও Mapper API: ম্যাপিংয়ের ভেতরের তথ্য
 
     
   </span>
@@ -23485,6 +23543,10 @@
       
         
       
+        
+      
+        
+      
     
     
     
@@ -23552,6 +23614,16 @@
 <td style="text-align: left;">২০০</td>
 </tr>
 <tr>
+<td style="text-align: left;"><a href="mapping/">ORM ম্যাপিং API</a></td>
+<td style="text-align: left;"><code>DeclarativeBase</code>, <code>DeclarativeBaseNoMeta</code>, <code>MappedAsDataclass</code>, <code>Mapped</code>, <code>WriteOnlyMapped</code>, <code>DynamicMapped</code>, <code>declared_attr</code>, <code>mapped_column()</code> ও <code>relationship()</code>-এর <strong>সব</strong> প্যারামিটার, <code>backref()</code>, <code>foreign()</code>, <code>remote()</code>, <code>column_property()</code>, <code>deferred()</code>, <code>query_expression()</code>, <code>composite()</code>, <code>synonym()</code>, <code>synonym_for()</code>, <code>validates()</code>, <code>reconstructor()</code>, <code>declarative_mixin()</code>, <code>declarative_base()</code>, <code>as_declarative()</code></td>
+<td style="text-align: left;">২৪টি ক্লাস/ফাংশন, ১৬৭টি প্যারামিটার</td>
+</tr>
+<tr>
+<td style="text-align: left;"><a href="registry/">Registry ও Mapper API</a></td>
+<td style="text-align: left;"><code>registry</code>, <code>Mapper</code> (৮৫টি সদস্যের সবগুলো), <code>configure_mappers()</code>, <code>clear_mappers()</code>, <code>class_mapper()</code>, <code>object_mapper()</code>, <code>mapped_as_dataclass()</code>, <code>add_mapped_attribute()</code>, <code>polymorphic_union()</code></td>
+<td style="text-align: left;">৯৯, আর ৪৮টি প্যারামিটার</td>
+</tr>
+<tr>
 <td style="text-align: left;"><a href="select/">Select API</a></td>
 <td style="text-align: left;"><code>select()</code>, <code>Select</code> (৯৪টি সদস্যের সবগুলো), <code>union()</code>, <code>union_all()</code>, <code>intersect()</code>, <code>intersect_all()</code>, <code>except_()</code>, <code>except_all()</code>, <code>CompoundSelect</code>, <code>Subquery</code>, <code>CTE</code>, <code>values()</code>, <code>Values</code></td>
 <td style="text-align: left;">২৮৪</td>
@@ -23572,7 +23644,7 @@
 <p>অফিসিয়াল রেফারেন্সের বাকি অংশ একই নিয়মে ধাপে ধাপে যোগ হবে:</p>
 <ol>
 <li>✅ <strong>কুয়েরি ও স্টেটমেন্ট:</strong> <code>select()</code>, <code>insert()</code>, <code>update()</code>, <code>delete()</code>, <code>text()</code> (যোগ হয়েছে)। <code>exists()</code> / <code>Exists</code> আর <code>ScalarSelect</code> আসবে ৪ নম্বরের সাথে, কারণ এদের সাথে কলামের সব অপারেটরও আছে।</li>
-<li><strong>ORM ম্যাপিং:</strong> <code>DeclarativeBase</code>, <code>Mapped</code>, <code>mapped_column()</code>, <code>relationship()</code>-এর সব প্যারামিটার, <code>registry</code>, <code>Mapper</code>।</li>
+<li>✅ <strong>ORM ম্যাপিং:</strong> <code>DeclarativeBase</code>, <code>Mapped</code>, <code>mapped_column()</code>, <code>relationship()</code>-এর সব প্যারামিটার, <code>registry</code>, <code>Mapper</code> (যোগ হয়েছে)।</li>
 <li><strong>লোডিং অপশন:</strong> <code>selectinload</code>, <code>joinedload</code>, <code>load_only</code>, <code>defer</code>, <code>contains_eager</code>, <code>with_loader_criteria</code>, <code>Load</code> …</li>
 <li><strong>SQL এক্সপ্রেশন:</strong> কলামের অপারেটর (<code>==</code>, <code>in_</code>, <code>like</code> …), <code>func</code>, <code>and_</code>/<code>or_</code>, <code>case</code>, <code>cast</code>, CTE, window।</li>
 <li><strong>স্কিমা ও টাইপ:</strong> <code>MetaData</code>, <code>Table</code>, <code>Column</code>, কনস্ট্রেইন্ট, ইনডেক্স, সব কলাম টাইপ।</li>

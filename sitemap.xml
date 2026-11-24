@@ -1780,6 +1780,12 @@
         <loc>http://localhost:8080/sqlalchemy/api/session/</loc>
       </url>
       <url>
+        <loc>http://localhost:8080/sqlalchemy/api/mapping/</loc>
+      </url>
+      <url>
+        <loc>http://localhost:8080/sqlalchemy/api/registry/</loc>
+      </url>
+      <url>
         <loc>http://localhost:8080/sqlalchemy/api/select/</loc>
       </url>
       <url>
