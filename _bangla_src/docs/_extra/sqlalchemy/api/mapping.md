@@ -345,7 +345,7 @@ print(CreateTable(Product.__table__).compile(dialect=postgresql.dialect()))
 | `compare` | (শুধু dataclass মডেলে) তৈরি হওয়া `__eq__()`-এ এই ফিল্ড তুলনা হবে কি না। |
 | `kw_only` | (শুধু dataclass মডেলে) `__init__`-এ এই ফিল্ড শুধু নাম দিয়ে (`name=...`) দেওয়া যাবে। |
 | `hash` | (শুধু dataclass মডেলে) তৈরি হওয়া `__hash__()`-এ অন্তর্ভুক্ত হবে কি না। |
-| `nullable` | NULL চলবে কি না। না দিলে টাইপ হিন্ট থেকে অনুমান: `Mapped[X \| None]` = `True`, নইলে `False`। দিলে সেটাই চূড়ান্ত। |
+| `nullable` | NULL চলবে কি না। না দিলে টাইপ হিন্ট থেকে অনুমান: <code>Mapped[X &#124; None]</code> = `True`, নইলে `False`। দিলে সেটাই চূড়ান্ত। |
 | `primary_key` | এই কলাম primary key (বা তার অংশ)। একাধিক কলামে দিলে composite primary key। |
 | `deferred` | `True` দিলে সাধারণ SELECT-এ কলামটি আসে না; প্রথমবার পড়লে আলাদা কুয়েরিতে আসে (async-এ আগে `undefer()` দিন)। |
 | `deferred_group` | একই নামের group-এর deferred কলামগুলো একসাথে এক কুয়েরিতে লোড হয়। |
@@ -843,7 +843,7 @@ from sqlalchemy.orm import query_expression
 ```
 
 ```python
-query_expression(default_expr=<sqlalchemy.sql.elements.Null object at 0x7fdd1e1b7b60>, *, repr=_NoArg.NO_ARG, compare=_NoArg.NO_ARG, expire_on_flush=True, info=None, doc=None)
+query_expression(default_expr=null(), *, repr=_NoArg.NO_ARG, compare=_NoArg.NO_ARG, expire_on_flush=True, info=None, doc=None)
 ```
 
 **ধরন:** ফাংশন
@@ -1160,7 +1160,7 @@ from sqlalchemy.orm import declarative_base
 ```
 
 ```python
-declarative_base(*, metadata=None, mapper=None, name='Base', class_registry=None, type_annotation_map=None, constructor=<function _declarative_constructor at 0x7fdd1d6ebc40>, metaclass=<class 'sqlalchemy.orm.decl_api.DeclarativeMeta'>)
+declarative_base(*, metadata=None, mapper=None, name='Base', class_registry=None, type_annotation_map=None, constructor=_declarative_constructor, metaclass=DeclarativeMeta)
 ```
 
 **ধরন:** ফাংশন (legacy)

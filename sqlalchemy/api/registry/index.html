@@ -22609,6 +22609,16 @@
       
         
       
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
     
     
     
@@ -24071,6 +24081,141 @@
     
   
   Select API: select(), সাবকুয়েরি, CTE ও UNION
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../operators/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  কলাম অপারেটর API: ==, in_, like, any, has …
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../expressions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  SQL এক্সপ্রেশন ফাংশন: and_, or_, case, cast, literal, exists …
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../functions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  func ও SQL ফাংশন API: count, sum, window, FILTER …
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../elements/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  SQL এক্সপ্রেশন ক্লাস: ColumnElement, Exists, ScalarSelect, Label …
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../loading/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  লোডিং অপশন ও ORM কুয়েরি হেল্পার API
 
     
   </span>
@@ -26086,6 +26231,16 @@
       
         
       
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
     
     
     
@@ -26184,7 +26339,7 @@
 </span><span id="__span-2-3"><span class="c1"># ['Address', 'Employee', 'Engineer', 'Manager', 'User']</span>
 </span></code></pre></div>
 <h3 id="registry-params">কনস্ট্রাক্টরের প্যারামিটার<a class="headerlink" href="#registry-params" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code><span id="__span-3-1"><span class="n">registry</span><span class="p">(</span><span class="o">*</span><span class="p">,</span> <span class="n">metadata</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">class_registry</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">type_annotation_map</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">constructor</span><span class="o">=&lt;</span><span class="n">function</span> <span class="n">_declarative_constructor</span> <span class="n">at</span> <span class="mh">0x7fdd1d6ebc40</span><span class="o">&gt;</span><span class="p">)</span>
+<div class="highlight"><pre><span></span><code><span id="__span-3-1"><span class="n">registry</span><span class="p">(</span><span class="o">*</span><span class="p">,</span> <span class="n">metadata</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">class_registry</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">type_annotation_map</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">constructor</span><span class="o">=</span><span class="n">_declarative_constructor</span><span class="p">)</span>
 </span></code></pre></div>
 <table>
 <thead>
@@ -26322,7 +26477,7 @@
 </span><span id="__span-9-9"><span class="nb">print</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">reg</span><span class="o">.</span><span class="n">mappers</span><span class="p">))</span>   <span class="c1"># 0</span>
 </span></code></pre></div>
 <h3 id="registry-generate-base"><code>registry.generate_base()</code><a class="headerlink" href="#registry-generate-base" title="Permanent link">&para;</a></h3>
-<div class="highlight"><pre><span></span><code><span id="__span-10-1"><span class="n">registry</span><span class="o">.</span><span class="n">generate_base</span><span class="p">(</span><span class="n">mapper</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">'Base'</span><span class="p">,</span> <span class="n">metaclass</span><span class="o">=&lt;</span><span class="k">class</span><span class="w"> </span><span class="err">'</span><span class="nc">sqlalchemy</span><span class="o">.</span><span class="n">orm</span><span class="o">.</span><span class="n">decl_api</span><span class="o">.</span><span class="n">DeclarativeMeta</span><span class="s1">'&gt;)</span>
+<div class="highlight"><pre><span></span><code><span id="__span-10-1"><span class="n">registry</span><span class="o">.</span><span class="n">generate_base</span><span class="p">(</span><span class="n">mapper</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">'Base'</span><span class="p">,</span> <span class="n">metaclass</span><span class="o">=</span><span class="n">DeclarativeMeta</span><span class="p">)</span>
 </span></code></pre></div>
 <p><strong>ধরন:</strong> মেথড</p>
 <div class="admonition warning">

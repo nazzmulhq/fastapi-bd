@@ -1043,7 +1043,7 @@ with SessionLocal() as s:
 ### কনস্ট্রাক্টরের প্যারামিটার { #sessionmaker-params }
 
 ```python
-sessionmaker(bind=None, *, class_=<class 'sqlalchemy.orm.session.Session'>, autoflush=True, expire_on_commit=True, info=None, **kw)
+sessionmaker(bind=None, *, class_=Session, autoflush=True, expire_on_commit=True, info=None, **kw)
 ```
 
 | প্যারামিটার | কাজ |

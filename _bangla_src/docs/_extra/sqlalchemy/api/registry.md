@@ -85,7 +85,7 @@ print(sorted(m.class_.__name__ for m in Base.registry.mappers))
 ### কনস্ট্রাক্টরের প্যারামিটার { #registry-params }
 
 ```python
-registry(*, metadata=None, class_registry=None, type_annotation_map=None, constructor=<function _declarative_constructor at 0x7fdd1d6ebc40>)
+registry(*, metadata=None, class_registry=None, type_annotation_map=None, constructor=_declarative_constructor)
 ```
 
 | প্যারামিটার | কাজ |
@@ -186,7 +186,7 @@ print(len(reg.mappers))   # 0
 ### `registry.generate_base()` { #registry-generate-base }
 
 ```python
-registry.generate_base(mapper=None, name='Base', metaclass=<class 'sqlalchemy.orm.decl_api.DeclarativeMeta'>)
+registry.generate_base(mapper=None, name='Base', metaclass=DeclarativeMeta)
 ```
 
 **ধরন:** মেথড

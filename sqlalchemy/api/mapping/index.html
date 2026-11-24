@@ -22609,6 +22609,16 @@
       
         
       
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
     
     
     
@@ -23395,6 +23405,141 @@
     
   
   Select API: select(), সাবকুয়েরি, CTE ও UNION
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../operators/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  কলাম অপারেটর API: ==, in_, like, any, has …
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../expressions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  SQL এক্সপ্রেশন ফাংশন: and_, or_, case, cast, literal, exists …
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../functions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  func ও SQL ফাংশন API: count, sum, window, FILTER …
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../elements/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  SQL এক্সপ্রেশন ক্লাস: ColumnElement, Exists, ScalarSelect, Label …
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../loading/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  লোডিং অপশন ও ORM কুয়েরি হেল্পার API
 
     
   </span>
@@ -24734,6 +24879,16 @@
       
         
       
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
     
     
     
@@ -25112,7 +25267,7 @@
 </tr>
 <tr>
 <td style="text-align: left;"><code>nullable</code></td>
-<td style="text-align: left;">NULL চলবে কি না। না দিলে টাইপ হিন্ট থেকে অনুমান: <code>Mapped[X \| None]</code> = <code>True</code>, নইলে <code>False</code>। দিলে সেটাই চূড়ান্ত।</td>
+<td style="text-align: left;">NULL চলবে কি না। না দিলে টাইপ হিন্ট থেকে অনুমান: <code>Mapped[X &#124; None]</code> = <code>True</code>, নইলে <code>False</code>। দিলে সেটাই চূড়ান্ত।</td>
 </tr>
 <tr>
 <td style="text-align: left;"><code>primary_key</code></td>
@@ -25883,7 +26038,7 @@
 <h2 id="query-expression"><code>query_expression()</code><a class="headerlink" href="#query-expression" title="Permanent link">&para;</a></h2>
 <div class="highlight"><pre><span></span><code><span id="__span-43-1"><span class="kn">from</span><span class="w"> </span><span class="nn">sqlalchemy.orm</span><span class="w"> </span><span class="kn">import</span> <span class="n">query_expression</span>
 </span></code></pre></div>
-<div class="highlight"><pre><span></span><code><span id="__span-44-1"><span class="n">query_expression</span><span class="p">(</span><span class="n">default_expr</span><span class="o">=&lt;</span><span class="n">sqlalchemy</span><span class="o">.</span><span class="n">sql</span><span class="o">.</span><span class="n">elements</span><span class="o">.</span><span class="n">Null</span> <span class="nb">object</span> <span class="n">at</span> <span class="mh">0x7fdd1e1b7b60</span><span class="o">&gt;</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="nb">repr</span><span class="o">=</span><span class="n">_NoArg</span><span class="o">.</span><span class="n">NO_ARG</span><span class="p">,</span> <span class="n">compare</span><span class="o">=</span><span class="n">_NoArg</span><span class="o">.</span><span class="n">NO_ARG</span><span class="p">,</span> <span class="n">expire_on_flush</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">info</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+<div class="highlight"><pre><span></span><code><span id="__span-44-1"><span class="n">query_expression</span><span class="p">(</span><span class="n">default_expr</span><span class="o">=</span><span class="n">null</span><span class="p">(),</span> <span class="o">*</span><span class="p">,</span> <span class="nb">repr</span><span class="o">=</span><span class="n">_NoArg</span><span class="o">.</span><span class="n">NO_ARG</span><span class="p">,</span> <span class="n">compare</span><span class="o">=</span><span class="n">_NoArg</span><span class="o">.</span><span class="n">NO_ARG</span><span class="p">,</span> <span class="n">expire_on_flush</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">info</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
 </span></code></pre></div>
 <p><strong>ধরন:</strong> ফাংশন</p>
 <p>এমন অ্যাট্রিবিউট ঘোষণা করে, যার মান প্রতিটি কুয়েরিতে আলাদা SQL এক্সপ্রেশন দিয়ে ভরা যায় (<code>with_expression()</code> অপশন দিয়ে)। যেমন সার্চ র‍্যাঙ্ক বা দূরত্ব, যা কুয়েরি ভেদে বদলায়।</p>
@@ -26305,7 +26460,7 @@
 <h2 id="declarative-base"><code>declarative_base()</code><a class="headerlink" href="#declarative-base" title="Permanent link">&para;</a></h2>
 <div class="highlight"><pre><span></span><code><span id="__span-64-1"><span class="kn">from</span><span class="w"> </span><span class="nn">sqlalchemy.orm</span><span class="w"> </span><span class="kn">import</span> <span class="n">declarative_base</span>
 </span></code></pre></div>
-<div class="highlight"><pre><span></span><code><span id="__span-65-1"><span class="n">declarative_base</span><span class="p">(</span><span class="o">*</span><span class="p">,</span> <span class="n">metadata</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">mapper</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">'Base'</span><span class="p">,</span> <span class="n">class_registry</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">type_annotation_map</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">constructor</span><span class="o">=&lt;</span><span class="n">function</span> <span class="n">_declarative_constructor</span> <span class="n">at</span> <span class="mh">0x7fdd1d6ebc40</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">metaclass</span><span class="o">=&lt;</span><span class="k">class</span><span class="w"> </span><span class="err">'</span><span class="nc">sqlalchemy</span><span class="o">.</span><span class="n">orm</span><span class="o">.</span><span class="n">decl_api</span><span class="o">.</span><span class="n">DeclarativeMeta</span><span class="s1">'&gt;)</span>
+<div class="highlight"><pre><span></span><code><span id="__span-65-1"><span class="n">declarative_base</span><span class="p">(</span><span class="o">*</span><span class="p">,</span> <span class="n">metadata</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">mapper</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">'Base'</span><span class="p">,</span> <span class="n">class_registry</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">type_annotation_map</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">constructor</span><span class="o">=</span><span class="n">_declarative_constructor</span><span class="p">,</span> <span class="n">metaclass</span><span class="o">=</span><span class="n">DeclarativeMeta</span><span class="p">)</span>
 </span></code></pre></div>
 <p><strong>ধরন:</strong> ফাংশন (legacy)</p>
 <p>(legacy) ১.x ধাঁচে বেস ক্লাস বানানোর ফাংশন: <code>Base = declarative_base()</code>। এখনো চলে, কিন্তু টাইপ চেকার এটি ভালো বোঝে না। নতুন কোডে <code>class Base(DeclarativeBase): pass</code> লিখুন।</p>

@@ -1169,7 +1169,7 @@ async with SessionLocal() as s:
 ### কনস্ট্রাক্টরের প্যারামিটার { #async-sessionmaker-params }
 
 ```python
-async_sessionmaker(bind=None, *, class_=<class 'sqlalchemy.ext.asyncio.session.AsyncSession'>, autoflush=True, expire_on_commit=True, info=None, **kw)
+async_sessionmaker(bind=None, *, class_=AsyncSession, autoflush=True, expire_on_commit=True, info=None, **kw)
 ```
 
 | প্যারামিটার | কাজ |

@@ -22609,6 +22609,16 @@
       
         
       
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
     
     
     
@@ -22756,6 +22766,141 @@
     
   
   Select API: select(), সাবকুয়েরি, CTE ও UNION
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="./operators/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  কলাম অপারেটর API: ==, in_, like, any, has …
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="./expressions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  SQL এক্সপ্রেশন ফাংশন: and_, or_, case, cast, literal, exists …
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="./functions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  func ও SQL ফাংশন API: count, sum, window, FILTER …
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="./elements/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  SQL এক্সপ্রেশন ক্লাস: ColumnElement, Exists, ScalarSelect, Label …
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="./loading/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  লোডিং অপশন ও ORM কুয়েরি হেল্পার API
 
     
   </span>
@@ -23547,6 +23692,16 @@
       
         
       
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
     
     
     
@@ -23592,6 +23747,7 @@
 <li><strong>ধরন:</strong> মেথড, ক্লাস মেথড, প্রপার্টি বা অ্যাট্রিবিউট।</li>
 <li><strong>ব্যাখ্যা</strong> আর <strong>উদাহরণ</strong>।</li>
 <li>যে সদস্যের কাজ অন্য ক্লাসের সদস্যের হুবহু মতো (যেমন <code>AsyncSession.get</code> আর <code>Session.get</code>), সেখানে মূল ব্যাখ্যার লিংক দেওয়া আছে।</li>
+<li>অনেক ক্লাস একই প্যারেন্ট থেকে ডজনখানেক সদস্য পায় (যেমন সব এক্সপ্রেশন ক্লাস কলামের ৪৭টি অপারেটর)। সেগুলো প্রতিটি ক্লাসে একটি <strong>ভাঁজ করা বক্সে</strong> লিংকসহ তালিকা করা, যাতে কিছু বাদ না পড়ে আবার পেজও অকারণে লম্বা না হয়।</li>
 </ul>
 <h2 id="bn-contents">যা যা আছে<a class="headerlink" href="#bn-contents" title="Permanent link">&para;</a></h2>
 <table>
@@ -23629,6 +23785,31 @@
 <td style="text-align: left;">২৮৪</td>
 </tr>
 <tr>
+<td style="text-align: left;"><a href="operators/">কলাম অপারেটর</a></td>
+<td style="text-align: left;">Python অপারেটর (<code>==</code>, <code>&lt;</code>, <code>+</code>, <code>&amp;</code>, <code>&#124;</code>, <code>~</code> …), <code>ColumnOperators</code>-এর সব মেথড (<code>in_()</code>, <code>like()</code>, <code>ilike()</code>, <code>between()</code>, <code>is_()</code>, <code>contains()</code>, <code>regexp_match()</code>, <code>op()</code> …), <code>QueryableAttribute</code> (<code>any()</code>, <code>has()</code>, <code>of_type()</code>, <code>and_()</code> …)</td>
+<td style="text-align: left;">৪৭ + ৮২</td>
+</tr>
+<tr>
+<td style="text-align: left;"><a href="expressions/">SQL এক্সপ্রেশন ফাংশন</a></td>
+<td style="text-align: left;"><code>and_()</code>, <code>or_()</code>, <code>not_()</code>, <code>case()</code>, <code>cast()</code>, <code>try_cast()</code>, <code>type_coerce()</code>, <code>literal()</code>, <code>literal_column()</code>, <code>column()</code>, <code>bindparam()</code>, <code>null()</code>, <code>true()</code>, <code>false()</code>, <code>tuple_()</code>, <code>extract()</code>, <code>exists()</code>, <code>lateral()</code>, <code>lambda_stmt()</code>, <code>from_dml_column()</code>, <code>tstring()</code> …</td>
+<td style="text-align: left;">৪৩টি ফাংশন</td>
+</tr>
+<tr>
+<td style="text-align: left;"><a href="functions/">func ও SQL ফাংশন</a></td>
+<td style="text-align: left;"><code>func</code>, <code>FunctionElement</code> (সব সদস্য), <code>Function</code>, <code>GenericFunction</code>, তৈরি-করা ৩৫টি ফাংশন (<code>count</code>, <code>sum</code>, <code>coalesce</code>, <code>rank</code>, <code>percentile_cont</code>, <code>rollup</code>, <code>aggregate_strings</code> …), <code>over()</code>, <code>within_group()</code>, <code>funcfilter()</code>, <code>aggregate_order_by()</code>, <code>Over</code>, <code>WithinGroup</code>, <code>FunctionFilter</code>, <code>AggregateOrderBy</code></td>
+<td style="text-align: left;">৫৩টি ক্লাস/ফাংশন</td>
+</tr>
+<tr>
+<td style="text-align: left;"><a href="elements/">SQL এক্সপ্রেশন ক্লাস</a></td>
+<td style="text-align: left;"><code>ColumnElement</code>, <code>ClauseElement</code>, <code>Exists</code>, <code>ScalarSelect</code>, <code>BinaryExpression</code>, <code>BooleanClauseList</code>, <code>Label</code>, <code>BindParameter</code>, <code>ColumnClause</code>, <code>Cast</code>, <code>Case</code>, <code>StatementLambdaElement</code> …</td>
+<td style="text-align: left;">২২টি ক্লাস</td>
+</tr>
+<tr>
+<td style="text-align: left;"><a href="loading/">লোডিং অপশন ও কুয়েরি হেল্পার</a></td>
+<td style="text-align: left;"><code>selectinload()</code>, <code>joinedload()</code>, <code>subqueryload()</code>, <code>lazyload()</code>, <code>immediateload()</code>, <code>noload()</code>, <code>raiseload()</code>, <code>defaultload()</code>, <code>contains_eager()</code>, <code>load_only()</code>, <code>defer()</code>, <code>undefer()</code>, <code>undefer_group()</code>, <code>with_expression()</code>, <code>selectin_polymorphic()</code>, <code>with_loader_criteria()</code>, <code>Load</code>, <code>aliased()</code>, <code>with_polymorphic()</code>, <code>with_parent()</code>, <code>join()</code>, <code>outerjoin()</code>, <code>Bundle</code></td>
+<td style="text-align: left;">২১টি ফাংশন, ৫১টি সদস্য</td>
+</tr>
+<tr>
 <td style="text-align: left;"><a href="dml/">Insert, Update, Delete ও text()</a></td>
 <td style="text-align: left;"><code>insert()</code>, <code>Insert</code>, <code>update()</code>, <code>Update</code>, <code>delete()</code>, <code>Delete</code>, <code>text()</code>, <code>TextClause</code>, <code>TextualSelect</code></td>
 <td style="text-align: left;">২৪৯</td>
@@ -23643,10 +23824,10 @@
 <h2 id="bn-roadmap">পরের ধাপে যা আসছে<a class="headerlink" href="#bn-roadmap" title="Permanent link">&para;</a></h2>
 <p>অফিসিয়াল রেফারেন্সের বাকি অংশ একই নিয়মে ধাপে ধাপে যোগ হবে:</p>
 <ol>
-<li>✅ <strong>কুয়েরি ও স্টেটমেন্ট:</strong> <code>select()</code>, <code>insert()</code>, <code>update()</code>, <code>delete()</code>, <code>text()</code> (যোগ হয়েছে)। <code>exists()</code> / <code>Exists</code> আর <code>ScalarSelect</code> আসবে ৪ নম্বরের সাথে, কারণ এদের সাথে কলামের সব অপারেটরও আছে।</li>
+<li>✅ <strong>কুয়েরি ও স্টেটমেন্ট:</strong> <code>select()</code>, <code>insert()</code>, <code>update()</code>, <code>delete()</code>, <code>text()</code> (যোগ হয়েছে)। <code>exists()</code> / <code>Exists</code> আর <code>ScalarSelect</code> এসেছে ৪ নম্বরের সাথে।</li>
 <li>✅ <strong>ORM ম্যাপিং:</strong> <code>DeclarativeBase</code>, <code>Mapped</code>, <code>mapped_column()</code>, <code>relationship()</code>-এর সব প্যারামিটার, <code>registry</code>, <code>Mapper</code> (যোগ হয়েছে)।</li>
-<li><strong>লোডিং অপশন:</strong> <code>selectinload</code>, <code>joinedload</code>, <code>load_only</code>, <code>defer</code>, <code>contains_eager</code>, <code>with_loader_criteria</code>, <code>Load</code> …</li>
-<li><strong>SQL এক্সপ্রেশন:</strong> কলামের অপারেটর (<code>==</code>, <code>in_</code>, <code>like</code> …), <code>func</code>, <code>and_</code>/<code>or_</code>, <code>case</code>, <code>cast</code>, CTE, window।</li>
+<li>✅ <strong>লোডিং অপশন:</strong> <code>selectinload</code>, <code>joinedload</code>, <code>load_only</code>, <code>defer</code>, <code>contains_eager</code>, <code>with_loader_criteria</code>, <code>Load</code> … (যোগ হয়েছে)</li>
+<li>✅ <strong>SQL এক্সপ্রেশন:</strong> কলামের অপারেটর (<code>==</code>, <code>in_</code>, <code>like</code> …), <code>func</code>, <code>and_</code>/<code>or_</code>, <code>case</code>, <code>cast</code>, window (যোগ হয়েছে)।</li>
 <li><strong>স্কিমা ও টাইপ:</strong> <code>MetaData</code>, <code>Table</code>, <code>Column</code>, কনস্ট্রেইন্ট, ইনডেক্স, সব কলাম টাইপ।</li>
 <li><strong>Engine, কানেকশন, পুল ও Event:</strong> <code>create_engine()</code>-এর সব প্যারামিটার, <code>Engine</code>, <code>Connection</code>, পুলের ধরন, সব event hook।</li>
 <li><strong>এক্সটেনশন, ডায়ালেক্ট ও এক্সেপশন:</strong> hybrid, association proxy, mutable, automap; PostgreSQL / MySQL / SQLite-এর বিশেষ টাইপ ও ফাংশন; সব এক্সেপশন ক্লাস।</li>

@@ -38,6 +38,11 @@
         - sqlalchemy/api/mapping.md
         - sqlalchemy/api/registry.md
         - sqlalchemy/api/select.md
+        - sqlalchemy/api/operators.md
+        - sqlalchemy/api/expressions.md
+        - sqlalchemy/api/functions.md
+        - sqlalchemy/api/elements.md
+        - sqlalchemy/api/loading.md
         - sqlalchemy/api/dml.md
         - sqlalchemy/api/result.md
         - sqlalchemy/api/async.md

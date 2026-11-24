@@ -1789,6 +1789,21 @@
         <loc>http://localhost:8080/sqlalchemy/api/select/</loc>
       </url>
       <url>
+        <loc>http://localhost:8080/sqlalchemy/api/operators/</loc>
+      </url>
+      <url>
+        <loc>http://localhost:8080/sqlalchemy/api/expressions/</loc>
+      </url>
+      <url>
+        <loc>http://localhost:8080/sqlalchemy/api/functions/</loc>
+      </url>
+      <url>
+        <loc>http://localhost:8080/sqlalchemy/api/elements/</loc>
+      </url>
+      <url>
+        <loc>http://localhost:8080/sqlalchemy/api/loading/</loc>
+      </url>
+      <url>
         <loc>http://localhost:8080/sqlalchemy/api/dml/</loc>
       </url>
       <url>
