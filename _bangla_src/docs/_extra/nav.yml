@@ -44,5 +44,11 @@
         - sqlalchemy/api/elements.md
         - sqlalchemy/api/loading.md
         - sqlalchemy/api/dml.md
+        - sqlalchemy/api/schema.md
+        - sqlalchemy/api/constraints.md
+        - sqlalchemy/api/fromclause.md
+        - sqlalchemy/api/ddl.md
+        - sqlalchemy/api/types.md
+        - sqlalchemy/api/custom-types.md
         - sqlalchemy/api/result.md
         - sqlalchemy/api/async.md

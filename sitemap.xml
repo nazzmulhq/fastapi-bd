@@ -1807,6 +1807,24 @@
         <loc>http://localhost:8080/sqlalchemy/api/dml/</loc>
       </url>
       <url>
+        <loc>http://localhost:8080/sqlalchemy/api/schema/</loc>
+      </url>
+      <url>
+        <loc>http://localhost:8080/sqlalchemy/api/constraints/</loc>
+      </url>
+      <url>
+        <loc>http://localhost:8080/sqlalchemy/api/fromclause/</loc>
+      </url>
+      <url>
+        <loc>http://localhost:8080/sqlalchemy/api/ddl/</loc>
+      </url>
+      <url>
+        <loc>http://localhost:8080/sqlalchemy/api/types/</loc>
+      </url>
+      <url>
+        <loc>http://localhost:8080/sqlalchemy/api/custom-types/</loc>
+      </url>
+      <url>
         <loc>http://localhost:8080/sqlalchemy/api/result/</loc>
       </url>
       <url>

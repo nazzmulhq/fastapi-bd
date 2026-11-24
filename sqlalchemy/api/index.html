@@ -22619,6 +22619,18 @@
       
         
       
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
     
     
     
@@ -22928,6 +22940,168 @@
     
   
   Insert, Update, Delete ও text() API
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="./schema/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  MetaData, Table ও Column API
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="./constraints/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  কনস্ট্রেইন্ট, ইনডেক্স ও ডিফল্ট API
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="./fromclause/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  FROM এলিমেন্ট API: FromClause, Join, Alias, TableClause …
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="./ddl/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  DDL API: CreateTable, CreateView, DDL, AddConstraint …
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="./types/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  কলাম টাইপ API: String, Integer, Numeric, DateTime, Enum, JSON, ARRAY …
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="./custom-types/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  কাস্টম টাইপ API: TypeDecorator, UserDefinedType, Comparator
 
     
   </span>
@@ -23702,6 +23876,18 @@
       
         
       
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
     
     
     
@@ -23763,6 +23949,36 @@
 <td style="text-align: left;"><a href="session/">Session API</a></td>
 <td style="text-align: left;"><code>Session</code>, <code>sessionmaker</code>, <code>SessionTransaction</code>, <code>scoped_session</code>, <code>close_all_sessions()</code>, <code>make_transient()</code>, <code>make_transient_to_detached()</code>, <code>object_session()</code>, <code>was_deleted()</code></td>
 <td style="text-align: left;">১১০</td>
+</tr>
+<tr>
+<td style="text-align: left;"><a href="schema/">MetaData, Table ও Column</a></td>
+<td style="text-align: left;"><code>MetaData</code> (<code>create_all()</code>, <code>reflect()</code>, <code>sorted_tables</code> …), <code>Table</code> ও <code>Column</code>-এর সব সদস্য আর প্রতিটি প্যারামিটার, <code>insert_sentinel()</code>, <code>sort_tables()</code>, ২.১-এর <code>TypedColumns</code>, <code>Named</code>, <code>CheckFirst</code></td>
+<td style="text-align: left;">১৪ + ৬৯ + ১০৬</td>
+</tr>
+<tr>
+<td style="text-align: left;"><a href="constraints/">কনস্ট্রেইন্ট, ইনডেক্স ও ডিফল্ট</a></td>
+<td style="text-align: left;"><code>PrimaryKeyConstraint</code>, <code>UniqueConstraint</code>, <code>CheckConstraint</code>, <code>ForeignKeyConstraint</code>, <code>ForeignKey</code>, <code>Index</code>, <code>conv</code>, <code>Sequence</code>, <code>Identity</code>, <code>Computed</code>, <code>ColumnDefault</code>, <code>DefaultClause</code>, <code>FetchedValue</code> …</td>
+<td style="text-align: left;">১৫টি ক্লাস</td>
+</tr>
+<tr>
+<td style="text-align: left;"><a href="fromclause/">FROM এলিমেন্ট</a></td>
+<td style="text-align: left;"><code>FromClause</code>, <code>Selectable</code>, <code>TableClause</code>, <code>Join</code>, <code>Alias</code>, <code>Lateral</code>, <code>TableSample</code>, <code>TableValuedAlias</code>, <code>ColumnCollection</code></td>
+<td style="text-align: left;">৯টি ক্লাস</td>
+</tr>
+<tr>
+<td style="text-align: left;"><a href="ddl/">DDL</a></td>
+<td style="text-align: left;"><code>DDL</code>, <code>CreateTable</code>, <code>DropTable</code>, ২.১-এর <code>CreateTableAs</code>, <code>CreateView</code>, <code>DropView</code>, <code>CreateIndex</code>, <code>AddConstraint</code>, <code>CreateSchema</code>, <code>CreateSequence</code>, comment DDL …</td>
+<td style="text-align: left;">২৫টি ক্লাস</td>
+</tr>
+<tr>
+<td style="text-align: left;"><a href="types/">কলাম টাইপ</a></td>
+<td style="text-align: left;"><code>TypeEngine</code>-এর সব মেথড, সব generic টাইপ (<code>String</code>, <code>Integer</code>, <code>Numeric</code>, <code>DateTime</code>, <code>Enum</code>, <code>JSON</code>, <code>ARRAY</code>, <code>Uuid</code> …), সব SQL-standard টাইপ (<code>VARCHAR</code>, <code>TIMESTAMP</code> …), ২.১-এর <code>OperatorClass</code></td>
+<td style="text-align: left;">৫৩টি ক্লাস</td>
+</tr>
+<tr>
+<td style="text-align: left;"><a href="custom-types/">কাস্টম টাইপ</a></td>
+<td style="text-align: left;"><code>TypeDecorator</code>, <code>UserDefinedType</code>, <code>ExternalType</code>, <code>TypeEngine.Comparator</code>, <code>Variant</code></td>
+<td style="text-align: left;">৫টি ক্লাস</td>
 </tr>
 <tr>
 <td style="text-align: left;"><a href="result/">Result ও Row API</a></td>
@@ -23828,7 +24044,7 @@
 <li>✅ <strong>ORM ম্যাপিং:</strong> <code>DeclarativeBase</code>, <code>Mapped</code>, <code>mapped_column()</code>, <code>relationship()</code>-এর সব প্যারামিটার, <code>registry</code>, <code>Mapper</code> (যোগ হয়েছে)।</li>
 <li>✅ <strong>লোডিং অপশন:</strong> <code>selectinload</code>, <code>joinedload</code>, <code>load_only</code>, <code>defer</code>, <code>contains_eager</code>, <code>with_loader_criteria</code>, <code>Load</code> … (যোগ হয়েছে)</li>
 <li>✅ <strong>SQL এক্সপ্রেশন:</strong> কলামের অপারেটর (<code>==</code>, <code>in_</code>, <code>like</code> …), <code>func</code>, <code>and_</code>/<code>or_</code>, <code>case</code>, <code>cast</code>, window (যোগ হয়েছে)।</li>
-<li><strong>স্কিমা ও টাইপ:</strong> <code>MetaData</code>, <code>Table</code>, <code>Column</code>, কনস্ট্রেইন্ট, ইনডেক্স, সব কলাম টাইপ।</li>
+<li>✅ <strong>স্কিমা ও টাইপ:</strong> <code>MetaData</code>, <code>Table</code>, <code>Column</code>, কনস্ট্রেইন্ট, ইনডেক্স, DDL, সব কলাম টাইপ (যোগ হয়েছে)।</li>
 <li><strong>Engine, কানেকশন, পুল ও Event:</strong> <code>create_engine()</code>-এর সব প্যারামিটার, <code>Engine</code>, <code>Connection</code>, পুলের ধরন, সব event hook।</li>
 <li><strong>এক্সটেনশন, ডায়ালেক্ট ও এক্সেপশন:</strong> hybrid, association proxy, mutable, automap; PostgreSQL / MySQL / SQLite-এর বিশেষ টাইপ ও ফাংশন; সব এক্সেপশন ক্লাস।</li>
 </ol>
