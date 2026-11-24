@@ -29,13 +29,15 @@
 | :--- | :--- | :--- |
 | [Session API](session.md) | `Session`, `sessionmaker`, `SessionTransaction`, `scoped_session`, `close_all_sessions()`, `make_transient()`, `make_transient_to_detached()`, `object_session()`, `was_deleted()` | ১১০ |
 | [Result ও Row API](result.md) | `Result`, `ScalarResult`, `MappingResult`, `TupleResult`, `Row`, `RowMapping`, `CursorResult`, `FrozenResult`, `IteratorResult`, `ChunkedIteratorResult`, `MergedResult`, `FilterResult` | ২০০ |
+| [Select API](select.md) | `select()`, `Select` (৯৪টি সদস্যের সবগুলো), `union()`, `union_all()`, `intersect()`, `intersect_all()`, `except_()`, `except_all()`, `CompoundSelect`, `Subquery`, `CTE`, `values()`, `Values` | ২৮৪ |
+| [Insert, Update, Delete ও text()](dml.md) | `insert()`, `Insert`, `update()`, `Update`, `delete()`, `Delete`, `text()`, `TextClause`, `TextualSelect` | ২৪৯ |
 | [Async API](async.md) | `create_async_engine()`, `async_engine_from_config()`, `AsyncEngine`, `AsyncConnection`, `AsyncTransaction`, `async_sessionmaker`, `AsyncSession`, `AsyncSessionTransaction`, `AsyncAttrs`, `async_scoped_session`, `AsyncResult`, `AsyncScalarResult`, `AsyncMappingResult`, `AsyncTupleResult`, `async_object_session()`, `async_session()` | ২২৬ |
 
 ## পরের ধাপে যা আসছে { #bn-roadmap }
 
 অফিসিয়াল রেফারেন্সের বাকি অংশ একই নিয়মে ধাপে ধাপে যোগ হবে:
 
-1. **কুয়েরি ও স্টেটমেন্ট:** `select()` / `Select`-এর সব মেথড, `insert()`, `update()`, `delete()`, `text()`।
+1. ✅ **কুয়েরি ও স্টেটমেন্ট:** `select()`, `insert()`, `update()`, `delete()`, `text()` (যোগ হয়েছে)। `exists()` / `Exists` আর `ScalarSelect` আসবে ৪ নম্বরের সাথে, কারণ এদের সাথে কলামের সব অপারেটরও আছে।
 2. **ORM ম্যাপিং:** `DeclarativeBase`, `Mapped`, `mapped_column()`, `relationship()`-এর সব প্যারামিটার, `registry`, `Mapper`।
 3. **লোডিং অপশন:** `selectinload`, `joinedload`, `load_only`, `defer`, `contains_eager`, `with_loader_criteria`, `Load` …
 4. **SQL এক্সপ্রেশন:** কলামের অপারেটর (`==`, `in_`, `like` …), `func`, `and_`/`or_`, `case`, `cast`, CTE, window।

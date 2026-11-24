@@ -22601,6 +22601,10 @@
       
         
       
+        
+      
+        
+      
     
     
     
@@ -22667,6 +22671,60 @@
     
   
   Session API: সম্পূর্ণ রেফারেন্স
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="./select/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Select API: select(), সাবকুয়েরি, CTE ও UNION
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="./dml/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Insert, Update, Delete ও text() API
 
     
   </span>
@@ -23423,6 +23481,10 @@
       
         
       
+        
+      
+        
+      
     
     
     
@@ -23490,6 +23552,16 @@
 <td style="text-align: left;">২০০</td>
 </tr>
 <tr>
+<td style="text-align: left;"><a href="select/">Select API</a></td>
+<td style="text-align: left;"><code>select()</code>, <code>Select</code> (৯৪টি সদস্যের সবগুলো), <code>union()</code>, <code>union_all()</code>, <code>intersect()</code>, <code>intersect_all()</code>, <code>except_()</code>, <code>except_all()</code>, <code>CompoundSelect</code>, <code>Subquery</code>, <code>CTE</code>, <code>values()</code>, <code>Values</code></td>
+<td style="text-align: left;">২৮৪</td>
+</tr>
+<tr>
+<td style="text-align: left;"><a href="dml/">Insert, Update, Delete ও text()</a></td>
+<td style="text-align: left;"><code>insert()</code>, <code>Insert</code>, <code>update()</code>, <code>Update</code>, <code>delete()</code>, <code>Delete</code>, <code>text()</code>, <code>TextClause</code>, <code>TextualSelect</code></td>
+<td style="text-align: left;">২৪৯</td>
+</tr>
+<tr>
 <td style="text-align: left;"><a href="async/">Async API</a></td>
 <td style="text-align: left;"><code>create_async_engine()</code>, <code>async_engine_from_config()</code>, <code>AsyncEngine</code>, <code>AsyncConnection</code>, <code>AsyncTransaction</code>, <code>async_sessionmaker</code>, <code>AsyncSession</code>, <code>AsyncSessionTransaction</code>, <code>AsyncAttrs</code>, <code>async_scoped_session</code>, <code>AsyncResult</code>, <code>AsyncScalarResult</code>, <code>AsyncMappingResult</code>, <code>AsyncTupleResult</code>, <code>async_object_session()</code>, <code>async_session()</code></td>
 <td style="text-align: left;">২২৬</td>
@@ -23499,7 +23571,7 @@
 <h2 id="bn-roadmap">পরের ধাপে যা আসছে<a class="headerlink" href="#bn-roadmap" title="Permanent link">&para;</a></h2>
 <p>অফিসিয়াল রেফারেন্সের বাকি অংশ একই নিয়মে ধাপে ধাপে যোগ হবে:</p>
 <ol>
-<li><strong>কুয়েরি ও স্টেটমেন্ট:</strong> <code>select()</code> / <code>Select</code>-এর সব মেথড, <code>insert()</code>, <code>update()</code>, <code>delete()</code>, <code>text()</code>।</li>
+<li>✅ <strong>কুয়েরি ও স্টেটমেন্ট:</strong> <code>select()</code>, <code>insert()</code>, <code>update()</code>, <code>delete()</code>, <code>text()</code> (যোগ হয়েছে)। <code>exists()</code> / <code>Exists</code> আর <code>ScalarSelect</code> আসবে ৪ নম্বরের সাথে, কারণ এদের সাথে কলামের সব অপারেটরও আছে।</li>
 <li><strong>ORM ম্যাপিং:</strong> <code>DeclarativeBase</code>, <code>Mapped</code>, <code>mapped_column()</code>, <code>relationship()</code>-এর সব প্যারামিটার, <code>registry</code>, <code>Mapper</code>।</li>
 <li><strong>লোডিং অপশন:</strong> <code>selectinload</code>, <code>joinedload</code>, <code>load_only</code>, <code>defer</code>, <code>contains_eager</code>, <code>with_loader_criteria</code>, <code>Load</code> …</li>
 <li><strong>SQL এক্সপ্রেশন:</strong> কলামের অপারেটর (<code>==</code>, <code>in_</code>, <code>like</code> …), <code>func</code>, <code>and_</code>/<code>or_</code>, <code>case</code>, <code>cast</code>, CTE, window।</li>
