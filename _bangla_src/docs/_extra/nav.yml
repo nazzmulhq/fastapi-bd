@@ -32,3 +32,46 @@
         - sqlalchemy/concurrency.md
         - sqlalchemy/performance.md
     - sqlalchemy/cheat-sheet.md
+    - API রেফারেন্স:
+        - sqlalchemy/api/index.md
+        - sqlalchemy/api/session.md
+        - sqlalchemy/api/mapping.md
+        - sqlalchemy/api/registry.md
+        - sqlalchemy/api/select.md
+        - sqlalchemy/api/operators.md
+        - sqlalchemy/api/expressions.md
+        - sqlalchemy/api/functions.md
+        - sqlalchemy/api/elements.md
+        - sqlalchemy/api/loading.md
+        - sqlalchemy/api/dml.md
+        - sqlalchemy/api/schema.md
+        - sqlalchemy/api/constraints.md
+        - sqlalchemy/api/fromclause.md
+        - sqlalchemy/api/ddl.md
+        - sqlalchemy/api/types.md
+        - sqlalchemy/api/custom-types.md
+        - sqlalchemy/api/engine.md
+        - sqlalchemy/api/pool.md
+        - sqlalchemy/api/inspection.md
+        - sqlalchemy/api/events.md
+        - sqlalchemy/api/orm-events.md
+        - sqlalchemy/api/hybrid.md
+        - sqlalchemy/api/association-proxy.md
+        - sqlalchemy/api/mutable.md
+        - sqlalchemy/api/ext-misc.md
+        - sqlalchemy/api/postgresql.md
+        - sqlalchemy/api/postgresql-types.md
+        - sqlalchemy/api/mysql.md
+        - sqlalchemy/api/sqlite.md
+        - sqlalchemy/api/exceptions.md
+        - sqlalchemy/api/query.md
+        - sqlalchemy/api/collections.md
+        - sqlalchemy/api/orm-state.md
+        - sqlalchemy/api/orm-properties.md
+        - sqlalchemy/api/orm-extras.md
+        - sqlalchemy/api/compiler.md
+        - sqlalchemy/api/dialect.md
+        - sqlalchemy/api/core-bases.md
+        - sqlalchemy/api/orm-utils.md
+        - sqlalchemy/api/result.md
+        - sqlalchemy/api/async.md
