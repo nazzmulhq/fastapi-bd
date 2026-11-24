@@ -66,5 +66,8 @@
         - sqlalchemy/api/exceptions.md
         - sqlalchemy/api/query.md
         - sqlalchemy/api/collections.md
+        - sqlalchemy/api/orm-state.md
+        - sqlalchemy/api/orm-properties.md
+        - sqlalchemy/api/orm-extras.md
         - sqlalchemy/api/result.md
         - sqlalchemy/api/async.md

@@ -2,9 +2,10 @@
 
 /// note | এই পেজে যা আছে
 
-* `create_async_engine()`, `AsyncEngine`, `AsyncConnection`, `AsyncTransaction`-এর **প্রতিটি** সদস্য।
+* `create_async_engine()`, `async_engine_from_config()`, `create_async_pool_from_url()`, `AsyncEngine`, `AsyncConnection`, `AsyncTransaction`-এর **প্রতিটি** সদস্য।
 * `async_sessionmaker`, `AsyncSession` (FastAPI-তে সবচেয়ে বেশি ব্যবহৃত), `AsyncSessionTransaction`, `AsyncAttrs`, `async_scoped_session`।
 * async ফলাফল: `AsyncResult`, `AsyncScalarResult`, `AsyncMappingResult`, `AsyncTupleResult`।
+* সহায়ক ফাংশন: `async_object_session()`, `async_session()`, `close_all_sessions()`।
 
 ///
 
@@ -131,6 +132,58 @@ async_session(session)
 ```python
 print(async_session(session.sync_session) is session)   # True
 ```
+
+## `close_all_sessions()` { #close-all-sessions }
+
+```python
+from sqlalchemy.ext.asyncio import close_all_sessions
+```
+
+```python
+await close_all_sessions()
+```
+
+**ধরন:** ফাংশন
+
+(২.০.২৩) এই প্রসেসের **সব** খোলা `AsyncSession` বন্ধ করে (`await` লাগবে)। sync সংস্করণ [`close_all_sessions()`](session.md#close-all-sessions)-এর async রূপ। মূলত টেস্টের শেষে পরিষ্কার করতে (pytest fixture-এ), বা অ্যাপ বন্ধের সময়।
+
+**উদাহরণ:**
+
+```python
+extra = SessionLocal()
+await extra.get(User, 1)
+await close_all_sessions()
+print(extra.in_transaction())   # False  (বন্ধ হয়ে গেছে)
+```
+
+## `create_async_pool_from_url()` { #create-async-pool-from-url }
+
+```python
+from sqlalchemy.ext.asyncio import create_async_pool_from_url
+```
+
+```python
+create_async_pool_from_url(url, **kwargs)
+```
+
+**ধরন:** ফাংশন
+
+(২.০.১০) শুধু একটি **কানেকশন পুল** বানায় (পুরো engine নয়), async ড্রাইভারের জন্য: sync [`create_pool_from_url()`](engine.md#create-pool-from-url)-এর async রূপ। আর্গুমেন্টের নাম `create_engine()`-এর পুল-অপশনের মতোই (`pool_size`, `max_overflow` …)। নিজের নিচু-স্তরের async টুলে পুল লাগলে; সাধারণ অ্যাপে `create_async_engine()`-ই যথেষ্ট।
+
+**উদাহরণ:**
+
+```python
+pool = create_async_pool_from_url(URL, pool_size=2, max_overflow=0)
+print(type(pool).__name__, pool.size())   # AsyncAdaptedQueuePool 2
+pool.dispose()
+```
+
+### `create_async_pool_from_url()`-এর সব প্যারামিটার { #create-async-pool-from-url-params }
+
+| প্যারামিটার | কাজ |
+| :--- | :--- |
+| `url` | ডেটাবেস URL (async ড্রাইভারসহ, যেমন `postgresql+asyncpg://...`)। |
+| `kwargs` | পুলের অপশন: `pool_size`, `max_overflow`, `pool_timeout`, `pool_recycle`, `pool_pre_ping`, `poolclass` ইত্যাদি (`create_engine()`-এর মতো নামেই)। |
 
 ## `AsyncEngine` { #asyncengine }
 
@@ -360,7 +413,7 @@ await AsyncEngine.raw_connection()
 
 ```python
 raw = await engine.raw_connection()
-print(type(raw.driver_connection).__name__)   # Connection (asyncpg)
+print(type(raw.driver_connection).__name__)   # Connection  (asyncpg-এর নিজের Connection ক্লাস)
 raw.close()
 ```
 

@@ -22663,6 +22663,12 @@
       
         
       
+        
+      
+        
+      
+        
+      
     
     
     
@@ -23585,6 +23591,87 @@
   
   
     <li class="md-nav__item">
+      <a href="./orm-state/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  ORM স্টেট ও ইনস্পেকশন: InstanceState, AttributeState, ORMExecuteState …
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="./orm-properties/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Mapper Property API: ColumnProperty, Relationship, Composite, Synonym …
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="./orm-extras/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  আরও ORM API: ২.১-এর unmapped_column, TypeResolve, DictBundle …
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="./result/" class="md-nav__link">
         
   
@@ -24384,6 +24471,12 @@
       
         
       
+        
+      
+        
+      
+        
+      
     
     
     
@@ -24498,8 +24591,8 @@
 </tr>
 <tr>
 <td style="text-align: left;"><a href="orm-events/">ORM Event</a></td>
-<td style="text-align: left;"><code>SessionEvents</code>, <code>MapperEvents</code>, <code>InstanceEvents</code>, <code>AttributeEvents</code>, <code>InstrumentationEvents</code>, <code>QueryEvents</code></td>
-<td style="text-align: left;">৬০টি event</td>
+<td style="text-align: left;"><code>SessionEvents</code>, <code>MapperEvents</code>, <code>InstanceEvents</code>, <code>AttributeEvents</code>, <code>InstrumentationEvents</code>, ২.১-এর <code>RegistryEvents</code>, <code>QueryEvents</code></td>
+<td style="text-align: left;">৬৩টি event</td>
 </tr>
 <tr>
 <td style="text-align: left;"><a href="hybrid/">Hybrid Attribute</a></td>
@@ -24557,6 +24650,21 @@
 <td style="text-align: left;">১৪টি ক্লাস/ফাংশন</td>
 </tr>
 <tr>
+<td style="text-align: left;"><a href="orm-state/">ORM স্টেট ও ইনস্পেকশন</a></td>
+<td style="text-align: left;"><code>InstanceState</code> (<code>inspect(obj)</code>), <code>AttributeState</code>, <code>IdentityMap</code>, <code>InstrumentedAttribute</code>, <code>ClassManager</code>, <code>ORMExecuteState</code>, <code>UserDefinedOption</code>, <code>AttributeEventToken</code>, <code>QueryContext</code>, <code>UOWTransaction</code>, <code>PassiveFlag</code>, <code>LoaderCallableStatus</code>, <code>SessionTransactionOrigin</code>, <code>LoaderCriteriaOption</code></td>
+<td style="text-align: left;">১৪টি ক্লাস</td>
+</tr>
+<tr>
+<td style="text-align: left;"><a href="orm-properties/">Mapper Property</a></td>
+<td style="text-align: left;"><code>InspectionAttr</code>, <code>InspectionAttrInfo</code>, <code>MapperProperty</code>, <code>PropComparator</code>, <code>ColumnProperty</code> (+<code>Comparator</code>), <code>MappedColumn</code>, <code>MappedSQLExpression</code>, <code>SQLORMExpression</code>, <code>ORMDescriptor</code>, <code>RelationshipProperty</code> (+<code>Comparator</code>), <code>Relationship</code>, <code>RelationshipDirection</code>, <code>CascadeOptions</code>, <code>CompositeProperty</code> (+<code>Comparator</code>), <code>Composite</code>, <code>SynonymProperty</code>, <code>Synonym</code> …</td>
+<td style="text-align: left;">২৩টি ক্লাস</td>
+</tr>
+<tr>
+<td style="text-align: left;"><a href="orm-extras/">আরও ORM API</a></td>
+<td style="text-align: left;">২.১-এর <code>Unmapped</code> / <code>unmapped_column()</code>, <code>unmapped_dataclass()</code>, <code>as_typed_table()</code>, <code>TypeResolve</code>, <code>DictBundle</code>; <code>MappedClassProtocol</code>, <code>orm_insert_sentinel()</code>, <code>has_inherited_table()</code>, <code>mapper()</code></td>
+<td style="text-align: left;">১১টি ক্লাস/ফাংশন</td>
+</tr>
+<tr>
 <td style="text-align: left;"><a href="result/">Result ও Row API</a></td>
 <td style="text-align: left;"><code>Result</code>, <code>ScalarResult</code>, <code>MappingResult</code>, <code>TupleResult</code>, <code>Row</code>, <code>RowMapping</code>, <code>CursorResult</code>, <code>FrozenResult</code>, <code>IteratorResult</code>, <code>ChunkedIteratorResult</code>, <code>MergedResult</code>, <code>FilterResult</code></td>
 <td style="text-align: left;">২০০</td>
@@ -24608,8 +24716,8 @@
 </tr>
 <tr>
 <td style="text-align: left;"><a href="async/">Async API</a></td>
-<td style="text-align: left;"><code>create_async_engine()</code>, <code>async_engine_from_config()</code>, <code>AsyncEngine</code>, <code>AsyncConnection</code>, <code>AsyncTransaction</code>, <code>async_sessionmaker</code>, <code>AsyncSession</code>, <code>AsyncSessionTransaction</code>, <code>AsyncAttrs</code>, <code>async_scoped_session</code>, <code>AsyncResult</code>, <code>AsyncScalarResult</code>, <code>AsyncMappingResult</code>, <code>AsyncTupleResult</code>, <code>async_object_session()</code>, <code>async_session()</code></td>
-<td style="text-align: left;">২২৬</td>
+<td style="text-align: left;"><code>create_async_engine()</code>, <code>async_engine_from_config()</code>, <code>AsyncEngine</code>, <code>AsyncConnection</code>, <code>AsyncTransaction</code>, <code>async_sessionmaker</code>, <code>AsyncSession</code>, <code>AsyncSessionTransaction</code>, <code>AsyncAttrs</code>, <code>async_scoped_session</code>, <code>AsyncResult</code>, <code>AsyncScalarResult</code>, <code>AsyncMappingResult</code>, <code>AsyncTupleResult</code>, <code>async_object_session()</code>, <code>async_session()</code>, <code>close_all_sessions()</code>, <code>create_async_pool_from_url()</code></td>
+<td style="text-align: left;">২২৮</td>
 </tr>
 </tbody>
 </table>
@@ -24624,7 +24732,7 @@
 <li>✅ <strong>Engine, কানেকশন, পুল ও Event:</strong> <code>create_engine()</code>-এর সব প্যারামিটার, <code>Engine</code>, <code>Connection</code>, পুলের ধরন, <code>Inspector</code>, সব event hook (যোগ হয়েছে)।</li>
 <li>✅ <strong>এক্সটেনশন, ডায়ালেক্ট ও এক্সেপশন:</strong> hybrid, association proxy, mutable, automap; PostgreSQL / MySQL / SQLite-এর বিশেষ টাইপ ও ফাংশন; সব এক্সেপশন ক্লাস (যোগ হয়েছে)।</li>
 <li>✅ <strong>Legacy Query ও Relationship Collection:</strong> <code>session.query()</code>-এর সব মেথড ও ২.০ বিকল্প, write-only / dynamic / dict / নিজের collection (যোগ হয়েছে)।</li>
-<li><strong>ORM-এর ভেতরের API:</strong> <code>InstanceState</code>, <code>AttributeState</code>, <code>ORMExecuteState</code>, <code>Relationship</code>, <code>ColumnProperty</code>, <code>PropComparator</code> …</li>
+<li>✅ <strong>ORM-এর ভেতরের API:</strong> <code>InstanceState</code>, <code>AttributeState</code>, <code>ORMExecuteState</code>, <code>Relationship</code>, <code>ColumnProperty</code>, <code>PropComparator</code>, ২.১-এর <code>unmapped_column()</code>, <code>TypeResolve</code>, <code>RegistryEvents</code> … (যোগ হয়েছে)।</li>
 <li><strong>Core-এর ভেতরের API:</strong> <code>Compiled</code>, <code>Dialect</code>, <code>ExecutionContext</code>, <code>ExceptionContext</code>, <code>quoted_name</code>, <code>custom_op</code> আর <code>Select</code>/<code>Insert</code>-এর মূল ক্লাসগুলো।</li>
 </ol>
 

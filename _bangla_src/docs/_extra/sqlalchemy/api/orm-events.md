@@ -8,7 +8,7 @@ ORM-এর **সব** event hook, প্রতিটির listener-সিগন
 * `MapperEvents` (১২টি): INSERT/UPDATE/DELETE-এর আগে-পরে, mapper configure।
 * `InstanceEvents` (৮টি): অবজেক্ট তৈরি, লোড, refresh, expire, pickle।
 * `AttributeEvents` (৯টি): অ্যাট্রিবিউট সেট, কালেকশনে যোগ/বাদ।
-* `InstrumentationEvents` (৩টি) আর পুরোনো `QueryEvents` (৩টি)।
+* `InstrumentationEvents` (৩টি), ২.১-এর নতুন `RegistryEvents` (৩টি) আর পুরোনো `QueryEvents` (৩টি)।
 
 ///
 
@@ -1342,6 +1342,106 @@ class T11(B11):
     id: Mapped[int] = mapped_column(primary_key=True)
 reg.dispose()
 print(calls)   # ['uninstrument']
+```
+
+## `RegistryEvents` { #registryevents }
+
+```python
+from sqlalchemy.orm import RegistryEvents
+```
+
+(২.১-এ নতুন) একটি `registry`-র (বা সরাসরি declarative `Base` ক্লাসের) event: annotation থেকে SQL টাইপ ঠিক করার সময় (`resolve_type_annotation`), আর সেই registry-র mapper configure হওয়ার আগে-পরে। টার্গেট `Base` দিলে তার registry নিজে খুঁজে নেয়।
+
+**উদাহরণ:**
+
+```python
+class B12(DeclarativeBase): pass
+on(B12, "before_configured", lambda reg: calls.append(("before", type(reg).__name__)))
+on(B12, "after_configured", lambda reg: calls.append(("after", type(reg).__name__)))
+class T12(B12):
+    __tablename__ = "t12"
+    id: Mapped[int] = mapped_column(primary_key=True)
+configure_mappers()
+print(calls)   # [('before', 'registry'), ('after', 'registry')]
+```
+
+### সব মেথড ও অ্যাট্রিবিউট এক নজরে { #registryevents-summary }
+
+| সদস্য | ধরন | কাজ |
+| :--- | :--- | :--- |
+| [`after_configured()`](#registryevents-after-configured) | মেথড | এই registry-র mapper-গুলো configure হওয়ার **পরে** (একবার প্রতি configure ধাপে)। |
+| [`before_configured()`](#registryevents-before-configured) | মেথড | এই registry-র mapper-গুলো configure হওয়ার **আগে**। |
+| [`resolve_type_annotation()`](#registryevents-resolve-type-annotation) | মেথড | `Mapped[X]`-এর Python টাইপ `X` থেকে SQL টাইপ ঠিক করার সময় ডাকে, একটি [`TypeResolve`](orm-extras.md#typeresolve) অবজেক্ট দিয়ে। |
+
+### `RegistryEvents.after_configured()` { #registryevents-after-configured }
+
+```python
+RegistryEvents.after_configured(registry)
+```
+
+**ধরন:** মেথড
+
+এই registry-র mapper-গুলো configure হওয়ার **পরে** (একবার প্রতি configure ধাপে)। `MapperEvents.after_configured`-এর মতো, কিন্তু শুধু এই registry-র জন্য, আর listener `registry` আর্গুমেন্ট পায়।
+
+**উদাহরণ:**
+
+```python
+class B13(DeclarativeBase): pass
+on(B13, "after_configured", lambda reg: calls.append(reg is B13.registry))
+class T13(B13):
+    __tablename__ = "t13"
+    id: Mapped[int] = mapped_column(primary_key=True)
+configure_mappers()
+print(calls)   # [True]
+```
+
+### `RegistryEvents.before_configured()` { #registryevents-before-configured }
+
+```python
+RegistryEvents.before_configured(registry)
+```
+
+**ধরন:** মেথড
+
+এই registry-র mapper-গুলো configure হওয়ার **আগে**।
+
+**উদাহরণ:**
+
+```python
+class B14(DeclarativeBase): pass
+on(B14, "before_configured", lambda reg: calls.append(len(list(reg.mappers))))
+class T14(B14):
+    __tablename__ = "t14"
+    id: Mapped[int] = mapped_column(primary_key=True)
+configure_mappers()
+print(calls)   # [1]
+```
+
+### `RegistryEvents.resolve_type_annotation()` { #registryevents-resolve-type-annotation }
+
+```python
+RegistryEvents.resolve_type_annotation(resolve_type)
+```
+
+**ধরন:** মেথড
+
+`Mapped[X]`-এর Python টাইপ `X` থেকে SQL টাইপ ঠিক করার সময় ডাকে, একটি [`TypeResolve`](orm-extras.md#typeresolve) অবজেক্ট দিয়ে। একটি SQL টাইপ ফেরত দিলে সেটাই ব্যবহার হয়; `None` দিলে সাধারণ নিয়ম (`type_annotation_map`) চলে। `type_annotation_map`-এ লেখা যায় না এমন টাইপের জন্য (যেমন `NewType`, PEP 695 type alias, নিজের নিয়ম)।
+
+**উদাহরণ:**
+
+```python
+import typing
+from sqlalchemy import String
+Email = typing.NewType("Email", str)
+class B15(DeclarativeBase): pass
+@on(B15, "resolve_type_annotation")
+def resolve(rt):
+    return String(320) if rt.resolved_type is Email else None
+class Contact(B15):
+    __tablename__ = "contacts"
+    id: Mapped[int] = mapped_column(primary_key=True)
+    email: Mapped[Email]
+print(Contact.__table__.c.email.type)   # VARCHAR(320)
 ```
 
 ## `QueryEvents` { #queryevents }

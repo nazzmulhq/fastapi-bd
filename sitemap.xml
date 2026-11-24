@@ -1873,6 +1873,15 @@
         <loc>http://localhost:8080/sqlalchemy/api/collections/</loc>
       </url>
       <url>
+        <loc>http://localhost:8080/sqlalchemy/api/orm-state/</loc>
+      </url>
+      <url>
+        <loc>http://localhost:8080/sqlalchemy/api/orm-properties/</loc>
+      </url>
+      <url>
+        <loc>http://localhost:8080/sqlalchemy/api/orm-extras/</loc>
+      </url>
+      <url>
         <loc>http://localhost:8080/sqlalchemy/api/result/</loc>
       </url>
       <url>
