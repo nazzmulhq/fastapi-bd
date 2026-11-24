@@ -27,7 +27,10 @@ cfg=yaml.unsafe_load(open(cfg_path,encoding='utf8'))
 # extra Bangla-only pages: _extra/<rel>.md, inserted into nav after an anchor page
 extra_dir=os.path.join(SRC,'docs/_extra')
 extra_nav=yaml.safe_load(open(os.path.join(extra_dir,'nav.yml'),encoding='utf8')) if os.path.exists(os.path.join(extra_dir,'nav.yml')) else []
+extra_sections=[]   # Bangla-only top-level sections (own tab), added after the external doc sets below
 for item in extra_nav or []:
+    if 'section' in item:
+        extra_sections.append(item); continue
     dst=os.path.join(stage,cfg.get('docs_dir','content'),item['page'])
     os.makedirs(os.path.dirname(dst),exist_ok=True)
     shutil.copy(os.path.join(extra_dir,item['page']),dst)
@@ -104,6 +107,15 @@ for name,label in EXT:
     cfg['nav'].insert(last_pos,{label:sec})
     ext_counts[name]=(nb,ne)
 TIMING(f'ext docs {ext_counts}')
+# Bangla-only top-level sections (e.g. SQLAlchemy): _extra/<dir>/ copied as-is, nav inserted after the tab named in `after`
+for sec in extra_sections:
+    shutil.copytree(os.path.join(extra_dir,sec['dir']),os.path.join(content,sec['dir']),dirs_exist_ok=True)
+    pos=next((i for i,x in enumerate(cfg['nav']) if isinstance(x,dict) and sec.get('after') in x),None)
+    if pos is None:  # anchor tab missing (e.g. external doc sets skipped): put it after the reference tab
+        print('section anchor not found for',sec['section'],'- placing after reference')
+        pos=next((i for i,x in enumerate(cfg['nav']) if isinstance(x,dict) and any('reference/index.md' in str(y) for y in x.values())),len(cfg['nav'])-1)
+    cfg['nav'].insert(pos+1,{sec['section']:sec['nav']})
+TIMING(f'extra sections {[s["section"] for s in extra_sections]}')
 strip=lambda p:p.lstrip('/')
 cfg['theme']['logo']=strip(cfg['theme']['logo']); cfg['theme']['favicon']=strip(cfg['theme']['favicon'])
 cfg['extra_css']=[strip(p) for p in cfg['extra_css']]

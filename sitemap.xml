@@ -1717,6 +1717,63 @@
         <loc>http://localhost:8080/pydantic-ai/version-policy/</loc>
       </url>
       <url>
+        <loc>http://localhost:8080/sqlalchemy/</loc>
+      </url>
+      <url>
+        <loc>http://localhost:8080/sqlalchemy/setup/</loc>
+      </url>
+      <url>
+        <loc>http://localhost:8080/sqlalchemy/first-app/</loc>
+      </url>
+      <url>
+        <loc>http://localhost:8080/sqlalchemy/models/</loc>
+      </url>
+      <url>
+        <loc>http://localhost:8080/sqlalchemy/relationships/</loc>
+      </url>
+      <url>
+        <loc>http://localhost:8080/sqlalchemy/engine-session/</loc>
+      </url>
+      <url>
+        <loc>http://localhost:8080/sqlalchemy/transactions/</loc>
+      </url>
+      <url>
+        <loc>http://localhost:8080/sqlalchemy/querying/</loc>
+      </url>
+      <url>
+        <loc>http://localhost:8080/sqlalchemy/advanced-queries/</loc>
+      </url>
+      <url>
+        <loc>http://localhost:8080/sqlalchemy/crud/</loc>
+      </url>
+      <url>
+        <loc>http://localhost:8080/sqlalchemy/crud-update-delete/</loc>
+      </url>
+      <url>
+        <loc>http://localhost:8080/sqlalchemy/related-crud/</loc>
+      </url>
+      <url>
+        <loc>http://localhost:8080/sqlalchemy/fastapi-project/</loc>
+      </url>
+      <url>
+        <loc>http://localhost:8080/sqlalchemy/alembic/</loc>
+      </url>
+      <url>
+        <loc>http://localhost:8080/sqlalchemy/testing/</loc>
+      </url>
+      <url>
+        <loc>http://localhost:8080/sqlalchemy/advanced-mapping/</loc>
+      </url>
+      <url>
+        <loc>http://localhost:8080/sqlalchemy/concurrency/</loc>
+      </url>
+      <url>
+        <loc>http://localhost:8080/sqlalchemy/performance/</loc>
+      </url>
+      <url>
+        <loc>http://localhost:8080/sqlalchemy/cheat-sheet/</loc>
+      </url>
+      <url>
         <loc>http://localhost:8080/resources/</loc>
       </url>
       <url>

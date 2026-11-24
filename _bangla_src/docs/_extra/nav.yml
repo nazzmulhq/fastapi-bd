@@ -1,2 +1,34 @@
 - page: learn/glossary.md
   after: learn/index.md
+# Bangla-only top-level section with its own tab, inserted right after the "Pydantic AI" tab.
+# Pages live in _extra/<dir>/; paths below are relative to the docs content dir.
+- section: SQLAlchemy
+  dir: sqlalchemy
+  after: Pydantic AI
+  nav:
+    - sqlalchemy/index.md
+    - শুরু করুন:
+        - sqlalchemy/setup.md
+        - sqlalchemy/first-app.md
+    - মডেল ও রিলেশনশিপ:
+        - sqlalchemy/models.md
+        - sqlalchemy/relationships.md
+    - Engine, Session ও Transaction:
+        - sqlalchemy/engine-session.md
+        - sqlalchemy/transactions.md
+    - কুয়েরি:
+        - sqlalchemy/querying.md
+        - sqlalchemy/advanced-queries.md
+    - CRUD:
+        - sqlalchemy/crud.md
+        - sqlalchemy/crud-update-delete.md
+        - sqlalchemy/related-crud.md
+    - FastAPI প্রজেক্ট:
+        - sqlalchemy/fastapi-project.md
+        - sqlalchemy/alembic.md
+        - sqlalchemy/testing.md
+    - অ্যাডভান্সড ও প্রোডাকশন:
+        - sqlalchemy/advanced-mapping.md
+        - sqlalchemy/concurrency.md
+        - sqlalchemy/performance.md
+    - sqlalchemy/cheat-sheet.md
