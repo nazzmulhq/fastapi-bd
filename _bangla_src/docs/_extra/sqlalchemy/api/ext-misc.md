@@ -447,6 +447,120 @@ DeclarativeMeta.mro()
 
 Python `type.mro()` (metaclass হিসেবে উত্তরাধিকার-ক্রম)।
 
+## `declarative_base()` { #declarative-base }
+
+```python
+from sqlalchemy.ext.declarative import declarative_base
+```
+
+```python
+declarative_base(*arg, **kw)
+```
+
+**ধরন:** ফাংশন
+
+/// danger | বাতিলের পথে (deprecated)
+
+ভবিষ্যতের কোনো ভার্সনে এটি সরিয়ে ফেলা হবে। নতুন কোডে ব্যবহার করবেন না; বিকল্প নিচে বলা আছে।
+
+///
+
+(২.০ থেকে বাতিলের পথে, `MovedIn20Warning`) পুরোনো জায়গা; এখন [`sqlalchemy.orm.declarative_base`](mapping.md#declarative-base)। আরও ভালো: `class Base(DeclarativeBase): pass`।
+
+**উদাহরণ:**
+
+```python
+import warnings
+with warnings.catch_warnings(record=True) as w:
+    warnings.simplefilter("always")
+    from sqlalchemy.ext.declarative import declarative_base as old
+    old()
+print(type(w[0].message).__name__)   # MovedIn20Warning
+```
+
+### `declarative_base()`-এর সব প্যারামিটার { #declarative-base-params }
+
+| প্যারামিটার | কাজ |
+| :--- | :--- |
+| `arg` | `sqlalchemy.orm.declarative_base()`-এর আর্গুমেন্ট। |
+| `kw` | `sqlalchemy.orm.declarative_base()`-এর কীওয়ার্ড। |
+
+## `as_declarative()` { #as-declarative }
+
+```python
+from sqlalchemy.ext.declarative import as_declarative
+```
+
+```python
+as_declarative(*arg, **kw)
+```
+
+**ধরন:** ফাংশন
+
+/// danger | বাতিলের পথে (deprecated)
+
+ভবিষ্যতের কোনো ভার্সনে এটি সরিয়ে ফেলা হবে। নতুন কোডে ব্যবহার করবেন না; বিকল্প নিচে বলা আছে।
+
+///
+
+(২.০ থেকে বাতিলের পথে) পুরোনো জায়গা; এখন [`sqlalchemy.orm.as_declarative`](mapping.md#as-declarative)।
+
+**উদাহরণ:**
+
+```python
+import warnings
+from sqlalchemy.ext.declarative import as_declarative as old
+with warnings.catch_warnings(record=True) as w:
+    warnings.simplefilter("always")
+    old()
+print(type(w[0].message).__name__)   # MovedIn20Warning
+```
+
+### `as_declarative()`-এর সব প্যারামিটার { #as-declarative-params }
+
+| প্যারামিটার | কাজ |
+| :--- | :--- |
+| `arg` | `sqlalchemy.orm.as_declarative()`-এর আর্গুমেন্ট। |
+| `kw` | `sqlalchemy.orm.as_declarative()`-এর কীওয়ার্ড। |
+
+## `synonym_for()` { #synonym-for }
+
+```python
+from sqlalchemy.ext.declarative import synonym_for
+```
+
+```python
+synonym_for(*arg, **kw)
+```
+
+**ধরন:** ফাংশন
+
+/// danger | বাতিলের পথে (deprecated)
+
+ভবিষ্যতের কোনো ভার্সনে এটি সরিয়ে ফেলা হবে। নতুন কোডে ব্যবহার করবেন না; বিকল্প নিচে বলা আছে।
+
+///
+
+(২.০ থেকে বাতিলের পথে) পুরোনো জায়গা; এখন [`sqlalchemy.orm.synonym_for`](mapping.md#synonym-for)।
+
+**উদাহরণ:**
+
+```python
+import warnings
+from sqlalchemy.ext.declarative import synonym_for as old
+with warnings.catch_warnings(record=True) as w:
+    warnings.simplefilter("always")
+    old("name")
+print(type(w[0].message).__name__)   # MovedIn20Warning
+```
+
+### `synonym_for()`-এর সব প্যারামিটার { #synonym-for-params }
+
+| প্যারামিটার | কাজ |
+| :--- | :--- |
+| `arg` | `sqlalchemy.orm.synonym_for()`-এর আর্গুমেন্ট। |
+| `kw` | `sqlalchemy.orm.synonym_for()`-এর কীওয়ার্ড। |
+
 ## compiler এক্সটেনশন { #compiles-group }
 
 ## `compiles()` { #compiles }

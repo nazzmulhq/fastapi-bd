@@ -1882,6 +1882,18 @@
         <loc>http://localhost:8080/sqlalchemy/api/orm-extras/</loc>
       </url>
       <url>
+        <loc>http://localhost:8080/sqlalchemy/api/compiler/</loc>
+      </url>
+      <url>
+        <loc>http://localhost:8080/sqlalchemy/api/dialect/</loc>
+      </url>
+      <url>
+        <loc>http://localhost:8080/sqlalchemy/api/core-bases/</loc>
+      </url>
+      <url>
+        <loc>http://localhost:8080/sqlalchemy/api/orm-utils/</loc>
+      </url>
+      <url>
         <loc>http://localhost:8080/sqlalchemy/api/result/</loc>
       </url>
       <url>

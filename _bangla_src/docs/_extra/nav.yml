@@ -69,5 +69,9 @@
         - sqlalchemy/api/orm-state.md
         - sqlalchemy/api/orm-properties.md
         - sqlalchemy/api/orm-extras.md
+        - sqlalchemy/api/compiler.md
+        - sqlalchemy/api/dialect.md
+        - sqlalchemy/api/core-bases.md
+        - sqlalchemy/api/orm-utils.md
         - sqlalchemy/api/result.md
         - sqlalchemy/api/async.md

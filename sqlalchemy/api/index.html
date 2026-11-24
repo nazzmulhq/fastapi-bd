@@ -22669,6 +22669,14 @@
       
         
       
+        
+      
+        
+      
+        
+      
+        
+      
     
     
     
@@ -23672,6 +23680,114 @@
   
   
     <li class="md-nav__item">
+      <a href="./compiler/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  কম্পাইলার API: Compiled, SQLCompiler, DDLCompiler, IdentifierPreparer …
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="./dialect/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  ডায়ালেক্ট API: Dialect, ExecutionContext, ExceptionContext, DB-API protocol
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="./core-bases/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  Core-এর মূল ক্লাস: Executable, SelectBase, UpdateBase, quoted_name, custom_op …
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="./orm-utils/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+  ORM সহায়ক ফাংশন: flag_modified, get_history, set_committed_value, aliased-এর ক্লাস
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+                
+              
+                
+                  
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="./result/" class="md-nav__link">
         
   
@@ -24477,6 +24593,14 @@
       
         
       
+        
+      
+        
+      
+        
+      
+        
+      
     
     
     
@@ -24581,8 +24705,8 @@
 </tr>
 <tr>
 <td style="text-align: left;"><a href="inspection/">inspect() ও Inspector</a></td>
-<td style="text-align: left;"><code>inspect()</code>, <code>Inspector</code>-এর সব মেথড (২.১-এর <code>has_multi_table()</code>-সহ), <code>ObjectKind</code>, <code>ObjectScope</code></td>
-<td style="text-align: left;">৩৯</td>
+<td style="text-align: left;"><code>inspect()</code>, <code>Inspector</code>-এর সব মেথড (২.১-এর <code>has_multi_table()</code>-সহ), <code>ObjectKind</code>, <code>ObjectScope</code>, <code>ReflectedColumn</code> সহ ১০টি <code>Reflected*</code> ডিকশনারি</td>
+<td style="text-align: left;">৩৯ + ১০টি ডিকশনারি</td>
 </tr>
 <tr>
 <td style="text-align: left;"><a href="events/">Core Event</a></td>
@@ -24665,6 +24789,26 @@
 <td style="text-align: left;">১১টি ক্লাস/ফাংশন</td>
 </tr>
 <tr>
+<td style="text-align: left;"><a href="compiler/">কম্পাইলার API</a></td>
+<td style="text-align: left;"><code>Compiled</code>, <code>SQLCompiler</code>, <code>StrSQLCompiler</code>, <code>DDLCompiler</code>, <code>TypeCompiler</code>, <code>IdentifierPreparer</code>, <code>ExpandedState</code>, <code>CacheKey</code>, <code>Linting</code> / <code>FromLinter</code>, ২.১-এর <code>AggregateOrderByStyle</code> …</td>
+<td style="text-align: left;">১৯টি ক্লাস</td>
+</tr>
+<tr>
+<td style="text-align: left;"><a href="dialect/">ডায়ালেক্ট API</a></td>
+<td style="text-align: left;"><code>Dialect</code>, <code>DefaultDialect</code>, <code>StrCompileDialect</code>, <code>ExecutionContext</code>, <code>ExecuteStyle</code>, <code>ExceptionContext</code>, DB-API protocol (<code>DBAPIConnection</code>, <code>DBAPICursor</code> …), <code>AdaptedConnection</code>, <code>BindTyping</code>, <code>CacheStats</code></td>
+<td style="text-align: left;">১৫টি ক্লাস</td>
+</tr>
+<tr>
+<td style="text-align: left;"><a href="core-bases/">Core-এর মূল ক্লাস</a></td>
+<td style="text-align: left;"><code>Executable</code>, <code>SelectBase</code>, <code>GenerativeSelect</code>, <code>UpdateBase</code>, <code>ValuesBase</code>, <code>ClauseList</code>, <code>Grouping</code>, <code>quoted_name</code>, <code>custom_op</code>, <code>Operators</code>, <code>SchemaItem</code>, <code>SchemaConst</code>, <code>SchemaEventTarget</code>, <code>EventTarget</code>, ২.১-এর <code>TString</code> …</td>
+<td style="text-align: left;">৫০টি ক্লাস/ফাংশন</td>
+</tr>
+<tr>
+<td style="text-align: left;"><a href="orm-utils/">ORM সহায়ক ফাংশন</a></td>
+<td style="text-align: left;"><code>flag_modified()</code>, <code>flag_dirty()</code>, <code>get_history()</code> / <code>History</code>, <code>set_committed_value()</code>, <code>set_attribute()</code> …, <code>identity_key()</code>, <code>AliasedClass</code>, <code>AliasedInsp</code></td>
+<td style="text-align: left;">১৫টি ক্লাস/ফাংশন</td>
+</tr>
+<tr>
 <td style="text-align: left;"><a href="result/">Result ও Row API</a></td>
 <td style="text-align: left;"><code>Result</code>, <code>ScalarResult</code>, <code>MappingResult</code>, <code>TupleResult</code>, <code>Row</code>, <code>RowMapping</code>, <code>CursorResult</code>, <code>FrozenResult</code>, <code>IteratorResult</code>, <code>ChunkedIteratorResult</code>, <code>MergedResult</code>, <code>FilterResult</code></td>
 <td style="text-align: left;">২০০</td>
@@ -24733,7 +24877,7 @@
 <li>✅ <strong>এক্সটেনশন, ডায়ালেক্ট ও এক্সেপশন:</strong> hybrid, association proxy, mutable, automap; PostgreSQL / MySQL / SQLite-এর বিশেষ টাইপ ও ফাংশন; সব এক্সেপশন ক্লাস (যোগ হয়েছে)।</li>
 <li>✅ <strong>Legacy Query ও Relationship Collection:</strong> <code>session.query()</code>-এর সব মেথড ও ২.০ বিকল্প, write-only / dynamic / dict / নিজের collection (যোগ হয়েছে)।</li>
 <li>✅ <strong>ORM-এর ভেতরের API:</strong> <code>InstanceState</code>, <code>AttributeState</code>, <code>ORMExecuteState</code>, <code>Relationship</code>, <code>ColumnProperty</code>, <code>PropComparator</code>, ২.১-এর <code>unmapped_column()</code>, <code>TypeResolve</code>, <code>RegistryEvents</code> … (যোগ হয়েছে)।</li>
-<li><strong>Core-এর ভেতরের API:</strong> <code>Compiled</code>, <code>Dialect</code>, <code>ExecutionContext</code>, <code>ExceptionContext</code>, <code>quoted_name</code>, <code>custom_op</code> আর <code>Select</code>/<code>Insert</code>-এর মূল ক্লাসগুলো।</li>
+<li>✅ <strong>Core-এর ভেতরের API:</strong> <code>Compiled</code>, <code>Dialect</code>, <code>ExecutionContext</code>, <code>ExceptionContext</code>, <code>quoted_name</code>, <code>custom_op</code>, <code>Select</code>/<code>Insert</code>-এর মূল ক্লাস, <code>Reflected*</code> ডিকশনারি আর ORM-এর <code>flag_modified()</code> / <code>get_history()</code> (যোগ হয়েছে)।</li>
 </ol>
 
 
